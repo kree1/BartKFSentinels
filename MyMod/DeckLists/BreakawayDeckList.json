@@ -1,0 +1,409 @@
+{
+ "name": "Breakaway",
+ "kind": "Villain",
+ "initialCardIdentifiers": [
+  "BreakawayCharacter",
+  "MomentumCharacter"
+ ],
+ "cards": [
+  {
+	"identifier": "BreakawayCharacter",
+	"count": 1,
+	"title": "Breakaway",
+	"keywords": [
+	 "villain"
+	],
+	"body": "Criminal Courier",
+	"character": true,
+	"hitpoints": 55,
+	"nemesisIdentifiers": [
+	 "Tachyon"
+	],
+	"setup": [
+	 "Put {Breakaway} into play, "Criminal Courier" side up, with 30 HP.",
+	 "Put {Momentum} into play, "Under Pressure" side up.",
+	 "Shuffle the villain deck."
+	],
+	"gameplay": [
+	 "{Breakaway} is immune to damage.",
+	 "When {Breakaway}'s current HP is equal to his maximum HP, he escapes with the loot! [b]GAME OVER.[/b]",
+	 "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}.",
+	 "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn.",
+	 "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}.",
+	 "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
+	],
+	"advanced": [
+	 "At the start of the villain turn, Momentum regains 1 HP."
+	],
+	"icons": [
+	 "ImmuneToDamage",
+	 "LoseTheGame",
+	 "StartOfTurnAction",
+	 "Manipulate",
+	 "DestroyEnvironment",
+	 "PlayCardNow"
+	],
+	"advancedIcons": [
+	 "GainHP"
+	],
+	"flippedBody": "Dead-End Job",
+	"flippedHitpoints": 55,
+	"flippedGameplay": [
+	 "When {Breakaway} flips to this side...",
+	 "... remove {TheClient} from the game.",
+	 "... flip {Momentum} to its "Under Pressure" side.",
+	 "... destroy {H} non-character hero cards.",
+	 "... {Breakaway} regains {H * 5} HP.",
+	 "Skip start of turn effects on {Momentum}. At the start of the villain turn, flip {Momentum} twice.",
+	 "As long as {Momentum} has more than...",
+	 "... {H * 3} HP, damage dealt by {Breakaway} is irreducible.",
+	 "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1.",
+	 "... {H} HP, increase damage dealt by {Breakaway} by 1.",
+	 "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage.",
+	 "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
+	],
+	"flippedAdvanced": [
+	 "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
+	],
+	"flippedIcons": [
+	 "RemoveFromGame",
+	 "DestroyHero",
+	 "GainHP",
+	 "MakeDamageIrreducible",
+	 "ReduceDamageTaken",
+	 "IncreaseDamageDealt",
+	 "DealDamageMelee"
+	],
+	"flippedAdvancedIcons": [
+	 
+	]
+  },
+  {
+	"identifier": "MomentumCharacter",
+	"count": 1,
+	"title": "Momentum",
+	"keywords": [
+	 "villain"
+	],
+	"body": "Gaining Ground",
+	"gameplay": [
+	 "This card has a maximum HP of {H * 4} and is indestructible.",
+	 "Increase {Breakaway}'s HP recovery by 1.",
+	 "At the start of the villain turn, if this card has less than {H + 2} HP, flip it. If this card did not flip this turn, {Breakaway} regains 1 HP.",
+	 "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} regains 5 HP."
+	],
+	"icons": [
+	 "Indestructible",
+	 "IncreaseGainHP",
+	 "StartAndEndOfTurnAction",
+	 "GainHP"
+	],
+	"character": true,
+	"hitpoints": 20,
+	"hitpointtext": "*",
+	"flippedBody": "Under Pressure",
+	"flippedGameplay": [
+	 "This card has a maximum HP of {H * 4} and is indestructible.",
+	 "At the start of the villain turn, if this card has more than {H + 2} HP, flip it. If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands.'",
+	 "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each. Remove 5 HP from Breakaway unless he was dealt damage this way."
+	],
+	"flippedIcons": [
+	 "Indestructible",
+	 "StartAndEndOfTurnAction",
+	 "DealDamageMelee"
+	],
+	"flippedHitpoints": 20,
+	"flippedHitpointText": "*"
+  },
+  {
+	"identifier": "TheClient",
+	"count": 1,
+	"title": "The Client",
+	"keywords": [
+	 "adventure capitalist"
+	],
+	"hitpoints": 10,
+	"body": [
+	 "At the start of the villain turn, if {Breakaway} has less than 25 HP, {TheClient} skips town! Remove this card from the game.",
+	 "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]",
+	 "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
+	],
+	"icons": [
+	 "StartOfTurnAction",
+	 "RemoveFromGame",
+	 "LoseTheGame",
+	 "RedirectDamage"
+	],
+	"flavorText": [
+	 "Shake them off and meet me here. [b]IN. THAT. ORDER.[/b] Understand?"
+	],
+	"flavorReference": "The Client, comic #"
+  },
+  {
+	"identifier": "FinishLine",
+	"count": 2,
+	"title": "Finish Line",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "Search the villain deck and trash for {TheClient} and put it into play. Shuffle the villain deck.",
+	 "If {TheClient} is in play, they regain {H + 1} HP.",
+	 "Otherwise, discard cards from the top of the villain deck until you discard a One-Shot. Put that card into play."
+	],
+	"icons": [
+	 "Search",
+	 "GainHP"
+	],
+	"flavorText": [
+	 "Something's got his attention. This could be our last chance."
+	],
+	"flavorReference": "Parse, comic #"
+  },
+  {
+	"identifier": "NitroBoost",
+	"count": 3,
+	"title": "Nitro Boost",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "{Breakaway} deals the hero with the most non-character cards in play {H} fire damage. A target dealt damage this way cannot deal damage until the start of the villain turn.",
+	 "If a hero target was dealt at least {H} damage this way, {Breakaway} regains 2 HP."
+ 	],
+	"icons": [
+	 "DealDamageFire",
+	 "CannotDealDamage",
+	 "GainHP"
+	],
+	"flavorText": [
+	 "Sorry, no tailgating!"
+	],
+	"flavorReference": "Breakaway, comic #"
+  },
+  {
+	"identifier": "LightenTheLoad",
+	"count": 2,
+	"title": "Lighten the Load",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "The {H - 2} players with the most cards in play each destroy 1 of their cards.",
+	 "Destroy a hero card in the villain play area. If a card was destroyed this way, {Breakaway} regains 2 HP.",
+	 "Reduce the next damage dealt by each non-villain target by X, where X = 2 plus the number of cards destroyed by this card."
+	],
+	"icons": [
+	 "DestroyHero",
+	 "GainHP",
+	 "ReduceDamageDealt"
+	],
+	"flavorText": [
+	 "Looking for this?"
+	],
+	"flavorReference": "Breakaway, comic #"
+  },
+  {
+	"identifier": "DefensiveDriving",
+	"count": 1,
+	"title": "Defensive Driving",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "{Breakaway} deals the hero character card with the lowest HP 4 irreducible melee damage.",
+	 "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
+	],
+	"icons": [
+	 "DealDamageMelee"
+	],
+	"flavorText": [
+	 "Ow! Watch where you're- hey, [b]GET BACK HERE![/b]"
+	],
+	"flavorReference": "Absolute Zero, comic #"
+  },
+  {
+	"identifier": "MindtheGap",
+	"count": 2,
+	"title": "Mind the Gap",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "Each player may destroy any number of their non-character cards.",
+	 "For each player who destroyed at least 1 card this way, increase the next damage dealt to {Momentum} by 1 and 1 hero target regains 1 HP.",
+	 "{Breakaway} regains X HP, where X = 3 plus the number of non-character hero cards in play."
+	],
+	"icons": [
+	 "DestroyHero",
+	 "IncreaseDamageTaken",
+	 "GainHP"
+	],
+	"flavorText": [
+	 "Be a good bot and watch my stuff, OK?"
+	],
+	"flavorReference": "Unity, comic #"
+  },
+  {
+	"identifier": "NarrowEscape",
+	"count": 2,
+	"title": "Narrow Escape",
+	"keywords": [
+	 "terrain"
+	],
+	"hitpoints": 8,
+	"body": [
+	 "Reduce the first damage dealt to this card each turn by 1.",
+	 "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn.",
+	 "[b]BLOCKED[/b] heroes can't deal damage to villain cards other than this card.",
+	 "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
+	],
+	"icons": [
+	 "ReduceDamageTaken",
+	 "EndOfTurnAction",
+	 "CannotDealDamage",
+	 "RedirectDamage"
+	],
+	"flavorText": [
+	 "Keep after him! I'll be right behind you..."
+	],
+	"flavorReference": "Bunker, comic #"
+  },
+  {
+	"identifier": "DownhillRun",
+	"count": 2,
+	"title": "Downhill Run",
+	"keywords": [
+	 "ongoing",
+	 "terrain"
+	],
+	"body": [
+	 "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
+	 "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
+	],
+	"icons": [
+	 "GainHP",
+	 "DestroySelf",
+	 "PlayCardNow"
+	],
+	"flavorText": [
+	 "Traffic's clear! [b]MOVE![/b]"
+	],
+	"flavorReference": "The Wraith, comic #"
+  },
+  {
+	"identifier": "UphillBattle",
+	"count": 2,
+	"title": "Uphill Battle",
+	"keywords": [
+	 "ongoing",
+	 "terrain"
+	],
+	"body": [
+	 "Whenever a hero uses a power, their player discards a card.",
+	 "At the end of the villain turn, {Momentum} deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
+	 "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
+	],
+	"icons": [
+	 "Discard",
+	 "EndOfTurnAction",
+	 "DealDamageEnergy",
+	 "DestroySelf",
+	 "PlayCardNow"
+	],
+	"flavorText": [
+	 "Outstanding! I haven't worked up a sweat like this in decades!"
+	],
+	"flavorReference": "Haka, comic #"
+  },
+  {
+	"identifier": "SmokeScreen",
+	"count": 2,
+	"title": "Smoke Screen",
+	"keywords": [
+	 "ongoing",
+	 "hazard"
+	],
+	"body": [
+	 "When this card enters play, {Breakaway} regains 1 HP.",
+	 "At the end of each hero turn, if that player played a card and used a power this turn, {Momentum} regains 2 HP.",
+	 "When {Momentum} flips, each player discards 1 card. Then, destroy this card."
+	],
+	"icons": [
+	 "EndOfTurnAction",
+	 "GainHP",
+	 "Discard",
+	 "DestroySelf"
+	],
+	"flavorText": [
+	 "Running *KOFF* blind out here! Tell me someone has a visual!"
+	],
+	"flavorReference": "Tachyon, comic #"
+  },
+  {
+	"identifier": "Tripwire",
+	"count": 3,
+	"title": "Tripwire",
+	"keywords": [
+	 "ongoing",
+	 "hazard"
+	],
+	"body": [
+	 "When this card is destroyed, each hero target deals itself 2 melee damage. Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn.",
+	 "When {Breakaway} loses HP or is dealt damage, destroy this card."
+	],
+	"icons": [
+	 "DealDamageMelee",
+	 "ReduceDamageDealt",
+	 "DestroySelf"
+	],
+	"flavorText": [
+	 "I see him! He's- [b]*URK!*[/b]"
+	],
+	"flavorReference": "Mainstay, comic #"
+  },
+  {
+	"identifier": "RightofWay",
+	"count": 1,
+	"title": "Right of Way",
+	"keywords": [
+	 "ongoing",
+	 "hazard"
+	],
+	"body": [
+	 "When this card enters play, reveal the environment deck. Put one of the 2 revealed cards with the highest HP into play and move this card next to it. Shuffle the other revealed cards into the environment deck. If no targets entered play this way, play the top card of the villain deck.",
+	 "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, destroy this card and prevent that damage."
+	],
+	"icons": [
+	 "Search",
+	 "PlayCardNow",
+	 "RedirectDamage",
+	 "DestroySelf"
+	],
+	"flavorText": [
+	 "I know I'm still in training, but [b]COME ON![/b]"
+	],
+	"flavorReference": "Young Legacy, comic #"
+  },
+  {
+	"identifier": "ExitStrategy",
+	"count": 2,
+	"title": "Exit Strategy",
+	"keywords": [
+	 "one-shot"
+	],
+	"body": [
+	 "Reveal cards from the top of the villain deck until you reveal 1 Terrain, 1 Hazard, and 1 One-Shot.",
+	 "Shuffle the other revealed cards into the villain deck, then put the first revealed Terrain, the first revealed Hazard, and the first revealed One-Shot into play in that order. If fewer than 3 cards entered play this way, {Breakaway} regains 3 HP."
+	],
+	"icons": [
+	 "Search",
+	 "PlayCardNow"
+	],
+	"flavorText": [
+	 "Hey Doc, remember how you thought he just [b]MOVED[/b] fast? Bad news..."
+	],
+	"flavorReference": "Absolute Zero, comic #"
+  }
+ ]
+}
