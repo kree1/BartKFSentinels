@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Breakaway\DefensiveDrivingCardController.cs" />
+    <Compile Include="Breakaway\DownhillRunCardController.cs" />
     <Compile Include="Breakaway\FinishLineCardController.cs" />
     <Compile Include="Breakaway\LightenTheLoadCardController.cs" />
     <Compile Include="Breakaway\MindTheGapCardController.cs" />
