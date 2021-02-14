@@ -24,26 +24,26 @@ namespace BartKFSentinels.Breakaway
 
             // Find the hero character card with the lowest HP; save it to rammedHero...
             LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => c.IsHeroCharacterCard && c.IsInPlayAndHasGameText && !c.IsFlipped));
-            IEnumerator coroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.HeroCharacterCard, criteria, storedResultsHero, false);
+            IEnumerator findCoroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.HeroCharacterCard, criteria, storedResultsHero, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return this.GameController.StartCoroutine(coroutine);
+                yield return this.GameController.StartCoroutine(findCoroutine);
             }
             else
             {
-                this.GameController.ExhaustCoroutine(coroutine);
+                this.GameController.ExhaustCoroutine(findCoroutine);
             }
             Card rammedHero = storedResultsHero.FirstOrDefault().SelectedCard;
 
             // Breakaway deals that hero 4 irreducible melee damage; save the damage action to storedResultsDamage...
-            IEnumerator coroutine2 = base.DealDamage(this.CharacterCard, rammedHero, 4, DamageType.Melee, isIrreducible: true, storedResults: storedResultsDamage);
+            IEnumerator damageCoroutine = base.DealDamage(base.TurnTaker.FindCard("Breakaway"), rammedHero, 4, DamageType.Melee, isIrreducible: true, storedResults: storedResultsDamage);
             if (base.UseUnityCoroutines)
             {
-                yield return this.GameController.StartCoroutine(coroutine2);
+                yield return this.GameController.StartCoroutine(damageCoroutine);
             }
             else
             {
-                this.GameController.ExhaustCoroutine(coroutine2);
+                this.GameController.ExhaustCoroutine(damageCoroutine);
             }
             // Extract the amount of damage dealt IF it was dealt to rammedHero; save it to damageDealt
             int damageDealt = 0;
@@ -62,14 +62,14 @@ namespace BartKFSentinels.Breakaway
             // "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
             if (rammedHero != null && !rammedHero.IsFlipped)
             {
-                IEnumerator coroutine3 = base.GameController.SetHP(this.CharacterCard, (int)this.CharacterCard.HitPoints - damageDealt);
+                IEnumerator loseHPCoroutine = base.GameController.SetHP(base.TurnTaker.FindCard("Breakaway"), (int)this.CharacterCard.HitPoints - damageDealt, cardSource: GetCardSource()); ;
                 if (base.UseUnityCoroutines)
                 {
-                    yield return this.GameController.StartCoroutine(coroutine3);
+                    yield return this.GameController.StartCoroutine(loseHPCoroutine);
                 }
                 else
                 {
-                    this.GameController.ExhaustCoroutine(coroutine3);
+                    this.GameController.ExhaustCoroutine(loseHPCoroutine);
                 }
             }
 

@@ -43,7 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Breakaway\DefensiveDrivingCardController.cs" />
+    <Compile Include="Breakaway\FinishLineCardController.cs" />
+    <Compile Include="Breakaway\LightenTheLoadCardController.cs" />
+    <Compile Include="Breakaway\MindTheGapCardController.cs" />
     <Compile Include="Breakaway\NitroBoostCardController.cs" />
+    <Compile Include="Breakaway\TheClientCardController.cs" />
+    <Compile Include="Breakaway\UphillBattleCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MigrantCoder\WorstCardEverCardController.cs" />
     <Compile Include="MigrantCoder\MigrantCoderCharacterCardController.cs" />

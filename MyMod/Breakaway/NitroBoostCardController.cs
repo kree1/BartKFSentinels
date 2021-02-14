@@ -24,52 +24,52 @@ namespace BartKFSentinels.Breakaway
 
             // Find the player with the most cards in play, save them to storedResultsHero
             List<TurnTaker> storedResultsHero = new List<TurnTaker>();
-            IEnumerator coroutine = base.FindHeroWithMostCardsInPlay(storedResultsHero);
+            IEnumerator findCoroutine = base.FindHeroWithMostCardsInPlay(storedResultsHero);
             if (base.UseUnityCoroutines)
             {
-                yield return this.GameController.StartCoroutine(coroutine);
+                yield return this.GameController.StartCoroutine(findCoroutine);
             }
             else
             {
-                this.GameController.ExhaustCoroutine(coroutine);
+                this.GameController.ExhaustCoroutine(findCoroutine);
             }
             TurnTaker turnTaker = storedResultsHero.FirstOrDefault();
             if (turnTaker != null)
             {
                 // That player chooses one of their hero characters to take damage, save them to resultsHeroCharacter
                 List<Card> resultsHeroCharacter = new List<Card>();
-                coroutine = base.FindCharacterCardToTakeDamage(turnTaker, resultsHeroCharacter, Card, base.H, DamageType.Fire);
+                IEnumerator chooseCoroutine = base.FindCharacterCardToTakeDamage(turnTaker, resultsHeroCharacter, Card, base.H, DamageType.Fire);
                 if (base.UseUnityCoroutines)
                 {
-                    yield return this.GameController.StartCoroutine(coroutine);
+                    yield return this.GameController.StartCoroutine(chooseCoroutine);
                 }
                 else
                 {
-                    this.GameController.ExhaustCoroutine(coroutine);
+                    this.GameController.ExhaustCoroutine(chooseCoroutine);
                 }
                 // Breakaway deals that hero H fire damage and applies [can't deal damage until the start of the villain turn], saves resulting damage to storedResultsDamage
-                IEnumerator coroutine2 = base.DealDamage(this.CharacterCard, resultsHeroCharacter.First(), base.H, DamageType.Fire, addStatusEffect: base.TargetsDealtDamageCannotDealDamageUntilTheStartOfNextTurnResponse, storedResults: storedResultsDamage);
+                IEnumerator damageCoroutine = base.DealDamage(base.TurnTaker.FindCard("Breakaway"), resultsHeroCharacter.First(), base.H, DamageType.Fire, addStatusEffect: base.TargetsDealtDamageCannotDealDamageUntilTheStartOfNextTurnResponse, storedResults: storedResultsDamage);
                 if (base.UseUnityCoroutines)
                 {
-                    yield return this.GameController.StartCoroutine(coroutine2);
+                    yield return this.GameController.StartCoroutine(damageCoroutine);
                 }
                 else
                 {
-                    this.GameController.ExhaustCoroutine(coroutine2);
+                    this.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
 
             // "If a hero target was dealt at least {H} damage this way, {Breakaway} regains 2 HP."
             if (storedResultsDamage != null && storedResultsDamage.Count((dda)=>dda.Target.IsHero && dda.Amount >= base.H) > 0)
             {
-                IEnumerator coroutine3 = base.GameController.GainHP(this.CharacterCard, 2);
+                IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("Breakaway"), 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return this.GameController.StartCoroutine(coroutine3);
+                    yield return this.GameController.StartCoroutine(gainHPCoroutine);
                 }
                 else
                 {
-                    this.GameController.ExhaustCoroutine(coroutine3);
+                    this.GameController.ExhaustCoroutine(gainHPCoroutine);
                 }
             }
 
