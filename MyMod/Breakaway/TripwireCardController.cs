@@ -36,8 +36,7 @@ namespace BartKFSentinels.Breakaway
 
         private IEnumerator EveryoneTripsResponse(DestroyCardAction dca)
         {
-            // "... each hero target deals itself 2 melee damage."
-            // "Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
+            // "... each hero target deals itself 2 melee damage. Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
             // TODO: test that this addStatusEffect value works
             IEnumerator damageCoroutine = base.GameController.SelectTargetsToDealDamageToSelf(base.DecisionMaker, 2, DamageType.Melee, null, false, null, addStatusEffect: new Func<DealDamageAction, IEnumerator>(this.ReduceDamageResponse), allowAutoDecide: true, cardSource: GetCardSource());
             // ...
@@ -46,20 +45,20 @@ namespace BartKFSentinels.Breakaway
 
         private IEnumerator ReduceDamageResponse(DealDamageAction dd)
         {
-            //Reduce damage dealt by that target by 1 until the start of your next turn.
+            // "Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
             if (dd.DidDealDamage)
             {
                 ReduceDamageStatusEffect reduceDamageStatusEffect = new ReduceDamageStatusEffect(1);
                 reduceDamageStatusEffect.SourceCriteria.IsSpecificCard = dd.Target;
                 reduceDamageStatusEffect.UntilStartOfNextTurn(base.TurnTaker);
-                IEnumerator coroutine = base.AddStatusEffect(reduceDamageStatusEffect);
+                IEnumerator statusCoroutine = base.AddStatusEffect(reduceDamageStatusEffect);
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(coroutine);
+                    yield return base.GameController.StartCoroutine(statusCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(coroutine);
+                    base.GameController.ExhaustCoroutine(statusCoroutine);
                 }
             }
             yield break;
