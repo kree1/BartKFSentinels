@@ -49,6 +49,7 @@
     <Compile Include="Breakaway\LightenTheLoadCardController.cs" />
     <Compile Include="Breakaway\MindTheGapCardController.cs" />
     <Compile Include="Breakaway\NitroBoostCardController.cs" />
+    <Compile Include="Breakaway\RightOfWayCardController.cs" />
     <Compile Include="Breakaway\SmokeScreenCardController.cs" />
     <Compile Include="Breakaway\TheClientCardController.cs" />
     <Compile Include="Breakaway\TripwireCardController.cs" />
