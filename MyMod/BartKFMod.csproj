@@ -42,6 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Breakaway\BreakawayCharacterCardController.cs" />
     <Compile Include="Breakaway\DefensiveDrivingCardController.cs" />
     <Compile Include="Breakaway\DownhillRunCardController.cs" />
     <Compile Include="Breakaway\ExitStrategyCardController.cs" />

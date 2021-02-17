@@ -24,7 +24,7 @@ namespace BartKFSentinels.Breakaway
             // "At the end of the villain turn, {Momentum} deals the hero character with the lowest HP and itself {H - 1} energy damage each."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DealDamageResponse, TriggerType.DealDamage);
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
-            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("Momentum") && fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
+            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("Momentum") && !fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
         public override IEnumerator Play()
