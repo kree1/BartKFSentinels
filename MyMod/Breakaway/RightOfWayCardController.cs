@@ -21,7 +21,6 @@ namespace BartKFSentinels.Breakaway
             base.AddTriggers();
             // "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, destroy this card and prevent that damage."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.TurnTaker.FindCard("Momentum"), this.DealDamageResponse, new TriggerType[] { TriggerType.RedirectDamage, TriggerType.CancelAction, TriggerType.DestroySelf }, TriggerTiming.After);
-            // ...
         }
 
         public override IEnumerator Play()
@@ -64,6 +63,7 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 // Otherwise, all revealed cards are valid options
+
                 revealedOptions = GetRevealedCards(revealActions).ToList();
             }
 

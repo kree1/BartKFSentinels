@@ -24,7 +24,7 @@ namespace BartKFSentinels.Breakaway
             // "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]"
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, HighHPCheck, TriggerType.GameOver);
             // "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
-            this.RedirectDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card, this.RedirectToMomentum, TriggerType.RedirectDamage, TriggerTiming.Before);
+            this.RedirectDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, this.RedirectToMomentum, TriggerType.RedirectDamage, TriggerTiming.Before);
         }
 
         public override IEnumerator Play()
