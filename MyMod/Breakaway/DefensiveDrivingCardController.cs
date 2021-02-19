@@ -62,7 +62,8 @@ namespace BartKFSentinels.Breakaway
             // "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
             if (rammedHero != null && !rammedHero.IsFlipped)
             {
-                IEnumerator loseHPCoroutine = base.GameController.SetHP(base.TurnTaker.FindCard("Breakaway"), (int)this.CharacterCard.HitPoints - damageDealt, cardSource: GetCardSource()); ;
+                Card breakaway = base.TurnTaker.FindCard("Breakaway");
+                IEnumerator loseHPCoroutine = base.GameController.SetHP(breakaway, breakaway.HitPoints.Value - damageDealt, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(loseHPCoroutine);

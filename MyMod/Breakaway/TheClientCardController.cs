@@ -20,7 +20,7 @@ namespace BartKFSentinels.Breakaway
         {
             base.AddTriggers();
             // "At the start of the villain turn, if {Breakaway} has less than 25 HP, {TheClient} skips town! Remove this card from the game."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker && base.TurnTaker.FindCard("Breakaway").HitPoints < 25, (PhaseChangeAction pca) => base.GameController.MoveCard(base.TurnTakerController, Card, base.TurnTaker.OutOfGame, cardSource: GetCardSource()), TriggerType.RemoveFromGame);
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, LowHPCheck, TriggerType.RemoveFromGame);
             // "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]"
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, HighHPCheck, TriggerType.GameOver);
             // "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
@@ -36,7 +36,7 @@ namespace BartKFSentinels.Breakaway
         {
             get
             {
-                return "{Breakaway} evaded the heroes long enough to hand off the loot to {TheClient}! [b]GAME OVER.[/b]";
+                return base.TurnTaker.FindCard("Breakaway").Title + " made it to 40 HP! He hands off the loot to " + this.Card.Title + " and the heroes lose!";
             }
         }
 
@@ -58,6 +58,30 @@ namespace BartKFSentinels.Breakaway
                 else
                 {
                     this.GameController.ExhaustCoroutine(handOffCoroutine);
+                }
+            }
+            yield break;
+        }
+
+        private IEnumerator LowHPCheck(PhaseChangeAction pca)
+        {
+            // "At the start of the villain turn, if {Breakaway} has less than 25 HP..."
+            Card breakawayCard = base.TurnTaker.FindCard("Breakaway");
+            if (breakawayCard.HitPoints < 25)
+            {
+                // "... {TheClient} skips town! Remove this card from the game."
+                string clientDecision = this.Card.Title + " sees that the heroes are too close to catching " + breakawayCard.Title + " (" + breakawayCard.HitPoints.ToString() + " HP), and decides to cut their losses...";
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction(clientDecision, Priority.High, cardSource: GetCardSource(), showCardSource: true);
+                IEnumerator removeCoroutine = base.GameController.MoveCard(this.DecisionMaker, this.Card, base.TurnTaker.OutOfGame, showMessage: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(messageCoroutine);
+                    yield return this.GameController.StartCoroutine(removeCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(messageCoroutine);
+                    this.GameController.ExhaustCoroutine(removeCoroutine);
                 }
             }
             yield break;

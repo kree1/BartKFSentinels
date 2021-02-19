@@ -22,9 +22,9 @@ namespace BartKFSentinels.Breakaway
             // "A target dealt damage this way cannot deal damage until the start of the villain turn."
             List<DealDamageAction> storedResultsDamage = new List<DealDamageAction>();
 
-            // Find the player with the most cards in play, save them to storedResultsHero
+            // Find the player with the most non-character cards in play, save them to storedResultsHero
             List<TurnTaker> storedResultsHero = new List<TurnTaker>();
-            IEnumerator findCoroutine = base.FindHeroWithMostCardsInPlay(storedResultsHero);
+            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(true, 1, 1, (TurnTaker tt) => tt.IsHero, (TurnTaker tt) => GameController.FindCardsWhere((Card c) => c.IsInPlay && !c.IsCharacter && c.Owner == tt).Count(), SelectionType.DealDamage, storedResultsHero, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(findCoroutine);
@@ -33,6 +33,7 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(findCoroutine);
             }
+
             TurnTaker turnTaker = storedResultsHero.FirstOrDefault();
             if (turnTaker != null)
             {
