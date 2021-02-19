@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class BreakawayCharacterCardController : VillainCharacterCardController
+    public class BreakawayCharacterCardController : VillainCharacterCardController
     {
         public BreakawayCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {

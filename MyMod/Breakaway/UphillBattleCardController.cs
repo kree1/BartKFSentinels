@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class UphillBattleCardController : CardController
+    public class UphillBattleCardController : CardController
     {
         public UphillBattleCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

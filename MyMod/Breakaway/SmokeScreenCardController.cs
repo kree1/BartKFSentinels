@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class SmokeScreenCardController : CardController
+    public class SmokeScreenCardController : CardController
     {
         public SmokeScreenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

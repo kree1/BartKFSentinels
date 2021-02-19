@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace BartKFSentinels.Breakaway
 {
-    class MindTheGapCardController : CardController
+    public class MindTheGapCardController : CardController
     {
         public MindTheGapCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

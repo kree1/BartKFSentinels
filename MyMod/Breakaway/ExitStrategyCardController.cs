@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class ExitStrategyCardController : CardController
+    public class ExitStrategyCardController : CardController
     {
         private const string TERRAIN = "terrain";
         private const string HAZARD = "hazard";

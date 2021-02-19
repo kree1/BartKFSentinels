@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class TripwireCardController : CardController
+    public class TripwireCardController : CardController
     {
         public TripwireCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

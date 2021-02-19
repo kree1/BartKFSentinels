@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BartKFSentinels.Breakaway
 {
-    class NarrowEscapeCardController : CardController
+    public class NarrowEscapeCardController : CardController
     {
         public List<Card> blockedHeroes = new List<Card>();
 
