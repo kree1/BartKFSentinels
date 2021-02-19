@@ -76,7 +76,15 @@
 	],
 	"flippedAdvancedIcons": [
 	 "IncreaseDamageDealt"
-	]
+	],
+	"difficulty": 2,
+	"openingLines": {
+	 "default": "You're too late to protect the goods and too slow to get 'em back, but feel free to wear yourselves out trying.",
+	 "TachyonCharacter": "Another speedster? Catch me if you can.",
+	 "TheSuperScientificTachyonCharacter": "New look? Kinda steampunk. Wanna test it against my diesel power?",
+	 "TachyonFreedomSixCharacter": "Damn, you look tired already. When's your next nap, old-timer?",
+	 "FreedomFiveTachyonCharacter": "I heard you got pretty banged up by that silver guy. This won't be good for your recovery."
+	}
   },
   {
 	"identifier": "MomentumCharacter",
