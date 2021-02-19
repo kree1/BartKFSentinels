@@ -88,7 +88,7 @@
 	"body": "Under Pressure",
 	"gameplay": [
 	 "This card has a maximum HP of {H * 4} and is indestructible.",
-	 "At the start of the villain turn, if this card has more than {H + 2} HP, flip it. If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands.'",
+	 "At the start of the villain turn, if this card has more than {H + 2} HP, flip it. If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands.",
 	 "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each. Remove 5 HP from Breakaway unless he was dealt damage this way."
 	],
 	"icons": [

@@ -19,7 +19,7 @@ namespace BartKFSentinels.Breakaway
             // Front side: what environment cards have dealt damage to Momentum this turn?
             SpecialStringMaker.ShowSpecialString(HitMomentumThisTurn).Condition = () => !base.Card.IsFlipped;
             // Back side: what is Momentum's current HP? What effects does that have?
-            SpecialStringMaker.ShowSpecialString(FlippedMomentumEffects).Condition = () => base.Card.IsFlipped;
+            SpecialStringMaker.ShowSpecialString(DeadEndJobMomentumEffects).Condition = () => base.Card.IsFlipped;
             // Back side: has a hero card entered play this turn?
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(heroCardEntered), () => "A hero card has already entered play this turn.", () => "A hero card has not yet entered play this turn.").Condition = () => base.Card.IsFlipped;
             // Back side: who are the 2 hero targets with the highest HP?
@@ -34,7 +34,7 @@ namespace BartKFSentinels.Breakaway
         protected const string heroCardEntered = "HeroCardEnteredPlayThisTurn";
         protected const string dealtDamageHero = "BreakawayDealtDamageThisHeroTurn";
 
-        private string FlippedMomentumEffects()
+        private string DeadEndJobMomentumEffects()
         {
             string effectsList = "";
             string[] allEffects = { "Damage dealt by Breakaway is increased by 1.", "Damage dealt to Breakaway is reduced by 1.", "Damage dealt by Breakaway is irreducible." };
@@ -91,7 +91,7 @@ namespace BartKFSentinels.Breakaway
 
                 // "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn."
                 base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsEnvironmentCard || dda.DamageSource.IsEnvironmentSource) && dda.Target == base.TurnTaker.FindCard("Momentum"), MomentumHitByEnvironmentResponse, TriggerType.Hidden, TriggerTiming.After));
-                base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => true, UnflippedStartEachTurnResponse, TriggerType.CreateStatusEffect));
+                base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => true, CriminalCourierStartEachTurnResponse, TriggerType.CreateStatusEffect));
                 
                 // "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}."
                 base.AddSideTrigger(base.AddTrigger<MoveCardAction>((MoveCardAction mca) => !mca.Destination.IsVillain || !(mca.Destination.IsInPlay || mca.Destination.IsTrash || mca.Destination.IsDeck), UnusualMoveResponse, TriggerType.RevealCard, TriggerTiming.Before));
@@ -109,17 +109,13 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 // Back side:
-                // "Skip start of turn effects on {Momentum}."
-                // TODO: make this a property of MomentumCharacterCardController?
-                // ...
-
                 // "At the start of the villain turn, flip {Momentum} twice."
-                base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, FlippedStartOfTurnResponse, TriggerType.FlipCard));
+                base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, DeadEndJobStartOfTurnResponse, TriggerType.FlipCard));
 
                 // "As long as {Momentum} has more than..."
                 // "... {H * 3} HP, damage dealt by {Breakaway} is irreducible."
                 // "... {H} HP, increase damage dealt by {Breakaway} by 1."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == this.Card, FlippedDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == this.Card, DeadEndJobDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.After));
 
                 // "As long as {Momentum} has more than..."
                 // "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1."
@@ -129,13 +125,13 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == this.TurnTaker.FindCard("Momentum"), MomentumHPCheckResponse, TriggerType.DealDamage, TriggerTiming.After));
 
                 // "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
-                base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && pca.CardToPlay.IsHero, FlippedHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && pca.CardToPlay.IsHero, DeadEndJobHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
 
                 if (base.IsGameAdvanced)
                 {
                     // Back side, Advanced:
                     // "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
-                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, FlippedFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
+                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
                 }
             }
         }
@@ -173,14 +169,17 @@ namespace BartKFSentinels.Breakaway
             // "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}."
             Card momentum = base.TurnTaker.FindCard("Momentum");
             base.SetCardPropertyToTrueIfRealAction(momentumTakenDamage);
-            IEnumerator loseHPCoroutine = base.GameController.SetHP(this.Card, this.Card.HitPoints.Value - 2, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (momentum.HitPoints <= 0)
             {
-                yield return this.GameController.StartCoroutine(loseHPCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(loseHPCoroutine);
+                IEnumerator loseHPCoroutine = base.GameController.SetHP(this.Card, this.Card.HitPoints.Value - 2, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(loseHPCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(loseHPCoroutine);
+                }
             }
             yield break;
         }
@@ -200,7 +199,7 @@ namespace BartKFSentinels.Breakaway
             yield break;
         }
 
-        public IEnumerator UnflippedStartEachTurnResponse(PhaseChangeAction pca)
+        public IEnumerator CriminalCourierStartEachTurnResponse(PhaseChangeAction pca)
         {
             // "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn."
             // For each card in hitMomentumLastTurn, if it's still in play...
@@ -208,7 +207,7 @@ namespace BartKFSentinels.Breakaway
             {
                 if (c.IsInPlayAndHasGameText)
                 {
-                    // make Momentum immune to its damage until it leaves play...
+                    // make Momentum immune to its damage until it leaves play.
                     ImmuneToDamageStatusEffect status = new ImmuneToDamageStatusEffect
                     {
                         TargetCriteria = { IsSpecificCard = base.TurnTaker.FindCard("Momentum") },
@@ -409,10 +408,24 @@ namespace BartKFSentinels.Breakaway
 
             AddSideTriggers();
 
+            // Back side: "Skip start of turn effects on {Momentum}."
+            PreventPhaseEffectStatusEffect skipSOT = new PreventPhaseEffectStatusEffect(Phase.Start);
+            skipSOT.UntilCardLeavesPlay(this.Card);
+            skipSOT.CardCriteria.IsSpecificCard = base.FindCard("Momentum");
+            IEnumerator applyCoroutine = AddStatusEffect(skipSOT);
+            if (base.UseUnityCoroutines)
+            {
+                yield return this.GameController.StartCoroutine(applyCoroutine);
+            }
+            else
+            {
+                this.GameController.ExhaustCoroutine(applyCoroutine);
+            }
+
             yield break;
         }
 
-        public IEnumerator FlippedStartOfTurnResponse(PhaseChangeAction pca)
+        public IEnumerator DeadEndJobStartOfTurnResponse(PhaseChangeAction pca)
         {
             // "At the start of the villain turn, flip {Momentum} twice."
             Card momentum = base.TurnTaker.FindCard("Momentum");
@@ -431,7 +444,7 @@ namespace BartKFSentinels.Breakaway
             yield break;
         }
 
-        public IEnumerator FlippedDealingDamageResponse(DealDamageAction dda)
+        public IEnumerator DeadEndJobDealingDamageResponse(DealDamageAction dda)
         {
             // "As long as {Momentum} has more than..."
             Card momentum = base.TurnTaker.FindCard("Momentum");
@@ -488,7 +501,7 @@ namespace BartKFSentinels.Breakaway
             yield break;
         }
 
-        public IEnumerator FlippedHeroPlayResponse(PlayCardAction pca)
+        public IEnumerator DeadEndJobHeroPlayResponse(PlayCardAction pca)
         {
             // "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
             base.SetCardPropertyToTrueIfRealAction(heroCardEntered);
@@ -527,7 +540,7 @@ namespace BartKFSentinels.Breakaway
             yield break;
         }
 
-        public IEnumerator FlippedFirstDamageDealtResponse(DealDamageAction dda)
+        public IEnumerator DeadEndJobFirstDamageDealtResponse(DealDamageAction dda)
         {
             // "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
             base.SetCardPropertyToTrueIfRealAction(dealtDamageHero);
