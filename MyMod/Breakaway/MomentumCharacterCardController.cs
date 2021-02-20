@@ -142,21 +142,26 @@ namespace BartKFSentinels.Breakaway
                 base.GameController.ExhaustCoroutine(setHPCoroutine);
             }
             // "Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each."
-            // Make a list of targets: Breakaway and the 2 hero targets with the highest HP
-            List<Card> storedTargets = new List<Card>();
-            Card breakaway = base.TurnTaker.FindCard("BreakawayCharacter");
-            storedTargets.Add(breakaway);
-            storedTargets = storedTargets.Concat(base.GameController.FindAllTargetsWithHighestHitPoints(1, (Card c) => c.IsHero, cardSource: GetCardSource(), 2)).ToList();
-
             List<DealDamageAction> storedResultsDamage = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = base.GameController.DealDamage(this.DecisionMaker, breakaway, (Card c) => storedTargets.Contains(c), 2, DamageType.Melee, storedResults: storedResultsDamage, cardSource: GetCardSource());
+            Card breakaway = base.TurnTaker.FindCard("BreakawayCharacter");
+            IEnumerator selfDamageCoroutine = DealDamage(breakaway, breakaway, 2, DamageType.Melee, storedResults: storedResultsDamage, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return this.GameController.StartCoroutine(damageCoroutine);
+                yield return this.GameController.StartCoroutine(selfDamageCoroutine);
             }
             else
             {
-                this.GameController.ExhaustCoroutine(damageCoroutine);
+                this.GameController.ExhaustCoroutine(selfDamageCoroutine);
+            }
+
+            IEnumerator heroDamageCoroutine = DealDamageToHighestHP(breakaway, 1, (Card c) => c.IsHero && GameController.IsCardVisibleToCardSource(c, GetCardSource()), (Card c) => 2, DamageType.Melee, numberOfTargets: () => 2);
+            if (base.UseUnityCoroutines)
+            {
+                yield return this.GameController.StartCoroutine(heroDamageCoroutine);
+            }
+            else
+            {
+                this.GameController.ExhaustCoroutine(heroDamageCoroutine);
             }
             // "Remove 5 HP from Breakaway unless he was dealt damage this way."
             bool tookDamage = false;
