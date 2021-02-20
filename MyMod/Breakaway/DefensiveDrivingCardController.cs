@@ -36,7 +36,7 @@ namespace BartKFSentinels.Breakaway
             Card rammedHero = storedResultsHero.FirstOrDefault().SelectedCard;
 
             // Breakaway deals that hero 4 irreducible melee damage; save the damage action to storedResultsDamage...
-            IEnumerator damageCoroutine = base.DealDamage(base.TurnTaker.FindCard("Breakaway"), rammedHero, 4, DamageType.Melee, isIrreducible: true, storedResults: storedResultsDamage);
+            IEnumerator damageCoroutine = base.DealDamage(base.TurnTaker.FindCard("BreakawayCharacter"), rammedHero, 4, DamageType.Melee, isIrreducible: true, storedResults: storedResultsDamage);
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(damageCoroutine);
@@ -62,7 +62,7 @@ namespace BartKFSentinels.Breakaway
             // "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
             if (rammedHero != null && !rammedHero.IsFlipped)
             {
-                Card breakaway = base.TurnTaker.FindCard("Breakaway");
+                Card breakaway = base.TurnTaker.FindCard("BreakawayCharacter");
                 IEnumerator loseHPCoroutine = base.GameController.SetHP(breakaway, breakaway.HitPoints.Value - damageDealt, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {

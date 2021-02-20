@@ -49,7 +49,7 @@ namespace BartKFSentinels.Breakaway
 
             // "Destroy a hero card in the villain play area."
             List<DestroyCardAction> villainDestroyed = new List<DestroyCardAction>();
-            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.Location.HighestRecursiveLocation == base.TurnTaker.FindCard("Breakaway").Location.HighestRecursiveLocation), new int?(1), storedResultsAction: villainDestroyed, responsibleCard: this.Card, cardSource: GetCardSource());
+            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.Location.HighestRecursiveLocation == base.TurnTaker.FindCard("BreakawayCharacter").Location.HighestRecursiveLocation), new int?(1), storedResultsAction: villainDestroyed, responsibleCard: this.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(villainDestroyCoroutine);
@@ -63,7 +63,7 @@ namespace BartKFSentinels.Breakaway
             DestroyCardAction villainAttempt = villainDestroyed.FirstOrDefault();
             if (villainAttempt.WasCardDestroyed)
             {
-                IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("Breakaway"), 2, cardSource: GetCardSource());
+                IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(hpGainCoroutine);

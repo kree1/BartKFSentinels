@@ -150,7 +150,7 @@ namespace BartKFSentinels.Breakaway
             // "If fewer than 3 cards entered play this way, {Breakaway} regains 3 HP."
             if (numEnteredPlay < 3)
             {
-                IEnumerator hpGainCoroutine = base.GameController.GainHP(this.TurnTaker.FindCard("Breakaway"), 3, cardSource: GetCardSource());
+                IEnumerator hpGainCoroutine = base.GameController.GainHP(this.TurnTaker.FindCard("BreakawayCharacter"), 3, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(hpGainCoroutine);

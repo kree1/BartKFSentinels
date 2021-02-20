@@ -33,7 +33,7 @@ namespace BartKFSentinels.Breakaway
             {
                 // Back side: Gaining Ground
                 // "Increase {Breakaway}'s HP recovery by 1."
-                base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == base.TurnTaker.FindCard("Breakaway"), (GainHPAction gha) => base.GameController.IncreaseHPGain(gha, 1, cardSource: GetCardSource()), TriggerType.IncreaseHPGain, TriggerTiming.Before));
+                base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == base.TurnTaker.FindCard("BreakawayCharacter"), (GainHPAction gha) => base.GameController.IncreaseHPGain(gha, 1, cardSource: GetCardSource()), TriggerType.IncreaseHPGain, TriggerTiming.Before));
                 // "At the start of the villain turn, if this card has less than {H + 2} HP, flip it. If this card did not flip this turn, {Breakaway} regains 1 HP."
                 base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, GainingGroundStartResponse, new TriggerType[] { TriggerType.FlipCard, TriggerType.GainHP }));
                 // "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} regains 5 HP."
@@ -78,7 +78,17 @@ namespace BartKFSentinels.Breakaway
                 base.GameController.ExhaustCoroutine(maxHPCoroutine);
             }
 
-            yield return base.AfterFlipCardImmediateResponse();
+            IEnumerator baseFlipResponse = base.AfterFlipCardImmediateResponse();
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(baseFlipResponse);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(baseFlipResponse);
+            }
+
+            yield break;
         }
 
         public override bool AskIfCardIsIndestructible(Card card)
@@ -134,9 +144,9 @@ namespace BartKFSentinels.Breakaway
             // "Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each."
             // Make a list of targets: Breakaway and the 2 hero targets with the highest HP
             List<Card> storedTargets = new List<Card>();
-            Card breakaway = base.TurnTaker.FindCard("Breakaway");
+            Card breakaway = base.TurnTaker.FindCard("BreakawayCharacter");
             storedTargets.Add(breakaway);
-            storedTargets.Concat(base.GameController.FindAllTargetsWithHighestHitPoints(1, (Card c) => c.IsHero, cardSource: GetCardSource(), 2));
+            storedTargets = storedTargets.Concat(base.GameController.FindAllTargetsWithHighestHitPoints(1, (Card c) => c.IsHero, cardSource: GetCardSource(), 2)).ToList();
 
             List<DealDamageAction> storedResultsDamage = new List<DealDamageAction>();
             IEnumerator damageCoroutine = base.GameController.DealDamage(this.DecisionMaker, breakaway, (Card c) => storedTargets.Contains(c), 2, DamageType.Melee, storedResults: storedResultsDamage, cardSource: GetCardSource());
@@ -191,7 +201,7 @@ namespace BartKFSentinels.Breakaway
             // "If this card did not flip this turn, {Breakaway} regains 1 HP."
             if (!Journal.WasCardFlippedThisTurn(base.Card))
             {
-                IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("Breakaway"), 1, cardSource: GetCardSource());
+                IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 1, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(gainHPCoroutine);
@@ -217,7 +227,7 @@ namespace BartKFSentinels.Breakaway
                 base.GameController.ExhaustCoroutine(setHPCoroutine);
             }
             // "Then, {Breakaway} regains 5 HP."
-            IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("Breakaway"), 5, cardSource: GetCardSource());
+            IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 5, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(gainHPCoroutine);

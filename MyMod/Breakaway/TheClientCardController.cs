@@ -36,7 +36,7 @@ namespace BartKFSentinels.Breakaway
         {
             get
             {
-                return base.TurnTaker.FindCard("Breakaway").Title + " made it to 40 HP! He hands off the loot to " + this.Card.Title + " and the heroes lose!";
+                return base.TurnTaker.FindCard("BreakawayCharacter").Title + " made it to 40 HP! He hands off the loot to " + this.Card.Title + " and the heroes lose!";
             }
         }
 
@@ -46,7 +46,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator HighHPCheck(PhaseChangeAction pca)
         {
             // "At the start of the villain turn, if {Breakaway} has more than 40 HP, ..."
-            Card breakawayCard = base.TurnTaker.FindCard("Breakaway");
+            Card breakawayCard = base.TurnTaker.FindCard("BreakawayCharacter");
             if (breakawayCard.HitPoints > 40)
             {
                 // "... {Breakaway} hands off the loot! [b]GAME OVER.[/b]"
@@ -66,7 +66,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator LowHPCheck(PhaseChangeAction pca)
         {
             // "At the start of the villain turn, if {Breakaway} has less than 25 HP..."
-            Card breakawayCard = base.TurnTaker.FindCard("Breakaway");
+            Card breakawayCard = base.TurnTaker.FindCard("BreakawayCharacter");
             if (breakawayCard.HitPoints < 25)
             {
                 // "... {TheClient} skips town! Remove this card from the game."
@@ -90,7 +90,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator RedirectToMomentum(DealDamageAction dda)
         {
             // "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
-            Card momentumCard = base.TurnTaker.FindCard("Momentum");
+            Card momentumCard = base.TurnTaker.FindCard("MomentumCharacter");
             base.SetCardPropertyToTrueIfRealAction(OncePerTurn);
             IEnumerator redirectCoroutine = base.GameController.RedirectDamage(dda, momentumCard, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)

@@ -20,8 +20,8 @@
                 "Tachyon"
             ],
             "setup":[
-                "Put {Breakaway} into play, ""Criminal Courier"" side up, with 30 HP.",
-                "Put {Momentum} into play, ""Under Pressure"" side up.",
+                "Put {Breakaway} into play, “Criminal Courier“ side up, with 30 HP.",
+                "Put {Momentum} into play, “Under Pressure“ side up.",
                 "Shuffle the villain deck."
             ],
             "gameplay":[
@@ -51,7 +51,7 @@
             "flippedGameplay":[
                 "When {Breakaway} flips to this side...",
                 "... remove {TheClient} from the game.",
-                "... flip {Momentum} to its ""Under Pressure"" side.",
+                "... flip {Momentum} to its “Under Pressure“ side.",
                 "... destroy {H} non-character hero cards.",
                 "... {Breakaway} regains {H * 5} HP.",
                 "Skip start of turn effects on {Momentum}. At the start of the villain turn, flip {Momentum} twice.",
@@ -231,7 +231,7 @@
             "flavorReference":"Absolute Zero, comic #"
         },
         {
-            "identifier":"MindtheGap",
+            "identifier":"MindTheGap",
             "count":2,
             "title":"Mind the Gap",
             "keywords":[
@@ -287,7 +287,7 @@
             ],
             "body":[
                 "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
-                "When {Momentum} flips to its ""Under Pressure"" side, destroy this card and play the top card of the villain deck."
+                "When {Momentum} flips to its “Under Pressure“ side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "GainHP",
@@ -310,7 +310,7 @@
             "body":[
                 "Whenever a hero uses a power, their player discards a card.",
                 "At the end of the villain turn, {Momentum} deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
-                "When {Momentum} flips to its ""Under Pressure"" side, destroy this card and play the top card of the villain deck."
+                "When {Momentum} flips to its “Under Pressure“ side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "Discard",
@@ -371,7 +371,7 @@
             "flavorReference":"Mainstay, comic #"
         },
         {
-            "identifier":"RightofWay",
+            "identifier":"RightOfWay",
             "count":1,
             "title":"Right of Way",
             "keywords":[

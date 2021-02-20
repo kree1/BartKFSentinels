@@ -23,10 +23,10 @@ namespace BartKFSentinels.Breakaway
             base.AddWhenDestroyedTrigger(EveryoneTripsResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.ReduceDamage });
 
             // "When {Breakaway} loses HP or is dealt damage, destroy this card."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Target == base.TurnTaker.FindCard("Breakaway"), base.DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Target == base.TurnTaker.FindCard("BreakawayCharacter"), base.DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
             // I THINK this line only activates if Breakaway's HP is set to lower than it was?
             // TODO: check if this explodes if he gains HP
-            base.AddTrigger<SetHPAction>((SetHPAction sha) => sha.HpGainer == base.TurnTaker.FindCard("Breakaway") && sha.AmountActuallyChanged < 0 && sha.IsSuccessful, base.DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
+            base.AddTrigger<SetHPAction>((SetHPAction sha) => sha.HpGainer == base.TurnTaker.FindCard("BreakawayCharacter") && sha.AmountActuallyChanged < 0 && sha.IsSuccessful, base.DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
         }
 
         public override IEnumerator Play()

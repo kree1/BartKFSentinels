@@ -38,7 +38,7 @@ namespace BartKFSentinels.Breakaway
         {
             string effectsList = "";
             string[] allEffects = { "Damage dealt by Breakaway is increased by 1.", "Damage dealt to Breakaway is reduced by 1.", "Damage dealt by Breakaway is irreducible." };
-            int momentumHP = base.TurnTaker.FindCard("Momentum").HitPoints.Value;
+            int momentumHP = base.TurnTaker.FindCard("MomentumCharacter").HitPoints.Value;
             int threshold = (int) (momentumHP-1) / Game.H;
             effectsList = "Momentum's current HP is " + momentumHP.ToString();
             if (threshold > 0)
@@ -61,10 +61,10 @@ namespace BartKFSentinels.Breakaway
 
         private string HitMomentumThisTurn()
         {
-            string hitList = base.TurnTaker.FindCard("Momentum").Title + " has not been dealt damage by environment cards this turn.";
+            string hitList = base.TurnTaker.FindCard("MomentumCharacter").Title + " has not been dealt damage by environment cards this turn.";
             if (hitMomentumLastTurn.Any())
             {
-                hitList = "Environment cards that dealt damage to " + base.TurnTaker.FindCard("Momentum").Title + " this turn: ";
+                hitList = "Environment cards that dealt damage to " + base.TurnTaker.FindCard("MomentumCharacter").Title + " this turn: ";
                 for (int i = 0; i < hitMomentumLastTurn.Count - 1; i++)
                 {
                     hitList += hitMomentumLastTurn.ElementAt(i).Title + ", ";
@@ -87,10 +87,10 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.IsSuccessful && gha.HpGainer.Equals(this.Card), BreakawayHPCheckResponse, TriggerType.GameOver, TriggerTiming.After));
 
                 // "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(momentumTakenDamage) && dda.Target == base.TurnTaker.FindCard("Momentum") && dda.Amount > 0, MomentumFirstDamageResponse, TriggerType.Other, TriggerTiming.After, isConditional: true));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(momentumTakenDamage) && dda.Target == base.TurnTaker.FindCard("MomentumCharacter") && dda.Amount > 0, MomentumFirstDamageResponse, TriggerType.Other, TriggerTiming.After, isConditional: true));
 
                 // "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsEnvironmentCard || dda.DamageSource.IsEnvironmentSource) && dda.Target == base.TurnTaker.FindCard("Momentum"), MomentumHitByEnvironmentResponse, TriggerType.Hidden, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsEnvironmentCard || dda.DamageSource.IsEnvironmentSource) && dda.Target == base.TurnTaker.FindCard("MomentumCharacter"), MomentumHitByEnvironmentResponse, TriggerType.Hidden, TriggerTiming.After));
                 base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => true, CriminalCourierStartEachTurnResponse, TriggerType.CreateStatusEffect));
                 
                 // "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}."
@@ -119,10 +119,10 @@ namespace BartKFSentinels.Breakaway
 
                 // "As long as {Momentum} has more than..."
                 // "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1."
-                base.AddSideTrigger(base.AddReduceDamageTrigger((Card c) => c == this.Card && base.TurnTaker.FindCard("Momentum").HitPoints > Game.H * 2, 1));
+                base.AddSideTrigger(base.AddReduceDamageTrigger((Card c) => c == this.Card && base.TurnTaker.FindCard("MomentumCharacter").HitPoints > Game.H * 2, 1));
 
                 // "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage."
-                base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == this.TurnTaker.FindCard("Momentum"), MomentumHPCheckResponse, TriggerType.DealDamage, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == this.TurnTaker.FindCard("MomentumCharacter"), MomentumHPCheckResponse, TriggerType.DealDamage, TriggerTiming.After));
 
                 // "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
                 base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && pca.CardToPlay.IsHero, DeadEndJobHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
@@ -167,7 +167,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator MomentumFirstDamageResponse(DealDamageAction dda)
         {
             // "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}."
-            Card momentum = base.TurnTaker.FindCard("Momentum");
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
             base.SetCardPropertyToTrueIfRealAction(momentumTakenDamage);
             if (momentum.HitPoints <= 0)
             {
@@ -210,7 +210,7 @@ namespace BartKFSentinels.Breakaway
                     // make Momentum immune to its damage until it leaves play.
                     ImmuneToDamageStatusEffect status = new ImmuneToDamageStatusEffect
                     {
-                        TargetCriteria = { IsSpecificCard = base.TurnTaker.FindCard("Momentum") },
+                        TargetCriteria = { IsSpecificCard = base.TurnTaker.FindCard("MomentumCharacter") },
                         SourceCriteria = { IsSpecificCard = c }
                     };
                     status.UntilCardLeavesPlay(c);
@@ -336,7 +336,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator AdvancedStartOfTurnResponse(PhaseChangeAction pca)
         {
             // "At the start of the villain turn, Momentum regains 1 HP."
-            IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("Momentum"), 1, cardSource: GetCardSource());
+            IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("MomentumCharacter"), 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(hpGainCoroutine);
@@ -365,7 +365,7 @@ namespace BartKFSentinels.Breakaway
                 this.GameController.ExhaustCoroutine(removeCoroutine);
             }
             // "... flip {Momentum} to its "Under Pressure" side."
-            Card momentum = base.TurnTaker.FindCard("Momentum");
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
             IEnumerator flipCoroutine = DoNothing();
             if (momentum.Definition.Body.FirstOrDefault() != "Under Pressure")
             {
@@ -411,7 +411,7 @@ namespace BartKFSentinels.Breakaway
             // Back side: "Skip start of turn effects on {Momentum}."
             PreventPhaseEffectStatusEffect skipSOT = new PreventPhaseEffectStatusEffect(Phase.Start);
             skipSOT.UntilCardLeavesPlay(this.Card);
-            skipSOT.CardCriteria.IsSpecificCard = base.FindCard("Momentum");
+            skipSOT.CardCriteria.IsSpecificCard = base.FindCard("MomentumCharacter");
             IEnumerator applyCoroutine = AddStatusEffect(skipSOT);
             if (base.UseUnityCoroutines)
             {
@@ -428,7 +428,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator DeadEndJobStartOfTurnResponse(PhaseChangeAction pca)
         {
             // "At the start of the villain turn, flip {Momentum} twice."
-            Card momentum = base.TurnTaker.FindCard("Momentum");
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
             for (int i = 0; i < 2; i++)
             {
                 IEnumerator flipCoroutine = base.GameController.FlipCard(FindCardController(momentum), cardSource: GetCardSource());
@@ -447,7 +447,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator DeadEndJobDealingDamageResponse(DealDamageAction dda)
         {
             // "As long as {Momentum} has more than..."
-            Card momentum = base.TurnTaker.FindCard("Momentum");
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
             int momentumHP = momentum.HitPoints.Value;
             // "... {H * 3} HP, damage dealt by {Breakaway} is irreducible."
             if (momentumHP > Game.H * 3)
@@ -481,7 +481,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator MomentumHPCheckResponse(GainHPAction gha)
         {
             // "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage."
-            Card momentum = base.TurnTaker.FindCard("Momentum");
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
             if (momentum.HitPoints != momentum.MaximumHitPoints)
             {
                 yield break;
