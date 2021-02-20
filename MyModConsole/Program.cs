@@ -16,6 +16,8 @@ using Troschuetz.Random.Generators;
 using Handelabra;
 using Boomlagoon.JSON;
 using System.Xml.XPath;
+using BartKFSentinels;
+using BartKFSentinels.Breakaway;
 
 namespace Handelabra.MyModConsole // this has to be this way to work around an EngineCommon issue, will be fixed soon.
 {
@@ -51,7 +53,7 @@ namespace Handelabra.MyModConsole // this has to be this way to work around an E
             Dictionary<string, string> promos = new Dictionary<string, string>();
 
             // Set up a game how you want, stack decks, etc.
-            game = new Game(new string[] { "BaronBlade", "Bunker", "Legacy", "TheWraith", "PikeIndustrialComplex" }, advanced, promos, isChallenge: challenge);
+            game = new Game(new string[] { "Breakaway", "Bunker", "Legacy", "TheWraith", "PikeIndustrialComplex" }, advanced, promos, isChallenge: challenge);
 
             return game;
         }
@@ -1009,6 +1011,8 @@ namespace Handelabra.MyModConsole // this has to be this way to work around an E
 
         public static void Main(string[] args)
         {
+            var a = Assembly.GetAssembly(typeof(BreakawayCharacterCardController)); // replace with your own type
+            ModHelper.AddAssembly("BartKFSentinels", a); // replace with your own namespace
             bool interactiveMode = args.Contains("-i");
             if (interactiveMode)
             {
@@ -1225,7 +1229,7 @@ namespace Handelabra.MyModConsole // this has to be this way to work around an E
         }
 
         bool UserFriendly = false;
-        bool Verbose = false;
+        bool Verbose = true;
         bool EnforceRules = false;
 
         GameController GameController { get; set; }

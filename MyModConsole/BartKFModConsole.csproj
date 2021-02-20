@@ -29,6 +29,9 @@
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BartKFMod">
+      <HintPath>..\MyMod\bin\Release\BartKFMod.dll</HintPath>
+    </Reference>
     <Reference Include="EngineCommon, Version=1.0.7615.24151, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\Sentinels_Data\Managed\EngineCommon.dll</HintPath>

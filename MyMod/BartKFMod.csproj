@@ -82,7 +82,7 @@
     <EmbeddedResource Include="DeckLists\PromoCardList.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DeckLists\BreakawayDeckList.json" />
+    <EmbeddedResource Include="DeckLists\BreakawayDeckList.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
