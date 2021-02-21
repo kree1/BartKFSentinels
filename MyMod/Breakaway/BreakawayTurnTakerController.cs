@@ -27,10 +27,7 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(startingHPCoroutine);
             }
-            // "Put {Momentum} into play, "Under Pressure" side up."
-            // ???
-            // "Shuffle the villain deck."
-            // ???
+
             yield break;
         }
     }

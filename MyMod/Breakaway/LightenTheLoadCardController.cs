@@ -36,15 +36,18 @@ namespace BartKFSentinels.Breakaway
             // Ask each of them to destroy a card if they have at least 1 in play
             List<DestroyCardAction> destroyAttempts = new List<DestroyCardAction>();
             List<DestroyCardAction> playersDestroyed = new List<DestroyCardAction>();
-            SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, isListedHero, SelectionType.DestroyCard, Game.H - 2, cardSource: GetCardSource());
-            IEnumerator playersDestroyCoroutine = base.GameController.SelectTurnTakersAndDoAction(destroyOrder, (TurnTaker tt) => base.GameController.SelectAndDestroyCard(base.FindHeroTurnTakerController(tt.ToHero()), cardCriteria: new LinqCardCriteria((Card c) => !c.IsCharacter && c.Owner == tt, "non-character"), false, storedResultsAction: playersDestroyed, cardSource: GetCardSource()));
-            if (base.UseUnityCoroutines)
+            if (GameController.FindCardsWhere(new LinqCardCriteria((Card c) => !c.IsCharacter && loadedHeroes.Contains(c.Owner))).Any())
             {
-                yield return this.GameController.StartCoroutine(playersDestroyCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(playersDestroyCoroutine);
+                SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, isListedHero, SelectionType.DestroyCard, Game.H - 2, cardSource: GetCardSource());
+                IEnumerator playersDestroyCoroutine = base.GameController.SelectTurnTakersAndDoAction(destroyOrder, (TurnTaker tt) => base.GameController.SelectAndDestroyCard(base.FindHeroTurnTakerController(tt.ToHero()), cardCriteria: new LinqCardCriteria((Card c) => !c.IsCharacter && c.Owner == tt, "non-character"), false, storedResultsAction: playersDestroyed, cardSource: GetCardSource()));
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(playersDestroyCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(playersDestroyCoroutine);
+                }
             }
 
             // "Destroy a hero card in the villain play area."
@@ -61,7 +64,7 @@ namespace BartKFSentinels.Breakaway
 
             // "If a card was destroyed this way, {Breakaway} regains 2 HP."
             DestroyCardAction villainAttempt = villainDestroyed.FirstOrDefault();
-            if (villainAttempt.WasCardDestroyed)
+            if (villainAttempt != null && villainAttempt.WasCardDestroyed)
             {
                 IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)

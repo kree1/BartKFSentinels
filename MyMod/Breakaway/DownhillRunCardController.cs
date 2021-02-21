@@ -35,7 +35,7 @@ namespace BartKFSentinels.Breakaway
             // "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP."
             if (pca.WasCardPlayed)
             {
-                if (pca.CardToPlay.DoKeywordsContain("One-Shot"))
+                if (pca.CardToPlay.DoKeywordsContain("one-shot"))
                 {
                     // "... their hero regains 2 HP."
                     HeroTurnTakerController playing = pca.TurnTakerController.ToHero();

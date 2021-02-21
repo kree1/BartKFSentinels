@@ -49,16 +49,9 @@
             "flippedBody":"Dead-End Job",
             "flippedHitpoints":55,
             "flippedGameplay":[
-                "When {Breakaway} flips to this side...",
-                "... remove {TheClient} from the game.",
-                "... flip {Momentum} to its “Under Pressure“ side.",
-                "... destroy {H} non-character hero cards.",
-                "... {Breakaway} regains {H * 5} HP.",
+                "When {Breakaway} flips to this side...{BR}... remove {TheClient} from the game.{BR}... flip {Momentum} to its “Under Pressure“ side.{BR}... destroy {H} non-character hero cards.{BR}... {Breakaway} regains {H * 5} HP.",
                 "Skip start of turn effects on {Momentum}. At the start of the villain turn, flip {Momentum} twice.",
-                "As long as {Momentum} has more than...",
-                "... {H * 3} HP, damage dealt by {Breakaway} is irreducible.",
-                "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1.",
-                "... {H} HP, increase damage dealt by {Breakaway} by 1.",
+                "As long as {Momentum} has more than...{BR}... {H * 3} HP, damage dealt by {Breakaway} is irreducible.{BR}... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1.{BR}... {H} HP, increase damage dealt by {Breakaway} by 1.",
                 "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage.",
                 "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
             ],
@@ -79,7 +72,7 @@
             ],
             "difficulty":2,
             "openingLines":{
-                "default":"You're too late to protect the goods and too slow to get 'em back, but feel free to wear yourselves out trying.",
+                "default":"I'm not here to argue about 'rightful owners.' You want this back? Come and take it.",
                 "TachyonCharacter":"Another speedster? Catch me if you can.",
                 "TheSuperScientificTachyonCharacter":"New look? Kinda steampunk. Wanna test it against my diesel power?",
                 "TachyonFreedomSixCharacter":"Damn, you look tired already. When's your next nap, old-timer?",
@@ -142,8 +135,8 @@
                 "LoseTheGame",
                 "RedirectDamage"
             ],
-            "flavorText":[
-                "Shake them off and meet me here. [b]IN. THAT. ORDER.[/b] Understand?"
+            "flavorQuotes":[
+                "Shake them off and meet me{BR}here. [b]IN. THAT. ORDER.[/b] Understand?"
             ],
             "flavorReference":"The Client, comic #"
         },
@@ -163,8 +156,11 @@
                 "Search",
                 "GainHP"
             ],
-            "flavorText":[
-                "Something's got his attention. This could be our last chance."
+            "flavorQuotes":[
+                {
+                    "identifier": "Parse",
+                    "text": "Something's got his attention.{BR}This could be our last chance."
+                }
             ],
             "flavorReference":"Parse, comic #"
         },
@@ -184,8 +180,11 @@
                 "CannotDealDamage",
                 "GainHP"
             ],
-            "flavorText":[
-                "Sorry, no tailgating!"
+            "flavorQuotes":[
+                {
+                    "identifier": "Breakaway",
+                    "text": "Sorry, no tailgating!"
+                }
             ],
             "flavorReference":"Breakaway, comic #"
         },
@@ -206,8 +205,11 @@
                 "GainHP",
                 "ReduceDamageDealt"
             ],
-            "flavorText":[
-                "Looking for this?"
+            "flavorQuotes":[
+                {
+                    "identifier": "Breakaway",
+                    "text": "Looking for this?"
+                }
             ],
             "flavorReference":"Breakaway, comic #"
         },
@@ -225,8 +227,11 @@
             "icons":[
                 "DealDamageMelee"
             ],
-            "flavorText":[
-                "Ow! Watch where you're- hey, [b]GET BACK HERE![/b]"
+            "flavorQuotes":[
+                {
+                    "identifier": "Absolute Zero",
+                    "text": "Ow! Watch where you're-{BR}Hey, [b]GET BACK HERE![/b]"
+                }
             ],
             "flavorReference":"Absolute Zero, comic #"
         },
@@ -247,8 +252,11 @@
                 "IncreaseDamageTaken",
                 "GainHP"
             ],
-            "flavorText":[
-                "Be a good bot and watch my stuff, OK?"
+            "flavorQuotes":[
+                {
+                    "identifier": "Unity",
+                    "text": "Be a good bot and{BR}watch my stuff, OK?"
+                }
             ],
             "flavorReference":"Unity, comic #"
         },
@@ -263,8 +271,7 @@
             "body":[
                 "Reduce the first damage dealt to this card each turn by 1.",
                 "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn.",
-                "[b]BLOCKED[/b] heroes can't deal damage to villain cards other than this card.",
-                "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
+                "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets. Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
             ],
             "icons":[
                 "ReduceDamageTaken",
@@ -272,8 +279,11 @@
                 "CannotDealDamage",
                 "RedirectDamage"
             ],
-            "flavorText":[
-                "Keep after him! I'll be right behind you..."
+            "flavorQuotes":[
+                {
+                    "identifier": "Bunker",
+                    "text": "Keep after him!{BR}I'll be right behind you..."
+                }
             ],
             "flavorReference":"Bunker, comic #"
         },
@@ -294,8 +304,11 @@
                 "DestroySelf",
                 "PlayCardNow"
             ],
-            "flavorText":[
-                "Traffic's clear! [b]MOVE![/b]"
+            "flavorQuotes":[
+                {
+                    "identifier": "The Wraith",
+                    "text": "Traffic's clear! [b]MOVE![/b]"
+                }
             ],
             "flavorReference":"The Wraith, comic #"
         },
@@ -319,8 +332,11 @@
                 "DestroySelf",
                 "PlayCardNow"
             ],
-            "flavorText":[
-                "Outstanding! I haven't worked up a sweat like this in decades!"
+            "flavorQuotes":[
+                {
+                    "identifier": "Haka",
+                    "text": "Outstanding! I haven't worked{BR}up a sweat like this in decades!"
+                }
             ],
             "flavorReference":"Haka, comic #"
         },
@@ -343,8 +359,11 @@
                 "Discard",
                 "DestroySelf"
             ],
-            "flavorText":[
-                "Running *KOFF* blind out here! Tell me someone has a visual!"
+            "flavorQuotes":[
+                {
+                    "identifier": "Tachyon",
+                    "text": "Running *KOFF* blind out{BR}here! Tell me someone has a visual!"
+                }
             ],
             "flavorReference":"Tachyon, comic #"
         },
@@ -365,8 +384,11 @@
                 "ReduceDamageDealt",
                 "DestroySelf"
             ],
-            "flavorText":[
-                "I see him! He's- [b]*URK!*[/b]"
+            "flavorQuotes":[
+                {
+                    "identifier": "Mainstay",
+                    "text": "I see him! He's- [b]*URK!*[/b]"
+                }
             ],
             "flavorReference":"Mainstay, comic #"
         },
@@ -388,8 +410,11 @@
                 "RedirectDamage",
                 "DestroySelf"
             ],
-            "flavorText":[
-                "I know I'm still in training, but [b]COME ON![/b]"
+            "flavorQuotes":[
+                {
+                    "identifier": "Young Legacy",
+                    "text": "I know I'm still in{BR}training, but [b]COME ON![/b]"
+                }
             ],
             "flavorReference":"Young Legacy, comic #"
         },
@@ -408,8 +433,11 @@
                 "Search",
                 "PlayCardNow"
             ],
-            "flavorText":[
-                "Hey Doc, remember how you thought he just [b]MOVED[/b] fast? Bad news..."
+            "flavorQuotes":[
+                {
+                    "identifier": "Absolute Zero",
+                    "text": "Hey Doc, remember how you{BR}thought he just [b]MOVED[/b] fast? Bad news..."
+                }
             ],
             "flavorReference":"Absolute Zero, comic #"
         }

@@ -94,7 +94,7 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => true, CriminalCourierStartEachTurnResponse, TriggerType.CreateStatusEffect));
                 
                 // "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}."
-                base.AddSideTrigger(base.AddTrigger<MoveCardAction>((MoveCardAction mca) => !mca.Destination.IsVillain || !(mca.Destination.IsInPlay || mca.Destination.IsTrash || mca.Destination.IsDeck), UnusualMoveResponse, TriggerType.RevealCard, TriggerTiming.Before));
+                base.AddSideTrigger(base.AddTrigger<MoveCardAction>((MoveCardAction mca) =>  mca.CardToMove.IsVillain && (!mca.Destination.IsVillain || !(mca.Destination.IsInPlay || mca.Destination.IsTrash || mca.Destination.IsDeck)), UnusualMoveResponse, TriggerType.RevealCard, TriggerTiming.Before));
                 
                 // "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
                 base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay.DoKeywordsContain("terrain"), EnteringTerrainSequenceResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.PlayCard }, TriggerTiming.After));
@@ -115,7 +115,7 @@ namespace BartKFSentinels.Breakaway
                 // "As long as {Momentum} has more than..."
                 // "... {H * 3} HP, damage dealt by {Breakaway} is irreducible."
                 // "... {H} HP, increase damage dealt by {Breakaway} by 1."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == this.Card, DeadEndJobDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == this.Card, DeadEndJobDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.Before));
 
                 // "As long as {Momentum} has more than..."
                 // "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1."
@@ -123,6 +123,7 @@ namespace BartKFSentinels.Breakaway
 
                 // "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage."
                 base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.HpGainer == this.TurnTaker.FindCard("MomentumCharacter"), MomentumHPCheckResponse, TriggerType.DealDamage, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<SetHPAction>((SetHPAction sha) => sha.HpGainer == this.TurnTaker.FindCard("MomentumCharacter"), MomentumHPCheckResponse2, TriggerType.DealDamage, TriggerTiming.After));
 
                 // "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
                 base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && pca.CardToPlay.IsHero, DeadEndJobHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
@@ -241,7 +242,7 @@ namespace BartKFSentinels.Breakaway
                 IEnumerator clientMessageCoroutine = DoNothing();
                 IEnumerator breakawayMessageCoroutine = DoNothing();
                 IEnumerator resultCoroutine = DoNothing();
-                if (revealedCard == this.TurnTaker.FindCard("The Client"))
+                if (revealedCard == this.TurnTaker.FindCard("TheClient"))
                 {
                     // Show the card to the players (with a note on what happened to The Client in game terms)
                     string clientFate = this.Card.Title + " can't find " + revealedCard.Title + " anywhere!";
@@ -488,7 +489,30 @@ namespace BartKFSentinels.Breakaway
             }
             else
             {
-                IEnumerator damageCoroutine = base.GameController.DealDamage(this.DecisionMaker, this.Card, (Card c) => true, 1, DamageType.Melee, cardSource: GetCardSource());
+                IEnumerator damageCoroutine = DealDamage(base.Card, (Card c) => true, 1, DamageType.Melee);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(damageCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(damageCoroutine);
+                }
+            }
+            yield break;
+        }
+
+        public IEnumerator MomentumHPCheckResponse2(SetHPAction sha)
+        {
+            // "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage."
+            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
+            if (momentum.HitPoints != momentum.MaximumHitPoints)
+            {
+                yield break;
+            }
+            else
+            {
+                IEnumerator damageCoroutine = DealDamage(base.Card, (Card c) => true, 1, DamageType.Melee);
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(damageCoroutine);
@@ -517,16 +541,39 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(ownerChoiceCoroutine);
             }
+            string chosenNames = "";
+            if (heroTargetsChosen.Any())
+            {
+                chosenNames = heroTargetsChosen.First().Title;
+                if (heroTargetsChosen.Count() > 1)
+                {
+                    chosenNames += ", " + heroTargetsChosen.ElementAt(1).Title;
+                }
+            }
+            Log.Debug("heroTargetsChosen after ownerChoiceCoroutine: " + chosenNames);
             // Find the hero target with the highest HP other than that one
-            IEnumerator secondChoiceCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero && !heroTargetsChosen.Contains(c), heroTargetsChosen, cardSource: GetCardSource());
+            Card firstTarget = heroTargetsChosen.First();
+            List<Card> highestHeroTargets = new List<Card>();
+            IEnumerator secondChoiceCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero && c != firstTarget, highestHeroTargets, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return this.GameController.StartCoroutine(ownerChoiceCoroutine);
+                yield return this.GameController.StartCoroutine(secondChoiceCoroutine);
             }
             else
             {
-                this.GameController.ExhaustCoroutine(ownerChoiceCoroutine);
+                this.GameController.ExhaustCoroutine(secondChoiceCoroutine);
             }
+            heroTargetsChosen = heroTargetsChosen.Concat(highestHeroTargets).ToList();
+            chosenNames = "";
+            if (heroTargetsChosen.Any())
+            {
+                chosenNames = heroTargetsChosen.First().Title;
+                if (heroTargetsChosen.Count() > 1)
+                {
+                    chosenNames += ", " + heroTargetsChosen.ElementAt(1).Title;
+                }
+            }
+            Log.Debug("heroTargetsChosen after secondChoiceCoroutine: " + chosenNames);
             // Deal damage
             IEnumerator damageCoroutine = base.GameController.DealDamage(this.DecisionMaker, this.Card, (Card c) => heroTargetsChosen.Contains(c), 0, DamageType.Melee, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)

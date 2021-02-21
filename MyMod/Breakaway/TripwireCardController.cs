@@ -37,9 +37,15 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator EveryoneTripsResponse(DestroyCardAction dca)
         {
             // "... each hero target deals itself 2 melee damage. Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
-            // TODO: test that this addStatusEffect value works
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsToDealDamageToSelf(base.DecisionMaker, 2, DamageType.Melee, null, false, null, addStatusEffect: new Func<DealDamageAction, IEnumerator>(this.ReduceDamageResponse), allowAutoDecide: true, cardSource: GetCardSource());
-            // ...
+            IEnumerator damageCoroutine = base.GameController.DealDamageToSelf(this.DecisionMaker, (Card c) => c.IsHero, 2, DamageType.Melee, addStatusEffect: ReduceDamageResponse, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(damageCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(damageCoroutine);
+            }
             yield break;
         }
 

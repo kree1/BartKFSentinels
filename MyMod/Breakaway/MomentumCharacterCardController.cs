@@ -13,9 +13,10 @@ namespace BartKFSentinels.Breakaway
         public MomentumCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             // Both sides: has Momentum flipped this turn?
-            SpecialStringMaker.ShowIfElseSpecialString(() => Journal.WasCardFlippedThisTurn(base.Card), () => base.Card.Title + " has already flipped this turn", () => base.Card.Title + " has not flipped this turn");
+            SpecialStringMaker.ShowIfElseSpecialString(() => Journal.WasCardFlippedThisTurn(base.Card), () => base.Card.Title + " has already flipped this turn.", () => base.Card.Title + " has not flipped this turn.");
             // Front side: 2 hero targets with highest HP
             SpecialStringMaker.ShowHeroTargetWithHighestHP(1, 2).Condition = () => !base.Card.IsFlipped;
+            AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
         }
 
         public override void AddSideTriggers()
@@ -37,7 +38,7 @@ namespace BartKFSentinels.Breakaway
                 // "At the start of the villain turn, if this card has less than {H + 2} HP, flip it. If this card did not flip this turn, {Breakaway} regains 1 HP."
                 base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, GainingGroundStartResponse, new TriggerType[] { TriggerType.FlipCard, TriggerType.GainHP }));
                 // "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} regains 5 HP."
-                base.AddSideTrigger(base.AddEndOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, UnderPressureEndResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.Other }));
+                base.AddSideTrigger(base.AddEndOfTurnTrigger((TurnTaker tt) => tt == this.TurnTaker, GainingGroundEndResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.Other }));
             }
         }
 
@@ -67,25 +68,18 @@ namespace BartKFSentinels.Breakaway
 
         public override IEnumerator AfterFlipCardImmediateResponse()
         {
+            IEnumerator baseFlipResponse = base.AfterFlipCardImmediateResponse();
             // Both sides: "This card has a maximum HP of {H * 4}"
             IEnumerator maxHPCoroutine = base.GameController.ChangeMaximumHP(base.Card, Game.H * 4, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
+                yield return base.GameController.StartCoroutine(baseFlipResponse);
                 yield return base.GameController.StartCoroutine(maxHPCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(maxHPCoroutine);
-            }
-
-            IEnumerator baseFlipResponse = base.AfterFlipCardImmediateResponse();
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(baseFlipResponse);
-            }
-            else
-            {
                 base.GameController.ExhaustCoroutine(baseFlipResponse);
+                base.GameController.ExhaustCoroutine(maxHPCoroutine);
             }
 
             yield break;
@@ -94,7 +88,7 @@ namespace BartKFSentinels.Breakaway
         public override bool AskIfCardIsIndestructible(Card card)
         {
             // Both sides: "This card ... is indestructible."
-            return (base.Card == card);
+            return card == base.Card;
         }
 
         public IEnumerator UnderPressureStartResponse(PhaseChangeAction pca)

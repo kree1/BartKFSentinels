@@ -22,8 +22,9 @@ namespace BartKFSentinels.Breakaway
             {
                 // "Each player may destroy any number of their non-character cards."
                 List<DestroyCardAction> destroyAttempts = new List<DestroyCardAction>();
-                SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero), SelectionType.DestroyCard, isOptional: true, allowAutoDecide: true, cardSource: GetCardSource());
-                IEnumerator playersDestroyCoroutine = base.GameController.SelectTurnTakersAndDoAction(destroyOrder, (TurnTaker tt) => base.GameController.SelectAndDestroyCard(base.FindHeroTurnTakerController(tt.ToHero()), new LinqCardCriteria((Card c) => !c.IsCharacter && c.Owner == tt, "non-character"), true, storedResultsAction: destroyAttempts, cardSource: GetCardSource()));
+                //SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero), SelectionType.DestroyCard, isOptional: true, allowAutoDecide: true, cardSource: GetCardSource());
+                //IEnumerator playersDestroyCoroutine = base.GameController.SelectTurnTakersAndDoAction(destroyOrder, (TurnTaker tt) => base.GameController.SelectAndDestroyCard(base.FindHeroTurnTakerController(tt.ToHero()), new LinqCardCriteria((Card c) => !c.IsCharacter && c.Owner == tt, "non-character"), true, storedResultsAction: destroyAttempts, cardSource: GetCardSource()));
+                IEnumerator playersDestroyCoroutine = EachPlayerDestroysTheirCards(new LinqTurnTakerCriteria((TurnTaker tt) => true, "players with non-character cards in play"), new LinqCardCriteria((Card c) => !c.IsCharacter, "non-character"), null, requiredNumberOfCards: 0, requiredNumberOfHeroes: 0, storedResults: destroyAttempts);
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(playersDestroyCoroutine);

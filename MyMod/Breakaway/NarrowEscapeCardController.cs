@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -16,7 +17,18 @@ namespace BartKFSentinels.Breakaway
         {
             if (c.IsHero && c.IsCharacter)
             {
-                return blockedHeroes.Contains(c);
+                var blockedEffects = GameController.StatusEffectManager.StatusEffectControllers.Where((StatusEffectController sec) => sec.StatusEffect is OnDealDamageStatusEffect odds && odds.CardSource.Title == this.Card.Title && odds.MethodToExecute == "RedirectDamage");
+                List<Card> hasBlockEffect = new List<Card>();
+                foreach (StatusEffectController sec in blockedEffects)
+                {
+                    var odds = sec.StatusEffect as OnDealDamageStatusEffect;
+                    Card heroAffected = odds.TargetCriteria.IsSpecificCard;
+                    if (!hasBlockEffect.Contains(heroAffected))
+                    {
+                        hasBlockEffect.Add(heroAffected);
+                    }
+                }
+                return hasBlockEffect.Contains(c);
             }
             else
             {
@@ -46,7 +58,7 @@ namespace BartKFSentinels.Breakaway
         public string BuildNotBlockedSpecialString()
         {
             string unblockedSpecial = "Non-BLOCKED heroes: ";
-            var unblockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && !IsBlocked(c)));
+            var unblockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsActive && !IsBlocked(c)));
             if (unblockedHeroes.Any())
             {
                 unblockedSpecial += unblockedHeroes.FirstOrDefault().Title;
@@ -77,13 +89,13 @@ namespace BartKFSentinels.Breakaway
         {
             base.AddTriggers();
             // "Reduce the first damage dealt to this card each turn by 1."
-            this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, ReduceDamage, TriggerType.ReduceDamage, TriggerTiming.After);
+            this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, ReduceDamage, TriggerType.ReduceDamage, TriggerTiming.Before);
             // "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn."
             base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, AssignBlocked, TriggerType.Other);
-            // "[b]BLOCKED[/b] heroes can't deal damage to villain cards other than this card."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.DamageSource.Card) && dda.Target.IsVillainTarget && dda.Target != base.Card, PreventDamage, TriggerType.CancelAction, TriggerTiming.Before, requireActionSuccess: false);
+            // "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets."
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.DamageSource.Card) && dda.Target.IsVillainTarget && !dda.Target.DoKeywordsContain("terrain"), PreventDamage, TriggerType.CancelAction, TriggerTiming.Before, requireActionSuccess: false);
             // "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.Target) && dda.DamageSource.Card.IsVillainTarget, RedirectDamage, TriggerType.RedirectDamage, TriggerTiming.After);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.Target) && dda.DamageSource.Card.IsVillainTarget, RedirectDamage, TriggerType.RedirectDamage, TriggerTiming.Before);
         }
 
         public override IEnumerator Play()
@@ -94,12 +106,80 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator AssignBlocked(PhaseChangeAction pca)
         {
             // "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn."
-            List<Card> currentLowestHeroes = GameController.FindAllTargetsWithLowestHitPoints(1, (Card c) => c.IsHeroCharacterCard, cardSource: GetCardSource(), numberOfTargets: 2).ToList();
-            blockedHeroes = currentLowestHeroes;
-            string blockedAnnouncement = BuildNotBlockedSpecialString() + " slip through Narrow Escape!";
+            // Find exactly 2 hero character cards with lowest HP
+            List<Card> currentLowestHeroes = new List<Card>();
+            IEnumerator findLowestCoroutine = GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => c.IsHeroCharacterCard, currentLowestHeroes, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return this.GameController.StartCoroutine(findLowestCoroutine);
+            }
+            else
+            {
+                this.GameController.ExhaustCoroutine(findLowestCoroutine);
+            }
+            string lowestNames = "";
+            if (currentLowestHeroes.Any())
+            {
+                lowestNames += currentLowestHeroes.First().Title;
+                if (currentLowestHeroes.Count() > 1)
+                {
+                    lowestNames += ", " + currentLowestHeroes.ElementAt(1).Title;
+                }
+            }
+            Log.Debug("Found 2 heroes with lowest HP: " + lowestNames);
+
+            // All OTHER active hero characters become BLOCKED
+            LinqCardCriteria criteria = new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsActive && !currentLowestHeroes.Contains(c));
+            List<Card> toBlock = base.GameController.FindCardsWhere(criteria).ToList();
+
+            foreach (Card hero in toBlock)
+            {
+                //Log.Debug("Creating status effects for " + hero.Title);
+                // BLOCKED comprises 2 status effects, both expiring at the start of the villain turn or when the hero leaves play:
+                // The hero cannot deal damage to non-Terrain villain targets
+                OnDealDamageStatusEffect cantHitNonTerrain = new OnDealDamageStatusEffect(cardWithMethod: this.Card, methodToExecute: "PreventDamage", description: hero.Title + " cannot deal damage to non-Terrain villain targets.", triggerTypes: new TriggerType[] { TriggerType.CancelAction }, decisionMaker: base.TurnTaker, cardSource: this.Card, powerNumerals: null);
+                //Log.Debug("Initialized cantHitNonTerrain");
+                cantHitNonTerrain.UntilStartOfNextTurn(this.TurnTaker);
+                cantHitNonTerrain.UntilTargetLeavesPlay(hero);
+                cantHitNonTerrain.SourceCriteria.IsSpecificCard = hero;
+                cantHitNonTerrain.TargetCriteria.IsVillain = true;
+                cantHitNonTerrain.BeforeOrAfter = BeforeOrAfter.Before;
+                IEnumerator addCantHitCoroutine = AddStatusEffect(cantHitNonTerrain);
+                //Log.Debug("Built cantHitNonTerrain for " + hero.Title);
+                // When the hero would be dealt damage by a villain target, redirect it to a non-BLOCKED hero
+                OnDealDamageStatusEffect redirectWhenHit = new OnDealDamageStatusEffect(this.Card, "RedirectDamage", "When " + hero.Title + " would be dealt damage by a villain target, redirect it to a non-BLOCKED hero.", new TriggerType[] { TriggerType.RedirectDamage }, base.TurnTaker, this.Card);
+                redirectWhenHit.UntilStartOfNextTurn(this.TurnTaker);
+                redirectWhenHit.UntilTargetLeavesPlay(hero);
+                redirectWhenHit.SourceCriteria.IsVillain = true;
+                redirectWhenHit.TargetCriteria.IsSpecificCard = hero;
+                redirectWhenHit.BeforeOrAfter = BeforeOrAfter.Before;
+                IEnumerator addRedirectCoroutine = AddStatusEffect(redirectWhenHit);
+                //Log.Debug("Built redirectWhenHit for " + hero.Title);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(addCantHitCoroutine);
+                    yield return this.GameController.StartCoroutine(addRedirectCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(addCantHitCoroutine);
+                    this.GameController.ExhaustCoroutine(addRedirectCoroutine);
+                }
+            }
+
+            string escapedNames = "";
+            if (currentLowestHeroes.Any())
+            {
+                escapedNames = currentLowestHeroes.First().Title;
+                if (currentLowestHeroes.Count > 1)
+                {
+                    escapedNames += " and " + currentLowestHeroes.ElementAt(1).Title;
+                }
+            }
+            string blockedAnnouncement = escapedNames + " slip through Narrow Escape!";
             if (blockedHeroes.Any())
             {
-                blockedAnnouncement += "All other heroes are BLOCKED!";
+                blockedAnnouncement += " All other heroes are BLOCKED!";
             }
             IEnumerator messageCoroutine = base.GameController.SendMessageAction(blockedAnnouncement, Priority.High, cardSource: GetCardSource(), showCardSource: true);
             if (base.UseUnityCoroutines)
@@ -110,6 +190,12 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(messageCoroutine);
             }
+            yield break;
+        }
+
+        private IEnumerator ClearBlocked(PhaseChangeAction pca)
+        {
+            blockedHeroes = new List<Card>();
             yield break;
         }
 
@@ -129,22 +215,25 @@ namespace BartKFSentinels.Breakaway
             yield break;
         }
 
-        private IEnumerator PreventDamage(DealDamageAction dda)
+        public IEnumerator PreventDamage(DealDamageAction dda)
         {
-            // "[b]BLOCKED[/b] heroes can't deal damage to villain cards other than this card."
-            IEnumerator preventCoroutine = CancelAction(dda);
-            if (base.UseUnityCoroutines)
+            // "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets."
+            if (dda != null && dda.Target != null && dda.Target.IsVillain && !dda.Target.DoKeywordsContain("terrain"))
             {
-                yield return this.GameController.StartCoroutine(preventCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(preventCoroutine);
+                IEnumerator preventCoroutine = CancelAction(dda);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(preventCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(preventCoroutine);
+                }
             }
             yield break;
         }
 
-        private IEnumerator RedirectDamage(DealDamageAction dda)
+        public IEnumerator RedirectDamage(DealDamageAction dda)
         {
             // "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
             IEnumerator redirectCoroutine = base.GameController.SelectTargetAndRedirectDamage(base.DecisionMaker, (Card c) => c.IsHeroCharacterCard && !IsBlocked(c), dda, cardSource: GetCardSource());
