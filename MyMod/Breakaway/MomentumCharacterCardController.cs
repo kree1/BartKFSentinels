@@ -93,31 +93,38 @@ namespace BartKFSentinels.Breakaway
 
         public IEnumerator UnderPressureStartResponse(PhaseChangeAction pca)
         {
-            // "At the start of the villain turn, if this card has more than {H + 2} HP, flip it."
-            if (this.Card.HitPoints.Value > Game.H + 2)
+            if (base.CharacterCardController is BreakawayCharacterCardController && base.TurnTaker.FindCard("BreakawayCharacter").IsFlipped)
             {
-                IEnumerator flipCoroutine = base.GameController.FlipCard(this, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(flipCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(flipCoroutine);
-                }
+                // Breakaway base character card, "Dead End Job" side: "Skip start of turn effects on {Momentum}."
             }
-            // "If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands."
-            if (!Journal.WasCardFlippedThisTurn(base.Card))
+            else
             {
-                LinqCardCriteria choices = new LinqCardCriteria((Card c) => c.IsHero && c.IsInPlay && !c.IsCharacter);
-                IEnumerator returnCoroutine = base.GameController.SelectAndReturnCards(this.DecisionMaker, Game.H - 2, choices, true, false, false, Game.H - 2, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
+                // "At the start of the villain turn, if this card has more than {H + 2} HP, flip it."
+                if (this.Card.HitPoints.Value > Game.H + 2)
                 {
-                    yield return base.GameController.StartCoroutine(returnCoroutine);
+                    IEnumerator flipCoroutine = base.GameController.FlipCard(this, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(flipCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(flipCoroutine);
+                    }
                 }
-                else
+                // "If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands."
+                if (!Journal.WasCardFlippedThisTurn(base.Card))
                 {
-                    base.GameController.ExhaustCoroutine(returnCoroutine);
+                    LinqCardCriteria choices = new LinqCardCriteria((Card c) => c.IsHero && c.IsInPlay && !c.IsCharacter);
+                    IEnumerator returnCoroutine = base.GameController.SelectAndReturnCards(this.DecisionMaker, Game.H - 2, choices, true, false, false, Game.H - 2, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(returnCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(returnCoroutine);
+                    }
                 }
             }
             yield break;
@@ -184,30 +191,37 @@ namespace BartKFSentinels.Breakaway
 
         public IEnumerator GainingGroundStartResponse(PhaseChangeAction pca)
         {
-            // "At the start of the villain turn, if this card has less than {H + 2} HP, flip it."
-            if (this.Card.HitPoints.Value < Game.H + 2)
+            if (base.CharacterCardController is BreakawayCharacterCardController && base.TurnTaker.FindCard("BreakawayCharacter").IsFlipped)
             {
-                IEnumerator flipCoroutine = base.GameController.FlipCard(this, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(flipCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(flipCoroutine);
-                }
+                // Breakaway base character card, "Dead End Job" side: "Skip start of turn effects on {Momentum}."
             }
-            // "If this card did not flip this turn, {Breakaway} regains 1 HP."
-            if (!Journal.WasCardFlippedThisTurn(base.Card))
+            else
             {
-                IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 1, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
+                // "At the start of the villain turn, if this card has less than {H + 2} HP, flip it."
+                if (this.Card.HitPoints.Value < Game.H + 2)
                 {
-                    yield return base.GameController.StartCoroutine(gainHPCoroutine);
+                    IEnumerator flipCoroutine = base.GameController.FlipCard(this, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(flipCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(flipCoroutine);
+                    }
                 }
-                else
+                // "If this card did not flip this turn, {Breakaway} regains 1 HP."
+                if (!Journal.WasCardFlippedThisTurn(base.Card))
                 {
-                    base.GameController.ExhaustCoroutine(gainHPCoroutine);
+                    IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 1, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(gainHPCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(gainHPCoroutine);
+                    }
                 }
             }
             yield break;

@@ -135,6 +135,9 @@ namespace BartKFSentinels.Breakaway
                     base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
                 }
             }
+
+            // If Breakaway is destroyed, the heroes win.
+            base.AddDefeatedIfDestroyedTriggers();
         }
 
         private string EscapeMessage()
@@ -410,7 +413,7 @@ namespace BartKFSentinels.Breakaway
             AddSideTriggers();
 
             // Back side: "Skip start of turn effects on {Momentum}."
-            PreventPhaseEffectStatusEffect skipSOT = new PreventPhaseEffectStatusEffect(Phase.Start);
+            /*PreventPhaseEffectStatusEffect skipSOT = new PreventPhaseEffectStatusEffect(Phase.Start);
             skipSOT.UntilCardLeavesPlay(this.Card);
             skipSOT.CardCriteria.IsSpecificCard = base.FindCard("MomentumCharacter");
             IEnumerator applyCoroutine = AddStatusEffect(skipSOT);
@@ -421,7 +424,7 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 this.GameController.ExhaustCoroutine(applyCoroutine);
-            }
+            }*/
 
             yield break;
         }
