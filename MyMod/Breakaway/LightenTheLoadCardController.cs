@@ -13,8 +13,8 @@ namespace BartKFSentinels.Breakaway
         public LightenTheLoadCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // TODO: SpecialStringMaker for number of hero cards in the villain play area
-            // TODO: SpecialStringMaker for H-2 heroes with most cards in play
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(this.TurnTaker.PlayArea, cardCriteria: new LinqCardCriteria((Card c) => c.IsHero, "hero"));
+            // TODO: SpecialStringMaker for H-2 heroes with most cards in play?
         }
 
         public override IEnumerator Play()

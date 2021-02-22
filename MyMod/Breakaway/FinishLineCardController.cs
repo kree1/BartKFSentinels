@@ -13,8 +13,7 @@ namespace BartKFSentinels.Breakaway
         public FinishLineCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // TODO: SpecialStringMaker that identifies the location of The Client
-            // TODO: SpecialStringMaker that says if The Client is already at max HP?
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c.Identifier == "TheClient", "The Client", useCardsSuffix: false));
         }
 
         public override IEnumerator Play()

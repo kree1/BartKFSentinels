@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Handelabra;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System.Collections;
@@ -13,7 +14,7 @@ namespace BartKFSentinels.Breakaway
         public MindTheGapCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // TODO: SpecialStringMaker for "number of hero non-character cards in play"
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter, "hero non-character"));
         }
 
         public override IEnumerator Play()
@@ -43,8 +44,9 @@ namespace BartKFSentinels.Breakaway
                         while (enumerator.MoveNext())
                         {
                             DestroyCardAction destroyed = enumerator.Current;
-                            if (destroyed.WasCardDestroyed)
+                            if (destroyed.WasCardDestroyed && !heroesWithDestroyed.Contains(destroyed.CardToDestroy.TurnTaker))
                             {
+                                Log.Debug(destroyed.CardToDestroy.TurnTaker.ToString() + " has destroyed a card");
                                 heroesWithDestroyed.Add(destroyed.CardToDestroy.TurnTaker);
                             }
                         }
