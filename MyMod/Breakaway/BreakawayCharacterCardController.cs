@@ -138,6 +138,9 @@ namespace BartKFSentinels.Breakaway
 
             // If Breakaway is destroyed, the heroes win.
             base.AddDefeatedIfDestroyedTriggers();
+            base.AddDefeatedIfMovedOutOfGameTriggers();
+            // If Breakaway's HP is set to 0 or less, destroy him.
+            base.AddTrigger<SetHPAction>((SetHPAction sha) => sha.HpGainer == this.Card && sha.Amount <= 0, (SetHPAction sha) => base.GameController.GameOver(EndingResult.VillainDestroyedVictory, "The heroes catch up to Breakaway and recover the loot!"), TriggerType.GameOver, TriggerTiming.After, requireActionSuccess: true, isActionOptional: false, orderMatters: false, priority: TriggerPriority.High);
         }
 
         private string EscapeMessage()

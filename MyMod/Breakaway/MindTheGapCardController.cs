@@ -46,7 +46,7 @@ namespace BartKFSentinels.Breakaway
                             DestroyCardAction destroyed = enumerator.Current;
                             if (destroyed.WasCardDestroyed && !heroesWithDestroyed.Contains(destroyed.CardToDestroy.TurnTaker))
                             {
-                                Log.Debug(destroyed.CardToDestroy.TurnTaker.ToString() + " has destroyed a card");
+                                Log.Debug(destroyed.CardToDestroy.TurnTaker.Identifier + " has destroyed a card");
                                 heroesWithDestroyed.Add(destroyed.CardToDestroy.TurnTaker);
                             }
                         }

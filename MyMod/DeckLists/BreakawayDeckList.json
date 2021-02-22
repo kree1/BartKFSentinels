@@ -402,7 +402,7 @@
             ],
             "body":[
                 "When this card enters play, reveal the environment deck. Put one of the 2 revealed cards with the highest HP into play and move this card next to it. Shuffle the other revealed cards into the environment deck. If no targets entered play this way, play the top card of the villain deck.",
-                "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, destroy this card and prevent that damage."
+                "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, prevent that damage and destroy this card."
             ],
             "icons":[
                 "Search",

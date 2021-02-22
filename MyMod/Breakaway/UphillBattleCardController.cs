@@ -85,7 +85,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator SelfDestructResponse(FlipCardAction fca)
         {
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
-            IEnumerator destroyCoroutine = base.DestroyThisCardResponse(fca);
+            IEnumerator destroyCoroutine = base.GameController.DestroyCard(this.DecisionMaker, this.Card, optional: false, postDestroyAction: () => base.PlayTheTopCardOfTheVillainDeckResponse(fca), actionSource: fca, responsibleCard: this.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(destroyCoroutine);
@@ -93,16 +93,6 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 this.GameController.ExhaustCoroutine(destroyCoroutine);
-            }
-
-            IEnumerator playCoroutine = base.PlayTheTopCardOfTheVillainDeckResponse(fca);
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(playCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(playCoroutine);
             }
 
             yield break;

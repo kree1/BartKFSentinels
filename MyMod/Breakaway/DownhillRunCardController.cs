@@ -20,7 +20,7 @@ namespace BartKFSentinels.Breakaway
         {
             base.AddTriggers();
             // "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP."
-            AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay != null && pca.IsSuccessful && pca.CardToPlay.Owner.IsHero && pca.CardToPlay.IsHero, GainHPResponse, TriggerType.GainHP, TriggerTiming.After);
+            AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay != null && pca.IsSuccessful && pca.CardToPlay.Owner.IsHero && pca.CardToPlay.IsHero && !pca.IsPutIntoPlay, GainHPResponse, TriggerType.GainHP, TriggerTiming.After);
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
             AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && !fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
@@ -86,7 +86,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator SelfDestructResponse(FlipCardAction fca)
         {
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
-            IEnumerator destroyCoroutine = base.DestroyThisCardResponse(fca);
+            IEnumerator destroyCoroutine = base.GameController.DestroyCard(this.DecisionMaker, this.Card, optional: false, postDestroyAction: () => base.PlayTheTopCardOfTheVillainDeckResponse(fca), actionSource: fca, responsibleCard: this.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(destroyCoroutine);
@@ -94,16 +94,6 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 this.GameController.ExhaustCoroutine(destroyCoroutine);
-            }
-
-            IEnumerator playCoroutine = base.PlayTheTopCardOfTheVillainDeckResponse(fca);
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(playCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(playCoroutine);
             }
 
             yield break;

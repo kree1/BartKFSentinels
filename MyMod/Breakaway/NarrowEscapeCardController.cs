@@ -141,6 +141,7 @@ namespace BartKFSentinels.Breakaway
                 //Log.Debug("Initialized cantHitNonTerrain");
                 cantHitNonTerrain.UntilStartOfNextTurn(this.TurnTaker);
                 cantHitNonTerrain.UntilTargetLeavesPlay(hero);
+                cantHitNonTerrain.UntilCardLeavesPlay(this.Card);
                 cantHitNonTerrain.SourceCriteria.IsSpecificCard = hero;
                 cantHitNonTerrain.TargetCriteria.IsVillain = true;
                 cantHitNonTerrain.BeforeOrAfter = BeforeOrAfter.Before;
@@ -150,6 +151,7 @@ namespace BartKFSentinels.Breakaway
                 OnDealDamageStatusEffect redirectWhenHit = new OnDealDamageStatusEffect(cardWithMethod: this.Card, methodToExecute: nameof(this.RedirectDamage), description: "When " + hero.Title + " would be dealt damage by a villain target, redirect it to a non-BLOCKED hero.", triggerTypes: new TriggerType[] { TriggerType.RedirectDamage }, decisionMaker: base.TurnTaker, cardSource: this.Card, powerNumerals: null);
                 redirectWhenHit.UntilStartOfNextTurn(this.TurnTaker);
                 redirectWhenHit.UntilTargetLeavesPlay(hero);
+                redirectWhenHit.UntilCardLeavesPlay(this.Card);
                 redirectWhenHit.SourceCriteria.IsVillain = true;
                 redirectWhenHit.TargetCriteria.IsSpecificCard = hero;
                 redirectWhenHit.BeforeOrAfter = BeforeOrAfter.Before;

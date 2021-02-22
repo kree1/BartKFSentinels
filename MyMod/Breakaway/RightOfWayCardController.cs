@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -20,7 +21,11 @@ namespace BartKFSentinels.Breakaway
         {
             base.AddTriggers();
             // "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, destroy this card and prevent that damage."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.TurnTaker.FindCard("MomentumCharacter"), this.DealDamageResponse, new TriggerType[] { TriggerType.RedirectDamage, TriggerType.CancelAction, TriggerType.DestroySelf }, TriggerTiming.After);
+            //base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.TurnTaker.FindCard("MomentumCharacter"), this.DealDamageResponse, new TriggerType[] { TriggerType.RedirectDamage, TriggerType.CancelAction, TriggerType.DestroySelf }, TriggerTiming.Before);
+            base.AddRedirectDamageTrigger((DealDamageAction dda) => dda.Target == base.TurnTaker.FindCard("MomentumCharacter") && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && GetCardThisCardIsNextTo().IsInPlayAndHasGameText, () => GetCardThisCardIsNextTo(), optional: false);
+            base.AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == base.TurnTaker.FindCard("MomentumCharacter") && !(GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && GetCardThisCardIsNextTo().IsInPlayAndHasGameText), (DealDamageAction dda) => base.GameController.DestroyCard(this.DecisionMaker, base.Card, optional: false, null, null, null, null, null, null, null, null, cardSource: GetCardSource()), new TriggerType[] { TriggerType.DestroySelf }, isPreventEffect: true);
+            // When the card next to this one is destroyed, nothing in particular happens to this card
+            base.AddIfTheCardThatThisCardIsNextToLeavesPlayMoveItToTheirPlayAreaTrigger(alsoRemoveTriggersFromThisCard: false);
         }
 
         public override IEnumerator Play()
@@ -120,50 +125,6 @@ namespace BartKFSentinels.Breakaway
                 else
                 {
                     base.GameController.ExhaustCoroutine(playCoroutine);
-                }
-            }
-
-            yield break;
-        }
-
-        private IEnumerator DealDamageResponse(DealDamageAction dda)
-        {
-            // "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, destroy this card and prevent that damage."
-            // Determine whether damage can be redirected to a card this one is next to.
-            if (GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && GetCardThisCardIsNextTo().IsInPlayAndHasGameText)
-            {
-                // Redirect damage to the card this card is next to
-                IEnumerator redirectCoroutine = base.GameController.RedirectDamage(dda, GetCardThisCardIsNextTo(), cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return this.GameController.StartCoroutine(redirectCoroutine);
-                }
-                else
-                {
-                    this.GameController.ExhaustCoroutine(redirectCoroutine);
-                }
-            }
-            else
-            {
-                // Prevent damage and destroy this card
-                IEnumerator preventCoroutine = CancelAction(dda);
-                if (base.UseUnityCoroutines)
-                {
-                    yield return this.GameController.StartCoroutine(preventCoroutine);
-                }
-                else
-                {
-                    this.GameController.ExhaustCoroutine(preventCoroutine);
-                }
-
-                IEnumerator selfDestructCoroutine = base.GameController.DestroyCard(this.DecisionMaker, base.Card, responsibleCard: base.Card, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return this.GameController.StartCoroutine(selfDestructCoroutine);
-                }
-                else
-                {
-                    this.GameController.ExhaustCoroutine(selfDestructCoroutine);
                 }
             }
 
