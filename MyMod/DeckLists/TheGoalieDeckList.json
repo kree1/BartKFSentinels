@@ -1,0 +1,414 @@
+{
+	"name": "The Goalie",
+	"kind": "Hero",
+	"initialCardIdentifiers":[
+		"TheGoalieCharacter"
+	],
+	"cards":[
+		{
+			"identifier": "TheGoalieCharacter",
+			"count": 1,
+			"title": "The Goalie",
+			"body": "Goal Kick",
+			"character": true,
+			"powers":[
+				"{TheGoalieCharacter} deals 1 target 0 melee damage and another target 1 projectile damage."
+			],
+			"icons":[
+				"HasPower",
+				"DealDamageMelee",
+				"DealDamageProjectile"
+			],
+			"hitpoints": 30,
+			"nemesisIdentifiers":[
+				"TheGoalie"
+			],
+			"incapacitatedAbilities":[
+				"Select a target. Reduce the next damage dealt to that target by 2.",
+				"Select a target. Increase the next damage dealt by that target by 2.",
+				"The 2 hero targets with the lowest HP regain 1 HP each."
+			],
+			"flippedIcons":[
+				"ReduceDamageTaken",
+				"IncreaseDamageDealt",
+				"GainHP"
+			],
+			"complexity":2,
+			"openingLines":{
+				"default": "You're not getting past me."
+			}
+		},
+		{
+			"identifier": "EighteenYardBox",
+			"count": 3,
+			"title": "18-Yard Box",
+			"keywords":[
+				"ongoing",
+				"goalposts"
+			],
+			"body":[
+				"When this card enters play, move it to a play area with no Goalposts cards. You may play a Goalposts card from your trash. Then, destroy all but 2 Goalposts cards.",
+				"When damage would be dealt to or by (TheGoalieCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
+			],
+			"icons":[
+				"PlayCardNow",
+				"Destroy",
+				"IncreaseDamageDealt",
+				"ReduceDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "PlaceOfPower",
+			"count": 2,
+			"title": "Place of Power",
+			"keywords":[
+				"ongoing",
+				"goalposts"
+			],
+			"body":[
+				"When this card enters play, you may play a card named [i]18-Yard Box[/i] from your trash. Then, destroy all but 2 Goalposts cards.",
+				"Reduce the first damage dealt to {TheGoalieCharacter} each turn by 1. Increase the first damage dealt by {TheGoalieCharacter} each turn by 1."
+			],
+			"icons":[
+				"PlayCardNow",
+				"Destroy",
+				"ReduceDamageTaken",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Overcrowding",
+			"count": 3,
+			"title": "Overcrowding",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Whenever a Goalposts card enters play, it becomes indestructible until the end of the turn and you may play a Goalposts card from your trash."
+			],
+			"powers":[
+				"{TheGoalieCharacter} deals up to 2 targets 2 melee damage each. If there are 3 or more Goalposts cards in play, return this card to your hand."
+			],
+			"icons":[
+				"Indestructible",
+				"PlayCardNow",
+				"HasPower",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "TwelfthGirl",
+			"count": 2,
+			"title": "Twelfth Girl",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"Once per turn, when a hero target would be dealt exactly 1 damage, you may prevent that damage.",
+				"When damage is prevented this way, up to X hero targets each regain 1 HP, where X = 2 times the number of Goalposts cards in hero play areas."
+			],
+			"icons":[
+				"CancelledDamageGreen",
+				"GainHP"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ReturnToSender",
+			"count": 3,
+			"title": "Return to Sender",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 melee damage."
+			],
+			"powers":[
+				"Draw a card. Increase the next damage dealt by {TheGoalieCharacter} by 2."
+			],
+			"icons":[
+				"CounterDamage",
+				"HasPower",
+				"DrawCardNow",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ParkTheBus",
+			"count": 3,
+			"title": "Park the Bus",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Redirect all damage that would be dealt to hero targets to {TheGoalieCharacter}.",
+				"Reduce damage dealt to {TheGoalieCharacter} by 1.",
+				"At the start of your turn, discard 3 cards or destroy this card."
+			],
+			"icons":[
+				"RedirectDamage",
+				"ReduceDamageTaken",
+				"StartOfTurnAction",
+				"Discard",
+				"DestroySelf"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "StartingWhistle",
+			"count": 4,
+			"title": "Starting Whistle",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Search your deck for a Goalposts card and put it into your hand. Shuffle your deck.",
+				"You may play a Goalposts card or draw 2 cards.",
+				"{TheGoalieCharacter} deals 1 target 1 melee damage."
+			],
+			"icons":[
+				"Search",
+				"PlayCardNow",
+				"DrawCardNow",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "MoveTheGoalposts",
+			"count": 2,
+			"title": "Move the Goalposts",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Search your deck for a Goalposts card and put it into your hand. Shuffle your deck.",
+				"You may destroy one of your Ongoing cards. If you do, you may play an Ongoing card."
+			],
+			"icons":[
+				"Search",
+				"DestroyOngoing",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "HuddleUp",
+			"count": 2,
+			"title": "Huddle Up!",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Reveal the top 5 cards of your deck. Put 1 into your hand and the rest into your trash.",
+				"You may play a card."
+			],
+			"icons":[
+				"Manipulate",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "HospitalBall",
+			"count": 3,
+			"title": "Hospital Ball",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{TheGoalieCharacter} deals 1 target 4 projectile damage.",
+				"The next damage dealt to {TheGoalieCharacter} by a non-hero target is irreducible."
+			],
+			"icons":[
+				"DealDamageProjectile",
+				"MakeDamageIrreducible"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Offsides",
+			"count": 3,
+			"title": "Offsides!",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{TheGoalieCharacter} deals 1 target 2 melee damage.",
+				"If that target is in a play area with a Goalposts card, {TheGoalieCharacter} deals another target in that play area 2 irreducible projectile damage."
+			],
+			"icons":[
+				"DealDamageMelee",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "OutOfBounds",
+			"count": 2,
+			"title": "Out of Bounds",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Destroy all Goalposts cards in your play area.",
+				"Draw 3 cards."
+			],
+			"icons":[
+				"Destroy",
+				"DrawCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ExtraTime",
+			"count": 2,
+			"title": "Extra Time",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Shuffle your trash into your deck.",
+				"{TheGoalieCharacter} regains 4 HP.",
+				"Draw a card.",
+				"Immediately end your turn."
+			],
+			"icons":[
+				"Manipulate",
+				"GainHP",
+				"DrawCardNow",
+				"SkipTurn"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Shootout",
+			"count": 3,
+			"title": "Shootout",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{TheGoalieCharacter} deals each non-hero target 2 projectile damage. Destroy a Goalposts card in a non-hero play area."
+			],
+			"icons":[
+				"DealDamageProjectile",
+				"Destroy"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "TeamSpirit",
+			"count": 3,
+			"title": "Team Spirit",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Discard the top 3 cards of your deck.",
+				"Each hero target regains 1 HP."
+			],
+			"icons":[
+				"Manipulate",
+				"GainHP"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		}
+	]
+}

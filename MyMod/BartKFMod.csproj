@@ -60,6 +60,26 @@
     <Compile Include="Breakaway\TheClientCardController.cs" />
     <Compile Include="Breakaway\TripwireCardController.cs" />
     <Compile Include="Breakaway\UphillBattleCardController.cs" />
+    <Compile Include="Impulse\AirPocketCardController.cs" />
+    <Compile Include="Impulse\CrossfireCardController.cs" />
+    <Compile Include="Impulse\EnrageAndEvadeCardController.cs" />
+    <Compile Include="Impulse\FlashOfInspirationCardController.cs" />
+    <Compile Include="Impulse\HyperRetentionCardController.cs" />
+    <Compile Include="Impulse\ImpulseAsKidFlashTwoCharacterCardController.cs" />
+    <Compile Include="Impulse\ImpulseCharacterCardController.cs" />
+    <Compile Include="Impulse\ImpulseSittingCardController.cs" />
+    <Compile Include="Impulse\ImpulseUtilityCardController.cs" />
+    <Compile Include="Impulse\InsideScoopCardController.cs" />
+    <Compile Include="Impulse\InstinctiveVibrationCardController.cs" />
+    <Compile Include="Impulse\LeapIntoActionCardController.cs" />
+    <Compile Include="Impulse\ReactionTimeCardController.cs" />
+    <Compile Include="Impulse\ShortcutCardController.cs" />
+    <Compile Include="Impulse\SlipstreamArsenalCardController.cs" />
+    <Compile Include="Impulse\TheHyperAcceleratedImpulseCharacterCardController.cs" />
+    <Compile Include="Impulse\TheWishGrantingImpulseCharacterCardController.cs" />
+    <Compile Include="Impulse\WhirlwindExpressCardController.cs" />
+    <Compile Include="Impulse\YouDroppedThisCardController.cs" />
+    <Compile Include="Impulse\ZeroAttentionSpanCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MigrantCoder\WorstCardEverCardController.cs" />
     <Compile Include="MigrantCoder\MigrantCoderCharacterCardController.cs" />
@@ -84,7 +104,18 @@
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\BreakawayDeckList.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DeckLists\TheGoalieDeckList.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TheGoalie\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DeckLists\ImpulseDeckList.json" />
+    <None Include="manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>call "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\postbuild.bat"</PostBuildEvent>

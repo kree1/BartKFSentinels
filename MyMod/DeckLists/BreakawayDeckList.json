@@ -20,15 +20,13 @@
                 "Tachyon"
             ],
             "setup":[
-                "Put {Breakaway} into play, “Criminal Courier“ side up, with 30 HP.",
-                "Put {Momentum} into play, “Under Pressure“ side up.",
-                "Shuffle the villain deck."
+                "Put {Breakaway} into play, “Criminal Courier“ side up, with 30 HP.{BR}Put [i]Momentum[/i] into play, “Under Pressure“ side up.{BR}Shuffle the villain deck."
             ],
             "gameplay":[
                 "{Breakaway} is immune to damage.",
                 "When {Breakaway}'s current HP is equal to his maximum HP, he escapes with the loot! [b]GAME OVER.[/b]",
-                "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}.",
-                "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn.",
+                "The first time [i]Momentum[/i] is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}.",
+                "At the start of each turn, [i]Momentum[/i] becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn.",
                 "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}.",
                 "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
             ],
@@ -49,11 +47,11 @@
             "flippedBody":"Dead-End Job",
             "flippedHitpoints":55,
             "flippedGameplay":[
-                "When {Breakaway} flips to this side...{BR}... remove {TheClient} from the game.{BR}... flip {Momentum} to its “Under Pressure“ side.{BR}... destroy {H} non-character hero cards.{BR}... {Breakaway} regains {H * 5} HP.",
-                "Skip start of turn effects on {Momentum}. At the start of the villain turn, flip {Momentum} twice.",
-                "As long as {Momentum} has more than...{BR}... {H * 3} HP, damage dealt by {Breakaway} is irreducible.{BR}... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1.{BR}... {H} HP, increase damage dealt by {Breakaway} by 1.",
-                "Whenever {Momentum}'s current HP becomes equal to its maximum HP, {Breakaway} deals each target 1 melee damage.",
-                "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
+                "When {Breakaway} flips to this side...{BR}... remove {TheClient} from the game.{BR}... flip [i]Momentum[/i] to its “Under Pressure“ side.{BR}... destroy {H} non-character hero cards.{BR}... {Breakaway} regains {H * 5} HP.",
+                "Skip start of turn effects on [i]Momentum[/i]. At the start of the villain turn, flip [i]Momentum[/i] twice.",
+                "As long as [i]Momentum[/i] has more than...{BR}... {H * 3} HP, damage dealt by {Breakaway} is irreducible.{BR}... {H * 2} HP, reduce damage dealt to {Breakaway} by 1.{BR}... {H} HP, increase damage dealt by {Breakaway} by 1.",
+                "Whenever [i]Momentum[/i]'s current HP becomes equal to its{BR}maximum HP, {Breakaway} deals each target 1 melee damage.",
+                "The first time a hero card enters play each turn,{BR}{Breakaway} deals that hero and the other hero target{BR}with the highest HP 0 melee damage each."
             ],
             "flippedAdvanced":[
                 "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
@@ -90,7 +88,7 @@
             "gameplay":[
                 "This card has a maximum HP of {H * 4} and is indestructible.",
                 "At the start of the villain turn, if this card has more than {H + 2} HP, flip it. If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands.",
-                "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each. Remove 5 HP from Breakaway unless he was dealt damage this way."
+                "At the end of the villain turn, restore this card to its maximum HP. Then, {Breakaway} deals himself and the 2 hero targets with the highest HP 2 melee damage each. Remove 5 HP from {Breakaway} unless he was dealt damage this way."
             ],
             "icons":[
                 "Indestructible",
@@ -127,7 +125,7 @@
             "body":[
                 "At the start of the villain turn, if {Breakaway} has less than 25 HP, {TheClient} skips town! Remove this card from the game.",
                 "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]",
-                "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
+                "The first time this card would be dealt damage each turn, redirect that damage to [i]Momentum[/i]."
             ],
             "icons":[
                 "StartOfTurnAction",
@@ -136,7 +134,10 @@
                 "RedirectDamage"
             ],
             "flavorQuotes":[
-                "Shake them off and meet me{BR}here. [b]IN. THAT. ORDER.[/b] Understand?"
+                {
+                    "identifier": "The Client",
+                    "text": "Shake them off and meet me{BR}here. [b]In. That. Order.[/b] Understand?"
+                }
             ],
             "flavorReference":"The Client, comic #"
         },
@@ -244,7 +245,7 @@
             ],
             "body":[
                 "Each player may destroy any number of their non-character cards.",
-                "For each player who destroyed at least 1 card this way, increase the next damage dealt to {Momentum} by 1 and 1 hero target regains 1 HP.",
+                "For each player who destroyed at least 1 card this way, increase the next damage dealt to [i]Momentum[/i] by 1 and 1 hero target regains 1 HP.",
                 "{Breakaway} regains X HP, where X = 3 plus the number of non-character hero cards in play."
             ],
             "icons":[
@@ -270,7 +271,7 @@
             "hitpoints":8,
             "body":[
                 "Reduce the first damage dealt to this card each turn by 1.",
-                "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn.",
+                "At the end of the villain turn, each hero except the 2 heroes with the lowest HP becomes [b]BLOCKED[/b] until the start of the villain turn.",
                 "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets. Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
             ],
             "icons":[
@@ -297,7 +298,7 @@
             ],
             "body":[
                 "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
-                "When {Momentum} flips to its “Under Pressure“ side, destroy this card and play the top card of the villain deck."
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "GainHP",
@@ -322,8 +323,8 @@
             ],
             "body":[
                 "Whenever a hero uses a power, their player discards a card.",
-                "At the end of the villain turn, {Momentum} deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
-                "When {Momentum} flips to its “Under Pressure“ side, destroy this card and play the top card of the villain deck."
+                "At the end of the villain turn, [i]Momentum[/i] deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "Discard",
@@ -350,8 +351,8 @@
             ],
             "body":[
                 "When this card enters play, {Breakaway} regains 1 HP.",
-                "At the end of each hero turn, if that player played a card and used a power this turn, {Momentum} regains 2 HP.",
-                "When {Momentum} flips, each player discards 1 card. Then, destroy this card."
+                "At the end of each hero turn, if that player played a card and used a power this turn, [i]Momentum[/i] regains 2 HP.",
+                "When [i]Momentum[/i] flips, each player discards 1 card. Then, destroy this card."
             ],
             "icons":[
                 "EndOfTurnAction",
@@ -402,7 +403,7 @@
             ],
             "body":[
                 "When this card enters play, reveal the environment deck. Put one of the 2 revealed cards with the highest HP into play and move this card next to it. Shuffle the other revealed cards into the environment deck. If no targets entered play this way, play the top card of the villain deck.",
-                "Whenever damage would be dealt to {Momentum}, redirect it to the target next to this card. If you can't, prevent that damage and destroy this card."
+                "Whenever damage would be dealt to [i]Momentum[/i], redirect it to the target next to this card. If you can't, prevent that damage and destroy this card."
             ],
             "icons":[
                 "Search",
