@@ -147,7 +147,16 @@
 					"text": "Anybody home? No?{BR}Well, here's your bullets back!"
 				}
 			],
-			"flavorReference": "Impulse, Impulse #72"
+			"flavorReference": "Impulse, Impulse #72",
+			"tokenPools":[
+				{
+					"identifier": "YouDroppedThisPool",
+					"name": "You Dropped This Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "50CCE5"
+				}
+			]
 		},
 		{
 			"identifier": "AirPocket",
@@ -532,7 +541,7 @@
 			],
 			"complexity": 2,
 			"openingLines":{
-				"default": "Mark Twain said, Always do right. This will gratify some people, and astonish the rest.",
+				"default": "Mark Twain said: Always do right. This will gratify some people, and astonish the rest.",
 				"oblivaeon": "You've only got one trick. I'm not scared of you."
 			}
 		}

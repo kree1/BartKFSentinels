@@ -14,7 +14,7 @@ namespace BartKFSentinels.Impulse
         public EnrageAndEvadeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            AllowFastCoroutinesDuringPretend = false;
         }
 
         public override void AddTriggers()
