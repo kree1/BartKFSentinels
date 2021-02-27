@@ -16,6 +16,7 @@ namespace BartKFSentinels.Impulse
         public YouDroppedThisCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
+            SpecialStringMaker.ShowTokenPool(YouDroppedThisPool).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         public override void AddTriggers()
