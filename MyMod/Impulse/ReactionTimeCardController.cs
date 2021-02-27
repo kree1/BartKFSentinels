@@ -14,7 +14,7 @@ namespace BartKFSentinels.Impulse
         public ReactionTimeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            AllowFastCoroutinesDuringPretend = false;
         }
 
         public override void AddTriggers()
@@ -78,7 +78,25 @@ namespace BartKFSentinels.Impulse
                 }
 
                 // "If you do, destroy this card and {ImpulseCharacter} deals himself 2 melee and 2 energy damage."
-                IEnumerator destroyCoroutine = base.GameController.DestroyCard(base.HeroTurnTakerController, base.Card, responsibleCard: base.Card, postDestroyAction: () => SelfDamageSequence(), cardSource: GetCardSource());
+                IEnumerator meleeCoroutine = base.GameController.DealDamageToSelf(base.HeroTurnTakerController, (Card c) => c == base.CharacterCard, 2, DamageType.Melee, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(meleeCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(meleeCoroutine);
+                }
+                IEnumerator energyCoroutine = base.GameController.DealDamageToSelf(base.HeroTurnTakerController, (Card c) => c == base.CharacterCard, 2, DamageType.Energy, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(energyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(energyCoroutine);
+                }
+                IEnumerator destroyCoroutine = base.GameController.DestroyCard(base.HeroTurnTakerController, base.Card, responsibleCard: base.Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

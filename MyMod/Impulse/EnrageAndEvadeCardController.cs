@@ -46,6 +46,7 @@ namespace BartKFSentinels.Impulse
             crashEffect.DamageAmountCriteria.GreaterThan = 0;
             crashEffect.NumberOfUses = 1;
             crashEffect.UntilCardLeavesPlay(provoked);
+            crashEffect.CanEffectStack = true;
 
             IEnumerator statusCoroutine = base.GameController.AddStatusEffect(crashEffect, true, GetCardSource());
             if (base.UseUnityCoroutines)

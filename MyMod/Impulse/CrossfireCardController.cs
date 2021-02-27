@@ -73,6 +73,7 @@ namespace BartKFSentinels.Impulse
                 preventNextDamage.NumberOfUses = 1;
                 preventNextDamage.UntilCardLeavesPlay(targetChosen);
                 preventNextDamage.UntilCardLeavesPlay(base.CharacterCard);
+                preventNextDamage.CanEffectStack = true;
 
                 IEnumerator statusCoroutine = base.AddStatusEffect(preventNextDamage);
                 if (base.UseUnityCoroutines)

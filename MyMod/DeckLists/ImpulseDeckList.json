@@ -246,11 +246,7 @@
 				"Discard",
 				"DealDamageProjectile"
 			],
-			"flavorQuotes":[
-				{
-					"text": "Speedsters occasionally make{BR}sudden 90-degree turns. Rocks don't."
-				}
-			],
+			"flavorText": "Speedsters occasionally make{BR}sudden 90-degree turns. Rocks don't.",
 			"flavorReference": "Impulse #18"
 		},
 		{

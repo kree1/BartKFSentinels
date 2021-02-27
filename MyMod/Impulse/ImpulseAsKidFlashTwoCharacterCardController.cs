@@ -17,16 +17,46 @@ namespace BartKFSentinels.Impulse
 
         }
 
+        public readonly string DamageBeingRedirectedKey = "DamageBeingRedirected";
+        public readonly string PowerNumeralForHPGainKey = "PowerNumeralForHPGain";
+
+        public override void AddTriggers()
+        {
+            // When this card takes damage, if that damage was marked as redirected by this card's power, activate GainHPResponse
+            AddTrigger((DealDamageAction dd) => dd.Target == Card && dd.DidDealDamage && GetCardPropertyJournalEntryBoolean(DamageBeingRedirectedKey).HasValueWhere((val) => val == true), GainHPResponse, TriggerType.GainHP, TriggerTiming.After);
+        }
+
+        private IEnumerator GainHPResponse(DealDamageAction dd)
+        {
+            // Get the amount of HP to regain from the Journal and regain that much HP
+            int? hpGainAmount = GetCardPropertyJournalEntryInteger(PowerNumeralForHPGainKey);
+            IEnumerator coroutine = GameController.GainHP(Card, hpGainAmount, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(coroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(coroutine);
+            }
+
+            Game.Journal.RecordCardProperties(Card, DamageBeingRedirectedKey, (bool?)null);
+            Game.Journal.RecordCardProperties(Card, PowerNumeralForHPGainKey, (int?)null);
+
+            yield break;
+        }
+
         public override IEnumerator UsePower(int index = 0)
         {
+            int hpGain = GetPowerNumeral(0, 2);
+            int[] powerNumerals = { hpGain };
+
             // "The next time another hero would be dealt damage, redirect it to {ImpulseCharacter}. If {ImpulseCharacter} takes damage this way, he regains 2 HP."
-            RedirectDamageStatusEffect redirect = new RedirectDamageStatusEffect();
+            OnDealDamageStatusEffect redirect = new OnDealDamageStatusEffect(CardWithoutReplacements, nameof(RedirectDamageToMe), "The next time another hero would be dealt damage, redirect it to " + base.Card.Title + ". If " + base.Card.Title + " takes damage this way, he regains 2 HP.", new TriggerType[] { TriggerType.RedirectDamage, TriggerType.GainHP }, base.TurnTaker, base.Card, powerNumerals);
             redirect.CardFlippedExpiryCriteria.Card = base.Card;
             redirect.TargetCriteria.IsHeroCharacterCard = true;
             redirect.TargetCriteria.IsNotSpecificCard = base.Card;
-            redirect.RedirectTarget = base.Card;
             redirect.NumberOfUses = 1;
-            redirect.FinalTargetRegainsHP = 2;
             IEnumerator redirectCoroutine = AddStatusEffect(redirect);
             if (base.UseUnityCoroutines)
             {
@@ -35,6 +65,58 @@ namespace BartKFSentinels.Impulse
             else
             {
                 base.GameController.ExhaustCoroutine(redirectCoroutine);
+            }
+            yield break;
+        }
+
+        public IEnumerator RedirectDamageToMe(DealDamageAction dd, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
+        {
+            // "... redirect it to {ImpulseCharacter}. If {ImpulseCharacter} takes damage this way, he regains 2 HP."
+            int? num = null;
+            if (powerNumerals != null)
+            {
+                num = powerNumerals.ElementAtOrDefault(0);
+            }
+            if (!num.HasValue)
+            {
+                num = 2;
+            }
+
+            if (dd.IsRedirectable)
+            {
+                IEnumerator coroutine = GameController.RedirectDamage(dd, Card, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coroutine);
+                }
+
+                // Use the CardProperty to activate the heal trigger from AddTriggers()
+                SetCardPropertyToTrueIfRealAction(DamageBeingRedirectedKey);
+                // Use the Journal to record how much HP to regain
+                Game.Journal.RecordCardProperties(Card, PowerNumeralForHPGainKey, num);
+            }
+            yield break;
+        }
+
+        private IEnumerator HealResponse(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
+        {
+            // Impulse regains 2 HP
+            int hpGain = powerNumerals[0];
+            if (hpGain > 0)
+            {
+                IEnumerator healCoroutine = base.GameController.GainHP(base.Card, hpGain, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(healCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(healCoroutine);
+                }
             }
             yield break;
         }

@@ -30,7 +30,7 @@ namespace BartKFSentinels.Impulse
         public override IEnumerator Play()
         {
             // Reset the token pool
-            YouDroppedThisPool.SetToInitialValue();
+            //YouDroppedThisPool.SetToInitialValue();
             yield break;
         }
 

@@ -48,6 +48,7 @@ namespace BartKFSentinels.Impulse
                 preventNextDamage.TargetCriteria.IsHero = true;
                 preventNextDamage.DamageAmountCriteria.GreaterThan = 0;
                 preventNextDamage.NumberOfUses = 1;
+                preventNextDamage.CanEffectStack = true;
 
                 IEnumerator statusCoroutine = base.AddStatusEffect(preventNextDamage);
                 if (base.UseUnityCoroutines)
