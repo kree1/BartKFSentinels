@@ -14,8 +14,8 @@ namespace BartKFSentinels.Breakaway
             : base(card, turnTakerController)
         {
             // TODO: find out how to get the name of the active player
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PlayedThisTurn), () => "[player name] has played a card this turn", () => "[player name] has not played a card this turn");
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PowerThisTurn), () => "[player name] has used a power this turn", () => "[player name] has not used a power this turn");
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PlayedThisTurn), () => Game.ActiveTurnTaker.ToHero().ToString() + " has played a card this turn", () => "[player name] has not played a card this turn");
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PowerThisTurn), () => Game.ActiveTurnTaker.ToHero().ToString() + " has used a power this turn", () => "[player name] has not used a power this turn");
         }
 
         public override void AddTriggers()

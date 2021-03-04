@@ -13,7 +13,8 @@
 	"dll": "BartKFMod.dll",
 	"decks": {
 		"heroes": [
-			"Impulse"
+			"Impulse",
+			"TheGoalie"
 		],
 		"villains": [
 			"Breakaway"

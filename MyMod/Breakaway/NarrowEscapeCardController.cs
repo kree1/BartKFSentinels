@@ -11,6 +11,15 @@ namespace BartKFSentinels.Breakaway
 {
     public class NarrowEscapeCardController : CardController
     {
+        public NarrowEscapeCardController(Card card, TurnTakerController turnTakerController)
+            : base(card, turnTakerController)
+        {
+            SpecialStringMaker.ShowHasBeenUsedThisTurn(OncePerTurn);
+            SpecialStringMaker.ShowSpecialString(BuildBlockedSpecialString);
+            SpecialStringMaker.ShowSpecialString(BuildNotBlockedSpecialString);
+            SpecialStringMaker.ShowLowestHP(1, () => 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard));
+        }
+
         public List<Card> blockedHeroes = new List<Card>();
 
         public bool IsBlocked(Card c)
@@ -74,14 +83,6 @@ namespace BartKFSentinels.Breakaway
             return unblockedSpecial;
         }
 
-        public NarrowEscapeCardController(Card card, TurnTakerController turnTakerController)
-            : base(card, turnTakerController)
-        {
-            SpecialStringMaker.ShowSpecialString(BuildBlockedSpecialString);
-            SpecialStringMaker.ShowSpecialString(BuildNotBlockedSpecialString);
-            SpecialStringMaker.ShowLowestHP(1, () => 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard));
-        }
-
         protected const string OncePerTurn = "ReduceDamageOncePerTurn";
         private ITrigger ReduceDamageTrigger;
 
@@ -92,10 +93,6 @@ namespace BartKFSentinels.Breakaway
             this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, ReduceDamage, TriggerType.ReduceDamage, TriggerTiming.Before);
             // "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn."
             base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, AssignBlocked, TriggerType.Other);
-            // "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets."
-            //base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.DamageSource.Card) && dda.Target.IsVillainTarget && !dda.Target.DoKeywordsContain("terrain"), PreventDamage, TriggerType.CancelAction, TriggerTiming.Before, requireActionSuccess: false);
-            // "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
-            //base.AddTrigger<DealDamageAction>((DealDamageAction dda) => IsBlocked(dda.Target) && dda.DamageSource.Card.IsVillainTarget, RedirectDamage, TriggerType.RedirectDamage, TriggerTiming.Before);
         }
 
         public override IEnumerator Play()
@@ -135,7 +132,7 @@ namespace BartKFSentinels.Breakaway
             foreach (Card hero in toBlock)
             {
                 //Log.Debug("Creating status effects for " + hero.Title);
-                // BLOCKED comprises 2 status effects, both expiring at the start of the villain turn or when the hero leaves play:
+                // BLOCKED comprises 2 status effects, both expiring at the start of the villain turn, when the hero leaves play, or when this card leaves play:
                 // The hero cannot deal damage to non-Terrain villain targets
                 OnDealDamageStatusEffect cantHitNonTerrain = new OnDealDamageStatusEffect(cardWithMethod: this.Card, methodToExecute: nameof(this.PreventDamage), description: hero.Title + " cannot deal damage to non-Terrain villain targets.", triggerTypes: new TriggerType[] { TriggerType.CancelAction }, decisionMaker: base.TurnTaker, cardSource: this.Card, powerNumerals: null);
                 //Log.Debug("Initialized cantHitNonTerrain");

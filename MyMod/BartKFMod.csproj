@@ -89,6 +89,23 @@
     <Compile Include="TheBaddies\TheBaddiesTurnTakerController.cs" />
     <Compile Include="TheBaddies\FireEverythingCardController.cs" />
     <Compile Include="DevStream\DroppedFrameCardController.cs" />
+    <Compile Include="TheGoalie\EighteenYardBoxCardController.cs" />
+    <Compile Include="TheGoalie\ExtraTimeCardController.cs" />
+    <Compile Include="TheGoalie\HospitalBallCardController.cs" />
+    <Compile Include="TheGoalie\HuddleUpCardController.cs" />
+    <Compile Include="TheGoalie\MoveTheGoalpostsCardController.cs" />
+    <Compile Include="TheGoalie\OffsidesCardController.cs" />
+    <Compile Include="TheGoalie\OutOfBoundsCardController.cs" />
+    <Compile Include="TheGoalie\OvercrowdingCardController.cs" />
+    <Compile Include="TheGoalie\ParkTheBusCardController.cs" />
+    <Compile Include="TheGoalie\PlaceOfPowerCardController.cs" />
+    <Compile Include="TheGoalie\ReturnToSenderCardController.cs" />
+    <Compile Include="TheGoalie\ShootoutCardController.cs" />
+    <Compile Include="TheGoalie\StartingWhistleCardController.cs" />
+    <Compile Include="TheGoalie\TeamSpiritCardController.cs" />
+    <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />
+    <Compile Include="TheGoalie\TheGoalieUtilityCardController.cs" />
+    <Compile Include="TheGoalie\TwelfthGirlCardController.cs" />
     <Compile Include="TheHugMonsterTeam\TheHugMonsterTeamCharacterCardController.cs" />
     <Compile Include="TheHugMonsterTeam\WarmEmbraceCardController.cs" />
     <Compile Include="MigrantCoder\MigrantCoderLockdownCharacterCardController.cs" />
@@ -107,9 +124,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\TheGoalieDeckList.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TheGoalie\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\ImpulseDeckList.json" />
     <None Include="manifest.json">

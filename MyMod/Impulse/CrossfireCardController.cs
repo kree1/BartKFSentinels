@@ -53,7 +53,7 @@ namespace BartKFSentinels.Impulse
         {
             // "Choose a target. Prevent the next damage that target would deal to {ImpulseCharacter}. Draw a card."
             List<SelectCardDecision> targetChoices = new List<SelectCardDecision>();
-            IEnumerator chooseCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.SelectTarget, new LinqCardCriteria((Card c) => c.IsTarget && c.IsInPlayAndHasGameText && GameController.IsCardVisibleToCardSource(c, GetCardSource())), targetChoices, false, cardSource: GetCardSource());
+            IEnumerator chooseCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.SelectTargetNoDamage, new LinqCardCriteria((Card c) => c.IsTarget && c.IsInPlayAndHasGameText && GameController.IsCardVisibleToCardSource(c, GetCardSource())), targetChoices, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(chooseCoroutine);

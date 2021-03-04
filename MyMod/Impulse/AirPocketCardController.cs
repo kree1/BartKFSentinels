@@ -14,14 +14,14 @@ namespace BartKFSentinels.Impulse
         public AirPocketCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            AllowFastCoroutinesDuringPretend = false;
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
             // "When that target would be dealt damage, prevent that damage and destroy this card."
-            AddTrigger<DealDamageAction>((DealDamageAction dda) => !dda.IsPretend && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0, DealtDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DestroySelf }, TriggerTiming.Before);
+            AddTrigger<DealDamageAction>((DealDamageAction dda) => !dda.IsPretend && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0, DealtDamageResponse, new TriggerType[] { TriggerType.DestroySelf }, TriggerTiming.Before);
             // "When this card is destroyed, you may draw a card or use a power."
             AddWhenDestroyedTrigger(OnDestroyResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.UsePower });
         }
