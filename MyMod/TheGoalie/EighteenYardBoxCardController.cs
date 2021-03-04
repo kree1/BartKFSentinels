@@ -49,9 +49,9 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, move it to a play area with no Goalposts cards."
+            // "When this card enters play, move it to a play area with no other Goalposts cards."
             List<SelectTurnTakerDecision> decisions = new List<SelectTurnTakerDecision>();
-            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsGoalposts(c)).Count() == 0, cardSource: GetCardSource());
+            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsGoalposts(c)).Count() == 0 || tt.PlayArea.Cards.Where((Card c) => IsGoalposts(c)).Count() == 1 && tt.PlayArea == base.Card.Location, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(directCoroutine);

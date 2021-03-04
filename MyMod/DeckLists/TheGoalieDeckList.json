@@ -47,7 +47,7 @@
 				"goalposts"
 			],
 			"body":[
-				"When this card enters play, move it to a play area with no Goalposts cards. You may play a Goalposts card from your trash. Then, destroy all but 2 Goalposts cards.",
+				"When this card enters play, move it to a play area with no other Goalposts cards. You may play a Goalposts card from your trash. Then, destroy all but 2 Goalposts cards.",
 				"When damage would be dealt to or by {TheGoalieCharacter} to or by a target in this play area, you may increase or reduce that damage by 1."
 			],
 			"icons":[
