@@ -31,7 +31,7 @@ namespace BartKFSentinels.TheGoalie
             int damageAmount = GetPowerNumeral(1, 2);
             int goalpostsThreshold = GetPowerNumeral(2, 3);
             // "{TheGoalieCharacter} deals up to 2 targets 2 melee damage each."
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), damageAmount, DamageType.Melee, new int?(numTargets), optional: true, new int?(0), stopDealingDamage: () => true, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), damageAmount, DamageType.Melee, new int?(numTargets), optional: false, new int?(0), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
