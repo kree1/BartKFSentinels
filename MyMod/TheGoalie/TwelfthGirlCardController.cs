@@ -25,21 +25,7 @@ namespace BartKFSentinels.TheGoalie
         {
             base.AddTriggers();
             // "Once per turn, when a hero target would be dealt exactly 1 damage, you may prevent that damage."
-            base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && dda.Target.IsHero && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP }, TriggerTiming.Before);
-
-            // Simplifying for debug: when a hero target would be dealt exactly 1 damage, prevent that damage.
-            // This works, whether the damage is 1 initially, increased to 1, or reduced to 1.
-            //base.AddPreventDamageTrigger((DealDamageAction dda) => dda.Target.IsHero && dda.Amount == 1, isPreventEffect: true);
-
-            // Simplifying for debug: when a hero target would be dealt exactly 1 damage, prevent that damage and up to X hero targets each regain 1 HP, where X = 2 times the number of Goalposts cards in hero play areas.
-            // With SetCardProperty commented out of FollowUp, this works every time, whether the damage is 1 initially, increased to 1, or reduced to 1.
-            //base.AddPreventDamageTrigger((DealDamageAction dda) => dda.Target.IsHero && dda.Amount == 1, FollowUp, new TriggerType[] { TriggerType.GainHP }, isPreventEffect: true);
-
-            // Simplifying for debug: the first time each turn a hero target would be dealt exactly 1 damage, prevent that damage and up to X hero targets each regain 1 HP, where X = 2 times the number of Goalposts cards in hero play areas.
-            // With SetCardProperty uncommented in FollowUp...
-            // Works if first damage is increased to 1, already 1, or reduced to 1
-            // Sets flag after working and won't repeat itself
-            //base.AddPreventDamageTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && dda.Target.IsHero && dda.Amount == 1, FollowUp, new TriggerType[] { TriggerType.GainHP }, isPreventEffect: true);
+            base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && dda.Target.IsHero && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
         }
 
         public IEnumerator FollowUp(DealDamageAction dda)
