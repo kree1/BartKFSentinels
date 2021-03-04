@@ -62,25 +62,29 @@ namespace BartKFSentinels.Impulse
 
         public IEnumerator PreventAndDestroy(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
         {
-            // "... prevent that damage..."
-            IEnumerator preventCoroutine = GameController.CancelAction(dda, isPreventEffect: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (!dda.IsPretend && effect.UsePowerExpiryCriteria.IsSpecificCard != base.Card)
             {
-                yield return base.GameController.StartCoroutine(preventCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(preventCoroutine);
-            }
-            // "... and you may destroy an environment card."
-            IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsEnvironment && c.IsInPlay, "environment"), true, responsibleCard: base.Card, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(destroyCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(destroyCoroutine);
+                effect.UsePowerExpiryCriteria.IsSpecificCard = base.Card;
+                // "... prevent that damage..."
+                IEnumerator preventCoroutine = GameController.CancelAction(dda, isPreventEffect: true, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(preventCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(preventCoroutine);
+                }
+                // "... and you may destroy an environment card."
+                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsEnvironment && c.IsInPlay, "environment"), true, responsibleCard: base.Card, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(destroyCoroutine);
+                }
             }
             yield break;
         }
