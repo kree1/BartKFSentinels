@@ -47,11 +47,11 @@ namespace BartKFSentinels.TheGoalie
                 IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, optional: true, cardCriteria: new LinqCardCriteria((Card c) => c.IsOngoing));
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                    yield return base.GameController.StartCoroutine(playCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(destroyCoroutine);
+                    base.GameController.ExhaustCoroutine(playCoroutine);
                 }
             }
             yield break;

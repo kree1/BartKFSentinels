@@ -9,6 +9,7 @@
 			"identifier": "TheGoalieCharacter",
 			"count": 1,
 			"title": "The Goalie",
+			"backgroundColor": "3DDF00",
 			"body": "Goal Kick",
 			"character": true,
 			"powers":[
