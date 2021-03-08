@@ -479,8 +479,8 @@
 			],
 			"icons":[
 				"HasPower",
-				"Discard",
-				"DealDamageInfernal"
+				"DealDamageInfernal",
+				"DealDamagePsychic"
 			],
 			"hitpoints": 26,
 			"nemesisIdentifiers":[
