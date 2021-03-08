@@ -25,7 +25,7 @@
 			"nemesisIdentifiers":[
 				"Impulse"
 			],
-			"IncapacitatedAbilities":[
+			"incapacitatedAbilities":[
 				"One player may draw a card now.",
 				"One hero may deal 1 target 2 melee damage.",
 				"Discard the top card of a deck."
@@ -448,7 +448,7 @@
 			"nemesisIdentifiers":[
 				"Impulse"
 			],
-			"IncapacitatedAbilities":[
+			"incapacitatedAbilities":[
 				"Select a target. Increase the next damage dealt by that target by 2.",
 				"Put a card from a trash on the bottom of its deck.",
 				"One hero may use a power now."
@@ -486,7 +486,7 @@
 			"nemesisIdentifiers":[
 				"Impulse"
 			],
-			"IncapacitatedAbilities":[
+			"incapacitatedAbilities":[
 				"Destroy an Ongoing card.",
 				"Destroy an environment card.",
 				"1 target regains 2 HP."
@@ -524,7 +524,7 @@
 			"nemesisIdentifiers":[
 				"Impulse"
 			],
-			"IncapacitatedAbilities":[
+			"incapacitatedAbilities":[
 				"One player may play a card now.",
 				"One player draws 2 cards, then discards a card.",
 				"Destroy a target with 1 HP."
