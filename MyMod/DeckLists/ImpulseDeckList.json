@@ -38,7 +38,7 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "Sorry, are you still talking?",
-				"oblivaeon": "Okay. Let's get serious. What would Grampa Barry do?"
+				"OblivAeonFrontPageCharacter": "Okay. Let's get serious. What would Grampa Barry do?"
 			}
 		},
 		{
@@ -257,7 +257,7 @@
 				"one-shot"
 			],
 			"body":[
-				"{ImpulseCharacter} deals 1 target 1 sonic damage.",
+				"{ImpulseCharacter} deals 1 target 3 sonic damage.",
 				"The next time that target would deal damage, prevent that damage and you may destroy an environment card."
 			],
 			"icons":[
@@ -335,8 +335,8 @@
 				"one-shot"
 			],
 			"body":[
-				"{ImpulseCharacter} deals 1 target 1 lightning damage. You may draw a card.",
-				"You may discard a card. If you don't, {ImpulseCharacter} deals himself 1 lightning damage.",
+				"{ImpulseCharacter} deals 1 target 2 lightning damage. You may draw a card.",
+				"You may discard a card. If you do, {ImpulseCharacter} deals himself 1 lightning damage.",
 				"One player may play a card."
 			],
 			"icons":[
@@ -362,7 +362,7 @@
 			],
 			"body":[
 				"Up to 2 other players may each return a card from their trash to their hand.",
-				"You may draw a card or play an Ongoing card. If you played a card this way, {ImpulseCharacter} deals himself 2 energy damage."
+				"You may draw a card or play an Ongoing card."
 			],
 			"icons":[
 				"Manipulate",
@@ -461,7 +461,7 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "Wow, if only we had someone who could tell us your whole plan and how to beat you... oh, right!",
-				"oblivaeon": "If I can't find the future, we'll have to make one."
+				"OblivAeonFrontPageCharacter": "If I can't find the future, we'll have to make one."
 			}
 		},
 		{
@@ -475,7 +475,7 @@
 			"body": "Quick Fix",
 			"character": true,
 			"powers":[
-				"Discard a card. If you do, {ImpulseCharacter} deals 1 target 3 infernal damage."
+				"{ImpulseCharacter} deals 1 target 3 infernal damage and deals himself 1 psychic damage."
 			],
 			"icons":[
 				"HasPower",
@@ -499,7 +499,7 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "My magic can take care of this! No sweat!",
-				"oblivaeon": "I already fixed everything! I saved everyone! You're not taking that from me!"
+				"OblivAeonFrontPageCharacter": "I already fixed everything! I saved everyone! You're not taking that from me!"
 			}
 		},
 		{
@@ -538,7 +538,7 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "Mark Twain said: Always do right. This will gratify some people, and astonish the rest.",
-				"oblivaeon": "You've only got one trick. I'm not scared of you."
+				"OblivAeonFrontPageCharacter": "You've only got one trick. I'm not scared of you."
 			}
 		}
 	]

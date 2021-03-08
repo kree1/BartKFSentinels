@@ -17,15 +17,10 @@ namespace BartKFSentinels.Impulse
 
         }
 
-        public override void AddTriggers()
-        {
-            base.AddTriggers();
-        }
-
         public override IEnumerator Play()
         {
-            // "{ImpulseCharacter} deals 1 target 1 lightning damage."
-            IEnumerator targetDamageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 1, DamageType.Lightning, 1, false, 1, cardSource: GetCardSource());
+            // "{ImpulseCharacter} deals 1 target 2 lightning damage."
+            IEnumerator targetDamageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Lightning, 1, false, 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(targetDamageCoroutine);

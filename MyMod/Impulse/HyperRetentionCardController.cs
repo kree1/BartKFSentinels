@@ -17,11 +17,6 @@ namespace BartKFSentinels.Impulse
 
         }
 
-        public override void AddTriggers()
-        {
-            base.AddTriggers();
-        }
-
         public override IEnumerator Play()
         {
             // "Up to 2 other players may each return a card from their trash to their hand."
@@ -49,19 +44,6 @@ namespace BartKFSentinels.Impulse
             else
             {
                 base.GameController.ExhaustCoroutine(chooseCoroutine);
-            }
-            // "If you played a card this way, {ImpulseCharacter} deals himself 2 energy damage."
-            if (base.DidPlayCards(plays))
-            {
-                IEnumerator selfDamageCoroutine = base.GameController.DealDamageToSelf(base.HeroTurnTakerController, (Card c) => c == base.CharacterCard, 2, DamageType.Energy, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(selfDamageCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(selfDamageCoroutine);
-                }
             }
             yield break;
         }

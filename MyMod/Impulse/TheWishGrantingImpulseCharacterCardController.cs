@@ -19,30 +19,27 @@ namespace BartKFSentinels.Impulse
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Discard a card. If you do, {ImpulseCharacter} deals 1 target 3 infernal damage."
+            // "{ImpulseCharacter} deals 1 target 3 infernal damage and deals himself 1 psychic damage."
             int target = GetPowerNumeral(0, 1);
-            int amount = GetPowerNumeral(1, 3);
-            List<DiscardCardAction> discards = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = base.SelectAndDiscardCards(base.HeroTurnTakerController, 1, storedResults: discards);
+            int infernal = GetPowerNumeral(1, 3);
+            int psychic = GetPowerNumeral(2, 1);
+            IEnumerator infernalCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.Card), infernal, DamageType.Infernal, target, false, target, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(discardCoroutine);
+                yield return base.GameController.StartCoroutine(infernalCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(discardCoroutine);
+                base.GameController.ExhaustCoroutine(infernalCoroutine);
             }
-            if (DidDiscardCards(discards))
+            IEnumerator psychicCoroutine = base.GameController.DealDamage(base.HeroTurnTakerController, base.CharacterCard, (Card c) => c == base.CharacterCard, psychic, DamageType.Psychic, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
             {
-                IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.Card), amount, DamageType.Infernal, target, false, target, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(damageCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(damageCoroutine);
-                }
+                yield return base.GameController.StartCoroutine(psychicCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(psychicCoroutine);
             }
             yield break;
         }

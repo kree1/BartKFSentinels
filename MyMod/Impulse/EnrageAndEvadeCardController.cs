@@ -24,8 +24,8 @@ namespace BartKFSentinels.Impulse
 
         public override IEnumerator Play()
         {
-            // "{ImpulseCharacter} deals 1 target 1 sonic damage."
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 1, DamageType.Sonic, 1, false, 1, addStatusEffect: AddCrashEffect, selectTargetsEvenIfCannotDealDamage: true, cardSource: GetCardSource());
+            // "{ImpulseCharacter} deals 1 target 3 sonic damage."
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 3, DamageType.Sonic, 1, false, 1, addStatusEffect: AddCrashEffect, selectTargetsEvenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

@@ -36,7 +36,8 @@
 			],
 			"complexity":2,
 			"openingLines":{
-				"default": "You're not getting past me."
+				"default": "You're not getting past me.",
+				"OblivAeonFrontPageCharacter": "You're over the line."
 			}
 		},
 		{
