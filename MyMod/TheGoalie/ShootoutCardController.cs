@@ -14,7 +14,7 @@ namespace BartKFSentinels.TheGoalie
         public ShootoutCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInPlay() > 0;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInNonHeroPlayAreas() > 0;
         }
 
         public override IEnumerator Play()

@@ -14,8 +14,8 @@ namespace BartKFSentinels.TheGoalie
         public PlaceOfPowerCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(ReduceOncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.", () => true);
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(IncreaseOncePerTurn), () => base.Card.Title + " has already increased damage this turn.", () => base.Card.Title + " has not yet increased damage this turn.", () => true);
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(ReduceOncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(IncreaseOncePerTurn), () => base.Card.Title + " has already increased damage this turn.", () => base.Card.Title + " has not yet increased damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         protected const string ReduceOncePerTurn = "ReduceOncePerTurn";
