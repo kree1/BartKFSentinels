@@ -19,28 +19,97 @@ namespace BartKFSentinels.Impulse
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Reveal the top card of a deck. Replace or discard it."
-            List<SelectLocationDecision> deckChoice = new List<SelectLocationDecision>();
-            IEnumerator chooseDeckCoroutine = base.GameController.SelectADeck(base.HeroTurnTakerController, SelectionType.RevealTopCardOfDeck, (Location l) => l.HasCards, deckChoice, noValidLocationsMessage: "There are no decks with a top card to reveal.", cardSource: GetCardSource());
+            // "Reveal and replace the top card of a deck."
+            List<SelectLocationDecision> revealChoice = new List<SelectLocationDecision>();
+            Location revealedDeck = null;
+            Card revealedCard = null;
+            IEnumerator chooseRevealCoroutine = base.GameController.SelectADeck(base.HeroTurnTakerController, SelectionType.RevealTopCardOfDeck, (Location l) => l.HasCards, revealChoice, noValidLocationsMessage: "There are no decks with a top card to reveal.", cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(chooseDeckCoroutine);
+                yield return base.GameController.StartCoroutine(chooseRevealCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(chooseDeckCoroutine);
+                base.GameController.ExhaustCoroutine(chooseRevealCoroutine);
             }
-            Location chosenDeck = GetSelectedLocation(deckChoice);
-            if (chosenDeck != null)
+            if (DidSelectLocation(revealChoice))
             {
-                IEnumerator revealCoroutine = RevealCard_DiscardItOrPutItOnDeck(base.HeroTurnTakerController, base.TurnTakerController, chosenDeck, toBottom: false, fromBottom: false);
-                if (base.UseUnityCoroutines)
+                revealedDeck = GetSelectedLocation(revealChoice);
+                if (revealedDeck != null)
                 {
-                    yield return base.GameController.StartCoroutine(revealCoroutine);
+                    List<Card> revealed = new List<Card>();
+                    IEnumerator revealCoroutine = base.GameController.RevealCards(base.TurnTakerController, revealedDeck, 1, revealed, revealedCardDisplay: RevealedCardDisplay.ShowRevealedCards, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(revealCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(revealCoroutine);
+                    }
+                    if (revealed.Count > 0)
+                    {
+                        // Save this card's identity for later
+                        revealedCard = revealed.FirstOrDefault();
+                    }
+                    IEnumerator replaceCoroutine = base.CleanupRevealedCards(revealedDeck.OwnerTurnTaker.Revealed, revealedDeck);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(replaceCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(replaceCoroutine);
+                    }
+                }
+            }
+            // "Discard or play the top card of a deck."
+            // Choose a deck to manipulate.
+            List<SelectLocationDecision> manipulateDeckChoice = new List<SelectLocationDecision>();
+            IEnumerator chooseManipulateCoroutine = base.GameController.SelectADeck(base.HeroTurnTakerController, SelectionType.PlayTopCard, (Location l) => l.HasCards, manipulateDeckChoice, noValidLocationsMessage: "There are no decks with a top card to play or discard.", cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(chooseManipulateCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(chooseManipulateCoroutine);
+            }
+            if (DidSelectLocation(manipulateDeckChoice))
+            {
+                Location manipulatingDeck = GetSelectedLocation(manipulateDeckChoice);
+                TurnTaker deckOwner = manipulatingDeck.OwnerTurnTaker;
+                // If that deck is the same one you revealed from, and if its top card is the same card you revealed, then you can look at that card while deciding to play or discard it.
+                // Otherwise, you have to choose blindly- play or discard?
+                List<Card> knownCards = new List<Card>();
+                string playOptionName = "Play top card";
+                string discardOptionName = "Discard top card";
+                if (manipulatingDeck == revealedDeck && manipulatingDeck.TopCard == revealedCard)
+                {
+                    knownCards.Add(revealedCard);
+                    playOptionName = "Play it";
+                    discardOptionName = "Discard it";
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(revealCoroutine);
+                    playOptionName = "Play the top card of " + deckOwner.Name + "'s deck";
+                    discardOptionName = "Discard the top card of " + deckOwner.Name + "'s deck";
+                }
+                // Play or discard the top card?
+                List<Function> options = new List<Function>();
+                Function playOption = new Function(base.HeroTurnTakerController, playOptionName, SelectionType.PlayCard, () => base.GameController.PlayTopCard(base.HeroTurnTakerController, base.GameController.FindTurnTakerController(deckOwner), optional: false, numberOfCards: 1, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource()), onlyDisplayIfTrue: deckOwner.Deck.HasCards || deckOwner.Trash.HasCards);
+                options.Add(playOption);
+                Function discardOption = new Function(base.HeroTurnTakerController, discardOptionName, SelectionType.DiscardCard, () => base.GameController.DiscardTopCard(manipulatingDeck, null, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource()), onlyDisplayIfTrue: deckOwner.Deck.HasCards || deckOwner.Trash.HasCards);
+                options.Add(discardOption);
+                SelectFunctionDecision manipulateChoice = new SelectFunctionDecision(base.GameController, base.HeroTurnTakerController, options, false, noSelectableFunctionMessage: "There are no cards in " + deckOwner.Name + "'s deck or trash to play or discard.", associatedCards: knownCards, cardSource: GetCardSource());
+                IEnumerator manipulateCoroutine = base.GameController.SelectAndPerformFunction(manipulateChoice, associatedCards: knownCards);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(manipulateCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(manipulateCoroutine);
                 }
             }
             yield break;

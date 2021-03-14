@@ -43,7 +43,7 @@ namespace BartKFSentinels.Impulse
 
             // "You may discard a card. If you don't, {ImpulseCharacter} deals himself 1 lightning damage."
             List<DiscardCardAction> discards = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = base.GameController.SelectAndDiscardCard(base.HeroTurnTakerController, optional: true, storedResults: discards, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+            IEnumerator discardCoroutine = base.GameController.SelectAndDiscardCard(base.HeroTurnTakerController, optional: true, storedResults: discards, selectionType: SelectionType.DiscardCard, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(discardCoroutine);

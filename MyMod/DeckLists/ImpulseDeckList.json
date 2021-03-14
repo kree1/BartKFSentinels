@@ -438,7 +438,7 @@
 			"body": "Scout Ahead",
 			"character": true,
 			"powers":[
-				"Reveal the top card of a deck. Replace or discard it."
+				"Reveal and replace the top card of a deck. Discard or play the top card of a deck."
 			],
 			"icons":[
 				"HasPower",
