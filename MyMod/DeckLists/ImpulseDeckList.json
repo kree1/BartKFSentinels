@@ -23,7 +23,7 @@
 			],
 			"hitpoints": 23,
 			"nemesisIdentifiers":[
-				"Impulse"
+				"BartKFMod.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"One player may draw a card now.",
@@ -42,57 +42,29 @@
 			}
 		},
 		{
-			"identifier": "InstinctiveVibration",
-			"count": 3,
-			"title": "Instinctive Vibration",
+			"identifier": "AirPocket",
+			"count": 4,
+			"title": "Air Pocket",
 			"keywords":[
-				"ongoing",
-				"limited"
+				"ongoing"
 			],
 			"body":[
-				"Whenever {ImpulseCharacter} is dealt damage, prevent all damage that would be dealt to {ImpulseCharacter} until the end of the current turn."
+				"When this card enters play, move it next to a target. When that target would be dealt damage, prevent that damage and destroy this card.",
+				"When this card is destroyed, you may draw a card or use a power."
 			],
 			"icons":[
-				"CancelledDamageGreen"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Gunman 1",
-					"text": "I don't get it!{BR}We had him point blank!"
-				},
-				{
-					"identifier": "Gunman 2",
-					"text": "What is he, a ghost?"
-				}
-			],
-			"flavorReference": "Impulse #2"
-		},
-		{
-			"identifier": "ZeroAttentionSpan",
-			"count": 3,
-			"title": "Zero Attention Span",
-			"keywords":[
-				"ongoing",
-				"limited"
-			],
-			"body":[
-				"At the end of your turn, you may destroy an Ongoing card. If you don't, {ImpulseCharacter} deals himself 1 energy damage.",
-				"At the start of your turn, you may draw a card or play a card."
-			],
-			"icons":[
-				"StartAndEndOfTurnAction",
-				"DestroyOngoing",
-				"DealDamageEnergy",
+				"CancelledDamageGreen",
+				"DestroySelf",
 				"DrawCardNow",
-				"PlayCardNow"
+				"UsePowerNow"
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "The Joker",
-					"text": "[b]WILL YOU STOP PLAYING WITH THOSE?!?!?[/b]"
+					"identifier": "Jimmy",
+					"text": "So, how'd you rocket off{BR}a cliff and not trash your dad's wheels,{BR}Danger Dan?"
 				}
 			],
-			"flavorReference": "The Joker, Impulse #50"
+			"flavorReference": "Jimmy, Impulse #5"
 		},
 		{
 			"identifier": "Crossfire",
@@ -122,134 +94,6 @@
 			"flavorReference": "Impulse #9"
 		},
 		{
-			"identifier": "YouDroppedThis",
-			"count": 2,
-			"title": "You Dropped This!",
-			"keywords":[
-				"ongoing",
-				"limited"
-			],
-			"body":[
-				"When damage that would be dealt to a hero target is prevented or reduced to 0 or less, put a token on this card."
-			],
-			"powers":[
-				"Remove X tokens from this card. If you do, {ImpulseCharacter} deals 1 target X irreducible melee damage."
-			],
-			"icons":[
-				"AddTokens",
-				"HasPower",
-				"RemoveTokens",
-				"DealDamageMelee"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Impulse",
-					"text": "Anybody home? No?{BR}Well, here's your bullets back!"
-				}
-			],
-			"flavorReference": "Impulse, Impulse #72",
-			"tokenPools":[
-				{
-					"identifier": "YouDroppedThisPool",
-					"name": "You Dropped This Pool",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"color": "50CCE5"
-				}
-			]
-		},
-		{
-			"identifier": "AirPocket",
-			"count": 4,
-			"title": "Air Pocket",
-			"keywords":[
-				"ongoing"
-			],
-			"body":[
-				"When this card enters play, move it next to a target. When that target would be dealt damage, prevent that damage and destroy this card.",
-				"When this card is destroyed, you may draw a card or use a power."
-			],
-			"icons":[
-				"CancelledDamageGreen",
-				"DestroySelf",
-				"DrawCardNow",
-				"UsePowerNow"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Jimmy",
-					"text": "So, how'd you rocket off{BR}a cliff and not trash your dad's wheels,{BR}Danger Dan?"
-				}
-			],
-			"flavorReference": "Jimmy, Impulse #5"
-		},
-		{
-			"identifier": "InsideScoop",
-			"count": 2,
-			"title": "Inside Scoop",
-			"keywords":[
-				"ongoing"
-			],
-			"body":[
-				"When a card is destroyed, you may reveal the top card of its deck, then replace it."
-			],
-			"icons":[
-				"Manipulate"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Impulse",
-					"text": "M-M-Max... We've got a problem here...!"
-				}
-			],
-			"flavorReference": "Impulse, Impulse #72"
-		},
-		{
-			"identifier": "ReactionTime",
-			"count": 2,
-			"title": "Reaction Time",
-			"keywords":[
-				"ongoing"
-			],
-			"body":[
-				"When this card enters play, you may draw a card.",
-				"When a villain One-Shot or a non-target environment card would enter play, you may discard it instead. If you do, destroy this card and {ImpulseCharacter} deals himself 2 melee and 2 energy damage."
-			],
-			"icons":[
-				"DrawCardNow",
-				"Discard",
-				"DestroySelf",
-				"DealDamageMelee",
-				"DealDamageEnergy"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Preston",
-					"text": "What happened?!?{BR}I coulda sworn I was falling..."
-				}
-			],
-			"flavorReference": "Preston, Impulse #54"
-		},
-		{
-			"identifier": "SlipstreamArsenal",
-			"count": 2,
-			"title": "Slipstream Arsenal",
-			"keywords":[
-				"ongoing"
-			],
-			"body":[
-				"Whenever a non-hero card is destroyed by a hero card, you may put it under this card.",
-				"At the start of your turn, discard 3 cards from under this card. {ImpulseCharacter} deals 1 target 1 projectile damage for each card discarded this way."
-			],
-			"icons":[
-				"StartOfTurnAction",
-				"Discard",
-				"DealDamageProjectile"
-			],
-			"flavorText": "Speedsters occasionally make{BR}sudden 90-degree turns. Rocks don't.",
-			"flavorReference": "Impulse #18"
-		},
-		{
 			"identifier": "EnrageAndEvade",
 			"count": 3,
 			"title": "Enrage and Evade",
@@ -272,60 +116,6 @@
 				}
 			],
 			"flavorReference": "Impulse, Impulse #17"
-		},
-		{
-			"identifier": "Shortcut",
-			"count": 2,
-			"title": "Shortcut",
-			"keywords":[
-				"one-shot"
-			],
-			"body":[
-				"Draw 2 cards.",
-				"Search a deck for a card. Discard that card. Shuffle that deck."
-			],
-			"icons":[
-				"DrawCardNow",
-				"Manipulate",
-				"Discard"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Impulse",
-					"text": "I just looked under [b]every[/b]{BR}porch in town until I found it."
-				}
-			],
-			"flavorReference": "Impulse, Impulse #48"
-		},
-		{
-			"identifier": "ImpulseSitting",
-			"count": 3,
-			"title": "Impulse-Sitting",
-			"keywords":[
-				"one-shot"
-			],
-			"body":[
-				"One player, other than you, may play a card or use a power.",
-				"If another player played a card this turn, prevent the next damage dealt to a hero target. If another hero used a power this turn, you may play an Ongoing card.",
-				"If neither happened, {ImpulseCharacter} deals up to 2 targets 2 melee damage each."
-			],
-			"icons":[
-				"PlayCardNow",
-				"UsePowerNow",
-				"CancelledDamageGreen",
-				"DealDamageMelee"
-			],
-			"flavorQuotes":[
-				{
-					"identifier": "Batman",
-					"text": "Only 7 hostages?"
-				},
-				{
-					"identifier": "Impulse",
-					"text": "Yup."
-				}
-			],
-			"flavorReference": "Impulse #50"
 		},
 		{
 			"identifier": "FlashOfInspiration",
@@ -379,6 +169,83 @@
 			"flavorReference": "Impulse, Impulse #62"
 		},
 		{
+			"identifier": "ImpulseSitting",
+			"count": 3,
+			"title": "Impulse-Sitting",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"One player, other than you, may play a card or use a power.",
+				"If another player played a card this turn, prevent the next damage dealt to a hero target. If another hero used a power this turn, you may play an Ongoing card.",
+				"If neither happened, {ImpulseCharacter} deals up to 2 targets 2 melee damage each."
+			],
+			"icons":[
+				"PlayCardNow",
+				"UsePowerNow",
+				"CancelledDamageGreen",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Batman",
+					"text": "Only 7 hostages?"
+				},
+				{
+					"identifier": "Impulse",
+					"text": "Yup."
+				}
+			],
+			"flavorReference": "Impulse #50"
+		},
+		{
+			"identifier": "InsideScoop",
+			"count": 2,
+			"title": "Inside Scoop",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"When a card is destroyed, you may reveal the top card of its deck, then replace it."
+			],
+			"icons":[
+				"Manipulate"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Impulse",
+					"text": "M-M-Max... We've got a problem here...!"
+				}
+			],
+			"flavorReference": "Impulse, Impulse #72"
+		},
+		{
+			"identifier": "InstinctiveVibration",
+			"count": 3,
+			"title": "Instinctive Vibration",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"Whenever {ImpulseCharacter} is dealt damage, prevent all damage that would be dealt to {ImpulseCharacter} until the end of the current turn."
+			],
+			"icons":[
+				"CancelledDamageGreen"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Gunman 1",
+					"text": "I don't get it!{BR}We had him point blank!"
+				},
+				{
+					"identifier": "Gunman 2",
+					"text": "What is he, a ghost?"
+				}
+			],
+			"flavorReference": "Impulse #2"
+		},
+		{
 			"identifier": "LeapIntoAction",
 			"count": 3,
 			"title": "Leap into Action",
@@ -400,6 +267,75 @@
 				}
 			],
 			"flavorReference": "Impulse, Impulse #39"
+		},
+		{
+			"identifier": "ReactionTime",
+			"count": 2,
+			"title": "Reaction Time",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"When this card enters play, you may draw a card.",
+				"When a villain One-Shot or a non-target environment card would enter play, you may discard it instead. If you do, destroy this card and {ImpulseCharacter} deals himself 2 melee and 2 energy damage."
+			],
+			"icons":[
+				"DrawCardNow",
+				"Discard",
+				"DestroySelf",
+				"DealDamageMelee",
+				"DealDamageEnergy"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Preston",
+					"text": "What happened?!?{BR}I coulda sworn I was falling..."
+				}
+			],
+			"flavorReference": "Preston, Impulse #54"
+		},
+		{
+			"identifier": "Shortcut",
+			"count": 2,
+			"title": "Shortcut",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Draw 2 cards.",
+				"Search a deck for a card. Discard that card. Shuffle that deck."
+			],
+			"icons":[
+				"DrawCardNow",
+				"Manipulate",
+				"Discard"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Impulse",
+					"text": "I just looked under [b]every[/b]{BR}porch in town until I found it."
+				}
+			],
+			"flavorReference": "Impulse, Impulse #48"
+		},
+		{
+			"identifier": "SlipstreamArsenal",
+			"count": 2,
+			"title": "Slipstream Arsenal",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Whenever a non-hero card is destroyed by a hero card, you may put it under this card.",
+				"At the start of your turn, discard 3 cards from under this card. {ImpulseCharacter} deals 1 target 1 projectile damage for each card discarded this way."
+			],
+			"icons":[
+				"StartOfTurnAction",
+				"Discard",
+				"DealDamageProjectile"
+			],
+			"flavorText": "Speedsters occasionally make{BR}sudden 90-degree turns. Rocks don't.",
+			"flavorReference": "Impulse #18"
 		},
 		{
 			"identifier": "WhirlwindExpress",
@@ -424,6 +360,70 @@
 				}
 			],
 			"flavorReference": "Superboy, JLA: World Without Grown-Ups"
+		},
+		{
+			"identifier": "YouDroppedThis",
+			"count": 2,
+			"title": "You Dropped This!",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"When damage that would be dealt to a hero target is prevented or reduced to 0 or less, put a token on this card."
+			],
+			"powers":[
+				"Remove X tokens from this card. If you do, {ImpulseCharacter} deals 1 target X irreducible melee damage."
+			],
+			"icons":[
+				"AddTokens",
+				"HasPower",
+				"RemoveTokens",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "Impulse",
+					"text": "Anybody home? No?{BR}Well, here's your bullets back!"
+				}
+			],
+			"flavorReference": "Impulse, Impulse #72",
+			"tokenPools":[
+				{
+					"identifier": "YouDroppedThisPool",
+					"name": "You Dropped This Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "50CCE5"
+				}
+			]
+		},
+		{
+			"identifier": "ZeroAttentionSpan",
+			"count": 3,
+			"title": "Zero Attention Span",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"At the end of your turn, you may destroy an Ongoing card. If you don't, {ImpulseCharacter} deals himself 1 energy damage.",
+				"At the start of your turn, you may draw a card or play a card."
+			],
+			"icons":[
+				"StartAndEndOfTurnAction",
+				"DestroyOngoing",
+				"DealDamageEnergy",
+				"DrawCardNow",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "The Joker",
+					"text": "[b]WILL YOU STOP PLAYING WITH THOSE?!?!?[/b]"
+				}
+			],
+			"flavorReference": "The Joker, Impulse #50"
 		}
 	],
 	"promoCards": [
@@ -446,7 +446,7 @@
 			],
 			"hitpoints": 24,
 			"nemesisIdentifiers":[
-				"Impulse"
+				"BartKFMod.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"Select a target. Increase the next damage dealt by that target by 2.",
@@ -484,7 +484,7 @@
 			],
 			"hitpoints": 26,
 			"nemesisIdentifiers":[
-				"Impulse"
+				"BartKFMod.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"Destroy an Ongoing card.",
@@ -522,7 +522,7 @@
 			],
 			"hitpoints": 25,
 			"nemesisIdentifiers":[
-				"Impulse"
+				"BartKFMod.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"One player may play a card now.",

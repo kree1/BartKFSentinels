@@ -115,31 +115,74 @@
             "flippedHitpointText":"*"
         },
         {
-            "identifier":"TheClient",
+            "identifier":"DefensiveDriving",
             "count":1,
-            "title":"The Client",
+            "title":"Defensive Driving",
             "keywords":[
-                "adventure capitalist"
+                "one-shot"
             ],
-            "hitpoints":10,
             "body":[
-                "At the start of the villain turn, if {Breakaway} has less than 25 HP, {TheClient} skips town! Remove this card from the game.",
-                "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]",
-                "The first time this card would be dealt damage each turn, redirect that damage to [i]Momentum[/i]."
+                "{Breakaway} deals the hero character card with the lowest HP 4 irreducible melee damage.",
+                "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
             ],
             "icons":[
-                "StartOfTurnAction",
-                "RemoveFromGame",
-                "LoseTheGame",
-                "RedirectDamage"
+                "DealDamageMelee"
             ],
             "flavorQuotes":[
                 {
-                    "identifier": "The Client",
-                    "text": "Shake them off and meet me{BR}here. [b]In. That. Order.[/b] Understand?"
+                    "identifier": "Absolute Zero",
+                    "text": "Ow! Watch where you're-{BR}Hey, [b]GET BACK HERE![/b]"
                 }
             ],
-            "flavorReference":"The Client, comic #"
+            "flavorReference":"Absolute Zero, comic #"
+        },
+        {
+            "identifier":"DownhillRun",
+            "count":2,
+            "title":"Downhill Run",
+            "keywords":[
+                "ongoing",
+                "terrain"
+            ],
+            "body":[
+                "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
+            ],
+            "icons":[
+                "GainHP",
+                "DestroySelf",
+                "PlayCardNow"
+            ],
+            "flavorQuotes":[
+                {
+                    "identifier": "The Wraith",
+                    "text": "Traffic's clear! [b]MOVE![/b]"
+                }
+            ],
+            "flavorReference":"The Wraith, comic #"
+        },
+        {
+            "identifier":"ExitStrategy",
+            "count":2,
+            "title":"Exit Strategy",
+            "keywords":[
+                "one-shot"
+            ],
+            "body":[
+                "Reveal cards from the top of the villain deck until you reveal 1 Terrain, 1 Hazard, and 1 One-Shot.",
+                "Shuffle the other revealed cards into the villain deck, then put the first revealed Terrain, the first revealed Hazard, and the first revealed One-Shot into play in that order. If fewer than 3 cards entered play this way, {Breakaway} regains 3 HP."
+            ],
+            "icons":[
+                "Search",
+                "PlayCardNow"
+            ],
+            "flavorQuotes":[
+                {
+                    "identifier": "Absolute Zero",
+                    "text": "Hey Doc, remember how you{BR}thought he just [b]MOVED[/b] fast? Bad news..."
+                }
+            ],
+            "flavorReference":"Absolute Zero, comic #"
         },
         {
             "identifier":"FinishLine",
@@ -166,30 +209,6 @@
             "flavorReference":"Parse, comic #"
         },
         {
-            "identifier":"NitroBoost",
-            "count":3,
-            "title":"Nitro Boost",
-            "keywords":[
-                "one-shot"
-            ],
-            "body":[
-                "{Breakaway} deals the hero with the most non-character cards in play {H} fire damage. A target dealt damage this way cannot deal damage until the start of the villain turn.",
-                "If a hero target was dealt at least {H} damage this way, {Breakaway} regains 2 HP."
-            ],
-            "icons":[
-                "DealDamageFire",
-                "CannotDealDamage",
-                "GainHP"
-            ],
-            "flavorQuotes":[
-                {
-                    "identifier": "Breakaway",
-                    "text": "Sorry, no tailgating!"
-                }
-            ],
-            "flavorReference":"Breakaway, comic #"
-        },
-        {
             "identifier":"LightenTheLoad",
             "count":2,
             "title":"Lighten the Load",
@@ -213,28 +232,6 @@
                 }
             ],
             "flavorReference":"Breakaway, comic #"
-        },
-        {
-            "identifier":"DefensiveDriving",
-            "count":1,
-            "title":"Defensive Driving",
-            "keywords":[
-                "one-shot"
-            ],
-            "body":[
-                "{Breakaway} deals the hero character card with the lowest HP 4 irreducible melee damage.",
-                "If that hero is still active, {Breakaway} loses HP equal to the damage dealt to that hero this way."
-            ],
-            "icons":[
-                "DealDamageMelee"
-            ],
-            "flavorQuotes":[
-                {
-                    "identifier": "Absolute Zero",
-                    "text": "Ow! Watch where you're-{BR}Hey, [b]GET BACK HERE![/b]"
-                }
-            ],
-            "flavorReference":"Absolute Zero, comic #"
         },
         {
             "identifier":"MindTheGap",
@@ -289,57 +286,54 @@
             "flavorReference":"Bunker, comic #"
         },
         {
-            "identifier":"DownhillRun",
-            "count":2,
-            "title":"Downhill Run",
+            "identifier":"NitroBoost",
+            "count":3,
+            "title":"Nitro Boost",
             "keywords":[
-                "ongoing",
-                "terrain"
+                "one-shot"
             ],
             "body":[
-                "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
-                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
+                "{Breakaway} deals the hero with the most non-character cards in play {H} fire damage. A target dealt damage this way cannot deal damage until the start of the villain turn.",
+                "If a hero target was dealt at least {H} damage this way, {Breakaway} regains 2 HP."
             ],
             "icons":[
-                "GainHP",
-                "DestroySelf",
-                "PlayCardNow"
+                "DealDamageFire",
+                "CannotDealDamage",
+                "GainHP"
             ],
             "flavorQuotes":[
                 {
-                    "identifier": "The Wraith",
-                    "text": "Traffic's clear! [b]MOVE![/b]"
+                    "identifier": "Breakaway",
+                    "text": "Sorry, no tailgating!"
                 }
             ],
-            "flavorReference":"The Wraith, comic #"
+            "flavorReference":"Breakaway, comic #"
         },
         {
-            "identifier":"UphillBattle",
-            "count":2,
-            "title":"Uphill Battle",
+            "identifier":"RightOfWay",
+            "count":1,
+            "title":"Right of Way",
             "keywords":[
                 "ongoing",
-                "terrain"
+                "hazard"
             ],
             "body":[
-                "Whenever a hero uses a power, their player discards a card.",
-                "At the end of the villain turn, [i]Momentum[/i] deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
-                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
+                "When this card enters play, reveal the environment deck. Put one of the 2 revealed cards with the highest HP into play and move this card next to it. Shuffle the other revealed cards into the environment deck. If no targets entered play this way, play the top card of the villain deck.",
+                "Whenever damage would be dealt to [i]Momentum[/i], redirect it to the target next to this card. If you can't, prevent that damage and destroy this card."
             ],
             "icons":[
-                "Discard",
-                "EndOfTurnAction",
-                "DealDamageEnergy",
-                "DestroySelf",
-                "PlayCardNow"
+                "Search",
+                "PlayCardNow",
+                "RedirectDamage",
+                "DestroySelf"
             ],
             "flavorQuotes":[
                 {
-                    "identifier": "Haka",
-                    "text": "Outstanding! I haven't worked{BR}up a sweat like this in decades!"
+                    "identifier": "Young Legacy",
+                    "text": "I know I'm still in{BR}training, but [b]COME ON![/b]"
                 }
             ],
-            "flavorReference":"Haka, comic #"
+            "flavorReference":"Young Legacy, comic #"
         },
         {
             "identifier":"SmokeScreen",
@@ -369,6 +363,33 @@
             "flavorReference":"Tachyon, comic #"
         },
         {
+            "identifier":"TheClient",
+            "count":1,
+            "title":"The Client",
+            "keywords":[
+                "adventure capitalist"
+            ],
+            "hitpoints":10,
+            "body":[
+                "At the start of the villain turn, if {Breakaway} has less than 25 HP, {TheClient} skips town! Remove this card from the game.",
+                "At the start of the villain turn, if {Breakaway} has more than 40 HP, {Breakaway} hands off the loot! [b]GAME OVER.[/b]",
+                "The first time this card would be dealt damage each turn, redirect that damage to [i]Momentum[/i]."
+            ],
+            "icons":[
+                "StartOfTurnAction",
+                "RemoveFromGame",
+                "LoseTheGame",
+                "RedirectDamage"
+            ],
+            "flavorQuotes":[
+                {
+                    "identifier": "The Client",
+                    "text": "Shake them off and meet me{BR}here. [b]In. That. Order.[/b] Understand?"
+                }
+            ],
+            "flavorReference":"The Client, comic #"
+        },
+        {
             "identifier":"Tripwire",
             "count":3,
             "title":"Tripwire",
@@ -394,53 +415,32 @@
             "flavorReference":"Mainstay, comic #"
         },
         {
-            "identifier":"RightOfWay",
-            "count":1,
-            "title":"Right of Way",
+            "identifier":"UphillBattle",
+            "count":2,
+            "title":"Uphill Battle",
             "keywords":[
                 "ongoing",
-                "hazard"
+                "terrain"
             ],
             "body":[
-                "When this card enters play, reveal the environment deck. Put one of the 2 revealed cards with the highest HP into play and move this card next to it. Shuffle the other revealed cards into the environment deck. If no targets entered play this way, play the top card of the villain deck.",
-                "Whenever damage would be dealt to [i]Momentum[/i], redirect it to the target next to this card. If you can't, prevent that damage and destroy this card."
+                "Whenever a hero uses a power, their player discards a card.",
+                "At the end of the villain turn, [i]Momentum[/i] deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
-                "Search",
-                "PlayCardNow",
-                "RedirectDamage",
-                "DestroySelf"
-            ],
-            "flavorQuotes":[
-                {
-                    "identifier": "Young Legacy",
-                    "text": "I know I'm still in{BR}training, but [b]COME ON![/b]"
-                }
-            ],
-            "flavorReference":"Young Legacy, comic #"
-        },
-        {
-            "identifier":"ExitStrategy",
-            "count":2,
-            "title":"Exit Strategy",
-            "keywords":[
-                "one-shot"
-            ],
-            "body":[
-                "Reveal cards from the top of the villain deck until you reveal 1 Terrain, 1 Hazard, and 1 One-Shot.",
-                "Shuffle the other revealed cards into the villain deck, then put the first revealed Terrain, the first revealed Hazard, and the first revealed One-Shot into play in that order. If fewer than 3 cards entered play this way, {Breakaway} regains 3 HP."
-            ],
-            "icons":[
-                "Search",
+                "Discard",
+                "EndOfTurnAction",
+                "DealDamageEnergy",
+                "DestroySelf",
                 "PlayCardNow"
             ],
             "flavorQuotes":[
                 {
-                    "identifier": "Absolute Zero",
-                    "text": "Hey Doc, remember how you{BR}thought he just [b]MOVED[/b] fast? Bad news..."
+                    "identifier": "Haka",
+                    "text": "Outstanding! I haven't worked{BR}up a sweat like this in decades!"
                 }
             ],
-            "flavorReference":"Absolute Zero, comic #"
+            "flavorReference":"Haka, comic #"
         }
     ]
 }

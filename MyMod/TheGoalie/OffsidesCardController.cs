@@ -37,7 +37,7 @@ namespace BartKFSentinels.TheGoalie
                 Location playArea = firstTarget.Location;
                 if (playArea.IsInPlay && NumGoalpostsAt(playArea) > 0)
                 {
-                    IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Projectile, new int?(1), false, new int?(1), isIrreducible: true, additionalCriteria: (Card c) => c.Location == playArea, cardSource: GetCardSource());
+                    IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Projectile, new int?(1), false, new int?(1), isIrreducible: true, additionalCriteria: (Card c) => c.Location == playArea && c != firstTarget, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(projectileCoroutine);
