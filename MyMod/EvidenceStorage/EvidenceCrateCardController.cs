@@ -72,7 +72,7 @@ namespace BartKFSentinels.EvidenceStorage
             if (deviceRetrieved != null)
             {
                 // Put the selected Device into play in that target's play area
-                IEnumerator retrieveCoroutine = base.GameController.MoveCard(base.TurnTakerController, deviceRetrieved, dest, isPutIntoPlay: true, responsibleTurnTaker: base.TurnTaker, actionSource: dda, cardSource: GetCardSource());
+                IEnumerator retrieveCoroutine = base.GameController.MoveCard(base.TurnTakerController, deviceRetrieved, dest, isPutIntoPlay: true, playCardIfMovingToPlayArea: false, responsibleTurnTaker: base.TurnTaker, actionSource: dda, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(retrieveCoroutine);
