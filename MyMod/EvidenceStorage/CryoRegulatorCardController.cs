@@ -16,11 +16,13 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // If in play, show current play area
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c == base.Card, base.Card.Title, useCardsSuffix: false), specifyPlayAreas: true).Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " hasn't been activated since it entered play").Condition = () => base.Card.IsInPlayAndHasGameText && !MostRecentChosen().HasValue;
-            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " is set to protect itself and targets in " + base.Card.Location.HighestRecursiveLocation.OwnerName + "'s play area from " + MostRecentChosen().Value.ToString() + " damage.").Condition = () => base.Card.IsInPlayAndHasGameText && MostRecentChosen().HasValue;
+            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " hasn't been activated since it entered play").Condition = () => base.Card.IsInPlayAndHasGameText && (!MostRecentChosen().HasValue || !activeOptions.Contains(MostRecentChosen().Value));
+            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " is set to protect itself and targets in " + base.Card.Location.HighestRecursiveLocation.OwnerName + "'s play area from " + MostRecentChosen().Value.ToString() + " damage.").Condition = () => base.Card.IsInPlayAndHasGameText && MostRecentChosen().HasValue && activeOptions.Contains(MostRecentChosen().Value);
         }
 
-        private DamageType[] typeOptions = { DamageType.Fire, DamageType.Cold };
+        private DamageType[] typeOptions = { DamageType.Fire, DamageType.Cold, DamageType.Energy };
+        private DamageType[] activeOptions = { DamageType.Fire, DamageType.Cold };
+        private const string LastChosenType = "LastChosenType";
         private ITrigger ReduceDamageTrigger;
 
         public override void AddTriggers()
@@ -28,10 +30,17 @@ namespace BartKFSentinels.EvidenceStorage
             // "At the end of this play area's turn, choose fire damage or cold damage."
             base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker, ChooseTypeResponse, TriggerType.SelectDamageType);
             // "This card is immune to damage of the most recently chosen type."
-            base.AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && dda.DamageType == MostRecentChosen().Value);
+            base.AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && dda.DamageType == MostRecentChosen().Value && activeOptions.Contains(MostRecentChosen().Value));
             // "Whenever another target in this play area would be dealt damage of the most recently chosen type, reduce that damage by 1 and change its damage type to the type that wasn't chosen."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target != base.Card && dda.Target.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageType == MostRecentChosen().Value, ReduceAndInvertResponse, new TriggerType[] { TriggerType.ReduceDamage, TriggerType.ChangeDamageType }, TriggerTiming.Before, isActionOptional: false);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target != base.Card && dda.Target.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageType == MostRecentChosen().Value && activeOptions.Contains(MostRecentChosen().Value), ReduceAndInvertResponse, new TriggerType[] { TriggerType.ReduceDamage, TriggerType.ChangeDamageType }, TriggerTiming.Before, isActionOptional: false);
             base.AddTriggers();
+        }
+
+        public override IEnumerator Play()
+        {
+            // Set chosen type to energy (ignored by damage triggers)
+            SetCardProperty(LastChosenType, 2);
+            return base.Play();
         }
 
         public IEnumerator ChooseTypeResponse(PhaseChangeAction pca)
@@ -56,8 +65,7 @@ namespace BartKFSentinels.EvidenceStorage
                 base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
             DamageType chosenType = choice.FirstOrDefault((SelectDamageTypeDecision sdtd) => sdtd.Completed).SelectedDamageType.Value;
-            // Write the chosen type index in a Journal entry where we can retrieve it later
-            base.Journal.RecordDecisionAnswer("CryoRegulatorDamageType", credited, typeOptions.IndexOf(chosenType), false, false, base.TurnTaker, base.Card, base.Card);
+            base.SetCardProperty(LastChosenType, typeOptions.IndexOf(chosenType).Value);
             yield break;
         }
 
@@ -96,17 +104,10 @@ namespace BartKFSentinels.EvidenceStorage
 
         public DamageType? MostRecentChosen()
         {
-            PlayCardJournalEntry enteredPlay = base.GameController.Game.Journal.QueryJournalEntries((PlayCardJournalEntry e) => e.CardPlayed == base.Card).LastOrDefault();
-            IEnumerable<DecisionAnswerJournalEntry> choiceEntries = base.Journal.DecisionAnswerEntries((DecisionAnswerJournalEntry daje) => daje.SelectedCard == base.Card && daje.DecisionIdentifier == "CryoRegulatorDamageType");
-            if (enteredPlay != null)
+            int? lastChosenIndex = base.GetCardPropertyJournalEntryInteger(LastChosenType);
+            if (lastChosenIndex.HasValue)
             {
-                DecisionAnswerJournalEntry latestChoice = choiceEntries.LastOrDefault();
-                int? enteredIndex = base.GameController.Game.Journal.GetEntryIndex(enteredPlay);
-                int? choseIndex = base.GameController.Game.Journal.GetEntryIndex(latestChoice);
-                if (enteredIndex.HasValue && choseIndex.HasValue && enteredIndex.Value < choseIndex.Value)
-                {
-                    return typeOptions[latestChoice.AnswerIndex.Value];
-                }
+                return typeOptions[lastChosenIndex.Value];
             }
             return null;
         }
