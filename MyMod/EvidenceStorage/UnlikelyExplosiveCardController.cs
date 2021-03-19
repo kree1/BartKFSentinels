@@ -21,13 +21,14 @@ namespace BartKFSentinels.EvidenceStorage
         public override void AddTriggers()
         {
             // "Whenever a card from that target's deck is played, this card deals the non-environment target with the highest HP in each other play area 1 energy damage, then deals itself 1 energy damage."
-            base.AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner == cepa.CardEnteringPlay.Owner && !cepa.CardEnteringPlay.IsCharacter, ExplosionResponse, TriggerType.DealDamage, TriggerTiming.After, isActionOptional: false);
+            base.AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner == cepa.CardEnteringPlay.Owner && !cepa.CardEnteringPlay.IsCharacter && !cepa.IsPutIntoPlay, ExplosionResponse, TriggerType.DealDamage, TriggerTiming.After, isActionOptional: false);
             base.AddTriggers();
         }
 
         public override IEnumerator Play()
         {
             // "When this card enters play, move it next to the target other than itself in this play area with the highest HP."
+            Log.Debug(base.Card.Title + " entered play! Moving it next to a target...");
             // Identify that target
             List<Card> highestList = new List<Card>();
             IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c != base.Card && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation, highestList, evenIfCannotDealDamage: true, cardSource: GetCardSource());
@@ -77,46 +78,43 @@ namespace BartKFSentinels.EvidenceStorage
             yield break;
         }
 
-        public IEnumerator GrabResponse(MoveCardAction mca)
-        {
-            yield break;
-        }
-
-        public IEnumerator SparkResponse(Location loc)
-        {
-            // // "... this card deals the non-environment target with the highest HP in [this play area] 1 energy damage."
-            if (loc.Cards.Any((Card c) => c.IsTarget))
-            {
-                IEnumerator zapCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => c.Location.HighestRecursiveLocation == loc, (Card c) => 1, DamageType.Energy, numberOfTargets: () => 1);
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(zapCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(zapCoroutine);
-                }
-            }
-            else
-            {
-                string message = "There are no targets in " + loc.OwnerName + "'s play area for " + base.Card.Title + " to deal damage to.";
-                IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), showCardSource: true);
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(showCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(showCoroutine);
-                }
-            }
-            yield break;
-        }
-
         public IEnumerator ExplosionResponse(CardEntersPlayAction cepa)
         {
             // "... this card deals the non-environment target with the highest HP in each other play area 1 energy damage, ..."
-            IEnumerator explodeCoroutine = base.GameController.SelectLocationsAndDoAction(base.DecisionMaker, SelectionType.DealDamage, (Location loc) => loc.IsInPlay && loc.HighestRecursiveLocation == loc, SparkResponse, cardSource: GetCardSource());
+            DealDamageAction previewDamage = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, 1, DamageType.Energy);
+            List<Location> playAreas = new List<Location>();
+            // Get each other play area
+            foreach (TurnTaker tt in base.GameController.AllTurnTakers)
+            {
+                Location ttPlayArea = tt.PlayArea;
+                if (ttPlayArea.HighestRecursiveLocation != base.Card.Location.HighestRecursiveLocation)
+                {
+                    playAreas.Add(ttPlayArea);
+                }
+            }
+            // For each other play area, find its non-environment target with the highest HP
+            List<Card> highestTargets = new List<Card>();
+            foreach (Location playArea in playAreas)
+            {
+                if (playArea.Cards.Any((Card c) => c.IsTarget && !c.IsEnvironment))
+                {
+                    List<Card> localHighest = new List<Card>();
+                    IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.Location.HighestRecursiveLocation == playArea && !c.IsEnvironment, localHighest, dealDamageInfo: previewDamage.ToEnumerable(), cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(findCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(findCoroutine);
+                    }
+                    if (localHighest != null && localHighest.Count() > 0)
+                    {
+                        highestTargets.Add(localHighest.FirstOrDefault());
+                    }
+                }
+            }
+            IEnumerator explodeCoroutine = base.DealDamage(base.Card, (Card c) => highestTargets.Contains(c), 1, DamageType.Energy);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(explodeCoroutine);

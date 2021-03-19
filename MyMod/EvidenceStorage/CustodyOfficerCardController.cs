@@ -47,20 +47,49 @@ namespace BartKFSentinels.EvidenceStorage
         public IEnumerator OpenCrateFromTrash(PhaseChangeAction pca)
         {
             // "... if there are no Storage cards in play, put a Storage card from the environment trash into play."
-            if (FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("storage")).Count() == 0)
+            int cratesInPlay = FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("storage")).Count();
+            int cratesInTrash = FindCardsWhere((Card c) => c.IsInTrash && c.DoKeywordsContain("storage")).Count();
+            String message = "There are already " + cratesInPlay.ToString() + " Storage cards in play.";
+            List<Card> associatedCards = null;
+            if (cratesInPlay >= 1)
             {
-                if (FindCardsWhere((Card c) => c.IsInTrash && c.DoKeywordsContain("storage")).Count() > 0)
+                associatedCards = new List<Card>();
+                associatedCards.Add(FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("storage")).FirstOrDefault());
+            }
+
+            if (cratesInPlay == 1)
+            {
+                message = "There is already a Storage card in play.";
+            }
+            else if (cratesInPlay <= 0 && cratesInTrash <= 0)
+            {
+                message = "There are no Storage cards in the trash for " + base.Card.Title + " to retrieve.";
+            }
+            else if (cratesInPlay <= 0)
+            {
+                message = "There are no Storage cards in play, so " + base.Card.Title + " retrieves one from the trash.";
+            }
+            IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), associatedCards: associatedCards, showCardSource: true);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(showCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(showCoroutine);
+            }
+
+            if (cratesInPlay <= 0 && cratesInTrash > 0)
+            {
+                MoveCardDestination dest = new MoveCardDestination(base.TurnTaker.PlayArea);
+                IEnumerator openCoroutine = base.GameController.SelectCardFromLocationAndMoveIt(DecisionMaker, base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("storage")), dest.ToEnumerable(), isPutIntoPlay: true, optional: false, showOutput: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
                 {
-                    MoveCardDestination dest = new MoveCardDestination(base.TurnTaker.PlayArea);
-                    IEnumerator openCoroutine = base.GameController.SelectCardFromLocationAndMoveIt(DecisionMaker, base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("storage")), dest.ToEnumerable(), isPutIntoPlay: true, optional: false, showOutput: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(openCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(openCoroutine);
-                    }
+                    yield return base.GameController.StartCoroutine(openCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(openCoroutine);
                 }
             }
             yield break;

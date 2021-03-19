@@ -16,8 +16,8 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // If in play, show current play area
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c == base.Card, base.Card.Title, useCardsSuffix: false), specifyPlayAreas: true).Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " hasn't been activated since it entered play").Condition = () => base.Card.IsInPlayAndHasGameText && (!MostRecentChosen().HasValue || !activeOptions.Contains(MostRecentChosen().Value));
-            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " is set to protect itself and targets in " + base.Card.Location.HighestRecursiveLocation.OwnerName + "'s play area from " + MostRecentChosen().Value.ToString() + " damage.").Condition = () => base.Card.IsInPlayAndHasGameText && MostRecentChosen().HasValue && activeOptions.Contains(MostRecentChosen().Value);
+            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " hasn't been activated since it entered play", showInEffectsList: () => base.Card.IsInPlayAndHasGameText && (!MostRecentChosen().HasValue || !activeOptions.Contains(MostRecentChosen().Value))).Condition = () => base.Card.IsInPlayAndHasGameText && (!MostRecentChosen().HasValue || !activeOptions.Contains(MostRecentChosen().Value));
+            SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " is set to protect itself and targets in " + base.Card.Location.HighestRecursiveLocation.OwnerName + "'s play area from " + MostRecentChosen().Value.ToString() + " damage.", showInEffectsList: () => base.Card.IsInPlayAndHasGameText && MostRecentChosen().HasValue && activeOptions.Contains(MostRecentChosen().Value)).Condition = () => base.Card.IsInPlayAndHasGameText && MostRecentChosen().HasValue && activeOptions.Contains(MostRecentChosen().Value);
         }
 
         private DamageType[] typeOptions = { DamageType.Fire, DamageType.Cold, DamageType.Energy };
@@ -66,6 +66,16 @@ namespace BartKFSentinels.EvidenceStorage
             }
             DamageType chosenType = choice.FirstOrDefault((SelectDamageTypeDecision sdtd) => sdtd.Completed).SelectedDamageType.Value;
             base.SetCardProperty(LastChosenType, typeOptions.IndexOf(chosenType).Value);
+            string message = base.Card.Title + " will protect itself and targets in " + base.Card.Location.HighestRecursiveLocation.OwnerName + "'s play area from " + MostRecentChosen().Value.ToString() + " damage.";
+            IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), showCardSource: true);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(showCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(showCoroutine);
+            }
             yield break;
         }
 

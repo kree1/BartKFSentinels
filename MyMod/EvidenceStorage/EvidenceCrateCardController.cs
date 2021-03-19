@@ -41,7 +41,7 @@ namespace BartKFSentinels.EvidenceStorage
             // "Then, select a Device card at random from the environment trash and put it into play in the play area of the target that dealt damage."
             Card opener = dda.DamageSource.Card;
             Location dest = opener.Owner.PlayArea;
-            Log.Debug(base.Card.Title + " was dealt damage by " + opener.Title + ". Moving a random Device to " + dest.Name + "...");
+            Log.Debug(base.Card.Title + " was dealt damage by " + opener.Title + ". Moving a random Device to " + dest.GetFriendlyName() + "...");
             IEnumerable<Card> trashDevices = base.TurnTaker.Trash.Cards.Where((Card c) => c.DoKeywordsContain("device"));
             IEnumerable<Card> associated = null;
             bool anyDevices = trashDevices.Count() > 0;
@@ -72,7 +72,7 @@ namespace BartKFSentinels.EvidenceStorage
             if (deviceRetrieved != null)
             {
                 // Put the selected Device into play in that target's play area
-                IEnumerator retrieveCoroutine = base.GameController.MoveCard(base.TurnTakerController, deviceRetrieved, dest, isPutIntoPlay: true, playCardIfMovingToPlayArea: false, responsibleTurnTaker: base.TurnTaker, actionSource: dda, cardSource: GetCardSource());
+                IEnumerator retrieveCoroutine = base.GameController.PlayCard(base.TurnTakerController, deviceRetrieved, isPutIntoPlay: true, optional: false, overridePlayLocation: dest, responsibleTurnTaker: base.TurnTaker, actionSource: dda, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(retrieveCoroutine);
