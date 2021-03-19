@@ -1,0 +1,243 @@
+﻿{
+	"name": "Evidence Storage",
+	"kind": "Environment",
+	"backgroundColor": "#CFA573",
+	"difficulty": 2,
+	"cards": [
+		{
+			"identifier": "AlienEscapePod",
+			"count": 1,
+			"title": "Alien Escape Pod",
+			"hitpoints": 7,
+			"keywords": [
+				"device",
+				"spaceship"
+			],
+			"icons": [
+				"ImmuneToDamageMelee",
+				"StartOfTurnAction",
+				"DestroySelf",
+				"DealDamageFire",
+				"Discard",
+				"PlayCardNow"
+			],
+			"body": [
+				"Targets in this play area are immune to melee damage. At the start of this play area’s turn, destroy this card.",
+				"When this card is destroyed, it deals each other target in this play area 2 irreducible fire damage. Then, discard cards from the top of the environment deck until a Storage card is discarded. Put it into play."
+			],
+			"flavorText": "Tempest inspected the controls.{BR}“Unfortunately, there are no saved{BR}destinations in range. Fortunately,{BR}the TCF Stalwart is not in range.”"
+		},
+		{
+			"identifier": "CryoRegulator",
+			"count": 1,
+			"title": "Cryo-Regulator",
+			"hitpoints": 6,
+			"keywords": [
+				"device",
+				"module"
+			],
+			"icons": [
+				"ImmuneToDamageFire",
+				"ImmuneToDamageCold",
+				"ReduceDamageTaken",
+				"EndOfTurnAction"
+			],
+			"body": [
+				"At the end of this play area's turn, choose fire damage or cold damage.",
+				"This card is immune to damage of the most recently chosen type.",
+				"Whenever another target in this play area would be dealt damage of the most recently chosen type, reduce that damage by 1 and change its damage type to the type that wasn't chosen."
+			],
+			"flavorText": "“Hey, Ryan! Remember this?” Citizen{BR}Hammer lashed out at Tachyon, and{BR}the flames broke against the blue{BR}plating. “Look, it still works!”"
+		},
+		{
+			"identifier": "CustodyOfficer",
+			"count": 1,
+			"title": "Custody Officer",
+			"hitpoints": 5,
+			"keywords": [
+				"officer"
+			],
+			"icons": [
+				"PlayCardNow",
+				"DealDamageProjectile",
+				"EndOfTurnAction"
+			],
+			"body": [
+				"When this card is discarded from the environment deck, put it into play.",
+				"Whenever an environment card enters a villain play area, this card deals the character or Device with the highest HP in that play area 2 projectile damage.",
+				"At the end of the environment turn, if there are no Storage cards in play, put a Storage card from the environment trash into play."
+			],
+			"flavorText": "Officer Davis pulled his sidearm and{BR}fired a warning shot at the{BR}Dreamer’s projection. “Get your{BR}paws off that, you damn dirty ape!”"
+		},
+		{
+			"identifier": "EbonyNeedle",
+			"count": 1,
+			"title": "Ebony Needle",
+			"hitpoints": 6,
+			"keywords": [
+				"device",
+				"voodoo pin"
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"DestroySelf",
+				"DestroyCard",
+				"Discard",
+				"PlayCardNow"
+			],
+			"body": [
+				"At the end of this play area's turn, this card may deal a character card in this play area {H - 1} psychic damage. If it deals no damage this way, destroy a non-character card from this play area's deck, then destroy this card.",
+				"When this card is destroyed, if the environment trash has fewer than {H} cards, discard cards from the top of the environment deck until a Storage card is discarded. Put it into play."
+			],
+			"flavorText": "[b]“Pin!”[/b] Lillian immediately dropped{BR}everything to search up and down{BR}her body for the arcane implement.{BR}Removal was quick, but not painless."
+		},
+		{
+			"identifier": "EvacuationProcedure",
+			"count": 1,
+			"title": "Evacuation Procedure",
+			"icons": [
+				"EndOfTurnAction",
+				"DealDamageSonic",
+				"DestroySelf",
+				"Manipulate"
+			],
+			"body": [
+				"At the end of the villain turn, the villain target with the highest HP deals each Officer 3 sonic damage. Then, that target deals the {H - 1} Storage cards with the highest HP 1 sonic damage each. Then, destroy this card.",
+				"When this card is destroyed, shuffle all Storage cards from the environment trash into the environment deck."
+			],
+			"flavorText": "“Attention all wimps!” Citizen Hammer{BR}pounded the fire alarm with his fist{BR}and grinned. “This is not a drill. It’s{BR}going to get very hot in here.”"
+		},
+		{
+			"identifier": "EvidenceCrate",
+			"count": 4,
+			"title": "Evidence Crate",
+			"hitpoints": 4,
+			"keywords": [
+				"storage"
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"Discard",
+				"PlayCardNow"
+			],
+			"body": [
+				"Reduce damage dealt to this card to 1.",
+				"Whenever a non-environment target deals damage to this card, discard the top card of the environment deck. Then, select a Device card at random from the environment trash and put it into play in the play area of the target that dealt damage."
+			],
+			"flavorText": "Shelves stretched into the distance.{BR}The Organization’s men would arrive{BR}soon to recover the ledger...{BR}“Spread out. Let’s find that book.”"
+		},
+		{
+			"identifier": "FacelessDuplicate",
+			"count": 1,
+			"title": "Faceless Duplicate",
+			"hitpoints": 8,
+			"keywords": [
+				"device",
+				"drone"
+			],
+			"icons": [
+				"RedirectDamage"
+			],
+			"body": [
+				"When this card enters a play area with an active character card, move it next to that character. The first time that character would be dealt damage each turn, redirect that damage to this card.",
+				"When this card is dealt lightning damage, move it to the play area of the source of that damage."
+			],
+			"flavorText": "“Awww, look, he’s lost!” The damaged{BR}android’s stumbling movements{BR}struck Unity as oddly charming.{BR}“Here, bot! I’ve got a recharge!”"
+		},
+		{
+			"identifier": "RazorDart",
+			"count": 1,
+			"title": "Razor Dart",
+			"hitpoints": 4,
+			"keywords": [
+				"device"
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"body": [
+				"As long as this card is in a hero play area, it has the keyword Equipment.",
+				"When a non-Device target in this play area deals damage to a target from another deck, increase that damage by 1 and change its type to projectile. Then, if the damaged target is still in play, move this card to the damaged target’s play area."
+			],
+			"flavorText": "“Wow, I haven’t used those since{BR}college.” Maia watched a thug yank{BR}the dart out of the wall and fling{BR}it back at Legacy. “And that’s why.”"
+		},
+		{
+			"identifier": "Sample01DON",
+			"count": 1,
+			"title": "Sample 01-DON",
+			"hitpoints": 3,
+			"keywords": [
+				"device",
+				"drug"
+			],
+			"icons": [
+				"DealDamageToxic",
+				"PlayCardNow",
+				"DealDamageInfernal"
+			],
+			"body": [
+				"When this card enters play, it deals the character with the highest HP in this play area 2 irreducible toxic damage. If no damage was dealt this way, play the top card of the environment deck.",
+				"The first time another target in this play area deals damage each turn, this card deals 1 infernal damage to each non-environment target in the damaged target's play area."
+			],
+			"flavorText": "The vial crunched under Pete’s foot,{BR}but he felt fine. He socked one{BR}Proletariat in the jaw- and six{BR}separate bodies convulsed in pain."
+		},
+		{
+			"identifier": "Sample4BPIKE",
+			"count": 1,
+			"title": "Sample 4B-PIKE",
+			"hitpoints": 3,
+			"keywords": [
+				"device"
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"GainHP",
+				"DealDamageToxic",
+				"PlayCardNow"
+			],
+			"body": [
+				"At the end of this play area's turn, one non-environment target in this play area regains 2 HP and this card deals itself 1 toxic damage. If no targets regained HP this way, play the top card of the environment deck.",
+				"When this card is reduced to 0 or fewer HP, it deals the non-environment target in this play area with the highest HP 3 toxic damage."
+			],
+			"flavorText": "“Did you just [b]drink[/b] that!?” Setback{BR}shuddered. The Operative smashed{BR}the empty vial against a shelf and{BR}rushed him with the jagged edge."
+		},
+		{
+			"identifier": "SecurityOfficer",
+			"count": 1,
+			"title": "Security Officer",
+			"hitpoints": 3,
+			"keywords": [
+				"officer"
+			],
+			"icons": [
+				"PlayCardNow",
+				"ImmuneToDamage"
+			],
+			"body": [
+				"When this card is discarded from the environment deck, put it into play.",
+				"The first time a Storage card would be dealt damage each turn, prevent that damage.",
+				"The first time a Device card would be dealt damage each turn, prevent that damage."
+			],
+			"flavorText": "“The Wraith? Listen, lady, I don’t{BR}care if you’re Charles Manson or{BR}the Dalai Lama- nobody touches this{BR}stuff without proper authorization.”"
+		},
+		{
+			"identifier": "UnlikelyExplosive",
+			"count": 1,
+			"title": "Unlikely Explosive",
+			"hitpoints": 5,
+			"keywords": [
+				"device",
+				"trap"
+			],
+			"icons": [
+				"DealDamageEnergy"
+			],
+			"body": [
+				"When this card enters play, move it next to the target other than itself in this play area with the highest HP. This card deals that target 2 energy damage.",
+				"Whenever a card from that target's deck is played, this card deals the non-environment target with the highest HP in each other play area 1 energy damage, then deals itself 1 energy damage."
+			],
+			"flavorText": "“What are these doing-?” An attack{BR}surprised Amanda in mid-sentence.{BR}She instinctively flung the box at{BR}Cueball, where it exploded. “OHhh.”"
+		}
+	]
+}

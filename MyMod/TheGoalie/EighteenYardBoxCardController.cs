@@ -170,7 +170,6 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(reduceCoroutine);
             }
-            // ...
             yield break;
         }
     }

@@ -13,7 +13,7 @@ namespace BartKFSentinels.Breakaway
         public TheClientCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => "The Client has redirected damage this turn", () => "The Client has not redirected damage this turn");
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has redirected damage this turn", () => base.Card.Title + " has not redirected damage this turn").Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         public override void AddTriggers()

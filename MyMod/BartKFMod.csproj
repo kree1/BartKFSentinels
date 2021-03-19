@@ -60,6 +60,20 @@
     <Compile Include="Breakaway\TheClientCardController.cs" />
     <Compile Include="Breakaway\TripwireCardController.cs" />
     <Compile Include="Breakaway\UphillBattleCardController.cs" />
+    <Compile Include="EvidenceStorage\AlienEscapePodCardController.cs" />
+    <Compile Include="EvidenceStorage\CryoRegulatorCardController.cs" />
+    <Compile Include="EvidenceStorage\CustodyOfficerCardController.cs" />
+    <Compile Include="EvidenceStorage\EbonyNeedleCardController.cs" />
+    <Compile Include="EvidenceStorage\EvacuationProcedureCardController.cs" />
+    <Compile Include="EvidenceStorage\EvidenceCrateCardController.cs" />
+    <Compile Include="EvidenceStorage\EvidenceStorageUtilityCardController.cs" />
+    <Compile Include="EvidenceStorage\FacelessDuplicateCardController.cs" />
+    <Compile Include="EvidenceStorage\OfficerCardController.cs" />
+    <Compile Include="EvidenceStorage\RazorDartCardController.cs" />
+    <Compile Include="EvidenceStorage\Sample01DONCardController.cs" />
+    <Compile Include="EvidenceStorage\Sample4BPIKECardController.cs" />
+    <Compile Include="EvidenceStorage\SecurityOfficerCardController.cs" />
+    <Compile Include="EvidenceStorage\UnlikelyExplosiveCardController.cs" />
     <Compile Include="Impulse\AirPocketCardController.cs" />
     <Compile Include="Impulse\CrossfireCardController.cs" />
     <Compile Include="Impulse\EnrageAndEvadeCardController.cs" />
@@ -127,6 +141,7 @@
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\ImpulseDeckList.json" />
+    <EmbeddedResource Include="DeckLists\EvidenceStorageDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
