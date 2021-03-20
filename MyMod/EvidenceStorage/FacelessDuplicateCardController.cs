@@ -16,7 +16,7 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // If in play, show current play area
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c == base.Card, base.Card.Title, useCardsSuffix: false), specifyPlayAreas: true).Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has redirected damage this turn", () => base.Card.Title + " has not redirected damage this turn").Condition = () => base.Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has redirected damage this turn.", () => base.Card.Title + " has not redirected damage this turn.").Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         protected const string OncePerTurn = "RedirectOncePerTurn";

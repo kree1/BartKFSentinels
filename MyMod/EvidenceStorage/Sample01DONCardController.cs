@@ -16,7 +16,7 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // If in play, show current play area
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c == base.Card, base.Card.Title, useCardsSuffix: false), specifyPlayAreas: true).Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has reacted to damage this turn", () => base.Card.Title + " has not reacted to damage this turn");
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has reacted to damage this turn.", () => base.Card.Title + " has not reacted to damage this turn.");
         }
 
         protected const string OncePerTurn = "SplashOncePerTurn";
@@ -51,6 +51,16 @@ namespace BartKFSentinels.EvidenceStorage
             if (!damageSuccess)
             {
                 // "If no damage was dealt this way, play the top card of the environment deck."
+                string message = "No damage was dealt, so " + base.Card.Title + " plays the top card of the environment deck.";
+                IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(showCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(showCoroutine);
+                }
                 IEnumerator playEnvironmentCoroutine = base.PlayTheTopCardOfTheEnvironmentDeckResponse(null);
                 if (base.UseUnityCoroutines)
                 {

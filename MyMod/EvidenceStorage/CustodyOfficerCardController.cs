@@ -20,7 +20,7 @@ namespace BartKFSentinels.EvidenceStorage
         public override void AddTriggers()
         {
             // "Whenever an environment card enters a villain play area, this card deals the character or Device with the highest HP in that play area 2 projectile damage."
-            AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove.IsEnvironment && mca.Destination.IsInPlay && mca.Destination.IsVillain, DontTouchThatResponse, TriggerType.DealDamage, TriggerTiming.After, isActionOptional: false);
+            AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove.IsEnvironment && mca.Destination.IsInPlay && mca.Destination.IsVillain && !mca.Origin.IsVillain, DontTouchThatResponse, TriggerType.DealDamage, TriggerTiming.After, isActionOptional: false);
             // "At the end of the environment turn, if there are no Storage cards in play, put a Storage card from the environment trash into play."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, OpenCrateFromTrash, TriggerType.PutIntoPlay);
             base.AddTriggers();
@@ -69,7 +69,7 @@ namespace BartKFSentinels.EvidenceStorage
             {
                 message = "There are no Storage cards in play, so " + base.Card.Title + " retrieves one from the trash.";
             }
-            IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), associatedCards: associatedCards, showCardSource: true);
+            IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), showCardSource: true);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(showCoroutine);

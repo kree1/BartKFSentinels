@@ -14,7 +14,8 @@ namespace BartKFSentinels.EvidenceStorage
         public EvidenceCrateCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("device"), "Device"), showInEffectsList: () => true);
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("device"), "Device"), showInEffectsList: () => true);
         }
 
         public override void AddTriggers()

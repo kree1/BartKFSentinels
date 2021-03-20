@@ -32,7 +32,7 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // "... this card may deal a character card in this play area {H - 1} psychic damage."
             List<DealDamageAction> storedResultsDamage = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.DecisionMaker, new DamageSource(base.GameController, base.Card), Game.H - 1, DamageType.Psychic, 1, true, 0, additionalCriteria: (Card c) => c.IsCharacter && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation, storedResultsDamage: storedResultsDamage, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.DecisionMaker, new DamageSource(base.GameController, base.Card), Game.H - 1, DamageType.Psychic, 1, false, 0, additionalCriteria: (Card c) => c.IsCharacter && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation, storedResultsDamage: storedResultsDamage, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
