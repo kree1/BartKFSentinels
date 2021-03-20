@@ -35,6 +35,40 @@ namespace BartKFSentinels.EvidenceStorage
             base.AddTriggers();
         }
 
+        public override IEnumerator Play()
+        {
+            Log.Debug(base.Card.Title + " entered play in " + base.Card.Location.HighestRecursiveLocation.GetFriendlyName() + ".");
+            if (base.Card.Location.Cards.Any((Card c) => c.IsCharacter && c.IsActive))
+            {
+                // "When this card enters a play area with an active character card, move it next to that character."
+                Log.Debug(base.Card.Title + " entered play in " + base.Card.Location.GetFriendlyName() + ", which has an active character. Moving it next to someone...");
+                List<MoveCardDestination> storedResultsPlace = new List<MoveCardDestination>();
+                IEnumerator buddyCoroutine = base.SelectCardThisCardWillMoveNextTo(new LinqCardCriteria((Card c) => c.IsActive && c.IsCharacter && c.Location.HighestRecursiveLocation == base.Card.Location), storedResultsPlace, false, null);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(buddyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(buddyCoroutine);
+                }
+                if (storedResultsPlace != null && storedResultsPlace.Count() > 0)
+                {
+                    IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, storedResultsPlace.FirstOrDefault().Location, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, doesNotEnterPlay: true, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(moveCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(moveCoroutine);
+                    }
+                    Log.Debug(base.Card.Title + " moved to " + storedResultsPlace.FirstOrDefault().Location.GetFriendlyName() + ".");
+                }
+            }
+            yield break;
+        }
+
         public IEnumerator BuddyUpResponse(MoveCardAction mca)
         {
             Log.Debug(base.Card.Title + " moved to " + mca.Destination.GetFriendlyName() + ".");

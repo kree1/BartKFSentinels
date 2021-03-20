@@ -53,7 +53,7 @@ namespace BartKFSentinels.EvidenceStorage
                 }
                 if (accepted)
                 {
-                    IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, base.TurnTaker.PlayArea, isPutIntoPlay: true, showMessage: true, responsibleTurnTaker: base.TurnTaker, actionSource: mca, cardSource: GetCardSource());
+                    IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, base.TurnTaker.PlayArea, isPutIntoPlay: true, showMessage: false, responsibleTurnTaker: base.TurnTaker, actionSource: mca, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(moveCoroutine);

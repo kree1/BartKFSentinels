@@ -82,7 +82,7 @@ namespace BartKFSentinels.EvidenceStorage
             if (cratesInPlay <= 0 && cratesInTrash > 0)
             {
                 MoveCardDestination dest = new MoveCardDestination(base.TurnTaker.PlayArea);
-                IEnumerator openCoroutine = base.GameController.SelectCardFromLocationAndMoveIt(DecisionMaker, base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("storage")), dest.ToEnumerable(), isPutIntoPlay: true, optional: false, showOutput: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                IEnumerator openCoroutine = base.GameController.SelectCardFromLocationAndMoveIt(DecisionMaker, base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("storage")), dest.ToEnumerable(), isPutIntoPlay: true, optional: false, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(openCoroutine);
