@@ -25,7 +25,7 @@ namespace BartKFSentinels.EvidenceStorage
         public override void AddTriggers()
         {
             // "When this card enters a play area with an active character card, move it next to that character."
-            base.AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove == base.Card && mca.Destination.Cards.Any((Card c) => c.IsCharacter), BuddyUpResponse, TriggerType.MoveCard, TriggerTiming.After, isActionOptional: false);
+            base.AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove == base.Card && mca.Destination.IsInPlay, BuddyUpResponse, TriggerType.MoveCard, TriggerTiming.After, isActionOptional: false);
             // "The first time that character would be dealt damage each turn, redirect that damage to this card."
             this.RedirectDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0, RedirectDamageResponse, TriggerType.RedirectDamage, TriggerTiming.Before);
             // "When this card is dealt lightning damage, move it to the play area of the source of that damage."
@@ -37,16 +37,34 @@ namespace BartKFSentinels.EvidenceStorage
 
         public IEnumerator BuddyUpResponse(MoveCardAction mca)
         {
-            // "When this card enters a play area with an active character card, move it next to that character."
-            HeroTurnTakerController selector = base.DecisionMaker;
-            IEnumerator buddyCoroutine = base.SelectCardThisCardWillMoveNextTo(new LinqCardCriteria((Card c) => c.IsActive && c.IsCharacter && c.Location.HighestRecursiveLocation == mca.Destination), null, false, null);
-            if (base.UseUnityCoroutines)
+            Log.Debug(base.Card.Title + " moved to " + mca.Destination.GetFriendlyName() + ".");
+            if (mca.Destination.Cards.Any((Card c) => c.IsCharacter && c.IsActive))
             {
-                yield return base.GameController.StartCoroutine(buddyCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(buddyCoroutine);
+                // "When this card enters a play area with an active character card, move it next to that character."
+                Log.Debug(base.Card.Title + " moved to " + mca.Destination.GetFriendlyName() + ", which has an active character. Moving it next to someone...");
+                List<MoveCardDestination> storedResultsPlace = new List<MoveCardDestination>();
+                IEnumerator buddyCoroutine = base.SelectCardThisCardWillMoveNextTo(new LinqCardCriteria((Card c) => c.IsActive && c.IsCharacter && c.Location.HighestRecursiveLocation == mca.Destination), storedResultsPlace, false, null);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(buddyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(buddyCoroutine);
+                }
+                if (storedResultsPlace != null && storedResultsPlace.Count() > 0)
+                {
+                    IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, storedResultsPlace.FirstOrDefault().Location, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, actionSource: mca, doesNotEnterPlay: true, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(moveCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(moveCoroutine);
+                    }
+                    Log.Debug(base.Card.Title + " moved to " + storedResultsPlace.FirstOrDefault().Location.GetFriendlyName() + ".");
+                }
             }
             yield break;
         }
@@ -72,7 +90,24 @@ namespace BartKFSentinels.EvidenceStorage
             // "When this card is dealt lightning damage, move it to the play area of the source of that damage."
             Card source = dda.DamageSource.Card;
             Location dest = source.Location.HighestRecursiveLocation;
-            IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, dest, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, actionSource: dda, doesNotEnterPlay: true, cardSource: GetCardSource());
+            string message = base.Card.Title + " follows the charge back to " + source.Title + "'s play area...";
+            List<Card> associated = null;
+            if (dda.CardSource.Card != null)
+            {
+                message = base.Card.Title + " follows the charge from " + dda.CardSource.Card.Title + " back to " + source.Title + "'s play area...";
+                associated = new List<Card>();
+                associated.Add(dda.CardSource.Card);
+            }
+            IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), associatedCards: associated, showCardSource: true);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(showCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(showCoroutine);
+            }
+            IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, dest, playCardIfMovingToPlayArea: false, showMessage: false, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, actionSource: dda, doesNotEnterPlay: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(moveCoroutine);

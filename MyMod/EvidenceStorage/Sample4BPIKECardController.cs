@@ -58,6 +58,16 @@ namespace BartKFSentinels.EvidenceStorage
             if (!hpRecovered)
             {
                 // "If no targets regained HP this way, play the top card of the environment deck."
+                string message = "No targets regained HP, so " + base.Card.Title + " plays the top card of the environment deck.";
+                IEnumerator showCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(showCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(showCoroutine);
+                }
                 IEnumerator playEnvironmentCoroutine = base.PlayTheTopCardOfTheEnvironmentDeckResponse(null);
                 if (base.UseUnityCoroutines)
                 {
