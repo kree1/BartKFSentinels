@@ -39,12 +39,10 @@ namespace BartKFSentinels.Impulse
                 base.GameController.ExhaustCoroutine(discardCoroutine);
             }
             // "Prevent the next damage that would be dealt to {ImpulseCharacter}."
-            OnDealDamageStatusEffect preventNextDamage = new OnDealDamageStatusEffect(base.Card, "PreventDamage", "Prevent the next damage that would be dealt to " + base.CharacterCard.Title + ".", new TriggerType[] { TriggerType.CancelAction }, base.TurnTaker, base.Card);
+            CannotDealDamageStatusEffect preventNextDamage = new CannotDealDamageStatusEffect();
             preventNextDamage.TargetCriteria.IsSpecificCard = base.Card;
-            preventNextDamage.DamageAmountCriteria.GreaterThan = 0;
             preventNextDamage.NumberOfUses = 1;
-            preventNextDamage.UntilTargetLeavesPlay(base.Card);
-            preventNextDamage.CanEffectStack = true;
+            preventNextDamage.IsPreventEffect = true;
 
             IEnumerator statusCoroutine = base.AddStatusEffect(preventNextDamage);
             if (base.UseUnityCoroutines)
@@ -156,20 +154,6 @@ namespace BartKFSentinels.Impulse
                 {
                     base.GameController.ExhaustCoroutine(discardCoroutine);
                 }
-            }
-            yield break;
-        }
-
-        public IEnumerator PreventDamage(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
-        {
-            IEnumerator preventCoroutine = GameController.CancelAction(dda, isPreventEffect: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(preventCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(preventCoroutine);
             }
             yield break;
         }

@@ -157,8 +157,7 @@
 			"icons":[
 				"Manipulate",
 				"DrawCardNow",
-				"PlayCardNow",
-				"DealDamageEnergy"
+				"PlayCardNow"
 			],
 			"flavorQuotes":[
 				{
@@ -539,6 +538,46 @@
 			"openingLines":{
 				"default": "Mark Twain said: Always do right. This will gratify some people, and astonish the rest.",
 				"OblivAeonFrontPageCharacter": "You've only got one trick. I'm not scared of you."
+			}
+		},
+		{
+			"identifier": "ImpulseCharacter",
+			"promoIdentifier": "WonderComicsImpulseCharacter",
+			"count": 1,
+			"title": "Impulse",
+			"promoTitle": "Wonder Comics Impulse",
+			"shortPromoTitle": "Wonder Comics Impulse",
+			"backgroundColor": "E7E6D0",
+			"body": "Best Friends",
+			"character": true,
+			"powers":[
+				"Discard a card. If it was a One-Shot, 1 target regains 2 HP. Otherwise, one player may play a card. Draw a card."
+			],
+			"icons":[
+				"HasPower",
+				"Discard",
+				"GainHP",
+				"PlayCardNow",
+				"DrawCardNow"
+			],
+			"hitpoints": 22,
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Impulse"
+			],
+			"incapacitatedAbilities":[
+				"One hero may use a power now.",
+				"Select a target. Reduce the next damage dealt to that target by 2.",
+				"Each hero regains 1 HP."
+			],
+			"flippedIcons":[
+				"UsePowerNow",
+				"ReduceDamageTaken",
+				"GainHP"
+			],
+			"complexity": 2,
+			"openingLines":{
+				"default": "'Scuse me! I was talking to my new friends here!",
+				"OblivAeonFrontPageCharacter": "Pfffft. You think this is my first Crisis?"
 			}
 		}
 	]

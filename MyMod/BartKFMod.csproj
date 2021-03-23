@@ -92,6 +92,7 @@
     <Compile Include="Impulse\TheHyperAcceleratedImpulseCharacterCardController.cs" />
     <Compile Include="Impulse\TheWishGrantingImpulseCharacterCardController.cs" />
     <Compile Include="Impulse\WhirlwindExpressCardController.cs" />
+    <Compile Include="Impulse\WonderComicsImpulseCharacterCardController.cs" />
     <Compile Include="Impulse\YouDroppedThisCardController.cs" />
     <Compile Include="Impulse\ZeroAttentionSpanCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

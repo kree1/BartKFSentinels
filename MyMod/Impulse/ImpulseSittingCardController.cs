@@ -44,11 +44,10 @@ namespace BartKFSentinels.Impulse
             bool otherHasPlayed = thisTurnPlays.Count > 0;
             if (otherHasPlayed)
             {
-                OnDealDamageStatusEffect preventNextDamage = new OnDealDamageStatusEffect(base.Card, "PreventDamage", "Prevent the next damage that would be dealt to a hero target.", new TriggerType[] { TriggerType.CancelAction }, base.TurnTaker, base.Card);
+                CannotDealDamageStatusEffect preventNextDamage = new CannotDealDamageStatusEffect();
                 preventNextDamage.TargetCriteria.IsHero = true;
-                preventNextDamage.DamageAmountCriteria.GreaterThan = 0;
                 preventNextDamage.NumberOfUses = 1;
-                preventNextDamage.CanEffectStack = true;
+                preventNextDamage.IsPreventEffect = true;
 
                 IEnumerator statusCoroutine = base.AddStatusEffect(preventNextDamage);
                 if (base.UseUnityCoroutines)

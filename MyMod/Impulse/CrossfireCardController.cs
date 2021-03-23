@@ -66,7 +66,7 @@ namespace BartKFSentinels.Impulse
             if (targetChoices != null && targetChoices.Count > 0)
             {
                 Card targetChosen = targetChoices.FirstOrDefault().SelectedCard;
-                OnDealDamageStatusEffect preventNextDamage = new OnDealDamageStatusEffect(base.Card, "PreventDamage", "Prevent the next damage " + targetChosen.Title + " would deal to " + base.CharacterCard.Title + ".", new TriggerType[] { TriggerType.CancelAction }, base.TurnTaker, base.Card);
+                /*OnDealDamageStatusEffect preventNextDamage = new OnDealDamageStatusEffect(base.Card, "PreventDamage", "Prevent the next damage " + targetChosen.Title + " would deal to " + base.CharacterCard.Title + ".", new TriggerType[] { TriggerType.CancelAction }, base.TurnTaker, base.Card);
                 preventNextDamage.SourceCriteria.IsSpecificCard = targetChosen;
                 preventNextDamage.TargetCriteria.IsSpecificCard = base.CharacterCard;
                 preventNextDamage.DamageAmountCriteria.GreaterThan = 0;
@@ -74,6 +74,14 @@ namespace BartKFSentinels.Impulse
                 preventNextDamage.UntilCardLeavesPlay(targetChosen);
                 preventNextDamage.UntilCardLeavesPlay(base.CharacterCard);
                 preventNextDamage.CanEffectStack = true;
+                preventNextDamage.IsPreventEffect = true;*/
+                CannotDealDamageStatusEffect preventNextDamage = new CannotDealDamageStatusEffect();
+                preventNextDamage.SourceCriteria.IsSpecificCard = targetChosen;
+                preventNextDamage.TargetCriteria.IsSpecificCard = base.CharacterCard;
+                preventNextDamage.NumberOfUses = 1;
+                preventNextDamage.IsPreventEffect = true;
+                preventNextDamage.UntilCardLeavesPlay(targetChosen);
+                preventNextDamage.UntilCardLeavesPlay(base.CharacterCard);
 
                 IEnumerator statusCoroutine = base.AddStatusEffect(preventNextDamage);
                 if (base.UseUnityCoroutines)

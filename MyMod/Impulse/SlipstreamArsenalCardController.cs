@@ -56,13 +56,14 @@ namespace BartKFSentinels.Impulse
         public IEnumerator DiscardForDamageResponse(PhaseChangeAction pca)
         {
             // "At the start of your turn, discard 3 cards from under this card. {ImpulseCharacter} deals 1 target 1 projectile damage for each card discarded this way."
+            List<MoveCardAction> discarded = new List<MoveCardAction>();
             for (int i = 0; i < 3; i++)
             {
                 if (base.Card.UnderLocation.Cards.Count() > 0)
                 {
                     // Choose a card to discard
                     List<SelectCardDecision> selected = new List<SelectCardDecision>();
-                    IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.DiscardCard, new LinqCardCriteria((Card c) => c.Location == base.Card.UnderLocation || c.Location == base.Card.BelowLocation), selected, optional: false, allowAutoDecide: true, cardSource: GetCardSource());
+                    IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.DiscardCard, new LinqCardCriteria((Card c) => c.Location == base.Card.UnderLocation || c.Location == base.Card.BelowLocation), selected, optional: false, allowAutoDecide: base.Card.UnderLocation.Cards.Count() <= 3 - i, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(selectCoroutine);
@@ -74,7 +75,7 @@ namespace BartKFSentinels.Impulse
                     Card chosenCard = selected.FirstOrDefault().SelectedCard;
                     // Discard it
                     MoveCardDestination trash = FindCardController(chosenCard).GetTrashDestination();
-                    IEnumerator discardCoroutine = base.GameController.MoveCard(base.TurnTakerController, chosenCard, trash.Location, showMessage: true, responsibleTurnTaker: base.TurnTaker, isDiscard: true, cardSource: GetCardSource());
+                    IEnumerator discardCoroutine = base.GameController.MoveCard(base.TurnTakerController, chosenCard, trash.Location, showMessage: true, responsibleTurnTaker: base.TurnTaker, storedResults: discarded, actionSource: pca, isDiscard: true, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(discardCoroutine);
@@ -83,16 +84,20 @@ namespace BartKFSentinels.Impulse
                     {
                         base.GameController.ExhaustCoroutine(discardCoroutine);
                     }
-                    // Impulse deals 1 target 1 projectile damage
-                    IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 1, DamageType.Projectile, 1, false, 1, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(damageCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(damageCoroutine);
-                    }
+                }
+            }
+            int numDiscarded = GetNumberOfCardsMoved(discarded);
+            for (int i = 0; i < numDiscarded; i++)
+            {
+                // Impulse deals 1 target 1 projectile damage
+                IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 1, DamageType.Projectile, 1, false, 1, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(damageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
             yield break;
