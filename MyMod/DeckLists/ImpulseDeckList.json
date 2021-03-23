@@ -23,7 +23,7 @@
 			],
 			"hitpoints": 23,
 			"nemesisIdentifiers":[
-				"BartKFMod.Impulse"
+				"BartKFSentinels.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"One player may draw a card now.",
@@ -446,7 +446,7 @@
 			],
 			"hitpoints": 24,
 			"nemesisIdentifiers":[
-				"BartKFMod.Impulse"
+				"BartKFSentinels.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"Select a target. Increase the next damage dealt by that target by 2.",
@@ -484,7 +484,7 @@
 			],
 			"hitpoints": 26,
 			"nemesisIdentifiers":[
-				"BartKFMod.Impulse"
+				"BartKFSentinels.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"Destroy an Ongoing card.",
@@ -522,7 +522,7 @@
 			],
 			"hitpoints": 25,
 			"nemesisIdentifiers":[
-				"BartKFMod.Impulse"
+				"BartKFSentinels.Impulse"
 			],
 			"incapacitatedAbilities":[
 				"One player may play a card now.",

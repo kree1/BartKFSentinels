@@ -103,6 +103,17 @@
     <Compile Include="TheBaddies\TheBaddiesTurnTakerController.cs" />
     <Compile Include="TheBaddies\FireEverythingCardController.cs" />
     <Compile Include="DevStream\DroppedFrameCardController.cs" />
+    <Compile Include="TheGigamorph\AdhesiveAntibodyCardController.cs" />
+    <Compile Include="TheGigamorph\AllergicReactionCardController.cs" />
+    <Compile Include="TheGigamorph\CorrosiveChamberCardController.cs" />
+    <Compile Include="TheGigamorph\HostileResponseCardController.cs" />
+    <Compile Include="TheGigamorph\NerveClusterCardController.cs" />
+    <Compile Include="TheGigamorph\NutrientFlowCardController.cs" />
+    <Compile Include="TheGigamorph\PeristalticPassageCardController.cs" />
+    <Compile Include="TheGigamorph\RepelInvadersCardController.cs" />
+    <Compile Include="TheGigamorph\TheGigamorphUtilityCardController.cs" />
+    <Compile Include="TheGigamorph\UnderAttackCardController.cs" />
+    <Compile Include="TheGigamorph\VirulentStrainCardController.cs" />
     <Compile Include="TheGoalie\EighteenYardBoxCardController.cs" />
     <Compile Include="TheGoalie\ExtraTimeCardController.cs" />
     <Compile Include="TheGoalie\HospitalBallCardController.cs" />
@@ -142,6 +153,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\ImpulseDeckList.json" />
     <EmbeddedResource Include="DeckLists\EvidenceStorageDeckList.json" />
+    <EmbeddedResource Include="DeckLists\TheGigamorphDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -22,7 +22,7 @@
 			],
 			"hitpoints": 30,
 			"nemesisIdentifiers":[
-				"BartKFMod.TheGoalie"
+				"BartKFSentinels.TheGoalie"
 			],
 			"incapacitatedAbilities":[
 				"Select a target. Reduce the next damage dealt to that target by 2.",

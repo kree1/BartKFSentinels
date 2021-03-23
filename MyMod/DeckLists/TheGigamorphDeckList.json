@@ -1,0 +1,209 @@
+﻿{
+	"name": "The Gigamorph",
+	"kind": "Environment",
+	"difficulty": 2,
+	"cards": [
+		{
+			"identifier": "AdhesiveAntibody",
+			"count": 4,
+			"title": "Adhesive Antibody",
+			"hitpoints": 5,
+			"keywords": [
+				"antibody",
+				"immune"
+			],
+			"icons": [
+				"IncreaseDamageTaken",
+				"StartOfTurnAction",
+				"DealDamageToxic",
+				"GainHP",
+				"Manipulate"
+			],
+			"body": [
+				"Play this card next to the non-Antibody non-[b]tagged[/b] target with the third lowest HP. That target is [b]tagged[/b]. Increase damage dealt to that target by Immune cards by 1. At the start of that target's turn, this card deals it 1 toxic damage.",
+				"When this card would leave play, instead it and the target it's next to each regain 5 HP, then move it next to the non-Antibody non-[b]tagged[/b] target with the third lowest HP and it becomes indestructible until the end of the turn."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "AllergicReaction",
+			"count": 1,
+			"title": "Allergic Reaction",
+			"keywords": [
+				"immune"
+			],
+			"icons": [
+				"Manipulate",
+				"StartOfTurnAction",
+				"DestroySelf"
+			],
+			"body": [
+				"After a target deals 4 or more damage at once, that damage type becomes [b]monitored[/b] and all other damage types are no longer [b]monitored.[/b]",
+				"Whenever a target deals damage of a [b]monitored[/b] type, move the Antibody with the highest HP next to that target.",
+				"At the start of the environment turn, if any target has 2 or more Antibodies next to it, destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "CorrosiveChamber",
+			"count": 1,
+			"title": "Corrosive Chamber",
+			"keywords": [
+				"digestive"
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"DealDamageToxic",
+				"DestroyTarget",
+				"DestroySelf"
+			],
+			"body": [
+				"At the end of the environment turn, deal each target 2 toxic damage.",
+				"At the start of the environment turn, destroy each target with 2 or fewer HP. If no targets were destroyed this way, destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "HostileResponse",
+			"count": 2,
+			"title": "Hostile Response",
+			"keywords": [
+				"immune"
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"Search",
+				"Manipulate",
+				"DestroySelf"
+			],
+			"body": [
+				"At the end of the environment turn, search the environment deck and trash for an Antibody card and put it into play. Then, shuffle the environment deck.",
+				"At the start of the environment turn, reveal the top card of the environment deck. If it's an Immune card, replace it and destroy this card. Otherwise, discard it."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "NerveCluster",
+			"count": 1,
+			"title": "Nerve Cluster",
+			"keywords": [
+				"nervous"
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"CounterDamage",
+				"DealDamageMelee",
+				"Discard",
+				"DestroySelf"
+			],
+			"body": [
+				"At the end of each turn, this card deals {H} melee damage to each target that dealt {H + 2} or more damage to targets other than itself this turn.",
+				"At the start of the environment turn, each player may discard up to 3 cards. If {H + 2} or more cards are discarded this way, destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "NutrientFlow",
+			"count": 1,
+			"title": "Nutrient Flow",
+			"keywords": [
+				"circulatory"
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"GainHP",
+				"DestroySelf",
+				"PlayCardNow"
+			],
+			"body": [
+				"At the end of the environment turn, each target regains 2 HP.",
+				"At the start of the environment turn, each target regains 1 HP. Then, destroy this card.",
+				"When this card is destroyed, play the top card of the environment deck."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "PeristalticPassage",
+			"count": 1,
+			"title": "Peristaltic Passage",
+			"keywords": [
+				"digestive"
+			],
+			"icons": [
+				"DestroyOngoing",
+				"CannotDealDamage",
+				"StartOfTurnAction",
+				"DrawCardNow",
+				"DestroySelf"
+			],
+			"body": [
+				"When this card enters play, destroy 1 hero Ongoing card and 1 villain Ongoing card.",
+				"Targets can't deal damage to other targets.",
+				"At the start of the environment turn, each player draws a card. Then, destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "RepelInvaders",
+			"count": 1,
+			"title": "Repel Invaders",
+			"keywords": [
+				"immune"
+			],
+			"icons": [
+				"DealDamageToxic",
+				"DealDamageMelee",
+				"DealDamageEnergy",
+				"EndOfTurnAction",
+				"DestroySelf"
+			],
+			"body": [
+				"When this card enters play, deal each non-Antibody target 1 toxic damage, 1 melee damage, and 0 energy damage.",
+				"At the end of the environment turn, destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "UnderAttack",
+			"count": 1,
+			"title": "Under Attack",
+			"keywords": [
+				"immune"
+			],
+			"icons": [
+				"Search",
+				"EndOfTurnAction",
+				"Manipulate",
+				"DealDamageEnergy",
+				"DestroySelf"
+			],
+			"body": [
+				"When this card enters play, search the environment deck and trash for an Antibody card and put it into play. Then, shuffle the environment deck.",
+				"At the end of the environment turn, move the Antibody with the highest HP next to the non-[b]tagged[/b] villain target with the highest HP. Then, deal each [b]tagged[/b] target and each Antibody 1 energy damage and destroy this card."
+			],
+			"flavorText": "Text Here"
+		},
+		{
+			"identifier": "VirulentStrain",
+			"count": 2,
+			"title": "Virulent Strain",
+			"hitpoints": 15,
+			"keywords": [
+				"pathogen"
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"IncreaseDamageTaken",
+				"EndOfTurnAction",
+				"DealDamageToxic",
+				"GainHP"
+			],
+			"body": [
+				"Increase damage dealt to and by Pathogens by 1.",
+				"At the end of the environment turn, this card deals the non-Pathogen target with the lowest HP 2 toxic damage.",
+				"Whenever damage dealt by this card reduces a target to 0 or fewer HP, this card regains {H - 1} HP and deals the {H - 1} non-Pathogen targets with the highest HP 1 toxic damage each."
+			],
+			"flavorText": "Text Here"
+		}
+	]
+}
