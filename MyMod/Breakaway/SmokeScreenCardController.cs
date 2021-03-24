@@ -13,8 +13,8 @@ namespace BartKFSentinels.Breakaway
         public SmokeScreenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PlayedThisTurn), () => Game.ActiveTurnTaker.ToHero().ToString() + " has played a card this turn", () => Game.ActiveTurnTaker.ToHero().ToString() + " has not played a card this turn").Condition = () => base.Card.IsInPlayAndHasGameText && Game.ActiveTurnTaker.IsHero;
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PowerThisTurn), () => Game.ActiveTurnTaker.ToHero().ToString() + " has used a power this turn", () => Game.ActiveTurnTaker.ToHero().ToString() + " has not used a power this turn").Condition = () => base.Card.IsInPlayAndHasGameText && Game.ActiveTurnTaker.IsHero;
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PlayedThisTurn), () => Game.ActiveTurnTaker.ToHero().Identifier + " has played a card this turn", () => Game.ActiveTurnTaker.ToHero().Identifier + " has not played a card this turn").Condition = () => base.Card.IsInPlayAndHasGameText && Game.ActiveTurnTaker.IsHero;
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PowerThisTurn), () => Game.ActiveTurnTaker.ToHero().Identifier + " has used a power this turn", () => Game.ActiveTurnTaker.ToHero().Identifier + " has not used a power this turn").Condition = () => base.Card.IsInPlayAndHasGameText && Game.ActiveTurnTaker.IsHero;
         }
 
         public override void AddTriggers()
