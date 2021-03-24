@@ -96,14 +96,6 @@
     <Compile Include="Impulse\YouDroppedThisCardController.cs" />
     <Compile Include="Impulse\ZeroAttentionSpanCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MigrantCoder\WorstCardEverCardController.cs" />
-    <Compile Include="MigrantCoder\MigrantCoderCharacterCardController.cs" />
-    <Compile Include="MigrantCoder\PunchingBagCardController.cs" />
-    <Compile Include="MigrantCoder\MigrantCoderTurnTakerController.cs" />
-    <Compile Include="TheBaddies\TheBaddiesCharacterCardController.cs" />
-    <Compile Include="TheBaddies\TheBaddiesTurnTakerController.cs" />
-    <Compile Include="TheBaddies\FireEverythingCardController.cs" />
-    <Compile Include="DevStream\DroppedFrameCardController.cs" />
     <Compile Include="TheGigamorph\AdhesiveAntibodyCardController.cs" />
     <Compile Include="TheGigamorph\AllergicReactionCardController.cs" />
     <Compile Include="TheGigamorph\CorrosiveChamberCardController.cs" />
@@ -132,16 +124,8 @@
     <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />
     <Compile Include="TheGoalie\TheGoalieUtilityCardController.cs" />
     <Compile Include="TheGoalie\TwelfthGirlCardController.cs" />
-    <Compile Include="TheHugMonsterTeam\TheHugMonsterTeamCharacterCardController.cs" />
-    <Compile Include="TheHugMonsterTeam\WarmEmbraceCardController.cs" />
-    <Compile Include="MigrantCoder\MigrantCoderLockdownCharacterCardController.cs" />
-    <Compile Include="Bunker\WaywardBunkerCharacterCardController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DeckLists\MigrantCoderDeckList.json" />
-    <EmbeddedResource Include="DeckLists\TheBaddiesDeckList.json" />
-    <EmbeddedResource Include="DeckLists\DevStreamDeckList.json" />
-    <EmbeddedResource Include="DeckLists\TheHugMonsterTeamDeckList.json" />
     <EmbeddedResource Include="DeckLists\PromoCardList.json" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System.Reflection;
 using Handelabra.Sentinels.Engine.Model;
-using Workshopping.MigrantCoder;
 using Handelabra;
 using BartKFSentinels.Breakaway;
 
