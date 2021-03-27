@@ -22,7 +22,7 @@ namespace BartKFSentinels.Breakaway
             // "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP."
             AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay != null && pca.IsSuccessful && pca.CardToPlay.Owner.IsHero && pca.CardToPlay.IsHero && !pca.IsPutIntoPlay, GainHPResponse, TriggerType.GainHP, TriggerTiming.After);
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
-            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && !fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
+            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
         public override IEnumerator Play()
