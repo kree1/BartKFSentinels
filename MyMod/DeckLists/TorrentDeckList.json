@@ -1,0 +1,453 @@
+﻿{
+	"name": "Torrent",
+	"kind": "Hero",
+	"initialCardIdentifiers": [
+		"TorrentCharacter"
+	],
+	"cards":[
+		{
+			"identifier": "TorrentCharacter",
+			"count": 1,
+			"title": "Torrent",
+			"backgroundColor": "D1D3D4",
+			"body": "Instigate",
+			"character": true,
+			"powers":[
+				"Destroy up to 3 targets with 1 HP. Draw a card."
+			],
+			"icons":[
+				"HasPower",
+				"DestroyTarget",
+				"DrawCardNow"
+			],
+			"hitpoints": 28,
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Torrent"
+			],
+			"incapacitatedAbilities":[
+				"One player may play a card now.",
+				"Destroy a target with 1 HP.",
+				"The next time a target is destroyed, 1 hero target regains 3 HP."
+			],
+			"flippedIcons":[
+				"PlayCardNow",
+				"DestroyTarget",
+				"GainHP"
+			],
+			"complexity": 2,
+			"openingLines":{
+				"default": "Watch your step.",
+				"OblivAeonFrontPageCharacter": "I've got you outnumbered."
+			}
+		},
+		{
+			"identifier": "AutomatedProduction",
+			"count": 3,
+			"title": "Automated Production",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Reveal cards from the top of your deck until 3 Clusters are revealed. Put the revealed Clusters into your hand and shuffle the other revealed cards into your deck.",
+				"{TorrentCharacter} may deal herself 2 energy damage. If she takes damage this way, you may play a Cluster."
+			],
+			"icons":[
+				"Search",
+				"DealDamageEnergy",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "BurstNode",
+			"count": 3,
+			"title": "Burst Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may draw a card or play a card.",
+				"When this card is destroyed, {TorrentCharacter} deals up to X targets 2 projectile damage each, where X = the number of targets destroyed this turn."
+			],
+			"icons":[
+				"DrawCardNow",
+				"PlayCardNow",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "CollectiveSalvo",
+			"count": 2,
+			"title": "Collective Salvo",
+			"keywords":[
+				"ongoing"
+			],
+			"powers":[
+				"{TorrentCharacter} deals 1 target X projectile damage, where X = the number of Clusters in play. Destroy a target with 1 HP."
+			],
+			"icons":[
+				"HasPower",
+				"DealDamageProjectile",
+				"DestroyTarget"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "DivertAttention",
+			"count": 3,
+			"title": "Divert Attention",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Each player may put a card other than Divert Attention from their trash on top of their deck.",
+				"Destroy 2 targets with 1 HP."
+			],
+			"icons":[
+				"Manipulate",
+				"DestroyTarget"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "EarlyWarningSystem",
+			"count": 2,
+			"title": "Early Warning System",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Whenever a Cluster would be dealt damage, you may redirect that damage to {TorrentCharacter}."
+			],
+			"icons":[
+				"RedirectDamage"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "EphemeralDeployment",
+			"count": 3,
+			"title": "Ephemeral Deployment",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"The first time a Cluster enters play each turn, you may draw a card or play a card."
+			],
+			"powers":[
+				"Destroy up to 3 targets with 1 HP. Return a random Cluster from your trash to your hand."
+			],
+			"icons":[
+				"DrawCardNow",
+				"PlayCardNow",
+				"HasPower",
+				"DestroyTarget",
+				"Manipulate"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "FocusingNode",
+			"count": 3,
+			"title": "Focusing Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may draw a card or play a card.",
+				"When this card is destroyed, {TorrentCharacter} deals 1 target X energy damage, where X = the number of targets destroyed this turn."
+			],
+			"icons":[
+				"DrawCardNow",
+				"PlayCardNow",
+				"DealDamageEnergy"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "GeneratorNode",
+			"count": 3,
+			"title": "Generator Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, reveal the top card of your deck. If it's a Cluster, play it. Otherwise, discard it.",
+				"When this card is destroyed, reveal the top X cards of a deck, where X = the number of targets destroyed this turn. Play 1 revealed card and discard the rest."
+			],
+			"icons":[
+				"Manipulate",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ProximityNode",
+			"count": 2,
+			"title": "Proximity Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may play a card.",
+				"When this card is destroyed, you may destroy a target with X*2 or fewer HP, where X = the number of targets destroyed this turn."
+			],
+			"icons":[
+				"PlayCardNow",
+				"DestroyTarget"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ReconNode",
+			"count": 3,
+			"title": "Recon Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may play a card.",
+				"When this card is destroyed, X players may each draw a card, where X = the number of targets destroyed this turn."
+			],
+			"icons":[
+				"PlayCardNow",
+				"DrawCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "RecoveryNode",
+			"count": 3,
+			"title": "Recovery Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may draw a card or play a card.",
+				"When this card is destroyed, 1 target regains X HP, where X = the number of targets destroyed this turn."
+			],
+			"icons":[
+				"DrawCardNow",
+				"PlayCardNow",
+				"GainHP"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "RedundancyNode",
+			"count": 2,
+			"title": "Redundancy Node",
+			"hitpoints": 1,
+			"keywords":[
+				"cluster"
+			],
+			"body":[
+				"When this card enters play, you may draw a card and you may play a card.",
+				"When this card is destroyed, you may destroy a target with 2 or fewer HP."
+			],
+			"icons":[
+				"DrawCardNow",
+				"PlayCardNow",
+				"DestroyTarget"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "RepurposedHardware",
+			"count": 3,
+			"title": "Repurposed Hardware",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"X on this card = the number of Clusters in your trash.",
+				"{TorrentCharacter} deals 1 target X lightning damage. If a Cluster was destroyed this turn, {TorrentCharacter} may deal 1 target X energy damage.",
+				"You may shuffle your trash into your deck."
+			],
+			"icons":[
+				"DealDamageLightning",
+				"DealDamageEnergy",
+				"Manipulate"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SoftwareUpdate",
+			"count": 3,
+			"title": "Software Update",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Search your deck or trash for an Ongoing card and put it into play. Shuffle your deck.",
+				"You may destroy a target with 1 HP. If you do, you may play a card or destroy an Ongoing card."
+			],
+			"icons":[
+				"Search",
+				"DestroyTarget",
+				"PlayCardNow",
+				"DestroyOngoing"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SurgeProtection",
+			"count": 2,
+			"title": "Surge Protection",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"Reduce damage dealt to Clusters by 1."
+			],
+			"powers":[
+				"Return all Clusters from your trash to your hand. Destroy this card."
+			],
+			"icons":[
+				"ReduceDamageTaken",
+				"HasPower",
+				"Manipulate",
+				"DestroySelf"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		}
+	],
+	"promoCards":[
+		{
+			"identifier": "TorrentCharacter",
+			"promoIdentifier": "TorrentDenialOfServiceCharacter",
+			"count": 1,
+			"title": "Torrent",
+			"promoTitle": "Torrent: Denial of Service",
+			"shortPromoTitle": "Torrent: Denial of Service",
+			"backgroundColor": "F0FF7F",
+			"body": "Overload",
+			"character": true,
+			"powers":[
+				"{TorrentCharacter} deals each target 1 lightning damage."
+			],
+			"icons":[
+				"HasPower",
+				"DealDamageLightning"
+			],
+			"hitpoints": 30,
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Torrent"
+			],
+			"incapacitatedAbilities":[
+				"One hero may use a power now.",
+				"Destroy an environment card.",
+				"Until the start of your next turn, this card counts as a target with 1 HP that is indestructible and immune to damage."
+			],
+			"flippedIcons":[
+				"UsePowerNow",
+				"DestroyEnvironment",
+				"ImmuneToDamage"
+			],
+			"complexity": 2,
+			"openingLines":{
+				"default": "All right, team! Let's move fast and break things!",
+				"OblivAeonFrontPageCharacter": "Reality needs a hard reboot. Got it."
+			}
+		}
+	]
+}

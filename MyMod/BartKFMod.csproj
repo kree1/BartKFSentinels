@@ -124,6 +124,24 @@
     <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />
     <Compile Include="TheGoalie\TheGoalieUtilityCardController.cs" />
     <Compile Include="TheGoalie\TwelfthGirlCardController.cs" />
+    <Compile Include="Torrent\AutomatedProductionCardController.cs" />
+    <Compile Include="Torrent\BurstNodeCardController.cs" />
+    <Compile Include="Torrent\CollectiveSalvoCardController.cs" />
+    <Compile Include="Torrent\DivertAttentionCardController.cs" />
+    <Compile Include="Torrent\EarlyWarningSystemCardController.cs" />
+    <Compile Include="Torrent\EphemeralDeploymentCardController.cs" />
+    <Compile Include="Torrent\FocusingNodeCardController.cs" />
+    <Compile Include="Torrent\GeneratorNodeCardController.cs" />
+    <Compile Include="Torrent\ProximityNodeCardController.cs" />
+    <Compile Include="Torrent\ReconNodeCardController.cs" />
+    <Compile Include="Torrent\RecoveryNodeCardController.cs" />
+    <Compile Include="Torrent\RedundancyNodeCardController.cs" />
+    <Compile Include="Torrent\RepurposedHardwareCardController.cs" />
+    <Compile Include="Torrent\SoftwareUpdateCardController.cs" />
+    <Compile Include="Torrent\SurgeProtectionCardController.cs" />
+    <Compile Include="Torrent\TorrentCharacterCardController.cs" />
+    <Compile Include="Torrent\TorrentDenialOfServiceCharacterCardController.cs" />
+    <Compile Include="Torrent\TorrentUtilityCardController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DeckLists\PromoCardList.json" />
@@ -139,6 +157,7 @@
     <EmbeddedResource Include="DeckLists\ImpulseDeckList.json" />
     <EmbeddedResource Include="DeckLists\EvidenceStorageDeckList.json" />
     <EmbeddedResource Include="DeckLists\TheGigamorphDeckList.json" />
+    <EmbeddedResource Include="DeckLists\TorrentDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
