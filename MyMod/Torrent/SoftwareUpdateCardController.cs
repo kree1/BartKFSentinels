@@ -14,7 +14,8 @@ namespace BartKFSentinels.Torrent
         public SoftwareUpdateCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("ongoing")), () => false);
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("ongoing"), "Ongoing"), () => false);
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("ongoing"), "Ongoing"), () => false);
             SpecialStringMaker.ShowListOfCardsInPlay(TargetWithOneHP(), () => false);
         }
 

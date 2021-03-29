@@ -394,13 +394,12 @@
 				"Reduce damage dealt to Clusters by 1."
 			],
 			"powers":[
-				"Return all Clusters from your trash to your hand. Destroy this card."
+				"Return all Clusters from your trash to your hand. Shuffle this card into your deck."
 			],
 			"icons":[
 				"ReduceDamageTaken",
 				"HasPower",
-				"Manipulate",
-				"DestroySelf"
+				"Manipulate"
 			],
 			"flavorQuotes":[
 				{

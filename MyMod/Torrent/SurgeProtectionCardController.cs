@@ -37,15 +37,15 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(moveCoroutine);
             }
-            // "Destroy this card."
-            IEnumerator destroyCoroutine = base.GameController.DestroyCard(base.HeroTurnTakerController, base.Card, showOutput: true, responsibleCard: base.Card, cardSource: GetCardSource());
+            // "Shuffle this card into your deck."
+            IEnumerator removeCoroutine = base.GameController.ShuffleCardIntoLocation(base.HeroTurnTakerController, base.Card, base.TurnTaker.Deck, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(destroyCoroutine);
+                yield return base.GameController.StartCoroutine(removeCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(destroyCoroutine);
+                base.GameController.ExhaustCoroutine(removeCoroutine);
             }
             yield break;
         }

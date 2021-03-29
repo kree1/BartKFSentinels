@@ -14,7 +14,10 @@ namespace BartKFSentinels.Torrent
         public TorrentUtilityCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            if (base.Card.DoKeywordsContain("cluster"))
+            {
+                SpecialStringMaker.ShowSpecialString(() => base.Card.Title + " is already being destroyed.", () => false).Condition = () => base.Card.IsBeingDestroyed;
+            }
         }
 
         public int NumTargetsDestroyedThisTurn()

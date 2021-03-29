@@ -22,7 +22,7 @@ namespace BartKFSentinels.Torrent
             int maxTargets = GetPowerNumeral(0, 3);
             int hpValue = GetPowerNumeral(1, 1);
             // "Destroy up to 3 targets with 1 HP."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsTarget && c.HitPoints.Value == 1), 3, false, 0, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsTarget && c.HitPoints.Value == hpValue, "targets with " + hpValue.ToString() + " HP", false, false, "target with " + hpValue.ToString() + " HP", "targets with " + hpValue.ToString() + " HP"), 3, false, 0, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

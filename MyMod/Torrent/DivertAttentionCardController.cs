@@ -17,7 +17,7 @@ namespace BartKFSentinels.Torrent
             base.SpecialStringMaker.ShowNumberOfCardsAtLocations(() => from httc in base.GameController.FindHeroTurnTakerControllers()
                                                                        where !httc.IsIncapacitatedOrOutOfGame
                                                                        select httc.TurnTaker.Trash);
-            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsTarget && c.HitPoints.Value == 1));
+            SpecialStringMaker.ShowListOfCardsInPlay(TargetWithOneHP());
         }
 
         public override IEnumerator Play()
