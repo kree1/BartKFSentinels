@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -24,7 +25,7 @@ namespace BartKFSentinels.Breakaway
             // "At the end of the villain turn, {Momentum} deals the hero character with the lowest HP and itself {H - 1} energy damage each."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DealDamageResponse, TriggerType.DealDamage);
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
-            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
+            AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && !fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
         public override IEnumerator Play()
@@ -84,6 +85,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator SelfDestructResponse(FlipCardAction fca)
         {
             // "When {Momentum} flips to its "Under Pressure" side, destroy this card and play the top card of the villain deck."
+            Log.Debug(base.TurnTaker.FindCard("MomentumCharacter").Title + " flipped to Under Pressure! " + base.Card.Title + " will play the top card of the villain deck and then destroy itself.");
             IEnumerator destroyCoroutine = base.GameController.DestroyCard(this.DecisionMaker, this.Card, optional: false, postDestroyAction: () => base.PlayTheTopCardOfTheVillainDeckResponse(fca), actionSource: fca, responsibleCard: this.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
