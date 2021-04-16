@@ -136,7 +136,7 @@ namespace BartKFSentinels.Torrent
             yield break;
         }
 
-        private IEnumerator HealResponse()
+        public IEnumerator HealResponse()
         {
             // "... 1 hero target regains 3 HP."
             IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 3, false, (Card c) => c.IsHero, 1, 1, cardSource: GetCardSource());
