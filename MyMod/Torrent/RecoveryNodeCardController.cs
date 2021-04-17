@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BartKFSentinels.Torrent
 {
-    public class RecoveryNodeCardController : TorrentUtilityCardController
+    public class RecoveryNodeCardController : ClusterCardController
     {
         public RecoveryNodeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowIfElseSpecialString(() => base.NumTargetsDestroyedThisTurn() == 1, () => "1 target has been destroyed this turn.", () => base.NumTargetsDestroyedThisTurn().ToString() + " targets have been destroyed this turn.", () => true);
+            
         }
 
         public override void AddTriggers()
@@ -26,15 +26,18 @@ namespace BartKFSentinels.Torrent
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, you may draw a card or play a card."
-            IEnumerator drawPlayCoroutine = DrawACardOrPlayACard(base.HeroTurnTakerController, true);
-            if (base.UseUnityCoroutines)
+            if (Journal.GetCardPropertiesBoolean(base.Card, IgnoreEntersPlay) != true)
             {
-                yield return base.GameController.StartCoroutine(drawPlayCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(drawPlayCoroutine);
+                // "When this card enters play, you may draw a card or play a card."
+                IEnumerator drawPlayCoroutine = DrawACardOrPlayACard(base.HeroTurnTakerController, true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(drawPlayCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(drawPlayCoroutine);
+                }
             }
             yield break;
         }

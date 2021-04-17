@@ -9,13 +9,12 @@ using System.Text;
 
 namespace BartKFSentinels.Torrent
 {
-    public class GeneratorNodeCardController : TorrentUtilityCardController
+    public class GeneratorNodeCardController : ClusterCardController
     {
         public GeneratorNodeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("cluster"), "Cluster"));
-            SpecialStringMaker.ShowIfElseSpecialString(() => base.NumTargetsDestroyedThisTurn() == 1, () => "1 target has been destroyed this turn.", () => base.NumTargetsDestroyedThisTurn().ToString() + " targets have been destroyed this turn.", () => true);
         }
 
         public override void AddTriggers()
@@ -27,55 +26,58 @@ namespace BartKFSentinels.Torrent
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, reveal the top card of your deck. If it's a Cluster, play it. Otherwise, discard it."
-            List<Card> revealed = new List<Card>();
-            IEnumerator revealCoroutine = base.GameController.RevealCards(base.TurnTakerController, base.TurnTaker.Deck, 1, revealed, revealedCardDisplay: RevealedCardDisplay.Message, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (Journal.GetCardPropertiesBoolean(base.Card, IgnoreEntersPlay) != true)
             {
-                yield return base.GameController.StartCoroutine(revealCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(revealCoroutine);
-            }
-            Card topCard = revealed.FirstOrDefault();
-            if (topCard != null)
-            {
-                if (topCard.DoKeywordsContain("cluster"))
+                // "When this card enters play, reveal the top card of your deck. If it's a Cluster, play it. Otherwise, discard it."
+                List<Card> revealed = new List<Card>();
+                IEnumerator revealCoroutine = base.GameController.RevealCards(base.TurnTakerController, base.TurnTaker.Deck, 1, revealed, revealedCardDisplay: RevealedCardDisplay.Message, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
                 {
-                    IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, topCard, responsibleTurnTaker: base.TurnTaker, associateCardSource: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(playCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(playCoroutine);
-                    }
+                    yield return base.GameController.StartCoroutine(revealCoroutine);
                 }
                 else
                 {
-                    IEnumerator discardCoroutine = base.GameController.MoveCard(base.TurnTakerController, topCard, base.TurnTaker.Trash, showMessage: true, responsibleTurnTaker: base.TurnTaker, isDiscard: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
+                    base.GameController.ExhaustCoroutine(revealCoroutine);
+                }
+                Card topCard = revealed.FirstOrDefault();
+                if (topCard != null)
+                {
+                    if (topCard.DoKeywordsContain("cluster"))
                     {
-                        yield return base.GameController.StartCoroutine(discardCoroutine);
+                        IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, topCard, responsibleTurnTaker: base.TurnTaker, associateCardSource: true, cardSource: GetCardSource());
+                        if (base.UseUnityCoroutines)
+                        {
+                            yield return base.GameController.StartCoroutine(playCoroutine);
+                        }
+                        else
+                        {
+                            base.GameController.ExhaustCoroutine(playCoroutine);
+                        }
                     }
                     else
                     {
-                        base.GameController.ExhaustCoroutine(discardCoroutine);
+                        IEnumerator discardCoroutine = base.GameController.MoveCard(base.TurnTakerController, topCard, base.TurnTaker.Trash, showMessage: true, responsibleTurnTaker: base.TurnTaker, isDiscard: true, cardSource: GetCardSource());
+                        if (base.UseUnityCoroutines)
+                        {
+                            yield return base.GameController.StartCoroutine(discardCoroutine);
+                        }
+                        else
+                        {
+                            base.GameController.ExhaustCoroutine(discardCoroutine);
+                        }
                     }
                 }
-            }
-            List<Location> toClean = new List<Location>();
-            toClean.Add(base.TurnTaker.Revealed);
-            IEnumerator cleanupCoroutine = CleanupCardsAtLocations(toClean, base.TurnTaker.Deck);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(cleanupCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(cleanupCoroutine);
+                List<Location> toClean = new List<Location>();
+                toClean.Add(base.TurnTaker.Revealed);
+                IEnumerator cleanupCoroutine = CleanupCardsAtLocations(toClean, base.TurnTaker.Deck);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(cleanupCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(cleanupCoroutine);
+                }
             }
             yield break;
         }

@@ -34,9 +34,9 @@
 				"DestroyTarget",
 				"GainHP"
 			],
-			"complexity": 2,
+			"complexity": 3,
 			"openingLines":{
-				"default": "Watch your step.",
+				"default": "Building a better future starts with less of... whatever this is.",
 				"OblivAeonFrontPageCharacter": "I've got you outnumbered."
 			}
 		},
@@ -49,7 +49,7 @@
 			],
 			"body":[
 				"Reveal cards from the top of your deck until 3 Clusters are revealed. Put the revealed Clusters into your hand and shuffle the other revealed cards into your deck.",
-				"{TorrentCharacter} may deal herself 2 energy damage. If she takes damage this way, you may play a Cluster."
+				"{TorrentCharacter} may deal herself 3 energy damage. If she takes damage this way, you may play a Cluster."
 			],
 			"icons":[
 				"Search",
@@ -58,11 +58,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "Ow! Still hot!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent"
 		},
 		{
 			"identifier": "BurstNode",
@@ -83,11 +83,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "For the last time, they don't{BR}'grow' and they're not 'bombs.' Relax."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent, to Guise"
 		},
 		{
 			"identifier": "CollectiveSalvo",
@@ -106,11 +106,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Hippo",
+					"text": "Surrounded?{BR}What're you talkin' a--"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Hippo"
 		},
 		{
 			"identifier": "DivertAttention",
@@ -129,11 +129,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Rockstar",
+					"text": "How can you be sure they{BR}won't... oh. [b]OH.[/b] Yeah, okay."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Rockstar"
 		},
 		{
 			"identifier": "EarlyWarningSystem",
@@ -143,15 +143,23 @@
 				"ongoing"
 			],
 			"body":[
-				"Whenever a Cluster would be dealt damage, you may redirect that damage to {TorrentCharacter}."
+				"Whenever a Cluster would be dealt damage, you may prevent that daamge. If you do, the source of that damage deals {TorrentCharacter} 1 damage of that type.",
+				"At the end of your turn, you may play a Cluster from your trash, ignoring its 'when this card enters play' effects, then destroy it."
 			],
 			"icons":[
-				"RedirectDamage"
+				"CancelledDamageGreen",
+				"EndOfTurnAction",
+				"PlayCardNow",
+				"Destroy"
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Unity",
+					"text": "Oh, cool! So you can come{BR}help out when they're in trouble!"
+				},
+				{
+					"identifier": "Torrent",
+					"text": "... Not exactly."
 				}
 			],
 			"flavorReference": ""
@@ -179,11 +187,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Wildlife",
+					"text": "Those had better be{BR}biodegradable, young lady."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Wildlife"
 		},
 		{
 			"identifier": "FocusingNode",
@@ -204,11 +212,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Setback",
+					"text": "Oh, so [b]that's[/b] what{BR}the joystick does. Cool!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Setback"
 		},
 		{
 			"identifier": "GeneratorNode",
@@ -228,8 +236,12 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Luminary",
+					"text": "That's all?"
+				},
+				{
+					"identifier": "Torrent",
+					"text": "Give it time."
 				}
 			],
 			"flavorReference": ""
@@ -252,11 +264,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "Don't touch the manhole{BR}cover. Trust me."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent"
 		},
 		{
 			"identifier": "ReconNode",
@@ -276,11 +288,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "Take the next right- but watch{BR}out for the dad with the stroller!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent, The Chase #"
 		},
 		{
 			"identifier": "RecoveryNode",
@@ -299,13 +311,8 @@
 				"PlayCardNow",
 				"GainHP"
 			],
-			"flavorQuotes":[
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText":"* Bottled water & protein bars{BR}(first responders need fuel too!)",
+			"flavorReference": "MDI meeting notes on nanoconstruction priorities"
 		},
 		{
 			"identifier": "RedundancyNode",
@@ -326,11 +333,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Tessa Jelinski",
+					"text": "What does it do?{BR}That depends-- what needs doing?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Tessa Jelinski"
 		},
 		{
 			"identifier": "RepurposedHardware",
@@ -351,11 +358,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "Just push him another meter{BR}or so to the left, and... perfect."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent"
 		},
 		{
 			"identifier": "SoftwareUpdate",
@@ -376,11 +383,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "You mean fighting alien invaders{BR}[b]won't[/b] help me get this through{BR}quality assurance?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Torrent"
 		},
 		{
 			"identifier": "SurgeProtection",
@@ -403,11 +410,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Susan Kim",
+					"text": "Is it really 'protection' if they{BR}still get squished?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Susan Kim"
 		}
 	],
 	"promoCards":[
@@ -442,7 +449,7 @@
 				"DestroyEnvironment",
 				"ImmuneToDamage"
 			],
-			"complexity": 2,
+			"complexity": 3,
 			"openingLines":{
 				"default": "All right, team! Let's move fast and break things!",
 				"OblivAeonFrontPageCharacter": "Reality needs a hard reboot. Got it."

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Torrent
 {
-    public class RedundancyNodeCardController : CardController
+    public class RedundancyNodeCardController : ClusterCardController
     {
         public RedundancyNodeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -26,24 +26,27 @@ namespace BartKFSentinels.Torrent
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, you may draw a card and you may play a card."
-            IEnumerator drawCoroutine = base.GameController.DrawCard(base.HeroTurnTaker, optional: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (Journal.GetCardPropertiesBoolean(base.Card, IgnoreEntersPlay) != true)
             {
-                yield return base.GameController.StartCoroutine(drawCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(drawCoroutine);
-            }
-            IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, associateCardSource: true);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(playCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(playCoroutine);
+                // "When this card enters play, you may draw a card and you may play a card."
+                IEnumerator drawCoroutine = base.GameController.DrawCard(base.HeroTurnTaker, optional: true, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(drawCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(drawCoroutine);
+                }
+                IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, associateCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(playCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(playCoroutine);
+                }
             }
             yield break;
         }

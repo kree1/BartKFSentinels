@@ -31,9 +31,9 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(manipulateCoroutine);
             }
-            // "{TorrentCharacter} may deal herself 2 energy damage. If she takes damage this way, you may play a Cluster."
+            // "{TorrentCharacter} may deal herself 3 energy damage. If she takes damage this way, you may play a Cluster."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = DealDamage(base.CharacterCard, base.CharacterCard, 2, DamageType.Energy, optional: true, storedResults: damageResults, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = DealDamage(base.CharacterCard, base.CharacterCard, 3, DamageType.Energy, optional: true, storedResults: damageResults, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
