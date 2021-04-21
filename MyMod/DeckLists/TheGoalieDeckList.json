@@ -1,5 +1,6 @@
 {
 	"name": "The Goalie",
+	"sortName": "Goalie",
 	"kind": "Hero",
 	"initialCardIdentifiers":[
 		"TheGoalieCharacter"

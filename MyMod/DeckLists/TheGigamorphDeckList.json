@@ -1,5 +1,6 @@
 ﻿{
 	"name": "The Gigamorph",
+	"sortName": "Gigamorph",
 	"kind": "Environment",
 	"difficulty": 2,
 	"cards": [
