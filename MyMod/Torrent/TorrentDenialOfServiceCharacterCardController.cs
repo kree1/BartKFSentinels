@@ -19,8 +19,8 @@ namespace BartKFSentinels.Torrent
         public override IEnumerator UsePower(int index = 0)
         {
             int amount = GetPowerNumeral(0, 1);
-            // "{TorrentCharacter} deals each target 1 lightning damage."
-            IEnumerator damageCoroutine = base.GameController.DealDamage(base.HeroTurnTakerController, base.Card, (Card c) => true, amount, DamageType.Lightning, cardSource: GetCardSource());
+            // "{TorrentCharacter} deals each of your targets and each non-hero target 1 lightning damage."
+            IEnumerator damageCoroutine = base.GameController.DealDamage(base.HeroTurnTakerController, base.Card, (Card c) => (c.Owner == base.TurnTaker || !c.IsHero), amount, DamageType.Lightning, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

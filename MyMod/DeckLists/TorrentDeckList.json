@@ -429,7 +429,7 @@
 			"body": "Overload",
 			"character": true,
 			"powers":[
-				"{TorrentCharacter} deals each target 1 lightning damage."
+				"{TorrentCharacter} deals each of your targets and each non-hero target 1 lightning damage."
 			],
 			"icons":[
 				"HasPower",
