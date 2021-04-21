@@ -67,17 +67,18 @@ namespace BartKFSentinels.Impulse
 
             // "If you do, {ImpulseCharacter} deals 1 target X irreducible melee damage."
             int? numRemoved = removed.FirstOrDefault();
-            if (numRemoved.HasValue)
+            if (!numRemoved.HasValue)
             {
-                IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), numRemoved.Value, DamageType.Melee, 1, false, 1, isIrreducible: true, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(damageCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(damageCoroutine);
-                }
+                numRemoved = 0;
+            }
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), numRemoved.Value, DamageType.Melee, 1, false, 1, isIrreducible: true, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(damageCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             yield break;
         }

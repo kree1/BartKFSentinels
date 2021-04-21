@@ -46,8 +46,8 @@ namespace BartKFSentinels.Breakaway
 
         protected const string PlayedThisTurn = "HeroPlayedCardThisTurn";
         protected const string PowerThisTurn = "HeroUsedPowerThisTurn";
-        private ITrigger heroPlayedTrigger;
-        private ITrigger heroUsedPowerTrigger;
+        //private ITrigger heroPlayedTrigger;
+        //private ITrigger heroUsedPowerTrigger;
 
         private IEnumerator SelfDestructResponse(FlipCardAction fca)
         {

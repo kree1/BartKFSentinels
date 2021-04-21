@@ -22,7 +22,19 @@ namespace BartKFSentinels.Torrent
 
         public int NumTargetsDestroyedThisTurn()
         {
-            int count = base.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => dcje.Card.IsTarget).Count();
+            IEnumerable<DestroyCardJournalEntry> cardsDestroyedThisTurn = base.Journal.DestroyCardEntriesThisTurn();
+            Log.Debug(cardsDestroyedThisTurn.Count().ToString() + " cards destroyed this turn:");
+            foreach(DestroyCardJournalEntry entry in cardsDestroyedThisTurn)
+            {
+                Log.Debug("* " + entry.Card.Title);
+            }
+            IEnumerable<DestroyCardJournalEntry> targetsDestroyedThisTurn = base.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => dcje.WasTargetWhenDestroyed);
+            int count = targetsDestroyedThisTurn.Count();
+            Log.Debug(count.ToString() + " targets destroyed this turn:");
+            foreach(DestroyCardJournalEntry entry in targetsDestroyedThisTurn)
+            {
+                Log.Debug("* " + entry.Card.Title);
+            }
             return count;
         }
 

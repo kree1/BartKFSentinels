@@ -96,6 +96,21 @@
     <Compile Include="Impulse\YouDroppedThisCardController.cs" />
     <Compile Include="Impulse\ZeroAttentionSpanCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TheEmpire\CampaignOfTerrorCardController.cs" />
+    <Compile Include="TheEmpire\ConstantSurveillanceCardController.cs" />
+    <Compile Include="TheEmpire\CrucialDefeatCardController.cs" />
+    <Compile Include="TheEmpire\DarkenedMonitorCardController.cs" />
+    <Compile Include="TheEmpire\DinoCavalryCardController.cs" />
+    <Compile Include="TheEmpire\EmpireUtilityCardController.cs" />
+    <Compile Include="TheEmpire\FabricatedDisasterCardController.cs" />
+    <Compile Include="TheEmpire\InfiltrationDroneCardController.cs" />
+    <Compile Include="TheEmpire\LearnFromHistoryCardController.cs" />
+    <Compile Include="TheEmpire\ReclusiveInformantCardController.cs" />
+    <Compile Include="TheEmpire\RevisionistHistoryCardController.cs" />
+    <Compile Include="TheEmpire\SubjugatedMassesCardController.cs" />
+    <Compile Include="TheEmpire\SurpriseRaidCardController.cs" />
+    <Compile Include="TheEmpire\UnseenHandCardController.cs" />
+    <Compile Include="TheEmpire\UprisingCardController.cs" />
     <Compile Include="TheGigamorph\AdhesiveAntibodyCardController.cs" />
     <Compile Include="TheGigamorph\AllergicReactionCardController.cs" />
     <Compile Include="TheGigamorph\CorrosiveChamberCardController.cs" />
@@ -159,6 +174,7 @@
     <EmbeddedResource Include="DeckLists\EvidenceStorageDeckList.json" />
     <EmbeddedResource Include="DeckLists\TheGigamorphDeckList.json" />
     <EmbeddedResource Include="DeckLists\TorrentDeckList.json" />
+    <EmbeddedResource Include="DeckLists\TheEmpireDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

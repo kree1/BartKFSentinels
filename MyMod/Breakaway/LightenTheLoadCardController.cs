@@ -38,7 +38,7 @@ namespace BartKFSentinels.Breakaway
             List<DestroyCardAction> playersDestroyed = new List<DestroyCardAction>();
             if (GameController.FindCardsWhere(new LinqCardCriteria((Card c) => !c.IsCharacter && loadedHeroes.Contains(c.Owner))).Any())
             {
-                SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, isListedHero, SelectionType.DestroyCard, Game.H - 2, cardSource: GetCardSource());
+                SelectTurnTakersDecision destroyOrder = new SelectTurnTakersDecision(base.GameController, this.DecisionMaker, isListedHero, SelectionType.DestroyCard, numberOfTurnTakers: Game.H - 2, allowAutoDecide: true, cardSource: GetCardSource());
                 IEnumerator playersDestroyCoroutine = base.GameController.SelectTurnTakersAndDoAction(destroyOrder, (TurnTaker tt) => base.GameController.SelectAndDestroyCard(base.FindHeroTurnTakerController(tt.ToHero()), cardCriteria: new LinqCardCriteria((Card c) => !c.IsCharacter && c.Owner == tt, "non-character"), false, storedResultsAction: playersDestroyed, cardSource: GetCardSource()));
                 if (base.UseUnityCoroutines)
                 {

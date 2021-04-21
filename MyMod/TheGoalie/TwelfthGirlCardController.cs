@@ -28,21 +28,6 @@ namespace BartKFSentinels.TheGoalie
             base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && dda.Target.IsHero && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
         }
 
-        public IEnumerator FollowUp(DealDamageAction dda)
-        {
-            base.SetCardPropertyToTrueIfRealAction(PreventDamageOncePerTurn);
-            IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2 * NumGoalpostsInHeroPlayAreas(), requiredDecisions: 0, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(healCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(healCoroutine);
-            }
-            yield break;
-        }
-
         public IEnumerator OneDamageResponse(DealDamageAction dda)
         {
             Log.Debug("TwelfthGirlCardController.OneDamageResponse activated");

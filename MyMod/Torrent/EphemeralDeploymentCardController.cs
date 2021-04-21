@@ -15,7 +15,7 @@ namespace BartKFSentinels.Torrent
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OneClusterPerTurn), () => "A Cluster has already entered play this turn.", () => "No Clusters have entered play this turn.");
-            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("cluster")), () => false);
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("cluster"), "Cluster"), () => false);
         }
 
         protected const string OneClusterPerTurn = "OneClusterPerTurn";
