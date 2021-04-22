@@ -113,6 +113,9 @@
 			"keywords": [
 				"imperial"
 			],
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Torrent"
+			],
 			"hitpoints": 9,
 			"body": [
 				"At the end of the environment turn, destroy a hero Ongoing card. Then, this card deals the {H - 1} non-Imperial targets with the highest HP 1 lightning damage each."
