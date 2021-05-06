@@ -142,7 +142,7 @@
     <Compile Include="Torrent\AutomatedProductionCardController.cs" />
     <Compile Include="Torrent\BurstNodeCardController.cs" />
     <Compile Include="Torrent\ClusterCardController.cs" />
-    <Compile Include="Torrent\CollectiveSalvoCardController.cs" />
+    <Compile Include="Torrent\CoordinatedFinaleCardController.cs" />
     <Compile Include="Torrent\DivertAttentionCardController.cs" />
     <Compile Include="Torrent\EarlyWarningSystemCardController.cs" />
     <Compile Include="Torrent\EphemeralDeploymentCardController.cs" />

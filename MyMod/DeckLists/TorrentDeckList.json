@@ -90,19 +90,21 @@
 			"flavorReference": "Torrent, to Guise"
 		},
 		{
-			"identifier": "CollectiveSalvo",
+			"identifier": "CoordinatedFinale",
 			"count": 2,
-			"title": "Collective Salvo",
+			"title": "Coordinated Finale",
 			"keywords":[
 				"ongoing"
 			],
-			"powers":[
-				"{TorrentCharacter} deals 1 target X projectile damage, where X = the number of Clusters in play. Destroy a target with 1 HP."
+			"body":[
+				"At the start of your turn, {TorrentCharacter} may deal 1 target X projectile damage, where X = the number of Clusters in play. If she deals damage this way, destroy any number of Clusters, then destroy this card.",
+				"After {TorrentCharacter} uses a power, you may destroy up to 2 Clusters."
 			],
 			"icons":[
-				"HasPower",
+				"StartOfTurnAction",
 				"DealDamageProjectile",
-				"DestroyTarget"
+				"DestroyTarget",
+				"DestroySelf"
 			],
 			"flavorQuotes":[
 				{
@@ -129,11 +131,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "Rockstar",
-					"text": "How can you be sure they{BR}won't... oh. [b]OH.[/b] Yeah, okay."
+					"identifier": "Headlong",
+					"text": "How can you be sure they{BR}won't-- [b]OH.[/b] Yeah, that should work."
 				}
 			],
-			"flavorReference": "Rockstar"
+			"flavorReference": "Headlong"
 		},
 		{
 			"identifier": "EarlyWarningSystem",
@@ -143,7 +145,7 @@
 				"ongoing"
 			],
 			"body":[
-				"Whenever a Cluster would be dealt damage, you may prevent that daamge. If you do, the source of that damage deals {TorrentCharacter} 1 damage of that type.",
+				"Whenever a Cluster would be dealt damage, you may prevent that damage. If you do, the source of that damage deals {TorrentCharacter} 1 damage of that type.",
 				"At the end of your turn, you may play a Cluster from your trash, ignoring its 'when this card enters play' effects, then destroy it."
 			],
 			"icons":[
@@ -401,7 +403,7 @@
 				"Reduce damage dealt to Clusters by 1."
 			],
 			"powers":[
-				"Return all Clusters from your trash to your hand. Shuffle this card into your deck."
+				"Return up to 5 Clusters from your trash to your hand. Shuffle this card into your deck."
 			],
 			"icons":[
 				"ReduceDamageTaken",

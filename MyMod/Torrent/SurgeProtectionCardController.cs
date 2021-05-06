@@ -26,9 +26,12 @@ namespace BartKFSentinels.Torrent
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Return all Clusters from your trash to your hand."
-            IEnumerable<Card> recovering = base.TurnTaker.Trash.Cards.Where((Card c) => c.DoKeywordsContain("cluster"));
-            IEnumerator moveCoroutine = base.GameController.MoveCards(base.TurnTakerController, recovering, base.HeroTurnTaker.Hand, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+            // "Return up to 5 Clusters from your trash to your hand."
+            int limit = 5;
+            LinqCardCriteria cluster = new LinqCardCriteria((Card c) => c.DoKeywordsContain("cluster"));
+            List<MoveCardDestination> dests = new List<MoveCardDestination>();
+            dests.Add(new MoveCardDestination(base.HeroTurnTaker.Hand));
+            IEnumerator moveCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.HeroTurnTakerController, base.TurnTaker.Trash, 0, limit, cluster, dests, responsibleTurnTaker: base.TurnTaker, allowAutoDecide: base.TurnTaker.Trash.Cards.Where((Card c) => c.DoKeywordsContain("cluster")).Count() <= limit, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(moveCoroutine);
