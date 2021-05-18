@@ -14,7 +14,7 @@ namespace BartKFSentinels.Breakaway
         public NarrowEscapeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowHasBeenUsedThisTurn(OncePerTurn);
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.");
             SpecialStringMaker.ShowSpecialString(BuildBlockedSpecialString);
             SpecialStringMaker.ShowSpecialString(BuildNotBlockedSpecialString);
             SpecialStringMaker.ShowLowestHP(1, () => 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard));

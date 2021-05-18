@@ -167,7 +167,7 @@
 				"divergence"
 			],
 			"body": [
-				"Whenever a hero uses a power, reduce damage dealt using that power by 1.",
+				"Whenever a hero uses a power that deals damage, reduce that damage by 1.",
 				"At the end of the environment turn, one player may discard their hand. If {H + 3} or more cards were discarded this way, each player with no cards in hand draws 2 cards, then move this card under the Timeline card."
 			],
 			"icons": [

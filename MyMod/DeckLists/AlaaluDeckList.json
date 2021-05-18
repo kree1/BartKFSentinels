@@ -1,0 +1,368 @@
+{
+	"name": "Alaalu",
+	"kind": "Environment",
+	"backgroundColor": "E5D1CA",
+	"difficulty": 1,
+	"cards": [
+		{
+			"identifier": "Ceiff",
+			"count": 2,
+			"title": "Ceiff",
+			"keywords": [
+				"livestock"
+			],
+			"hitpoints": 3,
+			"body": [
+				"At the end of the environment turn, the non-environment target with the lowest HP regains X HP, where X is 1 plus the number of Livestock in play."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"GainHP"
+			],
+			"flavorText": "“Ours don't fly,” Nita said. “And maybe it's{BR}a good thing, considering what Earth{BR}sheep eat, and how much of it they eat,{BR}and what they do with it afterwards...”",
+			"flavorQuotes": [
+				{
+					"identifier": "Nita",
+					"text": "Ours don't fly,"
+				},
+				{
+					"identifier": "Nita",
+					"text": "And maybe it's{BR}a good thing, considering what Earth{BR}sheep eat, and how much of it they eat,{BR}and what they do with it afterwards..."
+				}
+			]
+		},
+		{
+			"identifier": "DemairPeliaen",
+			"count": 1,
+			"title": "Demair Peliaen",
+			"keywords": [
+				"alaalid",
+				"artist"
+			],
+			"hitpoints": 7,
+			"body": [
+				"At the end of the environment turn, the X players with the fewest cards in hand each draw a card, where X is the number of Alaalids in play. Then, each player with 4 or more non-character cards in play returns 1 of those cards to their hand."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"DrawCardNow",
+				"Manipulate"
+			],
+			"flavorText": "“Do you mean you have some kind of{BR}machine that [b]makes[/b] people give people{BR}things?” Nita had never thought of{BR}government in quite those terms before.",
+			"flavorQuotes": [
+				{
+					"identifier": "Demair",
+					"text": "Do you mean you have some kind of machine that [b]makes[/b] people give people things?"
+				}
+			]
+		},
+		{
+			"identifier": "Druvah",
+			"count": 1,
+			"title": "Druvah",
+			"keywords": [
+				"wizard",
+				"myth"
+			],
+			"hitpoints": 4,
+			"body": [
+				"At the end of the environment turn, reveal the top card of the environment deck. If it's a Location or a Choice, put it into play. If not, discard it.",
+				"At the start of the environment turn, if a non-Myth Location is in play, shuffle this card into the environment deck. If not, each player draws a card."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"Manipulate",
+				"DrawCardNow"
+			],
+			"flavorText": "“come the day after forever, our{BR}descendants in power will be able to{BR}repeal this Choice, this protection, and{BR}make another that suits them better.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Druvah",
+					"text": "come the day after forever, our descendants in power will be able to repeal this Choice, this protection, and make another that suits them better."
+				}
+			]
+		},
+		{
+			"identifier": "Esemeli",
+			"count": 1,
+			"title": "Esemeli",
+			"keywords": [
+				"alaalid",
+				"lone power"
+			],
+			"hitpoints": 9,
+			"body": [
+				"At the end of the environment turn, this card deals the hero target with the highest HP 4 psychic damage. The player whose target takes damage this way may draw a card and their hero may use a power.",
+				"At the start of the environment turn, reveal the top card of the environment deck and play or discard it. Then, this card deals each Wizard 2 psychic damage."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"DealDamagePsychic",
+				"DrawCardNow",
+				"UsePowerNow",
+				"Manipulate"
+			],
+			"flavorText": "“They've long been ready for the next{BR}thing... But they're as locked in now as I{BR}am. Alaalu needs to be made unsafe again.{BR}Once that happens, they can move on.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Esemeli",
+					"text": "They've long been ready for the next thing... But they're as locked in now as I am. Alaalu needs to be made unsafe again. Once that happens, they can move on."
+				}
+			]
+		},
+		{
+			"identifier": "EverythingIsFine",
+			"count": 1,
+			"title": "\"Everything is Fine\"",
+			"keywords": [
+				"myth"
+			],
+			"body": [
+				"Non-environment cards cannot deal damage.",
+				"At the end of the environment turn, destroy 1 hero Ongoing card and 1 villain Ongoing card.",
+				"At the start of the environment turn, deal each target 2 psychic damage and destroy this card."
+			],
+			"icons": [
+				"CannotDealDamage",
+				"StartAndEndOfTurnAction",
+				"DestroyOngoing",
+				"DealDamagePsychic",
+				"DestroySelf"
+			],
+			"flavorText": "“Repeal our Choice? Why ever would we{BR}do that? Just because the Lone One says{BR}we might possibly turn into something{BR}better? It's madness.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Quelt",
+					"text": "Repeal our Choice? Why ever would we do that? Just because the Lone One says we might possibly turn into something better? It's madness."
+				}
+			]
+		},
+		{
+			"identifier": "HistoricalDisplay",
+			"count": 1,
+			"title": "Historical Display",
+			"keywords": [
+				"location",
+				"choice"
+			],
+			"body": [
+				"Whenever a target is dealt damage, that target regains 2 HP.",
+				"Players may draw an additional card during their draw phase.",
+				"Whenever any player draws three or more cards in a single round, destroy this card and play the top card of the environment deck."
+			],
+			"icons": [
+				"GainHP",
+				"DrawCardExtra",
+				"DestroySelf",
+				"PlayCardNow"
+			],
+			"flavorText": "“So all the people in that world have to{BR}deal with the results of that Choice until{BR}their species ends. And wizards get born{BR}to try to make it better, if it went badly.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Kit",
+					"text": "So all the people in that world have to deal with the results of that Choice until their species ends. And wizards get born to try to make it better, if it went badly."
+				}
+			]
+		},
+		{
+			"identifier": "Keks",
+			"count": 2,
+			"title": "Keks",
+			"keywords": [
+				"inheritors"
+			],
+			"body": [
+				"At the end of the environment turn, destroy all non-Myth Locations.",
+				"At the start of the environment turn, play the top card of the villain deck with the fewest cards in its trash. Then, play the top card of the hero deck with the fewest cards in its trash. Then, if an Alaalid is in play, shuffle this card and the environment trash into the environment deck."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"DestroyEnvironment",
+				"PlayCardNow",
+				"Manipulate"
+			],
+			"flavorText": "“What are they making?” Kit said, very{BR}quietly, as if he was afraid he might{BR}frighten them. “We don't know,” Quelt{BR}said. “No one knows.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Kit",
+					"text": "What are they making?"
+				},
+				{
+					"identifier": "Quelt",
+					"text": "We don't know,"
+				},
+				{
+					"identifier": "Quelt",
+					"text": "No one knows."
+				}
+			]
+		},
+		{
+			"identifier": "KuwilinPeliaen",
+			"count": 1,
+			"title": "Kuwilin Peliaen",
+			"keywords": [
+				"alaalid",
+				"shepherd"
+			],
+			"hitpoints": 8,
+			"body": [
+				"At the end of the environment turn, the X hero targets with the lowest HP regain 2 HP each, where X is 1 plus the number of Livestock in play. Then, X players each put a card from their trash on the bottom of their deck."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"GainHP",
+				"Manipulate"
+			],
+			"flavorText": "“People who have more than they need{BR}give to those who have less, if they need{BR}it, or if they ask for it. Why? How is it in{BR}your world?”",
+			"flavorQuotes": [
+				{
+					"identifier": "Kuwilin",
+					"text": "People who have more than they need give to those who have less, if they need it, or if they ask for it. Why? How is it in your world?"
+				}
+			]
+		},
+		{
+			"identifier": "QueltPeliaen",
+			"count": 1,
+			"title": "Quelt Peliaen",
+			"keywords": [
+				"alaalid",
+				"wizard"
+			],
+			"hitpoints": 6,
+			"body": [
+				"At the end of the environment turn, each other target regains 1 HP. Then, each other target with 3 or fewer HP regains 1 HP.",
+				"At the start of the environment turn, 1 player may discard a card. If they do, destroy all Myths.",
+				"Whenever a player draws a card, reduce the next damage dealt to a character card by 1."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"GainHP",
+				"Discard",
+				"DestroyEnvironment",
+				"ReduceDamageTaken"
+			],
+			"flavorText": "“I keep getting this feeling that there's{BR}something else that's supposed to be{BR}happening, something I haven't noticed.{BR}And I do stop and look. But so far...”",
+			"flavorQuotes": [
+				{
+					"identifier": "Quelt",
+					"text": "I keep getting this feeling that there's something else that's supposed to be happening, something I haven't noticed. And I do stop and look. But so far..."
+				}
+			]
+		},
+		{
+			"identifier": "RelegatesNaos",
+			"count": 1,
+			"title": "Relegate's Naos",
+			"keywords": [
+				"location",
+				"sanctuary"
+			],
+			"body": [
+				"Reduce damage dealt to and by the villain target with the lowest HP by 2.",
+				"Reduce damage dealt to and by the [i]Lone Power[/i] by 2.",
+				"At the start of the environment turn, 1 player may discard 2 cards. If they do, put the [i]Lone Power[/i] from the environment trash into play and destroy this card."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"ReduceDamageDealt",
+				"StartOfTurnAction",
+				"Discard",
+				"PlayCardNow",
+				"DestroySelf"
+			],
+			"flavorText": "“Do you have any idea what it's been like{BR}for me, being trapped here? The eternal{BR}boredom of it, here in the land of flying{BR}sheep and sweet-tempered people?”",
+			"flavorQuotes": [
+				{
+					"identifier": "Esemeli",
+					"text": "Do you have any idea what it's been like for me, being trapped here? The eternal boredom of it, here in the land of flying sheep and sweet-tempered people?"
+				}
+			]
+		},
+		{
+			"identifier": "TheDayAfterForever",
+			"count": 1,
+			"title": "The Day After Forever",
+			"keywords": [
+				"choice",
+				"revision"
+			],
+			"body": [
+				"At the end of the environment turn, search the environment deck and trash for [i]The Heart of the World[/i] and put it into play. If you searched the environment deck, shuffle it.",
+				"All damage is irreducible.",
+				"When a Location is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Location from the game."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Search",
+				"MakeDamageIrreducible",
+				"GainHP",
+				"RemoveFromGame"
+			],
+			"flavorText": "“Now that we are all here,” Quelt said,{BR}“now comes the time to make another{BR}Choice: whether to choose again.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Quelt",
+					"text": "Now that we are all here,"
+				},
+				{
+					"identifier": "Quelt",
+					"text": "now comes the time to make another Choice: whether to choose again."
+				}
+			]
+		},
+		{
+			"identifier": "TheHeartOfTheWorld",
+			"count": 1,
+			"title": "The Heart of the World",
+			"keywords": [
+				"location",
+				"myth"
+			],
+			"body": [
+				"The first time a target would be put into a trash each turn, shuffle it into its deck instead.",
+				"When a character card would be reduced to 0 or fewer HP, instead restore it to 5 HP and destroy this card.",
+				"When this card leaves play, deal each Alaalid 3 psychic damage."
+			],
+			"icons": [
+				"Manipulate",
+				"GainHP",
+				"DestroySelf",
+				"DealDamagePsychic"
+			],
+			"flavorText": "“This is the place into which the souls of{BR}the Alaalid die. Here, everything is{BR}preserved forever as it was: Nothing{BR}grows, and nothing leaves. Not even you.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Esemeli",
+					"text": "This is the place into which the souls of the Alaalid die. Here, everything is preserved forever as it was: Nothing grows, and nothing leaves. Not even you."
+				}
+			]
+		},
+		{
+			"identifier": "TheWhispering",
+			"count": 1,
+			"title": "The Whispering",
+			"keywords": [
+				"myth"
+			],
+			"body": [
+				"At the end of the environment turn, play the top card of the environment deck.",
+				"At the start of the environment turn, put the top card of a hero trash into play. If that card is a One-Shot, deal the associated hero {H - 1} psychic damage and destroy this card."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"PlayCardNow",
+				"DealDamagePsychic",
+				"DestroySelf"
+			],
+			"flavorText": "“I thought you'd probably be able to{BR}hear them. When we die, we don't die out{BR}of the world. We die into it. The people{BR}who were here are always around.”",
+			"flavorQuotes": [
+				{
+					"identifier": "Quelt",
+					"text": "I thought you'd probably be able to hear them. When we die, we don't die out of the world. We die into it. The people who were here are always around."
+				}
+			]
+		}
+	]
+}

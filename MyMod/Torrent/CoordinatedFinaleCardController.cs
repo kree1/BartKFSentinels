@@ -30,7 +30,7 @@ namespace BartKFSentinels.Torrent
         {
             // "... {TorrentCharacter} may deal 1 target X projectile damage, where X = the number of Clusters in play."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), numberOfClusters(), DamageType.Projectile, 1, false, 0, storedResultsDamage: damageResults, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), NumberOfClusters(), DamageType.Projectile, 1, false, 0, storedResultsDamage: damageResults, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -81,7 +81,7 @@ namespace BartKFSentinels.Torrent
             yield break;
         }
 
-        private int numberOfClusters()
+        private int NumberOfClusters()
         {
             return FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("cluster")).Count();
         }

@@ -6,7 +6,7 @@
 	"description": [
 		"A collection of my playtest-ready custom decks for Sentinels of the Multiverse."
 	],
-	"version": "v0.0.11",
+	"version": "v0.0.13",
 	"credits": [
 		"Software Development: Bart_KF",
 		"Playtesters: Bart_KF"
@@ -23,6 +23,7 @@
 			"Breakaway"
 		],
 		"environments": [
+			"Alaalu",
 			"EvidenceStorage",
 			"TheEmpire",
 			"TheGigamorph"

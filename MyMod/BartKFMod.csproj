@@ -44,6 +44,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alaalu\CeiffCardController.cs" />
+    <Compile Include="Alaalu\DemairPeliaenCardController.cs" />
+    <Compile Include="Alaalu\DruvahCardController.cs" />
+    <Compile Include="Alaalu\EsemeliCardController.cs" />
+    <Compile Include="Alaalu\EverythingIsFineCardController.cs" />
+    <Compile Include="Alaalu\HistoricalDisplayCardController.cs" />
+    <Compile Include="Alaalu\KeksCardController.cs" />
+    <Compile Include="Alaalu\KuwilinPeliaenCardController.cs" />
+    <Compile Include="Alaalu\QueltPeliaenCardController.cs" />
+    <Compile Include="Alaalu\RelegatesNaosCardController.cs" />
+    <Compile Include="Alaalu\TheDayAfterForeverCardController.cs" />
+    <Compile Include="Alaalu\TheHeartOfTheWorldCardController.cs" />
+    <Compile Include="Alaalu\TheWhisperingCardController.cs" />
     <Compile Include="Breakaway\BreakawayCharacterCardController.cs" />
     <Compile Include="Breakaway\BreakawayTurnTakerController.cs" />
     <Compile Include="Breakaway\DefensiveDrivingCardController.cs" />
@@ -175,6 +188,7 @@
     <EmbeddedResource Include="DeckLists\TheGigamorphDeckList.json" />
     <EmbeddedResource Include="DeckLists\TorrentDeckList.json" />
     <EmbeddedResource Include="DeckLists\TheEmpireDeckList.json" />
+    <EmbeddedResource Include="DeckLists\AlaaluDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
