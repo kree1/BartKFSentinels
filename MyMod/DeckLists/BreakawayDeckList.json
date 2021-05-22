@@ -14,6 +14,7 @@
                 "villain"
             ],
             "body":"Criminal Courier",
+            "backgroundColor": "FFFFC8",
             "character":true,
             "hitpoints":55,
             "nemesisIdentifiers":[
@@ -30,9 +31,7 @@
                 "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}.",
                 "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
             ],
-            "advanced":[
-                "At the start of the villain turn, Momentum regains 1 HP."
-            ],
+            "advanced": "At the start of the villain turn, Momentum regains 1 HP.",
             "icons":[
                 "ImmuneToDamage",
                 "LoseTheGame",
@@ -53,9 +52,7 @@
                 "Whenever [i]Momentum[/i]'s current HP becomes equal to its{BR}maximum HP, {Breakaway} deals each target 1 melee damage.",
                 "The first time a hero card enters play each turn,{BR}{Breakaway} deals that hero and the other hero target{BR}with the highest HP 0 melee damage each."
             ],
-            "flippedAdvanced":[
-                "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
-            ],
+            "flippedAdvanced": "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1.",
             "flippedIcons":[
                 "RemoveFromGame",
                 "DestroyHero",

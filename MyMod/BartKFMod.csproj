@@ -152,6 +152,37 @@
     <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />
     <Compile Include="TheGoalie\TheGoalieUtilityCardController.cs" />
     <Compile Include="TheGoalie\TwelfthGirlCardController.cs" />
+    <Compile Include="TheShelledOne\AlejandroLeafCardController.cs" />
+    <Compile Include="TheShelledOne\AxelTrolololCardController.cs" />
+    <Compile Include="TheShelledOne\BatterCardController.cs" />
+    <Compile Include="TheShelledOne\BlaseballWeatherCardController.cs" />
+    <Compile Include="TheShelledOne\BlooddrainCardController.cs" />
+    <Compile Include="TheShelledOne\DanPeanutReplacementCardController.cs" />
+    <Compile Include="TheShelledOne\FeedbackCardController.cs" />
+    <Compile Include="TheShelledOne\ForbiddenBookCardController.cs" />
+    <Compile Include="TheShelledOne\FranciscaSasquatchCardController.cs" />
+    <Compile Include="TheShelledOne\GiantPeanutShellCardController.cs" />
+    <Compile Include="TheShelledOne\IdolatryCardController.cs" />
+    <Compile Include="TheShelledOne\JessicaTelephoneCardController.cs" />
+    <Compile Include="TheShelledOne\LotsOfBirdsCardController.cs" />
+    <Compile Include="TheShelledOne\PeanutFraudCardController.cs" />
+    <Compile Include="TheShelledOne\PeanutsCardController.cs" />
+    <Compile Include="TheShelledOne\PitchingMachineCardController.cs" />
+    <Compile Include="TheShelledOne\PityCardController.cs" />
+    <Compile Include="TheShelledOne\ReverbCardController.cs" />
+    <Compile Include="TheShelledOne\SolarEclipseCardController.cs" />
+    <Compile Include="TheShelledOne\StrikeCardController.cs" />
+    <Compile Include="TheShelledOne\TheGrandUnslamCardController.cs" />
+    <Compile Include="TheShelledOne\TheMonitorApproachesCardController.cs" />
+    <Compile Include="TheShelledOne\TheNecromancyCardController.cs" />
+    <Compile Include="TheShelledOne\TheShelledOneCharacterCardController.cs" />
+    <Compile Include="TheShelledOne\TheShelledOneTurnTakerController.cs" />
+    <Compile Include="TheShelledOne\TheSnackrificeCardController.cs" />
+    <Compile Include="TheShelledOne\TributeToTheHallCardController.cs" />
+    <Compile Include="TheShelledOne\UmpireCardController.cs" />
+    <Compile Include="TheShelledOne\UmpireLittlemanCardController.cs" />
+    <Compile Include="TheShelledOne\UmpireSteelCardController.cs" />
+    <Compile Include="TheShelledOne\YorkSilkCardController.cs" />
     <Compile Include="Torrent\AutomatedProductionCardController.cs" />
     <Compile Include="Torrent\BurstNodeCardController.cs" />
     <Compile Include="Torrent\ClusterCardController.cs" />
@@ -189,6 +220,7 @@
     <EmbeddedResource Include="DeckLists\TorrentDeckList.json" />
     <EmbeddedResource Include="DeckLists\TheEmpireDeckList.json" />
     <EmbeddedResource Include="DeckLists\AlaaluDeckList.json" />
+    <EmbeddedResource Include="DeckLists\TheShelledOneDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

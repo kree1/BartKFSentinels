@@ -1,0 +1,747 @@
+{
+	"name": "The Shelled One",
+	"sortName": "Shelled One",
+	"kind": "Villain",
+	"initialCardIdentifiers": [
+		"TheShelledOneCharacter",
+		"ForbiddenBook",
+		"Idolatry",
+		"PeanutFraud",
+		"TributeToTheHall"
+	],
+	"cards": [
+		{
+			"identifier": "TheShelledOneCharacter",
+			"count": 1,
+			"title": "The Shelled One",
+			"keywords": [
+				"villain"
+			],
+			"body": "[b]YOU WILL LEARN DISCIPLINE[/b]",
+			"backgroundColor": "FF000F",
+			"character": true,
+			"nemesisIdentifiers": [
+				""
+			],
+			"setup": [
+				"Put {TheShelledOne} into play, '[b]YOU WILL LEARN DISCIPLINE[/b]' side up. Put all Pods from the villain deck under this card. Put each Strike and a random Umpire from the villain deck into play. Set each Strike's HP to 0. Shuffle the villain deck."
+			],
+			"gameplay": [
+				"Strikes are indestructible and immune to damage. Cards under this card are indestructible.",
+				"Villain Ongoing cards and environment cards with no printed HP or a printed HP of less than 6 have a maximum HP of 6.",
+				"At the end of the villain turn, each environment target deals each hero target 1 psychic damage. Then, play the top card of the environment deck.",
+				"When there are 4 tokens on this card, flip this card."
+			],
+			"advanced": "Whenever a Strike causes a token to be put on this card, remove that Strike from the game.",
+			"icons": [
+				"Indestructible",
+				"ImmuneToDamage",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"PlayCardNow"
+			],
+			"advancedIcons": [
+				"RemoveFromGame"
+			],
+			"flippedBody": "[b]TREMBLE BEFORE MY PODS[/b]",
+			"flippedHitpoints": 81,
+			"flippedGameplay": [
+				"When {TheShelledOne} flips to this side...{BR}... remove all Strikes from the game.{BR}... search the villain deck and trash for {GiantPeanutShell} and put it into play.{BR}... reveal all cards from under this one. Put a random Pitcher and a random Batter from among them into play. Shuffle the other revealed cards into the villain deck.",
+				"{GiantPeanutShell} is indestructible. The hero next to it gains the keyword [i]Pod[/i].",
+				"The first time a Pod is discarded from the villain deck each turn, put that Pod into play.",
+				"At the end of the villain turn, discard cards from the top of the villain deck until you discard a Weather Effect. Put that Weather Effect into play. Then, {TheShelledOne} regains HP equal to the number of non-character villain targets in play. Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
+			],
+			"flippedAdvanced": "Reduce damage dealt to {TheShelledOne} by 1.",
+			"flippedIcons": [
+				"RemoveFromGame",
+				"Search",
+				"Indestructible",
+				"EndOfTurnAction",
+				"GainHP",
+				"DealDamageProjectile"
+			],
+			"flippedAdvancedIcons": [
+				"ReduceDamageTaken"
+			],
+			"tokenPools": [
+				{
+					"identifier": "TheShelledOneStrikePool",
+					"name": "The Shelled One's Strike Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"difficulty": 2,
+			"openingLines": {
+				"default": "[b]I WAS BENEVOLENT[/b]"
+			}
+		},
+		{
+			"identifier": "AlejandroLeaf",
+			"count": 1,
+			"title": "Alejandro Leaf",
+			"keywords": [
+				"pod",
+				"batter"
+			],
+			"hitpoints": 4,
+			"body": [
+				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
+				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+			],
+			"tokenPools": [
+				{
+					"identifier": "AlejandroLeafBasePool",
+					"name": "Alejandro Leaf's Base Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CounterDamage",
+				"AddTokens",
+				"DealDamageMelee",
+				"DealDamageToxic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]PODS{BR}CRUSH THEM[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 10 Day X"
+		},
+		{
+			"identifier": "AxelTrololol",
+			"count": 1,
+			"title": "Axel Trololol",
+			"keywords": [
+				"pod",
+				"pitcher"
+			],
+			"hitpoints": 12,
+			"body": [
+				"At the end of the villain turn, discard the top card of each hero deck in turn order. Put non-One-Shot cards discarded this way under this card. For each One-Shot discarded this way, one hero may use a power.",
+				"Whenever there are 3 or more cards under this card, destroy 3 of them and this card deals the hero target with the highest HP 4 projectile damage."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Discard",
+				"UsePowerNow",
+				"Destroy",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]BOW BEFORE MY PODS[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 9 Day X"
+		},
+		{
+			"identifier": "Blooddrain",
+			"count": 1,
+			"title": "Blooddrain",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects.",
+				"At the start of the villain turn, destroy {H - 1} hero Ongoing cards. Whenever a card is destroyed this way, 1 villain target with less than its maximum HP regains 1 HP."
+			],
+			"icons": [
+				"Destroy",
+				"StartOfTurnAction",
+				"DestroyOngoing",
+				"GainHP"
+			],
+			"flavorText": "The skies shift.{BR}The drain begins to gurgle.",
+			"flavorReference": "Season 10 Day X"
+		},
+		{
+			"identifier": "DanPeanutReplacement",
+			"count": 1,
+			"title": "Dan-Peanut Replacement",
+			"keywords": [
+				"ongoing",
+				"modification"
+			],
+			"body": [
+				"When this card enters play, move it next to the hero with the most cards in hand. Reduce damage dealt to and by that hero to and by villain targets by 1.",
+				"At the end of that hero's turn, if {TheShelledOne} is a target, 1 Batter regains {H - 1} HP. If {TheShelledOne} is a target and no targets regained HP this way, discard cards from the villain deck until a Batter is discarded."
+			],
+			"icons": [
+				"ReduceDamageDealt",
+				"ReduceDamageTaken",
+				"EndOfTurnAction",
+				"GainHP",
+				"Search"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]MY PROGENY{BR}MY PODS{BR}HONOR THEM TO HONOR ME[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 5 Elections"
+		},
+		{
+			"identifier": "Feedback",
+			"count": 1,
+			"title": "Feedback",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects.",
+				"At the start of the villain turn, destroy {H - 1} Equipment cards. If fewer than {H - 1} cards were destroyed this way, replace the hero character card with the highest HP with a variant of that hero."
+			],
+			"icons": [
+				"Destroy",
+				"StartOfTurnAction",
+				"DestroyEquipment"
+			],
+			"flavorText": "The skies shift.{BR}A deafening noise rings.",
+			"flavorReference": "Season 10 Day X"
+		},
+		{
+			"identifier": "ForbiddenBook",
+			"count": 1,
+			"title": "Forbidden Book",
+			"keywords": [
+				"strike"
+			],
+			"hitpoints": 13,
+			"body": [
+				"Whenever a player discards a card from their hand, this card regains 1 HP.",
+				"At the end of the villain turn, each player may discard a card. Then, if this card has {H * 2} or more HP, put a token on {TheShelledOne} and set this card's HP to 0."
+			],
+			"icons": [
+				"GainHP",
+				"EndOfTurnAction",
+				"Discard",
+				"AddTokens"
+			],
+			"flavorText": "[b]OPEN THE FORBIDDEN BOOK[/b]{BR}It is forbidden.",
+			"flavorReference": "Season 1 Elections"
+		},
+		{
+			"identifier": "FranciscaSasquatch",
+			"count": 1,
+			"title": "Francisca Sasquatch",
+			"keywords": [
+				"pod",
+				"batter"
+			],
+			"hitpoints": 8,
+			"body": [
+				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
+				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+			],
+			"tokenPools": [
+				{
+					"identifier": "FranciscaSasquatchBasePool",
+					"name": "Francisca Sasquatch's Base Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CounterDamage",
+				"AddTokens",
+				"DealDamageMelee",
+				"DealDamageToxic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]NOW WATCH{BR}WITNESS TRUE POWER[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 9 Day X"
+		},
+		{
+			"identifier": "GiantPeanutShell",
+			"count": 1,
+			"title": "Giant Peanut Shell",
+			"keywords": [
+				"ongoing",
+				"modification"
+			],
+			"body": [
+				"When this card enters play, move it next to the hero with the highest HP. That hero must skip either their play or power phase each turn.",
+				"At the end of that player's turn, if {TheShelledOne} is a target, play the top card of that player's deck.  If that card is a One-Shot, redirect damage on it to the hero target with the highest HP. Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"PlayCardNow",
+				"RedirectDamage",
+				"Manipulate"
+			],
+			"flavorText": "A big peanut crashes into the{BR}field, encasing Wyatt Quitter!",
+			"flavorReference": "Season 9 Day 46"
+		},
+		{
+			"identifier": "Idolatry",
+			"count": 1,
+			"title": "Idolatry",
+			"keywords": [
+				"strike"
+			],
+			"hitpoints": 13,
+			"body": [
+				"At the end of the villain turn, if this card has {H * 2} or more HP, put a token on {TheShelledOne} and set this card's HP to 0.",
+				"Whenever a player causes another player to draw a card, play a card, or use a power, this card regains 1 HP.",
+				"Heroes gain the following power:"
+			],
+			"powers": [
+				"Destroy 1 of your non-character cards. Another player draws 2 cards."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"AddTokens",
+				"GainHP",
+				"HasPower",
+				"DestroyHero",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]YOU WORSHIP THEM{BR}WHEN I WALK AMONG YOU?[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 5 Elections"
+		},
+		{
+			"identifier": "JessicaTelephone",
+			"count": 1,
+			"title": "Jessica Telephone",
+			"keywords": [
+				"pod",
+				"batter"
+			],
+			"hitpoints": 12,
+			"body": [
+				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
+				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+			],
+			"tokenPools": [
+				{
+					"identifier": "JessicaTelephoneBasePool",
+					"name": "Jessica Telephone's Base Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CounterDamage",
+				"AddTokens",
+				"DealDamageMelee",
+				"DealDamageToxic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]RING RING[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 9 Day X"
+		},
+		{
+			"identifier": "LotsOfBirds",
+			"count": 1,
+			"title": "Lots of Birds",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects.",
+				"At the start of the villain turn, the hero with the second highest HP may have the environment deal them {H} projectile damage. If that hero takes damage this way, destroy {GiantPeanutShell} and the environment deals {TheShelledOne} 4 projectile damage."
+			],
+			"icons": [
+				"Destroy",
+				"StartOfTurnAction",
+				"DealDamageProjectile",
+				"Destroy"
+			],
+			"flavorText": "The skies shift.{BR}The birds swarm the air.",
+			"flavorReference": "Season 10 Day X"
+		},
+		{
+			"identifier": "PeanutFraud",
+			"count": 1,
+			"title": "Peanut Fraud",
+			"keywords": [
+				"strike"
+			],
+			"hitpoints": 13,
+			"body": [
+				"Whenever damage that would be dealt to a hero target is reduced, this card regains 1 HP.",
+				"At the end of the villain turn, if this card has {H} or more HP, put a token on {TheShelledOne} and set this card's HP to 0."
+			],
+			"icons": [
+				"GainHP",
+				"EndOfTurnAction",
+				"AddTokens"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]BLASPHEMY[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 3 Day 4"
+		},
+		{
+			"identifier": "Peanuts",
+			"count": 1,
+			"title": "Peanuts",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects.",
+				"Increase damage dealt by Pods by 1.",
+				"At the start of the villain turn, each player may discard a card. If fewer than {H} cards were discarded this way, search the villain deck and trash for {GiantPeanutShell} and put it into play, then shuffle the villain deck."
+			],
+			"icons": [
+				"Destroy",
+				"StartOfTurnAction",
+				"Discard",
+				"Search"
+			],
+			"flavorText": "The skies shift.{BR}Peanuts begin to fly.",
+			"flavorReference": "Season 9 Day X"
+		},
+		{
+			"identifier": "PitchingMachine",
+			"count": 1,
+			"title": "Pitching Machine",
+			"keywords": [
+				"pod",
+				"batter",
+				"device"
+			],
+			"hitpoints": 5,
+			"body": [
+				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
+				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+			],
+			"tokenPools": [
+				{
+					"identifier": "PitchingMachineBasePool",
+					"name": "Pitching Machine's Base Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CounterDamage",
+				"AddTokens",
+				"DealDamageMelee",
+				"DealDamageToxic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]HAD ENOUGH?[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 9 Day X"
+		},
+		{
+			"identifier": "Pity",
+			"count": 1,
+			"title": "Pity",
+			"keywords": [
+				"ongoing",
+				"modification"
+			],
+			"body": [
+				"When a hero character would be reduced to 0 or fewer HP, restore them to their maximum HP instead and destroy this card.",
+				"When this card is destroyed, increase damage dealt to hero targets during the next villain turn by 2."
+			],
+			"icons": [
+				"GainHP",
+				"DestroySelf",
+				"IncreaseDamageTaken"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]WHERE IS YOUR SPIRIT{BR}HERE{BR}HAVE SOME OF MINE[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 9 Day X"
+		},
+		{
+			"identifier": "Reverb",
+			"count": 1,
+			"title": "Reverb",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects.",
+				"At the start of each player's turn, discard the top card of their deck. If a One-Shot is discarded this way, that player skips their power phase this turn and uses a power immediately."
+			],
+			"icons": [
+				"Destroy",
+				"StartOfTurnAction",
+				"Discard",
+				"UsePowerNow",
+				"CannotUsePowers"
+			],
+			"flavorText": "The skies shift.{BR}A wave washes over the plane.",
+			"flavorReference": "Season 9 Day X"
+		},
+		{
+			"identifier": "SolarEclipse",
+			"count": 1,
+			"title": "Solar Eclipse",
+			"keywords": [
+				"ongoing",
+				"weather effect"
+			],
+			"body": [
+				"When this card enters play, destroy all other Weather Effects. Then, if there are no Umpires in play, put the Umpire with the lowest HP from the villain trash into play.",
+				"At the start of the villain turn, each Umpire deals the hero target with the highest HP {H + 2} fire damage."
+			],
+			"icons": [
+				"Destroy",
+				"PlayCardNow",
+				"StartOfTurnAction",
+				"DealDamageFire"
+			],
+			"flavorText": "The skies shift.{BR}The sky darkens.",
+			"flavorReference": "Season 10 Day X"
+		},
+		{
+			"identifier": "TheGrandUnslam",
+			"count": 1,
+			"title": "The Grand Unslam",
+			"keywords": [
+				"siesta?"
+			],
+			"body": [
+				"Players may play an additional card, use an additional power, and draw an additional card during their turns.",
+				"At the start of the villain turn, each non-hero target regains {H} HP and the non-hero target with the highest HP deals each hero target 4 infernal damage. Then, play the top card of the villain deck and remove this card from the game."
+			],
+			"icons": [
+				"PlayCardExtra",
+				"UsePowerExtra",
+				"DrawCardExtra",
+				"StartOfTurnAction",
+				"GainHP",
+				"DealDamageInfernal",
+				"RemoveFromGame"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]YOU ARE INSATIABLE{BR}WHERE IS YOUR RESTRAINT?[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 3 Day 75"
+		},
+		{
+			"identifier": "TheMonitorApproaches",
+			"count": 1,
+			"title": "The Monitor Approaches",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Play the top card of the villain deck.",
+				"If {TheShelledOne} is a target, it deals itself 5 melee damage and plays the top card of the villain deck. Otherwise, put a token on {TheShelledOne} and shuffle this card into the villain deck."
+			],
+			"icons": [
+				"PlayCardNow",
+				"DealDamageMelee",
+				"AddTokens",
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Monitor",
+					"text": "[b]you all eat these?{BR}what's the point[/b]"
+				}
+			],
+			"flavorReference": "The Monitor, Season 10 Day X"
+		},
+		{
+			"identifier": "TheNecromancy",
+			"count": 1,
+			"title": "The Necromancy",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Villain cards are indestructible this turn.",
+				"Play the topmost One-Shot card from each hero trash. Redirect damage on cards played this way to the hero target with the second lowest HP."
+			],
+			"icons": [
+				"PlayCardNow",
+				"RedirectDamage"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]THE LEDGER MUST BE BALANCED{br}DEBTS PAID[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 6 Elections"
+		},
+		{
+			"identifier": "TheSnackrifice",
+			"count": 1,
+			"title": "The Snackrifice",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"Hero cards cannot be played.",
+				"At the start of the villain turn, put the top card of each hero deck into play in turn order. The non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
+			],
+			"icons": [
+				"CannotPlayCards",
+				"StartOfTurnAction",
+				"PlayCardNow",
+				"DealDamageSonic",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]YOU WITHHOLD YOUR LABOR?{BR}YOU THINK THAT GIVES YOU POWER?[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 7 Day 99"
+		},
+		{
+			"identifier": "TributeToTheHall",
+			"count": 1,
+			"title": "Tribute to the Hall",
+			"keywords": [
+				"strike"
+			],
+			"hitpoints": 13,
+			"body": [
+				"At the end of the villain turn, each player reveals the top card of their deck. They may discard it or remove it from the game. If {H} cards are removed from the game this way, this card regains 1 HP. Then, if this card has 2 or more HP, put a token on {TheShelledOne} and set this card's HP to 0."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Discard",
+				"RemoveFromGame",
+				"GainHP",
+				"AddTokens"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]100 MILLION SNACKS{BR}WASTED[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 8 Elections"
+		},
+		{
+			"identifier": "UmpireLittleman",
+			"count": 1,
+			"title": "Umpire Littleman",
+			"keywords": [
+				"umpire"
+			],
+			"hitpoints": 25,
+			"body": [
+				"The first time {TheShelledOne} would be dealt damage each turn, reduce that damage by 1.",
+				"The first time an environment target would be dealt damage each turn, if {TheShelledOne} is not a target, reduce that damage by 1."
+			],
+			"icons": [
+				"ReduceDamageTaken"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Chaff Littleman",
+					"text": "Hello again Blaseball fans."
+				}
+			],
+			"flavorReference": "Chaff Littleman, #announcements"
+		},
+		{
+			"identifier": "UmpireSteel",
+			"count": 1,
+			"title": "Umpire Steel",
+			"keywords": [
+				"umpire"
+			],
+			"hitpoints": 20,
+			"body": [
+				"The first time {TheShelledOne} would be dealt damage each turn, reduce that damage by 1.",
+				"The first time an environment target would be dealt damage each turn, if {TheShelledOne} is not a target, reduce that damage by 1."
+			],
+			"icons": [
+				"ReduceDamageTaken"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "ump_steel",
+					"text": "FM'LATGHOR.  FM'LATGHOR.  FM'LATGHOR."
+				}
+			],
+			"flavorReference": "ump_steel, #watch-party"
+		},
+		{
+			"identifier": "YorkSilk",
+			"count": 1,
+			"title": "York Silk",
+			"keywords": [
+				"pod",
+				"batter"
+			],
+			"hitpoints": 10,
+			"body": [
+				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
+				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+			],
+			"tokenPools": [
+				{
+					"identifier": "YorkSilkBasePool",
+					"name": "York Silk's Base Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"color": "ff000f"
+				}
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CounterDamage",
+				"AddTokens",
+				"DealDamageMelee",
+				"DealDamageToxic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Shelled One",
+					"text": "[b]MY DORK[/b]"
+				}
+			],
+			"flavorReference": "The Shelled One, Season 10 Day X"
+		}
+	]
+}

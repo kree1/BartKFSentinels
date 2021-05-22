@@ -359,75 +359,64 @@ namespace BartKFSentinels.Breakaway
         {
             RemoveSideTriggers();
 
-            // "When {Breakaway} flips to this side..."
-            // "... remove {TheClient} from the game."
-            Card theClient = base.TurnTaker.FindCard("The Client");
-            IEnumerator removeCoroutine = base.GameController.MoveCard(this.DecisionMaker, theClient, base.TurnTaker.OutOfGame, showMessage: true, responsibleTurnTaker: this.TurnTaker, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (base.Card.IsFlipped)
             {
-                yield return this.GameController.StartCoroutine(removeCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(removeCoroutine);
-            }
-            // "... flip {Momentum} to its "Under Pressure" side."
-            Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
-            IEnumerator flipCoroutine = DoNothing();
-            if (momentum.Definition.Body.FirstOrDefault() != "Under Pressure")
-            {
-                // Flip Momentum
-                flipCoroutine = base.GameController.FlipCard(FindCardController(momentum), cardSource: GetCardSource());
-            }
-            else
-            {
-                // Don't need to flip, just inform the players the condition is already true
-                flipCoroutine = base.GameController.SendMessageAction(momentum.Title + " is already on its Under Pressure side.", Priority.High, cardSource: GetCardSource(), associatedCards: new Card[] { momentum }, showCardSource: true);
-            }
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(flipCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(flipCoroutine);
-            }
-            // "... destroy {H} non-character hero cards."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter), Game.H, responsibleCard: this.Card, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(destroyCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(destroyCoroutine);
-            }
-            // "... {Breakaway} regains {H * 5} HP."
-            IEnumerator hpGainCoroutine = base.GameController.GainHP(this.Card, Game.H * 5, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(hpGainCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(hpGainCoroutine);
+                // "When {Breakaway} flips to this side..."
+                // "... remove {TheClient} from the game."
+                Card theClient = base.TurnTaker.FindCard("The Client");
+                IEnumerator removeCoroutine = base.GameController.MoveCard(this.DecisionMaker, theClient, base.TurnTaker.OutOfGame, showMessage: true, responsibleTurnTaker: this.TurnTaker, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(removeCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(removeCoroutine);
+                }
+                // "... flip {Momentum} to its "Under Pressure" side."
+                Card momentum = base.TurnTaker.FindCard("MomentumCharacter");
+                IEnumerator flipCoroutine = DoNothing();
+                if (momentum.Definition.Body.FirstOrDefault() != "Under Pressure")
+                {
+                    // Flip Momentum
+                    flipCoroutine = base.GameController.FlipCard(FindCardController(momentum), cardSource: GetCardSource());
+                }
+                else
+                {
+                    // Don't need to flip, just inform the players the condition is already true
+                    flipCoroutine = base.GameController.SendMessageAction(momentum.Title + " is already on its Under Pressure side.", Priority.High, cardSource: GetCardSource(), associatedCards: new Card[] { momentum }, showCardSource: true);
+                }
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(flipCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(flipCoroutine);
+                }
+                // "... destroy {H} non-character hero cards."
+                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter), Game.H, responsibleCard: this.Card, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(destroyCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(destroyCoroutine);
+                }
+                // "... {Breakaway} regains {H * 5} HP."
+                IEnumerator hpGainCoroutine = base.GameController.GainHP(this.Card, Game.H * 5, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return this.GameController.StartCoroutine(hpGainCoroutine);
+                }
+                else
+                {
+                    this.GameController.ExhaustCoroutine(hpGainCoroutine);
+                }
             }
 
             AddSideTriggers();
-
-            // Back side: "Skip start of turn effects on {Momentum}."
-            /*PreventPhaseEffectStatusEffect skipSOT = new PreventPhaseEffectStatusEffect(Phase.Start);
-            skipSOT.UntilCardLeavesPlay(this.Card);
-            skipSOT.CardCriteria.IsSpecificCard = base.FindCard("MomentumCharacter");
-            IEnumerator applyCoroutine = AddStatusEffect(skipSOT);
-            if (base.UseUnityCoroutines)
-            {
-                yield return this.GameController.StartCoroutine(applyCoroutine);
-            }
-            else
-            {
-                this.GameController.ExhaustCoroutine(applyCoroutine);
-            }*/
 
             yield break;
         }

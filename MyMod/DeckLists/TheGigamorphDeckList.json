@@ -2,6 +2,7 @@
 	"name": "The Gigamorph",
 	"sortName": "Gigamorph",
 	"kind": "Environment",
+	"backgroundColor": "FF3F3F",
 	"difficulty": 2,
 	"cards": [
 		{

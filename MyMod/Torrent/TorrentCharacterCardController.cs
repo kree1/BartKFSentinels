@@ -132,7 +132,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
-            // ...
             yield break;
         }
 

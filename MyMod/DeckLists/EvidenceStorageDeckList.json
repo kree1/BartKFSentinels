@@ -1,7 +1,7 @@
 ﻿{
 	"name": "Evidence Storage",
 	"kind": "Environment",
-	"backgroundColor": "#CFA573",
+	"backgroundColor": "CFA573",
 	"difficulty": 2,
 	"cards": [
 		{
