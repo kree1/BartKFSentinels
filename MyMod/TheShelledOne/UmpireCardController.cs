@@ -14,7 +14,7 @@ namespace BartKFSentinels.TheShelledOne
         public UmpireCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            AllowFastCoroutinesDuringPretend = false;
+            //AllowFastCoroutinesDuringPretend = false;
             //ShelledOneOncePerTurn = ShelledOneOncePerTurn + base.Card.Identifier;
             //EnvironmentOncePerTurn = EnvironmentOncePerTurn + base.Card.Identifier;
             ReduceDamageToShelledOneTrigger = null;
@@ -32,27 +32,25 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "The first time {TheShelledOne} would be dealt damage each turn, reduce that damage by 1."
-            ReduceDamageToShelledOneTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ShelledOneOncePerTurn) && dda.Target == base.CharacterCard && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToShelledOneResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
+            //ReduceDamageToShelledOneTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ShelledOneOncePerTurn) && dda.Target == base.CharacterCard && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToShelledOneResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
+            ReduceDamageToShelledOneTrigger = AddReduceDamageTrigger((DealDamageAction dda) => !IsPropertyTrue(ShelledOneOncePerTurn) && dda.Amount > 0, ReduceDamageToShelledOneResponse, (Card c) => c == base.CharacterCard, true);
             // "The first time an environment target would be dealt damage each turn, if {TheShelledOne} is not a target, reduce that damage by 1."
-            ReduceDamageToEnvironmentTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(EnvironmentOncePerTurn) && dda.Target.IsEnvironmentTarget && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToEnvironmentResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
+            //ReduceDamageToEnvironmentTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(EnvironmentOncePerTurn) && dda.Target.IsEnvironmentTarget && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToEnvironmentResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
+            ReduceDamageToEnvironmentTrigger = AddReduceDamageTrigger((DealDamageAction dda) => !IsPropertyTrue(EnvironmentOncePerTurn) && dda.Amount > 0, ReduceDamageToEnvironmentResponse, (Card c) => c.IsEnvironmentTarget, true);
         }
 
         public IEnumerator ReduceDamageToShelledOneResponse(DealDamageAction dda)
         {
             // "... reduce that damage by 1."
-            if (!dda.IsPretend)
-            {
-                base.SetCardPropertyToTrueIfRealAction(ShelledOneOncePerTurn);
-            }
-            //base.SetCardPropertyToTrueIfRealAction(ShelledOneOncePerTurn);
-            IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageToShelledOneTrigger, GetCardSource());
+            SetCardPropertyToTrueIfRealAction(ShelledOneOncePerTurn);
+            IEnumerator reduceEnvCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageToShelledOneTrigger, GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(reduceCoroutine);
+                yield return base.GameController.StartCoroutine(reduceEnvCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(reduceCoroutine);
+                base.GameController.ExhaustCoroutine(reduceEnvCoroutine);
             }
             yield break;
         }
@@ -60,21 +58,17 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator ReduceDamageToEnvironmentResponse(DealDamageAction dda)
         {
             // "... if {TheShelledOne} is not a target, reduce that damage by 1."
-            if (!dda.IsPretend)
-            {
-                base.SetCardPropertyToTrueIfRealAction(EnvironmentOncePerTurn);
-            }
-            //base.SetCardPropertyToTrueIfRealAction(EnvironmentOncePerTurn);
+            SetCardPropertyToTrueIfRealAction(EnvironmentOncePerTurn);
             if (!base.CharacterCard.IsTarget)
             {
-                IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageToEnvironmentTrigger, GetCardSource());
+                IEnumerator reduceShelledCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageToEnvironmentTrigger, GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(reduceCoroutine);
+                    yield return base.GameController.StartCoroutine(reduceShelledCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(reduceCoroutine);
+                    base.GameController.ExhaustCoroutine(reduceShelledCoroutine);
                 }
             }
             yield break;
