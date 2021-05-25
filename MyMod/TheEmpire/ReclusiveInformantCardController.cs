@@ -40,31 +40,37 @@ namespace BartKFSentinels.TheEmpire
         {
             // "... this card deals itself 2 psychic damage. One player may destroy an Equipment card to reduce this damage by 2."
             DealDamageAction previewDamage = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), base.Card, 2, DamageType.Psychic);
-            List<YesNoCardDecision> chooseToDestroy = new List<YesNoCardDecision>();
-            IEnumerator decideCoroutine = base.GameController.MakeYesNoCardDecision(DecisionMaker, SelectionType.Custom, base.Card, action: previewDamage, storedResults: chooseToDestroy, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            IEnumerable<Card> eqpInPlay = base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.DoKeywordsContain("equipment") && c.IsInPlayAndHasGameText), visibleToCard: GetCardSource());
+            Log.Debug("eqpInPlay.Count(): " + eqpInPlay.Count().ToString());
+            Log.Debug("eqpInPlay.Any(): " + eqpInPlay.Any().ToString());
+            if (eqpInPlay.Any())
             {
-                yield return base.GameController.StartCoroutine(decideCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(decideCoroutine);
-            }
-            if (DidPlayerAnswerYes(chooseToDestroy))
-            {
-                List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.DoKeywordsContain("equipment"), "Equipment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, GetCardSource());
+                List<YesNoCardDecision> chooseToDestroy = new List<YesNoCardDecision>();
+                IEnumerator decideCoroutine = base.GameController.MakeYesNoCardDecision(DecisionMaker, SelectionType.Custom, base.Card, action: previewDamage, storedResults: chooseToDestroy, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                    yield return base.GameController.StartCoroutine(decideCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(destroyCoroutine);
+                    base.GameController.ExhaustCoroutine(decideCoroutine);
                 }
-                if (DidDestroyCard(destroyed) && IsRealAction())
+                if (DidPlayerAnswerYes(chooseToDestroy))
                 {
-                    Journal.RecordCardProperties(base.Card, DidDestroyToReduce, true);
+                    List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
+                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.DoKeywordsContain("equipment"), "Equipment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(destroyCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(destroyCoroutine);
+                    }
+                    if (DidDestroyCard(destroyed) && IsRealAction())
+                    {
+                        Journal.RecordCardProperties(base.Card, DidDestroyToReduce, true);
+                    }
                 }
             }
 

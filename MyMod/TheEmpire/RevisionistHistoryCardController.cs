@@ -53,7 +53,7 @@ namespace BartKFSentinels.TheEmpire
         {
             base.AddTriggers();
             // "Increase damage dealt by Imperial cards by 1."
-            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card.DoKeywordsContain(AuthorityKeyword), (DealDamageAction dda) => 1);
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card.DoKeywordsContain(AuthorityKeyword), (DealDamageAction dda) => 1);
             // "When there are 3 cards under this one, each hero target regains 8 HP and each player may return a card from their trash to their hand. Then, remove this card and all cards under it from the game."
             AddTrigger<GameAction>((GameAction ga) => base.Card.UnderLocation.NumberOfCards >= 3 && !HasBeenSetToTrueThisTurn(IsBeingErased), TimelineFixedResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.MoveCard, TriggerType.RemoveFromGame }, TriggerTiming.After);
         }
