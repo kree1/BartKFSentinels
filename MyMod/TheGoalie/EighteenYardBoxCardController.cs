@@ -16,8 +16,9 @@ namespace BartKFSentinels.TheGoalie
         {
             AllowFastCoroutinesDuringPretend = false;
             RunModifyDamageAmountSimulationForThisCard = false;
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true);
-            SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "target", useCardsSuffix: false)).Condition = () => base.Card.IsInPlay;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumGoalpostsInPlay() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in play.").Condition = () => NumGoalpostsInPlay() <= 0;
+            SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "targets", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlay;
         }
 
         private DealDamageAction MyDamageAction

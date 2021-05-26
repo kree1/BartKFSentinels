@@ -14,7 +14,8 @@ namespace BartKFSentinels.TheGoalie
         public OutOfBoundsCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.PlayArea, new LinqCardCriteria((Card c) => IsGoalposts(c), "goalposts"));
+            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.PlayArea, new LinqCardCriteria((Card c) => IsGoalposts(c), "goalposts")).Condition = () => NumGoalpostsAt(base.TurnTaker.PlayArea) > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in " + base.TurnTaker.NameRespectingVariant + "'s play area.").Condition = () => NumGoalpostsAt(base.TurnTaker.PlayArea) <= 0;
         }
 
         public override IEnumerator Play()

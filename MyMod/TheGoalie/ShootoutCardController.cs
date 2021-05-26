@@ -15,6 +15,7 @@ namespace BartKFSentinels.TheGoalie
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInNonHeroPlayAreas() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in non-hero play areas.").Condition = () => NumGoalpostsInNonHeroPlayAreas() <= 0;
         }
 
         public override IEnumerator Play()

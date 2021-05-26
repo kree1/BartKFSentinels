@@ -15,7 +15,8 @@ namespace BartKFSentinels.TheGoalie
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn), () => base.Card.Title + " has already prevented damage this turn.", () => base.Card.Title + " has not yet prevented damage this turn.", () => true);
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && c.Location.IsHero), specifyPlayAreas: true);
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInHeroPlayAreas() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in hero play areas.").Condition = () => NumGoalpostsInHeroPlayAreas() <= 0;
             AllowFastCoroutinesDuringPretend = false;
         }
 

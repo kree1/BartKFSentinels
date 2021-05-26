@@ -14,7 +14,8 @@ namespace BartKFSentinels.TheGoalie
         public OffsidesCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true);
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumGoalpostsInPlay() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in play.").Condition = () => NumGoalpostsInPlay() <= 0;
         }
 
         public override IEnumerator Play()
