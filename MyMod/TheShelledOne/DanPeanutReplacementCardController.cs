@@ -15,17 +15,16 @@ namespace BartKFSentinels.TheShelledOne
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowHeroWithMostCards(true).Condition = () => !base.Card.IsInPlay;
-            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("batter") && c.HitPoints.HasValue && c.MaximumHitPoints.HasValue && c.HitPoints.Value < c.MaximumHitPoints.Value, "Batters with less than their maximum HP", false, false, "Batter with less than their maximum HP", "Batters with less than their maximum HP"));
+            SpecialStringMaker.ShowNumberOfCardsAtLocations(() => new Location[] { base.TurnTaker.Deck, base.TurnTaker.Trash }, new LinqCardCriteria((Card c) => c.DoKeywordsContain("batter"), "Batters", false, false, "Batter", "Batters"));
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Reduce damage dealt to and by that hero to and by villain targets by 1."
-            AddReduceDamageTrigger((DealDamageAction dda) => dda.Target == GetCardThisCardIsNextTo() && dda.DamageSource != null && dda.DamageSource.IsVillainTarget, (DealDamageAction dda) => 1);
+            // "Reduce damage dealt by that hero to villain targets by 1."
             AddReduceDamageTrigger((DealDamageAction dda) => dda.Target.IsVillainTarget && dda.DamageSource != null && dda.DamageSource.Card == GetCardThisCardIsNextTo(), (DealDamageAction dda) => 1);
-            // "At the end of that hero's turn, if {TheShelledOne} is a target, 1 Batter regains {H - 1} HP. If {TheShelledOne} is a target and no targets regained HP this way, discard cards from the villain deck until a Batter is discarded."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == GetCardThisCardIsNextTo().Owner && base.CharacterCard.IsTarget, HealOrPlayBatterResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.PlayCard });
+            // "At the end of that hero's turn, if {TheShelledOne} is a target, discard cards from the villain deck until a Pod is discarded."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == GetCardThisCardIsNextTo().Owner && base.CharacterCard.IsTarget, DiscardBatterResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.PlayCard });
         }
 
         public override IEnumerator DeterminePlayLocation(List<MoveCardDestination> storedResults, bool isPutIntoPlay, List<IDecision> decisionSources, Location overridePlayArea = null, LinqTurnTakerCriteria additionalTurnTakerCriteria = null)
@@ -62,74 +61,57 @@ namespace BartKFSentinels.TheShelledOne
             }
         }
 
-        public IEnumerator HealOrPlayBatterResponse(GameAction ga)
+        public IEnumerator DiscardBatterResponse(GameAction ga)
         {
-            // "... 1 Batter regains {H - 1} HP."
-            List<GainHPAction> healed = new List<GainHPAction>();
-            IEnumerator healCoroutine = base.GameController.GainHP(DecisionMaker, (Card c) => c.DoKeywordsContain("batter"), H - 1, numberOfCardsToHeal: 1, storedResultsAction: healed, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            // "... discard cards from the villain deck until a Batter is discarded."
+            if (base.GameController.FindCardsWhere((Card c) => c.DoKeywordsContain("batter", true, true) && c.Location.IsVillain && (c.Location.IsDeck || c.Location.IsTrash)).Any())
             {
-                yield return base.GameController.StartCoroutine(healCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(healCoroutine);
-            }
-            // "If... no targets regained HP this way, discard cards from the villain deck until a Batter is discarded."
-            GainHPAction healing = healed.FirstOrDefault();
-            if (healing == null || healing.AmountActuallyGained <= 0)
-            {
-                if (base.GameController.FindCardsWhere((Card c) => c.DoKeywordsContain("batter", true, true) && c.Location.IsVillain && (c.Location.IsDeck || c.Location.IsTrash)).Any())
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction(base.Card.Title + " brings forth another player from the Pods...", Priority.Medium, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
                 {
-                    IEnumerator messageCoroutine = base.GameController.SendMessageAction(base.Card.Title + " brings forth the next batter in the lineup...", Priority.Medium, GetCardSource(), showCardSource: true);
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(messageCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(messageCoroutine);
-                    }
-                    List<MoveCardAction> moves = new List<MoveCardAction>();
-                    while (!moves.Where((MoveCardAction mca) => mca.IsDiscard && mca.CardToMove != null && mca.CardToMove.DoKeywordsContain("batter")).Any())
-                    {
-                        IEnumerator discardCoroutine = base.GameController.DiscardTopCard(base.TurnTaker.Deck, moves, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(discardCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(discardCoroutine);
-                        }
-                    }
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
                 }
                 else
                 {
-                    // If there are already no Batters in the deck or trash (e.g. because all five are in play and at max HP/unable to heal), don't loop infinitely- just discard the deck and send a message
-                    while(base.TurnTaker.Deck.HasCards)
-                    {
-                        IEnumerator discardCoroutine = base.GameController.DiscardTopCard(base.TurnTaker.Deck, null, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(discardCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(discardCoroutine);
-                        }
-                    }
-                    IEnumerator messageCoroutine = base.GameController.SendMessageAction("There are no more Batters for " + base.Card.Title + " to call on.", Priority.Medium, GetCardSource(), showCardSource: true);
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
+                List<MoveCardAction> moves = new List<MoveCardAction>();
+                while (!moves.Where((MoveCardAction mca) => mca.IsDiscard && mca.CardToMove != null && mca.CardToMove.DoKeywordsContain("pod")).Any())
+                {
+                    IEnumerator discardCoroutine = base.GameController.DiscardTopCard(base.TurnTaker.Deck, moves, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
-                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                        yield return base.GameController.StartCoroutine(discardCoroutine);
                     }
                     else
                     {
-                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                        base.GameController.ExhaustCoroutine(discardCoroutine);
                     }
-
-
+                }
+            }
+            else
+            {
+                // If there are already no Pods in the deck or trash (e.g. because all of them are in play), don't loop infinitely- just discard the deck and send a message
+                while(base.TurnTaker.Deck.HasCards)
+                {
+                    IEnumerator discardCoroutine = base.GameController.DiscardTopCard(base.TurnTaker.Deck, null, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(discardCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(discardCoroutine);
+                    }
+                }
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction("There are no more Pods for " + base.Card.Title + " to call on.", Priority.Medium, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
             }
             yield break;

@@ -14,86 +14,33 @@ namespace BartKFSentinels.TheShelledOne
         public TheNecromancyCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            base.SpecialStringMaker.ShowNumberOfCardsAtLocations(() => from httc in base.GameController.FindHeroTurnTakerControllers()
-                                                                       where !httc.IsIncapacitatedOrOutOfGame
-                                                                       select httc.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("one-shot"), "one-shot"));
+            base.SpecialStringMaker.ShowHeroTargetWithLowestHP(ranking: 2);
         }
 
         public override IEnumerator Play()
         {
-            // "Villain cards are indestructible this turn."
-            MakeIndestructibleStatusEffect untouchable = new MakeIndestructibleStatusEffect();
-            untouchable.CardsToMakeIndestructible.IsVillain = true;
-            untouchable.UntilThisTurnIsOver(base.Game);
-            IEnumerator statusCoroutine = base.GameController.AddStatusEffect(untouchable, true, GetCardSource());
-            if (base.UseUnityCoroutines)
+            // "Put the top card of each hero trash on top of its deck."
+            foreach (TurnTaker item in FindTurnTakersWhere((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && tt.Trash.HasCards && tt.BattleZone == base.Card.BattleZone))
             {
-                yield return base.GameController.StartCoroutine(statusCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(statusCoroutine);
-            }
-            // "Play the topmost One-Shot card from each hero trash. Redirect damage on cards played this way to the hero target with the second lowest HP."
-            IEnumerator playAllCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame), SelectionType.PlayCard, BringOutYourDeadResponse, allowAutoDecide: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(playAllCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(playAllCoroutine);
-            }
-            yield break;
-        }
-
-        public IEnumerator BringOutYourDeadResponse(TurnTaker tt)
-        {
-            // "Play the topmost One-Shot card from [this hero's] trash. Redirect damage on cards played this way to the hero target with the second lowest HP."
-            IEnumerable<Card> trashOneShots = tt.Trash.Cards.Where((Card c) => c.DoKeywordsContain("one-shot"));
-            Card toPlay = trashOneShots.LastOrDefault();
-            if (toPlay != null)
-            {
-                AddToTemporaryTriggerList(AddTrigger((DealDamageAction dda) => dda.CardSource != null && dda.CardSource.Card == toPlay, RedirectDamageResponse, TriggerType.RedirectDamage, TriggerTiming.Before));
-                IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, toPlay, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                IEnumerator recycleCoroutine = base.GameController.MoveCard(base.TurnTakerController, item.Trash.TopCard, item.Deck, toBottom: true, isPutIntoPlay: false, playCardIfMovingToPlayArea: true, null, showMessage: true, null, null, null, evenIfIndestructible: false, flipFaceDown: false, null, isDiscard: false, evenIfPretendGameOver: false, shuffledTrashIntoDeck: false, doesNotEnterPlay: false, GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(playCoroutine);
+                    yield return base.GameController.StartCoroutine(recycleCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(playCoroutine);
+                    base.GameController.ExhaustCoroutine(recycleCoroutine);
                 }
-                RemoveTemporaryTriggers();
             }
-            yield break;
-        }
-
-        public IEnumerator RedirectDamageResponse(DealDamageAction dda)
-        {
-            // "Redirect damage on cards played this way to the hero target with the second lowest HP."
-            List<Card> lowest = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithLowestHitPoints(2, (Card c) => c.IsHero && c.IsTarget, lowest, dda, dda.ToEnumerable(), cardSource: GetCardSource());
+            // "Each hero target deals the hero target with the second lowest HP 2 fire damage."
+            IEnumerator incinerateCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), TargetType.LowestHP, 2, new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), 2, DamageType.Fire);
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(findCoroutine);
+                yield return base.GameController.StartCoroutine(incinerateCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(findCoroutine);
-            }
-            Card secondLowest = lowest.FirstOrDefault();
-            if (secondLowest != null)
-            {
-                IEnumerator redirectCoroutine = base.GameController.RedirectDamage(dda, secondLowest, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(redirectCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(redirectCoroutine);
-                }
+                base.GameController.ExhaustCoroutine(incinerateCoroutine);
             }
             yield break;
         }

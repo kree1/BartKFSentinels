@@ -22,23 +22,13 @@ namespace BartKFSentinels.TheShelledOne
             base.AddTriggers();
             // "Hero cards cannot be played."
             CannotPlayCards((TurnTakerController turnTaker) => turnTaker?.IsHero ?? false, (Card c) => c.IsHero);
-            // "At the start of the villain turn, put the top card of each hero deck into play in turn order. The non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, PlayDamageDestroyResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
+            // "At the start of the villain turn, the non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DamageDestroyResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
         }
 
-        public IEnumerator PlayDamageDestroyResponse(GameAction ga)
+        public IEnumerator DamageDestroyResponse(GameAction ga)
         {
-            // "... put the top card of each hero deck into play in turn order."
-            IEnumerator putCoroutine = PlayTopCardOfEachDeckInTurnOrder((TurnTakerController ttc) => ttc.IsHero, (Location l) => l.IsHero, base.TurnTaker, isPutIntoPlay: true);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(putCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(putCoroutine);
-            }
-            // "The non-hero target with the highest HP deals each hero target 2 sonic damage."
+            // "... the non-hero target with the highest HP deals each hero target 2 sonic damage."
             List<Card> highest = new List<Card>();
             IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => !c.IsHero, highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)

@@ -546,7 +546,7 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
-            // "Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
+            /*// "Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
             List<Card> highestResults = new List<Card>();
             IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHeroCharacterCard, highestResults, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
@@ -569,7 +569,7 @@ namespace BartKFSentinels.TheShelledOne
                 {
                     base.GameController.ExhaustCoroutine(pitchCoroutine);
                 }
-            }
+            }*/
             yield break;
         }
     }

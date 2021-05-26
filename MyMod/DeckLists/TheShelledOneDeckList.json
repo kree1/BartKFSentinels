@@ -49,7 +49,7 @@
 				"When {TheShelledOne} flips to this side...{BR}... remove all Strikes from the game.{BR}... search the villain deck and trash for {GiantPeanutShell} and put it into play.{BR}... reveal all cards from under this one. Put a random Pitcher and a random Batter from among them into play. Shuffle the other revealed cards into the villain deck.",
 				"{GiantPeanutShell} is indestructible. The hero next to it gains the keyword [i]Pod[/i].",
 				"The first time a Pod is discarded from the villain deck each turn, put that Pod into play.",
-				"At the end of the villain turn, discard cards from the top of the villain deck until you discard a Weather Effect. Put that Weather Effect into play. Then, {TheShelledOne} regains HP equal to the number of non-character villain targets in play. Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
+				"At the end of the villain turn, discard cards from the top of the villain deck until you discard a Weather Effect. Put that Weather Effect into play. Then, {TheShelledOne} regains HP equal to the number of non-character villain targets in play."
 			],
 			"flippedAdvanced": "Reduce damage dealt to {TheShelledOne} by 1.",
 			"flippedIcons": [
@@ -88,7 +88,7 @@
 			"hitpoints": 4,
 			"body": [
 				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
-				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+				"The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
 			],
 			"tokenPools": [
 				{
@@ -106,12 +106,7 @@
 				"DealDamageMelee",
 				"DealDamageToxic"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]PODS{BR}CRUSH THEM[/b]"
-				}
-			],
+			"flavorText": "[b]PODS{BR}CRUSH THEM[/b]",
 			"flavorReference": "The Shelled One, Season 10 Day X"
 		},
 		{
@@ -134,12 +129,7 @@
 				"Destroy",
 				"DealDamageProjectile"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]BOW BEFORE MY PODS[/b]"
-				}
-			],
+			"flavorText": "[b]BOW BEFORE MY PODS[/b]",
 			"flavorReference": "The Shelled One, Season 9 Day X"
 		},
 		{
@@ -172,22 +162,15 @@
 				"modification"
 			],
 			"body": [
-				"When this card enters play, move it next to the hero with the most cards in hand. Reduce damage dealt to and by that hero to and by villain targets by 1.",
-				"At the end of that hero's turn, if {TheShelledOne} is a target, 1 Batter regains {H - 1} HP. If {TheShelledOne} is a target and no targets regained HP this way, discard cards from the villain deck until a Batter is discarded."
+				"When this card enters play, move it next to the hero with the most cards in hand. Reduce damage dealt by that hero to villain targets by 1.",
+				"At the end of that hero's turn, if {TheShelledOne} is a target, discard cards from the villain deck until a Pod is discarded."
 			],
 			"icons": [
 				"ReduceDamageDealt",
-				"ReduceDamageTaken",
 				"EndOfTurnAction",
-				"GainHP",
 				"Search"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]MY PROGENY{BR}MY PODS{BR}HONOR THEM TO HONOR ME[/b]"
-				}
-			],
+			"flavorText": "[b]MY PROGENY{BR}MY PODS{BR}HONOR THEM TO HONOR ME[/b]",
 			"flavorReference": "The Shelled One, Season 5 Elections"
 		},
 		{
@@ -242,7 +225,7 @@
 			"hitpoints": 8,
 			"body": [
 				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
-				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+				"The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
 			],
 			"tokenPools": [
 				{
@@ -260,12 +243,7 @@
 				"DealDamageMelee",
 				"DealDamageToxic"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]NOW WATCH{BR}WITNESS TRUE POWER[/b]"
-				}
-			],
+			"flavorText": "[b]NOW WATCH{BR}WITNESS TRUE POWER[/b]",
 			"flavorReference": "The Shelled One, Season 9 Day X"
 		},
 		{
@@ -278,12 +256,11 @@
 			],
 			"body": [
 				"When this card enters play, move it next to the hero with the highest HP. That hero must skip either their play or power phase each turn.",
-				"At the end of that player's turn, if {TheShelledOne} is a target, play the top card of that player's deck.  If that card is a One-Shot, redirect damage on it to the hero target with the highest HP. Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."
+				"At the end of that player's turn, if {TheShelledOne} is a target, that hero deals each other hero target 1 toxic damage. Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."
 			],
 			"icons": [
 				"EndOfTurnAction",
-				"PlayCardNow",
-				"RedirectDamage",
+				"DealDamageToxic",
 				"Manipulate"
 			],
 			"flavorText": "A big peanut crashes into the{BR}field, encasing Wyatt Quitter!",
@@ -313,12 +290,7 @@
 				"DestroyHero",
 				"DrawCardNow"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]YOU WORSHIP THEM{BR}WHEN I WALK AMONG YOU?[/b]"
-				}
-			],
+			"flavorText": "[b]YOU WORSHIP THEM{BR}WHEN I WALK AMONG YOU?[/b]",
 			"flavorReference": "The Shelled One, Season 5 Elections"
 		},
 		{
@@ -329,10 +301,10 @@
 				"pod",
 				"batter"
 			],
-			"hitpoints": 12,
+			"hitpoints": 11,
 			"body": [
 				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
-				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+				"The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
 			],
 			"tokenPools": [
 				{
@@ -350,12 +322,7 @@
 				"DealDamageMelee",
 				"DealDamageToxic"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]RING RING[/b]"
-				}
-			],
+			"flavorText": "[b]RING RING[/b]",
 			"flavorReference": "The Shelled One, Season 9 Day X"
 		},
 		{
@@ -396,12 +363,7 @@
 				"EndOfTurnAction",
 				"AddTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]BLASPHEMY[/b]"
-				}
-			],
+			"flavorText": "[b]BLASPHEMY[/b]",
 			"flavorReference": "The Shelled One, Season 3 Day 4"
 		},
 		{
@@ -435,10 +397,10 @@
 				"batter",
 				"device"
 			],
-			"hitpoints": 5,
+			"hitpoints": 6,
 			"body": [
 				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
-				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+				"The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
 			],
 			"tokenPools": [
 				{
@@ -456,12 +418,7 @@
 				"DealDamageMelee",
 				"DealDamageToxic"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]HAD ENOUGH?[/b]"
-				}
-			],
+			"flavorText": "[b]HAD ENOUGH?[/b]",
 			"flavorReference": "The Shelled One, Season 9 Day X"
 		},
 		{
@@ -481,12 +438,7 @@
 				"DestroySelf",
 				"IncreaseDamageTaken"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]WHERE IS YOUR SPIRIT{BR}HERE{BR}HAVE SOME OF MINE[/b]"
-				}
-			],
+			"flavorText": "[b]WHERE IS YOUR SPIRIT{BR}HERE{BR}HAVE SOME OF MINE[/b]",
 			"flavorReference": "The Shelled One, Season 9 Day X"
 		},
 		{
@@ -552,12 +504,7 @@
 				"DealDamageInfernal",
 				"RemoveFromGame"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]YOU ARE INSATIABLE{BR}WHERE IS YOUR RESTRAINT?[/b]"
-				}
-			],
+			"flavorText": "[b]YOU ARE INSATIABLE{BR}WHERE IS YOUR RESTRAINT?[/b]",
 			"flavorReference": "The Shelled One, Season 3 Day 75"
 		},
 		{
@@ -593,19 +540,14 @@
 				"one-shot"
 			],
 			"body": [
-				"Villain cards are indestructible this turn.",
-				"Play the topmost One-Shot card from each hero trash. Redirect damage on cards played this way to the hero target with the second lowest HP."
+				"Put the top card of each hero trash on top of its deck.",
+				"Each hero target deals the hero target with the second lowest HP 2 fire damage."
 			],
 			"icons": [
-				"PlayCardNow",
-				"RedirectDamage"
+				"Manipulate",
+				"DealDamageFire"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]THE LEDGER MUST BE BALANCED{br}DEBTS PAID[/b]"
-				}
-			],
+			"flavorText": "[b]THE LEDGER MUST BE BALANCED{br}DEBTS PAID[/b]",
 			"flavorReference": "The Shelled One, Season 6 Elections"
 		},
 		{
@@ -617,21 +559,15 @@
 			],
 			"body": [
 				"Hero cards cannot be played.",
-				"At the start of the villain turn, put the top card of each hero deck into play in turn order. The non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
+				"At the start of the villain turn, the non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
 			],
 			"icons": [
 				"CannotPlayCards",
 				"StartOfTurnAction",
-				"PlayCardNow",
 				"DealDamageSonic",
 				"DestroySelf"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]YOU WITHHOLD YOUR LABOR?{BR}YOU THINK THAT GIVES YOU POWER?[/b]"
-				}
-			],
+			"flavorText": "[b]YOU WITHHOLD YOUR LABOR?{BR}YOU THINK THAT GIVES YOU POWER?[/b]",
 			"flavorReference": "The Shelled One, Season 7 Day 99"
 		},
 		{
@@ -652,12 +588,7 @@
 				"GainHP",
 				"AddTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]100 MILLION SNACKS{BR}WASTED[/b]"
-				}
-			],
+			"flavorText": "[b]100 MILLION SNACKS{BR}WASTED[/b]",
 			"flavorReference": "The Shelled One, Season 8 Elections"
 		},
 		{
@@ -717,7 +648,7 @@
 			"hitpoints": 10,
 			"body": [
 				"Reduce damage dealt to this card by 1. X on this card = the number of tokens on this card.",
-				"Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+				"The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
 			],
 			"tokenPools": [
 				{
@@ -735,12 +666,7 @@
 				"DealDamageMelee",
 				"DealDamageToxic"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "The Shelled One",
-					"text": "[b]MY DORK[/b]"
-				}
-			],
+			"flavorText": "[b]MY DORK[/b]",
 			"flavorReference": "The Shelled One, Season 10 Day X"
 		}
 	]

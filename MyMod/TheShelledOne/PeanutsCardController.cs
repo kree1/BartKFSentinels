@@ -22,8 +22,17 @@ namespace BartKFSentinels.TheShelledOne
             base.AddTriggers();
             // "Increase damage dealt by Pods by 1."
             AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card.DoKeywordsContain("pod"), 1);
+            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null, CheckKeywordsResponse, TriggerType.Hidden, TriggerTiming.Before);
             // "At the start of the villain turn, each player may discard a card. If fewer than {H} cards were discarded this way, search the villain deck and trash for {GiantPeanutShell} and put it into play, then shuffle the villain deck."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardSearchResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay });
+        }
+
+        public IEnumerator CheckKeywordsResponse(DealDamageAction dda)
+        {
+            // Debugging
+            Card dealer = dda.DamageSource.Card;
+            Log.Debug("Damage dealer: " + dealer.Title);
+            yield break;
         }
 
         public IEnumerator DiscardSearchResponse(GameAction ga)

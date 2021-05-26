@@ -23,7 +23,7 @@ namespace BartKFSentinels.TheShelledOne
             // "That hero must skip either their play or power phase each turn."
             AddTrigger((PhaseChangeAction p) => p.ToPhase.IsUsePower && p.ToPhase.TurnTaker == GetCardThisCardIsNextTo().Owner && DidHeroPlayCardDuringPlayPhaseThisTurn(p.ToPhase.TurnTaker), SkipPhaseResponse, TriggerType.SkipPhase, TriggerTiming.After);
             AddTrigger((PhaseChangeAction p) => p.ToPhase.IsPlayCard && p.ToPhase.TurnTaker == GetCardThisCardIsNextTo().Owner && DidHeroUsePowerDuringPowerPhaseThisTurn(p.ToPhase.TurnTaker), SkipPhaseResponse, TriggerType.SkipPhase, TriggerTiming.After);
-            // "At the end of that player's turn, if {TheShelledOne} is a target, play the top card of that player's deck. If that card is a One-Shot, redirect damage on it to the hero target with the highest HP. Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."
+            // "At the end of that player's turn, if {TheShelledOne} is a target, that hero deals each other hero target 1 toxic damage. Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == GetCardThisCardIsNextTo().Owner, PlayRedirectMoveResponse, new TriggerType[] { TriggerType.PlayCard, TriggerType.MoveCard });
         }
 
@@ -80,57 +80,17 @@ namespace BartKFSentinels.TheShelledOne
 
         public IEnumerator PlayRedirectMoveResponse(GameAction ga)
         {
-            // "... if {TheShelledOne} is a target, play the top card of that player's deck. If that card is a One-Shot, redirect damage on it to the hero target with the highest HP."
-            if (base.CharacterCard.IsTarget)
+            // "... if {TheShelledOne} is a target, that hero deals each other hero target 1 toxic damage."
+            if (base.CharacterCard.IsTarget && GetCardThisCardIsNextTo().IsTarget)
             {
-                if (!GetCardThisCardIsNextTo().Owner.Deck.HasCards)
+                IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, GetCardThisCardIsNextTo(), (Card c) => c.IsHero && c.IsTarget && c != GetCardThisCardIsNextTo(), 1, DamageType.Toxic, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
                 {
-                    IEnumerator shuffleCoroutine = base.GameController.ShuffleTrashIntoDeck(base.GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner), necessaryToPlayCard: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(shuffleCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(shuffleCoroutine);
-                    }
-                }
-                Card playing = GetCardThisCardIsNextTo().Owner.Deck.TopCard;
-                /*Log.Debug("Giant Peanut Shell is going to play " + playing.Title + ".");
-                foreach (string k in playing.GetKeywords())
-                {
-                    Log.Debug("    Keyword (initial list): " + k);
-                }
-                foreach (string k in playing.GetKeywords(evenIfUnderCard: true, evenIfFaceDown: true))
-                {
-                    Log.Debug("    Keyword (all): " + k);
-                }
-                Log.Debug("DoKeywordsContain(\"one-shot\"): " + playing.DoKeywordsContain("one-shot").ToString());*/
-                if (playing.DoKeywordsContain("one-shot"))
-                {
-                    AddToTemporaryTriggerList(AddTrigger((DealDamageAction dda) => dda.CardSource != null && dda.CardSource.Card == playing, RedirectDamageResponse, TriggerType.RedirectDamage, TriggerTiming.Before));
-                    IEnumerator playCoroutine = base.GameController.PlayTopCard(base.GameController.FindHeroTurnTakerController(GetCardThisCardIsNextTo().Owner.ToHero()), base.GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner), responsibleTurnTaker: base.TurnTaker, showMessage: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(playCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(playCoroutine);
-                    }
-                    RemoveTemporaryTriggers();
+                    yield return base.GameController.StartCoroutine(damageCoroutine);
                 }
                 else
                 {
-                    IEnumerator playCoroutine = base.GameController.PlayTopCard(base.GameController.FindHeroTurnTakerController(GetCardThisCardIsNextTo().Owner.ToHero()), base.GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner), responsibleTurnTaker: base.TurnTaker, showMessage: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(playCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(playCoroutine);
-                    }
+                    base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
             // "Then, if {Feedback} or {Reverb} is in play, you may move this card next to the previous hero in turn order."

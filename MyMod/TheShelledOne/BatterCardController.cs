@@ -20,6 +20,7 @@ namespace BartKFSentinels.TheShelledOne
         }
 
         public string BasePoolIdentifier;
+        public const string OncePerTurn = "DamageOncePerTurn";
 
         public int BasePoolValue()
         {
@@ -40,8 +41,12 @@ namespace BartKFSentinels.TheShelledOne
             // "Reduce damage dealt to this card by 1."
             AddReduceDamageTrigger((Card c) => c == base.Card, 1);
             // "X on this card = the number of tokens on this card."
-            // "Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsHero && dda.DamageSource.Card.IsTarget && dda.Target.IsVillain && dda.Amount <= 1, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
+            /*// "Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsHero && dda.DamageSource.Card.IsTarget && dda.Target.IsVillain && dda.Amount <= 1, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);*/
+
+            // "The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target.IsVillain && dda.DidDealDamage, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
+            // Cards out of play can't have tokens
             AddBeforeLeavesPlayAction(ResetPoolResponse, TriggerType.ModifyTokens);
         }
 
@@ -59,6 +64,7 @@ namespace BartKFSentinels.TheShelledOne
 
         public IEnumerator EasyPitchResponse(DealDamageAction dda)
         {
+            SetCardPropertyToTrueIfRealAction(OncePerTurn);
             TokenPool basePool = base.Card.FindTokenPool(BasePoolIdentifier);
             // "... put a token on this card."
             IEnumerator addTokenCoroutine = base.GameController.AddTokensToPool(basePool, 1, GetCardSource());
@@ -106,6 +112,19 @@ namespace BartKFSentinels.TheShelledOne
                 {
                     base.GameController.ExhaustCoroutine(cycleCoroutine);
                 }
+                /*// If this interrupted damage being dealt to this card, cancel that damage
+                if (dda.Target == base.Card)
+                {
+                    IEnumerator cancelCoroutine = base.GameController.CancelAction(dda, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(cancelCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(cancelCoroutine);
+                    }
+                }*/
             }
             yield break;
         }
