@@ -21,17 +21,29 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "Increase damage dealt by Pods by 1."
-            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card.DoKeywordsContain("pod"), 1);
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null, CheckKeywordsResponse, TriggerType.Hidden, TriggerTiming.Before);
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && (dda.DamageSource.Card.DoKeywordsContain("pod") || dda.DamageSource.Card.NextToLocation.HasCard(base.TurnTaker.FindCard("GiantPeanutShell"))), 1);
+            //AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null, CheckCriteriaResponse, TriggerType.Hidden, TriggerTiming.Before);
             // "At the start of the villain turn, each player may discard a card. If fewer than {H} cards were discarded this way, search the villain deck and trash for {GiantPeanutShell} and put it into play, then shuffle the villain deck."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardSearchResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay });
         }
 
-        public IEnumerator CheckKeywordsResponse(DealDamageAction dda)
+        public IEnumerator CheckCriteriaResponse(DealDamageAction dda)
         {
             // Debugging
             Card dealer = dda.DamageSource.Card;
             Log.Debug("Damage dealer: " + dealer.Title);
+            Log.Debug("DoKeywordsContain(\"pod\"): " + dealer.DoKeywordsContain("pod").ToString());
+            IEnumerable<string> keywords = dealer.GetKeywords();
+            foreach(string k in keywords)
+            {
+                Log.Debug("    keyword: " + k);
+            }
+            Log.Debug("NextToLocation.HasCard(base.TurnTaker.FindCard(\"GiantPeanutShell\")): " + dealer.NextToLocation.HasCard(base.TurnTaker.FindCard("GiantPeanutShell")).ToString());
+            IEnumerable<Card> nextToCards = dealer.NextToLocation.Cards;
+            foreach(Card c in nextToCards)
+            {
+                Log.Debug("    attached card: " + c.Title);
+            }
             yield break;
         }
 
