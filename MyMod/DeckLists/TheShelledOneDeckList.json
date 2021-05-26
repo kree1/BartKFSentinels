@@ -473,6 +473,7 @@
 			],
 			"body": [
 				"When this card enters play, destroy all other Weather Effects. Then, if there are no Umpires in play, put the Umpire with the lowest HP from the villain trash into play.",
+				"If there are any Umpires in play, this card is indestructible.",
 				"At the start of the villain turn, each Umpire deals the hero target with the highest HP {H + 2} fire damage."
 			],
 			"icons": [
@@ -541,7 +542,7 @@
 			],
 			"body": [
 				"Put the top card of each hero trash on top of its deck.",
-				"Each hero target deals the hero target with the second lowest HP 2 fire damage."
+				"Each hero target deals the hero character with the second lowest HP 2 fire damage."
 			],
 			"icons": [
 				"Manipulate",

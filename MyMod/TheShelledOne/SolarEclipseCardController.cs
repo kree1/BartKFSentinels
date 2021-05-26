@@ -14,7 +14,18 @@ namespace BartKFSentinels.TheShelledOne
         public SolarEclipseCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
+            AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             SpecialStringMaker.ShowHeroTargetWithHighestHP();
+        }
+
+        public override bool AskIfCardIsIndestructible(Card card)
+        {
+            // "If there are any Umpires in play, this card is indestructible."
+            if (FindCardsWhere(new LinqCardCriteria((Card c) => c.DoKeywordsContain("umpire") && c.IsInPlayAndHasGameText)).Count() > 0)
+            {
+                return card == base.Card;
+            }
+            return false;
         }
 
         public override void AddTriggers()

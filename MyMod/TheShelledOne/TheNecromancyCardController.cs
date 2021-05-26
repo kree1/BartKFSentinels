@@ -32,8 +32,8 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(recycleCoroutine);
                 }
             }
-            // "Each hero target deals the hero target with the second lowest HP 2 fire damage."
-            IEnumerator incinerateCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), TargetType.LowestHP, 2, new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), 2, DamageType.Fire);
+            // "Each hero target deals the hero character with the second lowest HP 2 fire damage."
+            IEnumerator incinerateCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), TargetType.LowestHP, 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard), 2, DamageType.Fire);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(incinerateCoroutine);
