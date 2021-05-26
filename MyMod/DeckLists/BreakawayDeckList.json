@@ -213,7 +213,7 @@
                 "one-shot"
             ],
             "body":[
-                "The {H - 2} players with the most cards in play each destroy 1 of their cards.",
+                "The {H - 2} players with the most cards in play each destroy 1 of their non-character cards.",
                 "Destroy a hero card in the villain play area. If a card was destroyed this way, {Breakaway} regains 2 HP.",
                 "Reduce the next damage dealt by each non-villain target by X, where X = 2 plus the number of cards destroyed by this card."
             ],

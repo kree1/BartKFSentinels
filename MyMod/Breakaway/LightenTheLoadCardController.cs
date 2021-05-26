@@ -19,7 +19,7 @@ namespace BartKFSentinels.Breakaway
 
         public override IEnumerator Play()
         {
-            // "The {H - 2} players with the most cards in play each destroy 1 of their cards."
+            // "The {H - 2} players with the most cards in play each destroy 1 of their non-character cards."
             // Find those players, store them as loadedHeroes...
             List<TurnTaker> loadedHeroes = new List<TurnTaker>();
             IEnumerator findPlayersCoroutine = base.FindHeroWithMostCardsInPlay(loadedHeroes, numberOfHeroes: base.H - 2);
