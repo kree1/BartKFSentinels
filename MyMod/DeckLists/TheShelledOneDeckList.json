@@ -559,7 +559,7 @@
 			],
 			"body": [
 				"Hero cards cannot be played.",
-				"At the start of the villain turn, the non-hero target with the highest HP deals each hero target 2 sonic damage. Then, destroy this card."
+				"At the start of the villain turn, the non-hero target with the highest HP deals each hero target 3 sonic damage. Then, destroy this card."
 			],
 			"icons": [
 				"CannotPlayCards",
