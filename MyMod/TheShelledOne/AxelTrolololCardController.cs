@@ -20,16 +20,13 @@ namespace BartKFSentinels.TheShelledOne
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of the villain turn, discard the top card of each hero deck in turn order. Put non-One-Shot cards discarded this way under this card. For each One-Shot discarded this way, one hero may use a power."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardKeepOrPowerResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.MoveCard, TriggerType.UsePower });
-            // "Whenever there are 3 or more cards under this card, destroy 3 of them and this card deals the hero target with the highest HP 4 projectile damage."
-            AddTrigger((MoveCardAction mca) => mca.WasCardMoved && mca.Destination == base.Card.UnderLocation && base.Card.UnderLocation.NumberOfCards >= 3, OutResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.After);
+            // "At the end of the villain turn, each player discards the top card of their deck in turn order. If the discarded card is a One-Shot, that player's hero may use a power now. Otherwise, this card deals that player's hero 2 projectile damage."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardDamageOrPowerResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.UsePower, TriggerType.DealDamage });
         }
 
-        public IEnumerator DiscardKeepOrPowerResponse(GameAction ga)
+        public IEnumerator DiscardDamageOrPowerResponse(GameAction ga)
         {
-            // "... discard the top card of each hero deck in turn order. Put non-One-Shot cards discarded this way under this card."
-            int discardedOneShots = 0;
+            // "... each player discards the top card of their deck in turn order."
             IEnumerable<HeroTurnTaker> heroDeckOwners = base.GameController.AllHeroes;
             foreach (HeroTurnTaker player in heroDeckOwners)
             {
@@ -46,62 +43,49 @@ namespace BartKFSentinels.TheShelledOne
                 MoveCardAction discard = moveResults.FirstOrDefault();
                 if (discard != null && discard.CardToMove != null)
                 {
+                    // "... If the discarded card is a One-Shot, that player's hero may use a power now. Otherwise, this card deals that player's hero 2 projectile damage."
                     Card discarded = discard.CardToMove;
                     if (discarded.DoKeywordsContain("one-shot"))
                     {
-                        discardedOneShots += 1;
-                    }
-                    else
-                    {
-                        IEnumerator keepCoroutine = base.GameController.MoveCard(base.TurnTakerController, discarded, base.Card.UnderLocation, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, actionSource: discard, cardSource: GetCardSource());
+                        // "... that player's hero may use a power now."
+                        IEnumerator powerCoroutine = base.GameController.SelectHeroToUsePower(DecisionMaker, additionalCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt == player), cardSource: GetCardSource());
                         if (base.UseUnityCoroutines)
                         {
-                            yield return base.GameController.StartCoroutine(keepCoroutine);
+                            yield return base.GameController.StartCoroutine(powerCoroutine);
                         }
                         else
                         {
-                            base.GameController.ExhaustCoroutine(keepCoroutine);
+                            base.GameController.ExhaustCoroutine(powerCoroutine);
+                        }
+                    }
+                    else
+                    {
+                        // "... this card deals that player's hero 2 projectile damage."
+                        List<Card> storedCharacter = new List<Card>();
+                        IEnumerator findCoroutine = FindCharacterCardToTakeDamage(player, storedCharacter, base.Card, 2, DamageType.Projectile);
+                        if (base.UseUnityCoroutines)
+                        {
+                            yield return base.GameController.StartCoroutine(findCoroutine);
+                        }
+                        else
+                        {
+                            base.GameController.ExhaustCoroutine(findCoroutine);
+                        }
+                        if (storedCharacter != null && storedCharacter.FirstOrDefault() != null)
+                        {
+                            Card character = storedCharacter.FirstOrDefault();
+                            IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, base.Card, (Card c) => c == character, 2, DamageType.Projectile, cardSource: GetCardSource());
+                            if (base.UseUnityCoroutines)
+                            {
+                                yield return base.GameController.StartCoroutine(damageCoroutine);
+                            }
+                            else
+                            {
+                                base.GameController.ExhaustCoroutine(damageCoroutine);
+                            }
                         }
                     }
                 }
-            }
-            // "For each One-Shot discarded this way, one hero may use a power."
-            for (int i = 0; i < discardedOneShots; i++)
-            {
-                IEnumerator powerCoroutine = base.GameController.SelectHeroToUsePower(DecisionMaker, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(powerCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(powerCoroutine);
-                }
-            }
-            yield break;
-        }
-
-        public IEnumerator OutResponse(GameAction ga)
-        {
-            // "...  destroy 3 of them..."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.Location == base.Card.UnderLocation, "under " + base.Card.Title, false, true), 3, requiredDecisions: 3, responsibleCard: base.Card, allowAutoDecide: base.Card.UnderLocation.NumberOfCards <= 3, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(destroyCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(destroyCoroutine);
-            }
-            // "... and this card deals the hero target with the highest HP 4 projectile damage."
-            IEnumerator damageCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => c.IsHero, (Card c) => 4, DamageType.Projectile);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(damageCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             yield break;
         }

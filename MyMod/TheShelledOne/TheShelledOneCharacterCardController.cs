@@ -24,6 +24,8 @@ namespace BartKFSentinels.TheShelledOne
         public const string StrikePoolIdentifier = "TheShelledOneStrikePool";
         public const int MinimumMaxHP = 6;
         protected const string OnePodPerTurn = "PlayPodOncePerTurn";
+        protected const string FirstWeatherEffect = "FirstWeatherEffectThisTurn";
+        protected const string SecondWeatherEffect = "SecondWeatherEffectThisTurn";
 
         public Func<Card, bool> getsMaxHPSet = (Card c) => (c.IsVillain && c.DoKeywordsContain("ongoing")) || (c.IsEnvironment && (!c.IsTarget || c.MaximumHitPoints < MinimumMaxHP));
         public Func<Card, bool> removeMaxHP = (Card c) => (c.IsVillain || c.IsEnvironment) && ((!c.IsCharacter && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && !c.IsFlipped && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && c.IsFlipped && !c.Definition.FlippedHitPoints.HasValue));
@@ -107,6 +109,8 @@ namespace BartKFSentinels.TheShelledOne
                 // "The first time a Pod is discarded from the villain deck each turn, put that Pod into play."
                 AddSideTrigger(AddTrigger((MoveCardAction mca) => !HasBeenSetToTrueThisTurn(OnePodPerTurn) && mca.IsDiscard && mca.Origin.IsVillain, CheckForDiscardedPodResponse, TriggerType.PutIntoPlay, TriggerTiming.After));
                 AddSideTrigger(AddTrigger((BulkMoveCardsAction bmca) => !HasBeenSetToTrueThisTurn(OnePodPerTurn) && bmca.IsDiscard, CheckForBulkDiscardedPodResponse, TriggerType.PutIntoPlay, TriggerTiming.After));
+                // "The second time a Weather Effect enters play each turn, search the villain deck and trash for {AxelTrololol}, put him into play, and shuffle the villain trash into its deck."
+                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !HasBeenSetToTrueThisTurn(SecondWeatherEffect) && cepa.CardEnteringPlay.DoKeywordsContain("weather effect"), WeatherResponse, TriggerType.PutIntoPlay, TriggerTiming.After));
                 // "At the end of the villain turn, discard cards from the top of the villain deck until you discard a Weather Effect. Put that Weather Effect into play. Then, {TheShelledOne} regains HP equal to the number of non-character villain targets in play. Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, HealPitchWeatherResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DealDamage, TriggerType.DiscardCard, TriggerType.PlayCard }));
 
@@ -492,6 +496,47 @@ namespace BartKFSentinels.TheShelledOne
             yield break;
         }
 
+        public IEnumerator WeatherResponse(GameAction ga)
+        {
+            if (!HasBeenSetToTrueThisTurn(FirstWeatherEffect))
+            {
+                SetCardPropertyToTrueIfRealAction(FirstWeatherEffect);
+            }
+            else if (!HasBeenSetToTrueThisTurn(SecondWeatherEffect))
+            {
+                SetCardPropertyToTrueIfRealAction(SecondWeatherEffect);
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction("A new inning begins! Axel Trololol takes the mound for THE SHELLED ONE'S PODS.", Priority.Medium, GetCardSource(), associatedCards: base.TurnTaker.FindCard("AxelTrololol").ToEnumerable());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
+                // "... search the villain deck and trash for {AxelTrololol}, put him into play, and shuffle the villain trash into its deck."
+                IEnumerator bullpenCoroutine = base.PlayCardFromLocations(new Location[] { base.TurnTaker.Deck, base.TurnTaker.Trash }, "AxelTrololol", shuffleAfterwardsIfDeck: false);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(bullpenCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(bullpenCoroutine);
+                }
+                IEnumerator shuffleCoroutine = base.GameController.ShuffleTrashIntoDeck(base.TurnTakerController, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(shuffleCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(shuffleCoroutine);
+                }
+            }
+            yield break;
+        }
+
         public IEnumerator HealPitchWeatherResponse(GameAction ga)
         {
             // "... discard cards from the top of the villain deck until you discard a Weather Effect. Put that Weather Effect into play."
@@ -546,30 +591,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
-            /*// "Then, the hero with the highest HP deals {TheShelledOne} 0 projectile damage."
-            List<Card> highestResults = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHeroCharacterCard, highestResults, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(findCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(findCoroutine);
-            }
-            Card pitchingHero = highestResults.FirstOrDefault();
-            if (pitchingHero != null)
-            {
-                IEnumerator pitchCoroutine = base.GameController.DealDamage(DecisionMaker, pitchingHero, (Card c) => c == base.Card, 0, DamageType.Projectile, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(pitchCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(pitchCoroutine);
-                }
-            }*/
             yield break;
         }
     }

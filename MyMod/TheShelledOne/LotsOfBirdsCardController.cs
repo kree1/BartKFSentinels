@@ -21,15 +21,15 @@ namespace BartKFSentinels.TheShelledOne
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the start of the villain turn, the hero with the second highest HP may have the environment deal them {H} projectile damage. If that hero takes damage this way, destroy {GiantPeanutShell} and the environment deals {TheShelledOne} 4 projectile damage."
+            // "At the start of the villain turn, the hero with the second highest HP may have the environment deal them {H + 1} projectile damage. If that hero takes damage this way, destroy a villain Ongoing card and the environment deals {TheShelledOne} 4 projectile damage."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DamageUnshellResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroyCard });
         }
 
         public IEnumerator DamageUnshellResponse(GameAction ga)
         {
-            // "... the hero with the second highest HP may have the environment deal them {H} projectile damage."
+            // "... the hero with the second highest HP may have the environment deal them {H + 1} projectile damage."
             List<Card> secondHighestChoice = new List<Card>();
-            DealDamageAction sample = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, FindEnvironment().TurnTaker), null, H, DamageType.Projectile);
+            DealDamageAction sample = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, FindEnvironment().TurnTaker), null, H + 1, DamageType.Projectile);
             IEnumerator findSecondHighestCoroutine = base.GameController.FindTargetWithHighestHitPoints(2, (Card c) => c.IsHeroCharacterCard, secondHighestChoice, gameAction: sample, dealDamageInfo: sample.ToEnumerable(), evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -43,7 +43,7 @@ namespace BartKFSentinels.TheShelledOne
             if (secondHighest != null)
             {
                 List<DealDamageAction> damageResult = new List<DealDamageAction>();
-                IEnumerator heroDamageCoroutine = base.GameController.DealDamageToTarget(new DamageSource(base.GameController, FindEnvironment().TurnTaker), secondHighest, H, DamageType.Projectile, optional: true, storedResults: damageResult, cardSource: GetCardSource());
+                IEnumerator heroDamageCoroutine = base.GameController.DealDamageToTarget(new DamageSource(base.GameController, FindEnvironment().TurnTaker), secondHighest, H + 1, DamageType.Projectile, optional: true, storedResults: damageResult, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(heroDamageCoroutine);
@@ -56,26 +56,15 @@ namespace BartKFSentinels.TheShelledOne
                 if (heroDamage != null && heroDamage.DidDealDamage && heroDamage.Target == secondHighest)
                 {
                     Card shell = base.TurnTaker.FindCard("GiantPeanutShell");
-                    // "If that hero takes damage this way, destroy {GiantPeanutShell}..."
-                    IEnumerator destroyCoroutine = null;
-                    if (shell.IsInPlayAndHasGameText && base.GameController.IsCardVisibleToCardSource(shell, GetCardSource()))
+                    // "If that hero takes damage this way, destroy a villain Ongoing card..."
+                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && c.DoKeywordsContain("ongoing"), "villain Ongoing"), 1, requiredDecisions: 1, responsibleCard: base.Card, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
                     {
-                        destroyCoroutine = base.GameController.DestroyCard(DecisionMaker, shell, showOutput: true, responsibleCard: base.Card, cardSource: GetCardSource());
+                        yield return base.GameController.StartCoroutine(destroyCoroutine);
                     }
                     else
                     {
-                        destroyCoroutine = base.GameController.SendMessageAction(shell.Title + " is not in play.", Priority.Medium, GetCardSource(), showCardSource: true);
-                    }
-                    if (destroyCoroutine != null)
-                    {
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(destroyCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(destroyCoroutine);
-                        }
+                        base.GameController.ExhaustCoroutine(destroyCoroutine);
                     }
                     // "... and the environment deals {TheShelledOne} 4 projectile damage."
                     IEnumerator damageCoroutine = null;

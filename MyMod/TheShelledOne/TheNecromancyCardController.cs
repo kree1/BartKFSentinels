@@ -14,15 +14,23 @@ namespace BartKFSentinels.TheShelledOne
         public TheNecromancyCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            base.SpecialStringMaker.ShowHeroTargetWithLowestHP(ranking: 2);
+            base.SpecialStringMaker.ShowHeroCharacterCardWithHighestHP();
+            base.SpecialStringMaker.ShowHeroCharacterCardWithLowestHP(ranking: 2);
+        }
+
+        public override void AddTriggers()
+        {
+            base.AddTriggers();
+            // "At the end of the villain turn, the hero with the highest HP deals the hero with the second lowest HP {H - 1} fire damage."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, UnstableResponse, TriggerType.DealDamage);
         }
 
         public override IEnumerator Play()
         {
-            // "Put the top card of each hero trash on top of its deck."
-            foreach (TurnTaker item in FindTurnTakersWhere((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && tt.Trash.HasCards && tt.BattleZone == base.Card.BattleZone))
+            // "... put the top card of each hero trash on top of its deck."
+            foreach (TurnTaker item in FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.Trash.HasCards && tt.BattleZone == base.Card.BattleZone))
             {
-                IEnumerator recycleCoroutine = base.GameController.MoveCard(base.TurnTakerController, item.Trash.TopCard, item.Deck, toBottom: true, isPutIntoPlay: false, playCardIfMovingToPlayArea: true, null, showMessage: true, null, null, null, evenIfIndestructible: false, flipFaceDown: false, null, isDiscard: false, evenIfPretendGameOver: false, shuffledTrashIntoDeck: false, doesNotEnterPlay: false, GetCardSource());
+                IEnumerator recycleCoroutine = base.GameController.MoveCard(base.TurnTakerController, item.Trash.TopCard, item.Deck, toBottom: false, isPutIntoPlay: false, playCardIfMovingToPlayArea: true, null, showMessage: true, null, null, null, evenIfIndestructible: false, flipFaceDown: false, null, isDiscard: false, evenIfPretendGameOver: false, shuffledTrashIntoDeck: false, doesNotEnterPlay: false, GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(recycleCoroutine);
@@ -32,15 +40,20 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(recycleCoroutine);
                 }
             }
-            // "Each hero target deals the hero character with the second lowest HP 2 fire damage."
-            IEnumerator incinerateCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget), TargetType.LowestHP, 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard), 2, DamageType.Fire);
+            yield break;
+        }
+
+        public IEnumerator UnstableResponse(GameAction ga)
+        {
+            // "... the hero with the highest HP deals the hero with the second lowest HP {H - 1} fire damage."
+            IEnumerator damageCoroutine = DealDamageToLowestHP(null, 2, (Card c) => c.IsHeroCharacterCard, (Card c) => H - 1, DamageType.Fire, damageSourceInfo: new TargetInfo(HighestLowestHP.HighestHP, 1, 1, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard, "The hero with the highest HP")));
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(incinerateCoroutine);
+                yield return base.GameController.StartCoroutine(damageCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(incinerateCoroutine);
+                base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             yield break;
         }

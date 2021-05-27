@@ -24,8 +24,8 @@ namespace BartKFSentinels.TheShelledOne
             AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target.IsHeroCharacterCard && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value - dda.Amount <= 0 && dda.IsSuccessful, RestoreDestructResponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
             AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.IsHeroCharacterCard && dca.CardToDestroy.Card.HitPoints.HasValue && dca.CardToDestroy.Card.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.CancelAction, TriggerTiming.Before);
             AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target.IsHeroCharacterCard && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.GainHP, TriggerTiming.After);
-            // "When this card is destroyed, increase damage dealt to hero targets during the next villain turn by 2."
-            AddWhenDestroyedTrigger((DestroyCardAction dca) => InitiateIncreaseResponse(dca), TriggerType.CreateStatusEffect);
+            // "When this card is destroyed, increase damage dealt by villain targets by 1 and remove this card from the game."
+            AddWhenDestroyedTrigger((DestroyCardAction dca) => PermanentIncreaseResponse(dca), new TriggerType[] { TriggerType.CreateStatusEffect, TriggerType.RemoveFromGame });
         }
 
         public IEnumerator RestoreDestructResponse(GameAction ga)
@@ -82,42 +82,12 @@ namespace BartKFSentinels.TheShelledOne
             yield break;
         }
 
-        public IEnumerator InitiateIncreaseResponse(DestroyCardAction dca)
+        public IEnumerator PermanentIncreaseResponse(DestroyCardAction dca)
         {
-            // "... increase damage dealt to hero targets during the next villain turn by 2."
-            OnPhaseChangeStatusEffect pityEnds = new OnPhaseChangeStatusEffect(base.Card, nameof(IncreaseDamageResponse), "Increase damage dealt to hero targets during the next villain turn by 2.", new TriggerType[] { TriggerType.IncreaseDamage }, base.Card);
-            pityEnds.TurnTakerCriteria.IsVillain = true;
-            pityEnds.TurnIndexCriteria.GreaterThan = base.Game.TurnIndex;
-            pityEnds.TurnPhaseCriteria.TurnTaker = base.TurnTaker;
-            pityEnds.NumberOfUses = 1;
-            pityEnds.CanEffectStack = true;
-            IEnumerator initialStatusCoroutine = base.GameController.AddStatusEffect(pityEnds, true, GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(initialStatusCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(initialStatusCoroutine);
-            }
-            yield break;
-        }
-
-        public IEnumerator IncreaseDamageResponse(PhaseChangeAction pca, OnPhaseChangeStatusEffect sourceEffect)
-        {
-            // "... increase damage dealt to hero targets during [this turn] by 2."
-            IEnumerator messageCoroutine = base.GameController.SendMessageAction("[b]NOW WATCH{BR}WITNESS TRUE POWER[/b]", Priority.Medium, GetCardSource(), new Card[] { base.CharacterCard }, showCardSource: true);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(messageCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(messageCoroutine);
-            }
-            IncreaseDamageStatusEffect pitiless = new IncreaseDamageStatusEffect(2);
-            pitiless.UntilThisTurnIsOver(base.Game);
-            pitiless.TargetCriteria.IsHero = true;
+            // "When this card is destroyed, increase damage dealt by villain targets by 1..."
+            IncreaseDamageStatusEffect pitiless = new IncreaseDamageStatusEffect(1);
+            pitiless.SourceCriteria.IsVillain = true;
+            pitiless.UntilCardLeavesPlay(base.CharacterCard);
             IEnumerator statusCoroutine = base.GameController.AddStatusEffect(pitiless, true, GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -127,6 +97,10 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
+            // "... and remove this card from the game."
+            AddInhibitorException((GameAction ga) => ga is MoveCardAction && (ga as MoveCardAction).Destination.IsOutOfGame);
+            dca.SetPostDestroyDestination(base.TurnTaker.OutOfGame, showMessage: true, cardSource: GetCardSource());
+            AddInhibitorException((GameAction ga) => ga is TargetLeavesPlayAction);
             yield break;
         }
     }
