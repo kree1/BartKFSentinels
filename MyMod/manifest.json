@@ -8,8 +8,10 @@
 	],
 	"version": "v0.0.16",
 	"credits": [
+		"Card Design: Bart_KF",
 		"Software Development: Bart_KF",
-		"Playtesters: Bart_KF"
+		"Playtesters: Bart_KF",
+		"Shelled One Mini-Blaseballer Art (Alejandro Leaf, Axel Trololol, Dan-Peanut Replacement, Francisca Sasquatch, Jessica Telephone, Pitching Machine, York Silk): @HetreaSky"
 	],
 	"namespace": "BartKFSentinels",
 	"dll": "BartKFMod.dll",
