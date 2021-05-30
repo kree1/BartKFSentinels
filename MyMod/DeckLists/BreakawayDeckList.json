@@ -21,7 +21,7 @@
                 "Tachyon"
             ],
             "setup":[
-                "Put {Breakaway} into play, 'Criminal Courier' side up, with 30 HP.{BR}Put [i]Momentum[/i] into play, 'Under Pressure' side up.{BR}Shuffle the villain deck."
+                "Put {Breakaway} into play, “Criminal Courier” side up, with 30 HP.{BR}Put [i]Momentum[/i] into play, “Under Pressure” side up.{BR}Shuffle the villain deck."
             ],
             "gameplay":[
                 "{Breakaway} is immune to damage.",
@@ -31,7 +31,7 @@
                 "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}.",
                 "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
             ],
-            "advanced": "At the start of the villain turn, Momentum regains 1 HP.",
+            "advanced": "At the start of the villain turn, [i]Momentum[/i] regains 1 HP.",
             "icons":[
                 "ImmuneToDamage",
                 "LoseTheGame",
@@ -143,7 +143,7 @@
             ],
             "body":[
                 "Whenever a player plays a hero card, if it's a One-Shot, their hero regains 2 HP. If not, 1 non-Terrain villain target with less than its maximum HP regains 2 HP.",
-                "When [i]Momentum[/i] flips to its 'Under Pressure' side, destroy this card and play the top card of the villain deck."
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "GainHP",
@@ -422,7 +422,7 @@
             "body":[
                 "Whenever a hero uses a power, their player discards a card.",
                 "At the end of the villain turn, [i]Momentum[/i] deals the hero character with the lowest HP and itself {H - 1} energy damage each.",
-                "When [i]Momentum[/i] flips to its 'Under Pressure' side, destroy this card and play the top card of the villain deck."
+                "When [i]Momentum[/i] flips to its “Under Pressure” side, destroy this card and play the top card of the villain deck."
             ],
             "icons":[
                 "Discard",

@@ -24,7 +24,7 @@
 				""
 			],
 			"setup": [
-				"Put {TheShelledOne} into play, '[b]YOU WILL LEARN DISCIPLINE[/b]' side up. Put all Pods from the villain deck under this card. Put each Strike and a random Umpire from the villain deck into play. Set each Strike's HP to 0. Shuffle the villain deck."
+				"Put {TheShelledOne} into play, “[b]YOU WILL LEARN DISCIPLINE[/b]” side up. Put all Pods from the villain deck under this card. Put each Strike and a random Umpire from the villain deck into play. Set each Strike's HP to 0. Shuffle the villain deck."
 			],
 			"gameplay": [
 				"Strikes are indestructible and immune to damage. Cards under this card are indestructible.",
@@ -545,6 +545,7 @@
 			],
 			"icons": [
 				"Manipulate",
+				"EndOfTurnAction",
 				"DealDamageFire"
 			],
 			"flavorText": "[b]THE LEDGER MUST BE BALANCED{br}DEBTS PAID[/b]",

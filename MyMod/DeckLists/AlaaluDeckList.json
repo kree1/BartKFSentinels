@@ -1,4 +1,4 @@
-{
+Ôªø{
 	"name": "Alaalu",
 	"kind": "Environment",
 	"backgroundColor": "E5D1CA",
@@ -19,7 +19,7 @@
 				"EndOfTurnAction",
 				"GainHP"
 			],
-			"flavorText": "ìOurs don't fly,î Nita said. ìAnd maybe it's{BR}a good thing, considering what Earth{BR}sheep eat, and how much of it they eat,{BR}and what they do with it afterwards...î",
+			"flavorText": "‚ÄúOurs don't fly,‚Äù Nita said. ‚ÄúAnd maybe it's{BR}a good thing, considering what Earth{BR}sheep eat, and how much of it they eat,{BR}and what they do with it afterwards...‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Nita",
@@ -48,7 +48,7 @@
 				"DrawCardNow",
 				"Manipulate"
 			],
-			"flavorText": "ìDo you mean you have some kind of{BR}machine that [b]makes[/b] people give people{BR}things?î Nita had never thought of{BR}government in quite those terms before.",
+			"flavorText": "‚ÄúDo you mean you have some kind of{BR}machine that [b]makes[/b] people give people{BR}things?‚Äù Nita had never thought of{BR}government in quite those terms before.",
 			"flavorQuotes": [
 				{
 					"identifier": "Demair",
@@ -74,7 +74,7 @@
 				"Manipulate",
 				"DrawCardNow"
 			],
-			"flavorText": "ìcome the day after forever, our{BR}descendants in power will be able to{BR}repeal this Choice, this protection, and{BR}make another that suits them better.î",
+			"flavorText": "‚ÄúCome the day after forever, our{BR}descendants in power will be able to{BR}repeal this Choice, this protection, and{BR}make another that suits them better.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Druvah",
@@ -102,7 +102,7 @@
 				"UsePowerNow",
 				"Manipulate"
 			],
-			"flavorText": "ìThey've long been ready for the next{BR}thing... But they're as locked in now as I{BR}am. Alaalu needs to be made unsafe again.{BR}Once that happens, they can move on.î",
+			"flavorText": "‚ÄúThey've long been ready for the next{BR}thing... But they're as locked in now as I{BR}am. Alaalu needs to be made unsafe again.{BR}Once that happens, they can move on.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Esemeli",
@@ -129,7 +129,7 @@
 				"DealDamagePsychic",
 				"DestroySelf"
 			],
-			"flavorText": "ìRepeal our Choice? Why ever would we{BR}do that? Just because the Lone One says{BR}we might possibly turn into something{BR}better? It's madness.î",
+			"flavorText": "‚ÄúRepeal our Choice? Why ever would we{BR}do that? Just because the Lone One says{BR}we might possibly turn into something{BR}better? It's madness.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Quelt",
@@ -156,7 +156,7 @@
 				"DestroySelf",
 				"PlayCardNow"
 			],
-			"flavorText": "ìSo all the people in that world have to{BR}deal with the results of that Choice until{BR}their species ends. And wizards get born{BR}to try to make it better, if it went badly.î",
+			"flavorText": "‚ÄúSo all the people in that world have to{BR}deal with the results of that Choice until{BR}their species ends. And wizards get born{BR}to try to make it better, if it went badly.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Kit",
@@ -181,7 +181,7 @@
 				"PlayCardNow",
 				"Manipulate"
 			],
-			"flavorText": "ìWhat are they making?î Kit said, very{BR}quietly, as if he was afraid he might{BR}frighten them. ìWe don't know,î Quelt{BR}said. ìNo one knows.î",
+			"flavorText": "‚ÄúWhat are they making?‚Äù Kit said, very{BR}quietly, as if he was afraid he might{BR}frighten them. ‚ÄúWe don't know,‚Äù Quelt{BR}said. ‚ÄúNo one knows.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Kit",
@@ -214,7 +214,7 @@
 				"GainHP",
 				"Manipulate"
 			],
-			"flavorText": "ìPeople who have more than they need{BR}give to those who have less, if they need{BR}it, or if they ask for it. Why? How is it in{BR}your world?î",
+			"flavorText": "‚ÄúPeople who have more than they need{BR}give to those who have less, if they need{BR}it, or if they ask for it. Why? How is it in{BR}your world?‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Kuwilin",
@@ -243,7 +243,7 @@
 				"DestroyEnvironment",
 				"ReduceDamageTaken"
 			],
-			"flavorText": "ìI keep getting this feeling that there's{BR}something else that's supposed to be{BR}happening, something I haven't noticed.{BR}And I do stop and look. But so far...î",
+			"flavorText": "‚ÄúI keep getting this feeling that there's{BR}something else that's supposed to be{BR}happening, something I haven't noticed.{BR}And I do stop and look. But so far...‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Quelt",
@@ -272,7 +272,7 @@
 				"PlayCardNow",
 				"DestroySelf"
 			],
-			"flavorText": "ìDo you have any idea what it's been like{BR}for me, being trapped here? The eternal{BR}boredom of it, here in the land of flying{BR}sheep and sweet-tempered people?î",
+			"flavorText": "‚ÄúDo you have any idea what it's been like{BR}for me, being trapped here? The eternal{BR}boredom of it, here in the land of flying{BR}sheep and sweet-tempered people?‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Esemeli",
@@ -300,7 +300,7 @@
 				"GainHP",
 				"RemoveFromGame"
 			],
-			"flavorText": "ìNow that we are all here,î Quelt said,{BR}ìnow comes the time to make another{BR}Choice: whether to choose again.î",
+			"flavorText": "‚ÄúNow that we are all here,‚Äù Quelt said,{BR}‚Äúnow comes the time to make another{BR}Choice: whether to choose again.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Quelt",
@@ -321,7 +321,7 @@
 				"myth"
 			],
 			"body": [
-				"The first time a target would be put into a trash each turn, shuffle it into its deck instead.",
+				"The first time a target would be put into a trash from play each turn, shuffle it into its deck instead.",
 				"When a character card would be reduced to 0 or fewer HP, instead restore it to 5 HP and destroy this card.",
 				"When this card leaves play, deal each Alaalid 3 psychic damage."
 			],
@@ -331,7 +331,7 @@
 				"DestroySelf",
 				"DealDamagePsychic"
 			],
-			"flavorText": "ìThis is the place into which the souls of{BR}the Alaalid die. Here, everything is{BR}preserved forever as it was: Nothing{BR}grows, and nothing leaves. Not even you.î",
+			"flavorText": "‚ÄúThis is the place into which the souls of{BR}the Alaalid die. Here, everything is{BR}preserved forever as it was: Nothing{BR}grows, and nothing leaves. Not even you.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Esemeli",
@@ -356,7 +356,7 @@
 				"DealDamagePsychic",
 				"DestroySelf"
 			],
-			"flavorText": "ìI thought you'd probably be able to{BR}hear them. When we die, we don't die out{BR}of the world. We die into it. The people{BR}who were here are always around.î",
+			"flavorText": "‚ÄúI thought you'd probably be able to{BR}hear them. When we die, we don't die out{BR}of the world. We die into it. The people{BR}who were here are always around.‚Äù",
 			"flavorQuotes": [
 				{
 					"identifier": "Quelt",

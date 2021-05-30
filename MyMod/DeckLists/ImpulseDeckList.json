@@ -61,7 +61,7 @@
 			"flavorQuotes":[
 				{
 					"identifier": "Jimmy",
-					"text": "So, how'd you rocket off{BR}a cliff and not trash your dad's wheels,{BR}Danger Dan?"
+					"text": "So, how'd you rocket off a{BR}cliff and not trash your dad's wheels,{BR}Danger Dan?"
 				}
 			],
 			"flavorReference": "Jimmy, Impulse #5"
@@ -86,11 +86,7 @@
 				"HasPower",
 				"DrawCardNow"
 			],
-			"flavorQuotes":[
-				{
-					"text": "To a boy who can race the wind{BR}and vibrate through solid objects, danger{BR}is always someone else's problem."
-				}
-			],
+			"flavorText": "To a boy who can race the wind{BR}and vibrate through solid objects, danger{BR}is always someone else's problem.",
 			"flavorReference": "Impulse #9"
 		},
 		{
@@ -363,7 +359,7 @@
 		{
 			"identifier": "YouDroppedThis",
 			"count": 2,
-			"title": "You Dropped This!",
+			"title": "\"You Dropped This!\"",
 			"keywords":[
 				"ongoing",
 				"limited"
@@ -390,7 +386,7 @@
 			"tokenPools":[
 				{
 					"identifier": "YouDroppedThisPool",
-					"name": "You Dropped This Pool",
+					"name": "\"You Dropped This!\"'s Token Pool",
 					"initialValue": 0,
 					"minimumValue": 0,
 					"color": "50CCE5"
