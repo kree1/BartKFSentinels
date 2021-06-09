@@ -87,6 +87,26 @@
     <Compile Include="EvidenceStorage\Sample4BPIKECardController.cs" />
     <Compile Include="EvidenceStorage\SecurityOfficerCardController.cs" />
     <Compile Include="EvidenceStorage\UnlikelyExplosiveCardController.cs" />
+    <Compile Include="Fracture\AttachedBreachCardController.cs" />
+    <Compile Include="Fracture\BodyAndMindCardController.cs" />
+    <Compile Include="Fracture\CloseTheBordersCardController.cs" />
+    <Compile Include="Fracture\FractureCharacterCardController.cs" />
+    <Compile Include="Fracture\FractureUtilityCardController.cs" />
+    <Compile Include="Fracture\HereAndGoneCardController.cs" />
+    <Compile Include="Fracture\HighAndLowCardController.cs" />
+    <Compile Include="Fracture\HitAndMissCardController.cs" />
+    <Compile Include="Fracture\InWholeAndInPartCardController.cs" />
+    <Compile Include="Fracture\LeadByNecessityCardController.cs" />
+    <Compile Include="Fracture\MountainsAndMolehillsCardController.cs" />
+    <Compile Include="Fracture\PersistentModCardController.cs" />
+    <Compile Include="Fracture\ProBonoFractureCharacterCardController.cs" />
+    <Compile Include="Fracture\ResearchAssignmentCardController.cs" />
+    <Compile Include="Fracture\SampleKitCardController.cs" />
+    <Compile Include="Fracture\SpiritAndFleshCardController.cs" />
+    <Compile Include="Fracture\ThickAndThinCardController.cs" />
+    <Compile Include="Fracture\ThoughtsAndActionsCardController.cs" />
+    <Compile Include="Fracture\WithinAndWithoutCardController.cs" />
+    <Compile Include="Fracture\YoursMineAndOursCardController.cs" />
     <Compile Include="Impulse\AirPocketCardController.cs" />
     <Compile Include="Impulse\CrossfireCardController.cs" />
     <Compile Include="Impulse\EnrageAndEvadeCardController.cs" />
@@ -221,6 +241,7 @@
     <EmbeddedResource Include="DeckLists\TheEmpireDeckList.json" />
     <EmbeddedResource Include="DeckLists\AlaaluDeckList.json" />
     <EmbeddedResource Include="DeckLists\TheShelledOneDeckList.json" />
+    <EmbeddedResource Include="DeckLists\FractureDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

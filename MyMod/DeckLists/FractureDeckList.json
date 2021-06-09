@@ -1,0 +1,474 @@
+{
+	"name": "Fracture",
+	"kind": "Hero",
+	"initialCardIdentifiers": [
+		"FractureCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "FractureCharacter",
+			"count": 1,
+			"title": "Fracture",
+			"body": "Combined Strength",
+			"backgroundColor": "21A6FF",
+			"character": true,
+			"powers": [
+				"Reduce the next damage dealt to {FractureCharacter} by 1. {FractureCharacter} deals 1 target 1 melee damage."
+			],
+			"icons": [
+				"HasPower",
+				"DealDamageMelee",
+				"ReduceDamageTaken"
+			],
+			"hitpoints": 34,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Fracture"
+			],
+			"incapacitatedAbilities": [
+				"Destroy an environment card.",
+				"Select a hero. Increase the next damage dealt by that hero by 2.",
+				"One player may draw a card now."
+			],
+			"flippedIcons": [
+				"DestroyEnvironment",
+				"IncreaseDamageDealt",
+				"DrawCardNow"
+			],
+			"complexity": 2,
+			"openingLines": {
+				"default": "Sorry, this dimension's closed.",
+				"oblivAeonFrontPageCharacter": "“The End” belongs in children's stories."
+			}
+		},
+		{
+			"identifier": "BodyAndMind",
+			"count": 2,
+			"title": "Body and Mind",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{FractureCharacter} deals 1 target 3 melee damage.",
+				"If there are 3 or more Breach cards in play, increase that damage by 3.",
+				"If there are 4 or more Breach cards in your trash, increase that damage by 4."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "But that's your problem. You{BR}never wanted to make anything."
+				}
+			],
+			"flavorReference": "Fracture, Pro Bono #7"
+		},
+		{
+			"identifier": "CloseTheBorders",
+			"count": 2,
+			"title": "Close the Borders",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"You may destroy an Ongoing or environment card.",
+				"Destroy all Breach cards. For each card destroyed this way, you may either destroy an Ongoing or environment card or draw a card."
+			],
+			"icons": [
+				"DestroyOngoing",
+				"DestroyEnvironment",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "One",
+					"text": "Can you breach time?"
+				},
+				{
+					"identifier": "Showman",
+					"text": "Good question!"
+				},
+				{
+					"identifier": "Fracture",
+					"text": "No it isn't."
+				}
+			],
+			"flavorReference": "Rook City Rebirth #1"
+		},
+		{
+			"identifier": "HereAndGone",
+			"count": 3,
+			"title": "Here and Gone",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"When this card enters play, move it next to a target. {FractureCharacter} deals that target 2 melee damage.",
+				"When the target next to this card deals damage, you may redirect that damage to a target of your choice. Then, destroy this card."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"RedirectDamage",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "Nice to see you again.{BR}Shame you can't stay."
+				}
+			],
+			"flavorReference": "Fracture, War for Rook City #3"
+		},
+		{
+			"identifier": "HighAndLow",
+			"count": 3,
+			"title": "High and Low",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"powers": [
+				"1 target deals itself 2 irreducible projectile damage. You may destroy this card. If you do, cards from that target's deck cannot be played until the start of your turn."
+			],
+			"icons": [
+				"HasPower",
+				"DealDamageProjectile",
+				"DestroySelf",
+				"CannotPlayCards"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Yazi",
+					"text": "Well fought. I can see how{BR}you defeated my father."
+				}
+			],
+			"flavorReference": "Yazi, Pro Bono #9"
+		},
+		{
+			"identifier": "HitAndMiss",
+			"count": 3,
+			"title": "Hit and Miss",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"When a non-hero target would deal damage, you may destroy this card. If you do, reduce that damage to 1."
+			],
+			"icons": [
+				"DestroySelf",
+				"ReduceDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "I said [b]Leave her alone![/b]"
+				}
+			],
+			"flavorReference": "Fracture, Pro Bono #2"
+		},
+		{
+			"identifier": "InWholeAndInPart",
+			"count": 3,
+			"title": "In Whole and in Part",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"breach"
+			],
+			"body": [
+				"When this card enters play and at the start of your turn, you may discard a card. If you do, destroy an environment card and choose a damage type."
+			],
+			"powers": [
+				"If a damage type has been chosen for this card, {FractureCharacter} deals up to 2 targets 1 damage each of that type. Choose a damage type."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"Discard",
+				"DestroyEnvironment",
+				"HasPower",
+				"DealDamage"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Showman",
+					"text": "Is that, ah... is that healthy?"
+				}
+			],
+			"flavorReference": "Showman, Rook City Rebirth #1"
+		},
+		{
+			"identifier": "LeadByNecessity",
+			"count": 2,
+			"title": "Lead by Necessity",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"The first time any hero target is dealt damage each turn, reduce damage dealt to {FractureCharacter} this turn by 1 and {FractureCharacter} may deal the source of that damage 1 psychic damage."
+			],
+			"icons": [
+				"CounterDamage",
+				"ReduceDamageTaken",
+				"DealDamagePsychic"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "Oh jeez. Nobody touch anything."
+				}
+			],
+			"flavorReference": "Fracture, Rook City Rebirth #1"
+		},
+		{
+			"identifier": "MountainsAndMolehills",
+			"count": 2,
+			"title": "Mountains and Molehills",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"Reduce damage dealt by non-hero targets by 2.",
+				"At the start of your turn, destroy this card."
+			],
+			"icons": [
+				"ReduceDamageDealt",
+				"StartOfTurnAction",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "I'm gonna have to burn this outfit."
+				}
+			],
+			"flavorReference": "Fracture, Rook City Rebirth #4"
+		},
+		{
+			"identifier": "ResearchAssignment",
+			"count": 3,
+			"title": "Research Assignment",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal the top card of a deck, then replace it.",
+				"Draw 2 cards.",
+				"You may discard 2 cards. If you do, one player may draw a card and play a card."
+			],
+			"icons": [
+				"Manipulate",
+				"DrawCardNow",
+				"Discard",
+				"PlayCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "Those markings aren't from any{BR}modern language, but they're a pretty{BR}close match to ancient Atlantean..."
+				}
+			],
+			"flavorReference": "Fracture, Rook City Rebirth #6"
+		},
+		{
+			"identifier": "SampleKit",
+			"count": 3,
+			"title": "Sample Kit",
+			"keywords": [
+				"equipment",
+				"limited"
+			],
+			"body": [
+				"Whenever {FractureCharacter} would deal damage, you may change the type of that damage to a type of your choice.",
+				"Whenever you play a Breach card, you may draw a card."
+			],
+			"icons": [
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "I got you some crosses and a{BR}thermos of holy water. Turns out you{BR}just have to ask nicely."
+				}
+			],
+			"flavorReference": "Fracture, Rook City Rebirth #2"
+		},
+		{
+			"identifier": "SpiritAndFlesh",
+			"count": 3,
+			"title": "Spirit and Flesh",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"When this card enters play, move it next to a target. Increase the first damage dealt by that target to another target each turn by 2.",
+				"At the end of this play area's turn, {FractureCharacter} may deal herself 2 psychic damage. If she takes no damage this way, destroy this card."
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fracture",
+					"text": "That's better. Thanks, John."
+				}
+			],
+			"flavorReference": "Fracture, War for Rook City #4"
+		},
+		{
+			"identifier": "ThickAndThin",
+			"count": 3,
+			"title": "Thick and Thin",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"When this card enters play, move it next to a target. Reduce the first damage dealt by that target to another target each turn by 2.",
+				"At the end of this play area's turn, {FractureCharacter} may deal herself 2 psychic damage. If she takes no damage this way, destroy this card."
+			],
+			"icons": [
+				"ReduceDamageDealt",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Zhu Long",
+					"text": "You play with forces{BR}you don't even comprehend."
+				},
+				{
+					"identifier": "Fracture",
+					"text": "You think we're [b]playing[/b] here!?"
+				}
+			],
+			"flavorReference": "Pro Bono #4"
+		},
+		{
+			"identifier": "ThoughtsAndActions",
+			"count": 3,
+			"title": "Thoughts and Actions",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"At the end of your turn, you may discard a card. If you do, up to 3 players each draw a card."
+			],
+			"powers": [
+				"Another hero may use a power now."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Discard",
+				"DrawCardNow",
+				"HasPower",
+				"UsePowerNow",
+				"DealDamagePsychic"
+			],
+			"flavorText": "Get into a cell and close the{BR}door behind you. We'll be there as soon{BR}as we can. [b]RESPOND TO THIS MESSAGE.[/b]",
+			"flavorReference": "Fracture, Pro Bono #10"
+		},
+		{
+			"identifier": "WithinAndWithout",
+			"count": 2,
+			"title": "Within and Without",
+			"keywords": [
+				"one-shot",
+				"breach"
+			],
+			"body": [
+				"Each player may name a keyword other than One-Shot. Each player who does reveals cards from the top of their deck until they reveal a card with the keyword they named, puts that card into play or into their hand, then shuffles the other revealed cards into their deck."
+			],
+			"icons": [
+				"Search"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "One",
+					"text": "Oh, hello. Thank you."
+				}
+			],
+			"flavorReference": "One, Pro Bono #8"
+		},
+		{
+			"identifier": "YoursMineAndOurs",
+			"count": 3,
+			"title": "Yours, Mine, and Ours",
+			"keywords": [
+				"ongoing",
+				"breach"
+			],
+			"body": [
+				"At the end of your turn, you may destroy this card. If you do, one other player may draw a card, play a card, and use a power in any order, then their hero deals themself 3 psychic damage."
+			],
+			"powers": [
+				"Draw a card. Another player draws a card."
+			],
+			"icons": [
+				"HasPower",
+				"DrawCardNow",
+				"EndOfTurnAction",
+				"DestroySelf",
+				"PlayCardNow",
+				"UsePowerNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Key",
+					"text": "You're all a lot better than I{BR}expected for newcomers."
+				}
+			],
+			"flavorReference": "Key, Pro Bono #6"
+		}
+	],
+	"promoCards": [
+		{
+			"identifier": "FractureCharacter",
+			"promoIdentifier": "ProBonoFractureCharacter",
+			"count": 1,
+			"title": "Fracture",
+			"promoTitle": "Pro Bono Fracture",
+			"shortPromoTitle": "Pro Bono Fracture",
+			"backgroundColor": "40D6FF",
+			"body": "Separate Peaces",
+			"character": true,
+			"powers":[
+				"Up to 2 targets each regains 1 HP."
+			],
+			"icons":[
+				"HasPower",
+				"DrawCardNow",
+				"GainHP"
+			],
+			"hitpoints": 32,
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Fracture"
+			],
+			"incapacitatedAbilities":[
+				"One hero may use a power now.",
+				"Select a target. Reduce the next damage dealt to that target by 2.",
+				"Destroy an Ongoing card."
+			],
+			"flippedIcons":[
+				"UsePowerNow",
+				"ReduceDamageTaken",
+				"DestroyOngoing"
+			],
+			"complexity": 2,
+			"openingLines":{
+				"default": "You know the drill. I'll evacuate the civilians.",
+				"OblivAeonFrontPageCharacter": ""
+			}
+		}
+	]
+}

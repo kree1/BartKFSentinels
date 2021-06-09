@@ -6,7 +6,7 @@
 	"description": [
 		"A collection of my playtest-ready custom decks for Sentinels of the Multiverse."
 	],
-	"version": "v0.0.17",
+	"version": "v0.0.18",
 	"credits": [
 		"Card Design: Bart_KF",
 		"Software Development: Bart_KF",
@@ -17,6 +17,7 @@
 	"dll": "BartKFMod.dll",
 	"decks": {
 		"heroes": [
+			"Fracture",
 			"Impulse",
 			"TheGoalie",
 			"Torrent"
