@@ -37,7 +37,7 @@
 			"complexity": 2,
 			"openingLines": {
 				"default": "Sorry, this dimension's closed.",
-				"oblivAeonFrontPageCharacter": "“The End” belongs in children's stories."
+				"OblivAeonFrontPageCharacter": "“The End” belongs in children's stories."
 			}
 		},
 		{
@@ -443,11 +443,10 @@
 			"body": "Separate Peaces",
 			"character": true,
 			"powers":[
-				"Up to 2 targets each regains 1 HP."
+				"Up to 2 targets regain 1 HP each."
 			],
 			"icons":[
 				"HasPower",
-				"DrawCardNow",
 				"GainHP"
 			],
 			"hitpoints": 32,
@@ -467,7 +466,7 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "You know the drill. I'll evacuate the civilians.",
-				"OblivAeonFrontPageCharacter": ""
+				"OblivAeonFrontPageCharacter": "Give me a minute to clear the area, then we'll hit him hard together."
 			}
 		}
 	]

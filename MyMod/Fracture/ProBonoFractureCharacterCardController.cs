@@ -19,7 +19,7 @@ namespace BartKFSentinels.Fracture
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Up to 2 targets each regains 1 HP."
+            // "Up to 2 targets regain 1 HP each."
             int numTargets = GetPowerNumeral(0, 2);
             int amtHP = GetPowerNumeral(1, 1);
             IEnumerator chooseCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, amtHP, optional: true, numberOfTargets: numTargets, cardSource: GetCardSource()) ;
