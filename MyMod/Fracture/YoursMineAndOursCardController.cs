@@ -154,7 +154,7 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
-            IEnumerator damageCoroutine = base.GameController.DealDamageToSelf(base.GameController.FindHeroTurnTakerController(tt.ToHero()), (Card c) => damagedHero.Contains(c), 2, DamageType.Psychic, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.DealDamageToSelf(base.GameController.FindHeroTurnTakerController(tt.ToHero()), (Card c) => damagedHero.Contains(c), 3, DamageType.Psychic, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

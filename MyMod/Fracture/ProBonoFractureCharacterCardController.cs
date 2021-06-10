@@ -22,7 +22,7 @@ namespace BartKFSentinels.Fracture
             // "Up to 2 targets regain 1 HP each."
             int numTargets = GetPowerNumeral(0, 2);
             int amtHP = GetPowerNumeral(1, 1);
-            IEnumerator chooseCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, amtHP, optional: true, numberOfTargets: numTargets, cardSource: GetCardSource()) ;
+            IEnumerator chooseCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, amtHP, numberOfTargets: numTargets, requiredDecisions: 0, cardSource: GetCardSource()) ;
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(chooseCoroutine);

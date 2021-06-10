@@ -6,11 +6,11 @@
 	"description": [
 		"A collection of my playtest-ready custom decks for Sentinels of the Multiverse."
 	],
-	"version": "v0.0.18",
+	"version": "v0.0.20",
 	"credits": [
 		"Card Design: Bart_KF",
 		"Software Development: Bart_KF",
-		"Playtesters: Bart_KF, HiddenLego, G97, and the fun folks at the Sentinels Custom Playtesting Discord",
+		"Playtesters: Bart_KF, HiddenLego, G97, n202015226ac (Nicolas), and the fun folks at the Sentinels Custom Playtesting Discord",
 		"Shelled One Mini-Blaseballer Art (Alejandro Leaf, Axel Trololol, Dan-Peanut Replacement, Francisca Sasquatch, Jessica Telephone, Pitching Machine, York Silk): @HetreaSky"
 	],
 	"namespace": "BartKFSentinels",
