@@ -17,8 +17,8 @@
 			],
 			"icons": [
 				"HasPower",
-				"DealDamageMelee",
-				"ReduceDamageTaken"
+				"ReduceDamageTaken",
+				"DealDamageMelee"
 			],
 			"hitpoints": 34,
 			"nemesisIdentifiers": [
