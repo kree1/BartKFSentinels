@@ -20,8 +20,8 @@ namespace BartKFSentinels.Fracture
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of this play area's turn, {FractureCharacter} may deal herself 2 psychic damage. If she takes no damage this way, destroy this card."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker, (PhaseChangeAction pca) => DealDamageOrDestroyThisCardResponse(pca, base.CharacterCard, base.CharacterCard, 2, DamageType.Psychic), new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf });
+            // "At the end of this play area's turn, {FractureCharacter} may deal herself 1 irreducible psychic damage. If she takes no damage this way, destroy this card."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker, (PhaseChangeAction pca) => DealDamageOrDestroyThisCardResponse(pca, base.CharacterCard, base.CharacterCard, 1, DamageType.Psychic, isIrreducible: true), new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf });
         }
     }
 }

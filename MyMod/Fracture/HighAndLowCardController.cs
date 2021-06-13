@@ -32,11 +32,11 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(selectCoroutine);
             }
-            Log.Debug("selection.Count(): " + selection.Count().ToString());
-            Log.Debug("selection.Where((SelectCardsDecision dec) => dec != null).Count(): " + selection.Where((SelectCardsDecision dec) => dec != null).Count().ToString());
-            Log.Debug("selection.Where((SelectCardsDecision dec) => dec != null && dec.SelectedCard != null).Count(): " + selection.Where((SelectCardsDecision dec) => dec != null && dec.SelectedCard != null).Count().ToString());
+            //Log.Debug("selection.Count(): " + selection.Count().ToString());
+            //Log.Debug("selection.Where((SelectCardsDecision dec) => dec != null).Count(): " + selection.Where((SelectCardsDecision dec) => dec != null).Count().ToString());
+            //Log.Debug("selection.Where((SelectCardsDecision dec) => dec != null && dec.SelectedCard != null).Count(): " + selection.Where((SelectCardsDecision dec) => dec != null && dec.SelectedCard != null).Count().ToString());
             List<Card> selectedTargets = GetSelectedCards(selection).ToList();
-            Log.Debug("selectedTargets.Count(): " + selectedTargets.Count().ToString());
+            //Log.Debug("selectedTargets.Count(): " + selectedTargets.Count().ToString());
             IEnumerator selfDamageCoroutine = base.GameController.DealDamageToSelf(base.HeroTurnTakerController, (Card c) => selectedTargets.Contains(c), 2, DamageType.Projectile, isIrreducible: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -47,7 +47,9 @@ namespace BartKFSentinels.Fracture
                 base.GameController.ExhaustCoroutine(selfDamageCoroutine);
             }
             // "You may destroy this card. If you do, cards from that target's deck cannot be played until the start of your turn."
-            IEnumerator destructCoroutine = base.GameController.DestroyCard(base.HeroTurnTakerController, base.Card, optional: true, responsibleCard: base.Card, postDestroyAction: () => PreventPlayResponse(selectedTargets), associatedCards: selectedTargets, cardSource: GetCardSource());
+            TurnTaker youDefinition = base.TurnTaker;
+            Func<GameAction, IEnumerator> preventPlayAction = AddBeforeDestroyAction((GameAction ga) => PreventPlayResponse(selectedTargets, youDefinition));
+            IEnumerator destructCoroutine = base.GameController.DestroyCard(base.HeroTurnTakerController, base.Card, optional: true, responsibleCard: base.Card, associatedCards: selectedTargets, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destructCoroutine);
@@ -56,17 +58,21 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(destructCoroutine);
             }
+            RemoveDestroyAction(BeforeOrAfter.Before, preventPlayAction);
             yield break;
         }
 
-        public IEnumerator PreventPlayResponse(List<Card> targets)
+        public IEnumerator PreventPlayResponse(List<Card> targets, TurnTaker player)
         {
             // "... cards from that target's deck cannot be played until the start of your turn."
             foreach (Card c in targets)
             {
+                //Log.Debug("Creating CannotPlayCardsStatusEffect for " + c.Title);
+                //Log.Debug(c.Title + "'s associated deck is " + c.NativeDeck.Identifier);
+                //Log.Debug("'You' in this power is " + player.Identifier);
                 CannotPlayCardsStatusEffect hinder = new CannotPlayCardsStatusEffect();
                 hinder.CardCriteria.NativeDeck = c.NativeDeck;
-                hinder.UntilStartOfNextTurn(base.TurnTaker);
+                hinder.UntilStartOfNextTurn(player);
                 IEnumerator statusCoroutine = AddStatusEffect(hinder);
                 if (base.UseUnityCoroutines)
                 {

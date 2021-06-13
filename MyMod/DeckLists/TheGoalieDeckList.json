@@ -173,7 +173,7 @@
 			],
 			"body":[
 				"{TheGoalieCharacter} deals 1 target 2 melee damage.",
-				"If that target is in a play area with a Goalposts card, {TheGoalieCharacter} deals another target in that play area 2 irreducible projectile damage."
+				"If that target was in a play area with a Goalposts card, {TheGoalieCharacter} deals another target in that play area 2 irreducible projectile damage."
 			],
 			"icons":[
 				"DealDamageMelee",

@@ -307,7 +307,7 @@
 			],
 			"body": [
 				"When this card enters play, move it next to a target. Increase the first damage dealt by that target to another target each turn by 2.",
-				"At the end of this play area's turn, {FractureCharacter} may deal herself 2 psychic damage. If she takes no damage this way, destroy this card."
+				"At the end of this play area's turn, {FractureCharacter} may deal herself 1 irreducible psychic damage. If she takes no damage this way, destroy this card."
 			],
 			"icons": [
 				"IncreaseDamageDealt",
@@ -333,7 +333,7 @@
 			],
 			"body": [
 				"When this card enters play, move it next to a target. Reduce the first damage dealt by that target to another target each turn by 2.",
-				"At the end of this play area's turn, {FractureCharacter} may deal herself 2 psychic damage. If she takes no damage this way, destroy this card."
+				"At the end of this play area's turn, {FractureCharacter} may deal herself 1 irreducible psychic damage. If she takes no damage this way, destroy this card."
 			],
 			"icons": [
 				"ReduceDamageDealt",
@@ -359,6 +359,7 @@
 			"title": "Thoughts and Actions",
 			"keywords": [
 				"ongoing",
+				"limited",
 				"breach"
 			],
 			"body": [
