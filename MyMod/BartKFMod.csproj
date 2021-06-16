@@ -155,6 +155,8 @@
     <Compile Include="TheGigamorph\TheGigamorphUtilityCardController.cs" />
     <Compile Include="TheGigamorph\UnderAttackCardController.cs" />
     <Compile Include="TheGigamorph\VirulentStrainCardController.cs" />
+    <Compile Include="TheGoalie\CrowdingTheBoxCardController.cs" />
+    <Compile Include="TheGoalie\DefensiveFunnelCardController.cs" />
     <Compile Include="TheGoalie\ExtraTimeCardController.cs" />
     <Compile Include="TheGoalie\HospitalBallCardController.cs" />
     <Compile Include="TheGoalie\HuddleUpCardController.cs" />
