@@ -20,8 +20,8 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Whenever a target deals damage to {TheGoalieCharacter}, reduce damage dealt by that target to {TheGoalieCharacter} by 1 and increase damage dealt by {TheGoalieCharacter} to that target by 1 until the end of your next turn."
-            AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.CharacterCard && dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DidDealDamage, ApplyStatusesResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
+            // "Whenever a non-hero target deals damage to {TheGoalieCharacter}, reduce damage dealt by that target to {TheGoalieCharacter} by 1 and increase damage dealt by {TheGoalieCharacter} to that target by 1 until the end of your next turn."
+            AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.CharacterCard && dda.DamageSource != null && dda.DamageSource.IsTarget && !dda.DamageSource.IsHero && dda.DidDealDamage, ApplyStatusesResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
 
         public IEnumerator ApplyStatusesResponse(DealDamageAction dda)

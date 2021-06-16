@@ -50,7 +50,7 @@
 				"limited"
 			],
 			"body":[
-				"Whenever a target deals damage to {TheGoalieCharacter}, reduce damage dealt by that target to {TheGoalieCharacter} by 1 and increase damage dealt by {TheGoalieCharacter} to that target by 1 until the end of your next turn."
+				"Whenever a non-hero target deals damage to {TheGoalieCharacter}, reduce damage dealt by that target to {TheGoalieCharacter} by 1 until the end of your next turn and increase damage dealt by {TheGoalieCharacter} to that target by 1 until the end of your next turn."
 			],
 			"icons":[
 				"ReduceDamageTaken",
@@ -66,7 +66,7 @@
 		},
 		{
 			"identifier": "DefensiveFunnel",
-			"count": 2,
+			"count": 3,
 			"title": "Defensive Funnel",
 			"keywords":[
 				"ongoing",
@@ -148,8 +148,8 @@
 				"one-shot"
 			],
 			"body":[
-				"{TheGoalieCharacter} deals 1 target 4 projectile damage.",
-				"If that target is still in play, either destroy a Goalposts card or that target deals {TheGoalieCharacter} 2 irreducible melee damage."
+				"{TheGoalieCharacter} deals 1 target 4 projectile damage. You may destroy a Goalposts card.",
+				"If a Goalposts card is in play, the damaged target deals {TheGoalieCharacter} 2 irreducible melee damage."
 			],
 			"icons":[
 				"DealDamageProjectile",
@@ -190,7 +190,7 @@
 		},
 		{
 			"identifier": "MoveTheGoalposts",
-			"count": 2,
+			"count": 3,
 			"title": "Move the Goalposts",
 			"keywords":[
 				"one-shot"
@@ -216,13 +216,13 @@
 		},
 		{
 			"identifier": "Offsides",
-			"count": 2,
+			"count": 3,
 			"title": "Offsides!",
 			"keywords":[
 				"ongoing"
 			],
 			"powers": [
-				"{TheGoalieCharacter} deals 1 target 2 melee damage. You may destroy a Goalposts card. If you do, {TheGoalieCharacter} deals each non-hero target 2 melee damage."
+				"{TheGoalieCharacter} deals 1 target 2 projectile damage. You may destroy a Goalposts card. If you do, {TheGoalieCharacter} deals each non-hero target 2 melee damage."
 			],
 			"icons":[
 				"HasPower",
@@ -324,7 +324,7 @@
 				"limited"
 			],
 			"body":[
-				"The first time any hero target is dealt damage each turn, {TheGoalieCharacter} may deal the source of that damage 1 projectile damage. Then, you may destroy a Goalposts card. If you do, redirect damage dealt by that target to {TheGoalieCharacter} until the start of your turn."
+				"The first time any hero target is dealt damage each turn, {TheGoalieCharacter} may deal the source of that damage 1 projectile damage. Then, you may destroy a Goalposts card. If you do, redirect damage dealt by that source to {TheGoalieCharacter} until the start of your turn."
 			],
 			"icons":[
 				"CounterDamage",
@@ -364,14 +364,15 @@
 		},
 		{
 			"identifier": "StartingWhistle",
-			"count": 4,
+			"count": 3,
 			"title": "Starting Whistle",
 			"keywords":[
 				"one-shot"
 			],
 			"body":[
 				"Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck.",
-				"{TheGoalieCharacter} deals 1 target 2 melee damage. Draw a card."
+				"{TheGoalieCharacter} deals 1 target 2 melee damage.",
+				"Draw a card."
 			],
 			"icons":[
 				"Search",
@@ -388,7 +389,7 @@
 		},
 		{
 			"identifier": "TeamSpirit",
-			"count": 3,
+			"count": 2,
 			"title": "Team Spirit",
 			"keywords":[
 				"one-shot"

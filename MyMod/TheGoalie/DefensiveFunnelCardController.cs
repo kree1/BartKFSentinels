@@ -27,7 +27,7 @@ namespace BartKFSentinels.TheGoalie
         public IEnumerator TeamUpResponse(PhaseChangeAction pca)
         {
             // "If a Goalposts card is in play, increase that damage by 1."
-            ITrigger increaseResponse = AddIncreaseDamageTrigger((DealDamageAction dda) => base.GameController.FindCardsWhere(GoalpostsInPlay).Any() && dda.CardSource == GetCardSource(), (DealDamageAction dda) => 1);
+            ITrigger increaseResponse = AddIncreaseDamageTrigger((DealDamageAction dda) => base.GameController.FindCardsWhere(GoalpostsInPlay).Any() && dda.CardSource.CardController == this, 1);
 
             // "... {TheGoalieCharacter} may deal 2 melee damage to a target that was dealt damage by another hero this round."
             IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Melee, 1, false, 0, additionalCriteria: DamagedByOtherHeroesThisRound, cardSource: GetCardSource());

@@ -30,16 +30,30 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            // "If that target is still in play, either destroy a Goalposts card or that target deals {TheGoalieCharacter} 2 irreducible melee damage."
-            foreach(DealDamageAction dda in damageResults)
+            // "You may destroy a Goalposts card."
+            List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, GoalpostsCards, true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
             {
-                if (dda.Target.IsInPlayAndHasGameText && dda.Target.IsTarget)
+                yield return base.GameController.StartCoroutine(destroyCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(destroyCoroutine);
+            }
+            // "If a Goalposts card is in play, the damaged target deals {TheGoalieCharacter} 2 irreducible melee damage."
+            if (base.GameController.FindCardsWhere(GoalpostsInPlay).Any())
+            {
+                IEnumerable<DealDamageAction> viableDamages = damageResults.Where((DealDamageAction dd) => dd.DidDealDamage);
+                IEnumerable<Card> damagedTargetsInPlay = (from dd in damageResults
+                                                          where viableDamages.Contains(dd) && dd.Target.IsInPlay && dd.Target.IsTarget
+                                                          select dd.Target).Distinct();
+                if (damagedTargetsInPlay.Any())
                 {
-                    List<Function> options = new List<Function>();
-                    options.Add(new Function(base.HeroTurnTakerController, "Destroy a Goalposts card", SelectionType.DestroyCard, () => base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, GoalpostsCards, false, responsibleCard: base.Card, cardSource: GetCardSource())));
-                    options.Add(new Function(base.HeroTurnTakerController, dda.Target.Title + " deals the Goalie 2 irreducible melee damage", SelectionType.DealDamage, () => base.GameController.DealDamage(base.HeroTurnTakerController, dda.Target, (Card c) => c == base.CharacterCard, 2, DamageType.Melee, isIrreducible: true, cardSource: GetCardSource())));
-                    SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, base.HeroTurnTakerController, options, false, associatedCards: base.GameController.FindCardsWhere(GoalpostsInPlay), cardSource: GetCardSource());
-                    IEnumerator selectCoroutine = base.GameController.SelectAndPerformFunction(choice, associatedCards: base.GameController.FindCardsWhere(GoalpostsInPlay));
+                    List<SelectCardDecision> cardSelection = new List<SelectCardDecision>();
+                    IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(DecisionMaker, SelectionType.CardToDealDamage, (from dd in damageResults
+                                                                                                                                                where viableDamages.Contains(dd) && dd.Target.IsInPlay && dd.Target.IsTarget
+                                                                                                                                                select dd.Target).Distinct(), cardSelection);
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(selectCoroutine);
@@ -47,6 +61,32 @@ namespace BartKFSentinels.TheGoalie
                     else
                     {
                         base.GameController.ExhaustCoroutine(selectCoroutine);
+                    }
+                    SelectCardDecision choice = cardSelection.FirstOrDefault();
+                    if (choice != null && choice.SelectedCard != null)
+                    {
+                        IEnumerator meleeCoroutine = base.GameController.DealDamage(base.HeroTurnTakerController, choice.SelectedCard, (Card c) => c == base.CharacterCard, 2, DamageType.Melee, isIrreducible: true, cardSource: GetCardSource());
+                        if (base.UseUnityCoroutines)
+                        {
+                            yield return base.GameController.StartCoroutine(meleeCoroutine);
+                        }
+                        else
+                        {
+                            base.GameController.ExhaustCoroutine(meleeCoroutine);
+                        }
+                    }
+                }
+                else
+                {
+                    // No damaged targets are still in play
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction("There are no damaged targets still active. " + base.CharacterCard.Title + "'s risky move paid off- she takes no damage!", Priority.Medium, GetCardSource(), showCardSource: true);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(messageCoroutine);
                     }
                 }
             }

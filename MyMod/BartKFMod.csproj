@@ -158,10 +158,16 @@
     <Compile Include="TheGoalie\CrowdingTheBoxCardController.cs" />
     <Compile Include="TheGoalie\DefensiveFunnelCardController.cs" />
     <Compile Include="TheGoalie\ExtraTimeCardController.cs" />
+    <Compile Include="TheGoalie\GoalieGlovesCardController.cs" />
     <Compile Include="TheGoalie\HospitalBallCardController.cs" />
     <Compile Include="TheGoalie\HuddleUpCardController.cs" />
     <Compile Include="TheGoalie\MoveTheGoalpostsCardController.cs" />
+    <Compile Include="TheGoalie\OffsidesCardController.cs" />
     <Compile Include="TheGoalie\OutOfBoundsCardController.cs" />
+    <Compile Include="TheGoalie\ParkTheBusCardController.cs" />
+    <Compile Include="TheGoalie\PlaceOfPowerCardController.cs" />
+    <Compile Include="TheGoalie\ReturnToSenderCardController.cs" />
+    <Compile Include="TheGoalie\ShootoutCardController.cs" />
     <Compile Include="TheGoalie\StartingWhistleCardController.cs" />
     <Compile Include="TheGoalie\TeamSpiritCardController.cs" />
     <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />

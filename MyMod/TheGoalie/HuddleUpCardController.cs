@@ -19,10 +19,19 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator Play()
         {
+            IEnumerator chooseCoroutine = base.GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(base.GameController, base.HeroTurnTakerController, base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealCardsFromDeck, numberOfCards: 5, cardSource: GetCardSource()), RevealMovePlayResponse);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(chooseCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(chooseCoroutine);
+            }
             yield break;
         }
 
-        public IEnumerator RevealMovePlayResponse(HeroTurnTaker player)
+        public IEnumerator RevealMovePlayResponse(TurnTaker player)
         {
             // "One player reveals the top 5 cards of their deck..."
             List<Card> revealedCards = new List<Card>();
@@ -70,7 +79,7 @@ namespace BartKFSentinels.TheGoalie
             {
                 // "... puts 2 into their hand..."
                 List<MoveCardAction> toHand = new List<MoveCardAction>();
-                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player), player.Revealed, new int?(2), 2, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.Hand) }, storedResultsMove: toHand, responsibleTurnTaker: player, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
+                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player.ToHero()), player.Revealed, new int?(2), 2, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.ToHero().Hand) }, storedResultsMove: toHand, responsibleTurnTaker: player, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(handCoroutine);
@@ -91,7 +100,7 @@ namespace BartKFSentinels.TheGoalie
                 if (numCardsLeft > 0)
                 {
                     Location heroRevealed = player.Revealed;
-                    IEnumerator trashCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player), heroRevealed, numCardsLeft, numCardsLeft, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.Trash) }, responsibleTurnTaker: player, allowAutoDecide: true, selectionType: SelectionType.MoveCardToTrash, cardSource: GetCardSource());
+                    IEnumerator trashCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player.ToHero()), heroRevealed, numCardsLeft, numCardsLeft, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.Trash) }, responsibleTurnTaker: player, allowAutoDecide: true, selectionType: SelectionType.MoveCardToTrash, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(trashCoroutine);
@@ -104,7 +113,7 @@ namespace BartKFSentinels.TheGoalie
             }
             // "That player may play a card now."
             List<PlayCardAction> played = new List<PlayCardAction>();
-            IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.GameController.FindHeroTurnTakerController(player), optional: true, storedResults: played);
+            IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.GameController.FindHeroTurnTakerController(player.ToHero()), optional: true, storedResults: played);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
