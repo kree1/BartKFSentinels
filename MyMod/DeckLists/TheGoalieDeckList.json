@@ -14,7 +14,7 @@
 			"body": "Goal Kick",
 			"character": true,
 			"powers":[
-				"{TheGoalieCharacter} deals 1 target 0 melee damage and another target 1 projectile damage."
+				"{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
 			],
 			"icons":[
 				"HasPower",
@@ -51,13 +51,14 @@
 			],
 			"body":[
 				"When this card enters play, move it to a play area with no other Goalposts cards. You may play a Goalposts card from your trash. Then, destroy all but 2 Goalposts cards.",
-				"When damage would be dealt to or by {TheGoalieCharacter} to or by a target in this play area, you may increase or reduce that damage by 1."
+				"Increase damage dealt by {TheGoalieCharacter} to targets in this play area by 1.",
+				"The first time any target in this play area would deal damage to {TheGoalieCharacter} each turn, reduce that damage by 2."
 			],
 			"icons":[
 				"PlayCardNow",
 				"Destroy",
 				"IncreaseDamageDealt",
-				"ReduceDamageDealt"
+				"ReduceDamageTaken"
 			],
 			"flavorQuotes":[
 				{
@@ -125,7 +126,7 @@
 				"one-shot"
 			],
 			"body":[
-				"Reveal the top 5 cards of your deck. Put 1 into your hand and the rest into your trash.",
+				"Reveal the top 5 cards of your deck. Put 2 into your hand and the rest into your trash.",
 				"You may play a card."
 			],
 			"icons":[
@@ -149,11 +150,12 @@
 			],
 			"body":[
 				"Search your deck for a Goalposts card and put it into your hand. Shuffle your deck.",
-				"You may destroy one of your Ongoing cards. If you do, you may play an Ongoing card."
+				"You may destroy an Ongoing or environment card. If you do, you may play an Ongoing card."
 			],
 			"icons":[
 				"Search",
 				"DestroyOngoing",
+				"DestroyEnvironment",
 				"PlayCardNow"
 			],
 			"flavorQuotes":[
@@ -195,11 +197,14 @@
 				"one-shot"
 			],
 			"body":[
-				"Destroy all Goalposts cards in your play area.",
-				"Draw 3 cards."
+				"Return all Goalposts cards in your play area to your hand.",
+				"{TheGoalieCharacter} deals 1 target 3 melee damage.",
+				"You may play a Goalposts card or draw 3 cards."
 			],
 			"icons":[
-				"Destroy",
+				"Manipulate",
+				"DealDamageMelee",
+				"PlayCardNow",
 				"DrawCardNow"
 			],
 			"flavorQuotes":[
@@ -274,13 +279,14 @@
 			],
 			"body":[
 				"When this card enters play, you may play a card named [i]18-Yard Box[/i] from your trash. Then, destroy all but 2 Goalposts cards.",
-				"Reduce the first damage dealt to {TheGoalieCharacter} each turn by 1. Increase the first damage dealt by {TheGoalieCharacter} each turn by 1."
+				"Reduce damage dealt to {TheGoalieCharacter} by 1.",
+				"Increase projectile damage dealt by {TheGoalieCharacter} by 1."
 			],
 			"icons":[
 				"PlayCardNow",
 				"Destroy",
 				"ReduceDamageTaken",
-				"IncreaseDamageDealt"
+				"IncreaseDamageDealtProjectile"
 			],
 			"flavorQuotes":[
 				{
@@ -299,13 +305,14 @@
 				"limited"
 			],
 			"body":[
-				"The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 melee damage."
+				"The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 projectile damage."
 			],
 			"powers":[
 				"Draw a card. Increase the next damage dealt by {TheGoalieCharacter} by 2."
 			],
 			"icons":[
 				"CounterDamage",
+				"DealDamageProjectile",
 				"HasPower",
 				"DrawCardNow",
 				"IncreaseDamageDealt"
@@ -326,7 +333,8 @@
 				"one-shot"
 			],
 			"body":[
-				"{TheGoalieCharacter} deals each non-hero target 2 projectile damage. Destroy a Goalposts card in a non-hero play area."
+				"{TheGoalieCharacter} deals each non-hero target 2 projectile damage.",
+				"Destroy a Goalposts card in a non-hero play area."
 			],
 			"icons":[
 				"DealDamageProjectile",
@@ -375,11 +383,13 @@
 			],
 			"body":[
 				"Discard the top 3 cards of your deck.",
-				"Each hero target regains 1 HP."
+				"Each hero target regains 2 HP.",
+				"One hero may use a power."
 			],
 			"icons":[
-				"Manipulate",
-				"GainHP"
+				"Discard",
+				"GainHP",
+				"UsePowerNow"
 			],
 			"flavorQuotes":[
 				{

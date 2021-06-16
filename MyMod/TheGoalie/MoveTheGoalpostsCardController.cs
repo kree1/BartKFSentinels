@@ -30,9 +30,9 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(searchCoroutine);
             }
-            // "You may destroy one of your Ongoing cards."
+            // "You may destroy an Ongoing or environment card."
             List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing && c.Owner == base.TurnTaker, "ongoing"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing || c.IsEnvironment, "Ongoing or environment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

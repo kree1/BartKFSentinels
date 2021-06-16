@@ -14,8 +14,8 @@ namespace BartKFSentinels.TheGoalie
         public PlaceOfPowerCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(ReduceOncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(IncreaseOncePerTurn), () => base.Card.Title + " has already increased damage this turn.", () => base.Card.Title + " has not yet increased damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
+            //SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(ReduceOncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
+            //SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(IncreaseOncePerTurn), () => base.Card.Title + " has already increased damage this turn.", () => base.Card.Title + " has not yet increased damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         protected const string ReduceOncePerTurn = "ReduceOncePerTurn";
@@ -26,10 +26,15 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Reduce the first damage dealt to {TheGoalieCharacter} each turn by 1."
-            this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ReduceOncePerTurn) && dda.Target == base.CharacterCard, ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before, isActionOptional: false);
-            // "Increase the first damage dealt by {TheGoalieCharacter} each turn by 1."
-            this.IncreaseDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(IncreaseOncePerTurn) && dda.DamageSource.Card == base.CharacterCard, IncreaseResponse, TriggerType.IncreaseDamage, TriggerTiming.Before, isActionOptional: false);
+            /*// "Reduce the first damage dealt to {TheGoalieCharacter} each turn by 2."
+            this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ReduceOncePerTurn) && dda.Target == base.CharacterCard, ReduceResponse, TriggerType.ReduceDamageLimited, TriggerTiming.Before, isActionOptional: false);
+            // "Increase the first damage dealt by {TheGoalieCharacter} each turn by 2."
+            this.IncreaseDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(IncreaseOncePerTurn) && dda.DamageSource.Card == base.CharacterCard, IncreaseResponse, TriggerType.IncreaseDamage, TriggerTiming.Before, isActionOptional: false);*/
+
+            // "Reduce damage dealt to {TheGoalieCharacter} by 1."
+            AddReduceDamageTrigger((Card c) => c == base.CharacterCard, 1);
+            // "Increase projectile damage dealt by {TheGoalieCharacter} by 1."
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card != null && dda.DamageSource.Card == base.CharacterCard && dda.DamageType == DamageType.Projectile, (DealDamageAction dda) => 1);
         }
 
         public override IEnumerator Play()
@@ -60,7 +65,7 @@ namespace BartKFSentinels.TheGoalie
         public IEnumerator IncreaseResponse(DealDamageAction dda)
         {
             base.SetCardPropertyToTrueIfRealAction(IncreaseOncePerTurn);
-            IEnumerator increaseCoroutine = base.GameController.IncreaseDamage(dda, 1, cardSource: GetCardSource());
+            IEnumerator increaseCoroutine = base.GameController.IncreaseDamage(dda, 2, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(increaseCoroutine);
@@ -75,7 +80,7 @@ namespace BartKFSentinels.TheGoalie
         public IEnumerator ReduceResponse(DealDamageAction dda)
         {
             base.SetCardPropertyToTrueIfRealAction(ReduceOncePerTurn);
-            IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageTrigger, cardSource: GetCardSource());
+            IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 2, ReduceDamageTrigger, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(reduceCoroutine);

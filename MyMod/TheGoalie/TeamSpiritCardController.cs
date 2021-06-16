@@ -29,8 +29,8 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(discardCoroutine);
             }
-            // "Each hero target regains 1 HP."
-            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => c.IsHero && c.IsTarget && c.IsInPlayAndHasGameText, 1, optional: false, cardSource: GetCardSource());
+            // "Each hero target regains 2 HP."
+            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => c.IsHero && c.IsTarget && c.IsInPlayAndHasGameText, 2, optional: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);
@@ -38,6 +38,16 @@ namespace BartKFSentinels.TheGoalie
             else
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
+            }
+            // "One hero may use a power."
+            IEnumerator powerCoroutine = base.GameController.SelectHeroToUsePower(base.HeroTurnTakerController, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(powerCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(powerCoroutine);
             }
             yield break;
         }

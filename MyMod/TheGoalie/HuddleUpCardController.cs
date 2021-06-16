@@ -42,6 +42,9 @@ namespace BartKFSentinels.TheGoalie
                 case 1:
                     countMessage = "Only one card was revealed! It will automatically be put into " + base.CharacterCard.Title + "'s hand.";
                     break;
+                case 2:
+                    countMessage = "Only two cards were revealed! It will automatically be put into " + base.CharacterCard.Title + "'s hand.";
+                    break;
                 default:
                     countMessage = "Only " + revealedCards.Count.ToString() + " cards were revealed!";
                     break;
@@ -60,9 +63,9 @@ namespace BartKFSentinels.TheGoalie
             }
             if (revealedCards.Count > 0)
             {
-                // "Put 1 into your hand..."
+                // "Put 2 into your hand..."
                 List<MoveCardAction> toHand = new List<MoveCardAction>();
-                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.HeroTurnTakerController, base.TurnTaker.Revealed, new int?(1), 1, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(base.HeroTurnTaker.Hand) }, storedResultsMove: toHand, responsibleTurnTaker: base.TurnTaker, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
+                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.HeroTurnTakerController, base.TurnTaker.Revealed, new int?(2), 2, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(base.HeroTurnTaker.Hand) }, storedResultsMove: toHand, responsibleTurnTaker: base.TurnTaker, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(handCoroutine);

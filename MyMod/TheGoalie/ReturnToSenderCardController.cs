@@ -23,7 +23,7 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 melee damage."
+            // "The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 projectile damage."
             this.DamageResponseTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamage) && dda.Target == base.CharacterCard && dda.DamageSource.IsTarget && dda.Amount > 0, CounterDamageResponse, TriggerType.DealDamage, TriggerTiming.After, requireActionSuccess: true, isActionOptional: true);
         }
 
@@ -59,11 +59,11 @@ namespace BartKFSentinels.TheGoalie
 
         public IEnumerator CounterDamageResponse(DealDamageAction dda)
         {
-            // "... {TheGoalieCharacter} may deal that target 1 melee damage."
+            // "... {TheGoalieCharacter} may deal that target 1 projectile damage."
             if (dda.DamageSource.IsCard)
             {
                 base.SetCardPropertyToTrueIfRealAction(FirstDamage);
-                IEnumerator damageCoroutine = DealDamage(base.CharacterCard, dda.DamageSource.Card, 1, DamageType.Melee, optional: true, isCounterDamage: true, cardSource: GetCardSource());
+                IEnumerator damageCoroutine = DealDamage(base.CharacterCard, dda.DamageSource.Card, 1, DamageType.Projectile, optional: true, isCounterDamage: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(damageCoroutine);

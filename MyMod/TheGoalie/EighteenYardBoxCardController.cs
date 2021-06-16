@@ -41,11 +41,19 @@ namespace BartKFSentinels.TheGoalie
 
         private ITrigger _modifyDamageAmount;
 
+        protected const string ReduceOncePerTurn = "ReduceOncePerTurn";
+        private ITrigger ReduceDamageTrigger;
+
         public override void AddTriggers()
         {
             base.AddTriggers();
             // "When damage would be dealt to or by (TheGoalieCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
-            _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
+            //_modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
+
+            // "Increase damage dealt by {TheGoalieCharacter} to targets in this play area by 1."
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card == base.CharacterCard && dda.Target.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation, (DealDamageAction dda) => 1);
+            // "The first time any target in this play area would deal damage to {TheGoalieCharacter} each turn, reduce that damage by 2."
+            ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ReduceOncePerTurn) && dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.Target == base.CharacterCard, ReduceResponse, TriggerType.ReduceDamageLimited, TriggerTiming.Before);
         }
 
         public override IEnumerator Play()
@@ -163,6 +171,21 @@ namespace BartKFSentinels.TheGoalie
         private IEnumerator ReduceFunction()
         {
             IEnumerator reduceCoroutine = base.GameController.ReduceDamage(MyDamageAction, 1, _modifyDamageAmount, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(reduceCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(reduceCoroutine);
+            }
+            yield break;
+        }
+
+        public IEnumerator ReduceResponse(DealDamageAction dda)
+        {
+            base.SetCardPropertyToTrueIfRealAction(ReduceOncePerTurn);
+            IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 2, ReduceDamageTrigger, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(reduceCoroutine);
