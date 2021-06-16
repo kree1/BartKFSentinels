@@ -17,63 +17,40 @@ namespace BartKFSentinels.TheGoalie
         }
 
         public static readonly string GoalpostsKeyword = "goalposts";
+        public static readonly string GoalpostsIdentifier = "PlaceOfPower";
 
         public static bool IsGoalposts(Card c)
         {
             return c.DoKeywordsContain(GoalpostsKeyword);
         }
 
-        public static int NumGoalpostsAt(Location loc)
-        {
-            return loc.Cards.Where((Card c) => IsGoalposts(c)).Count();
-        }
+        public static readonly LinqCardCriteria GoalpostsCards = new LinqCardCriteria((Card c) => IsGoalposts(c), "Goalposts");
+        public static readonly LinqCardCriteria GoalpostsInPlay = new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText, "Goalposts cards in play", false, false, "Goalposts card in play", "Goalposts cards in play");
 
-        public IEnumerable<Card> GoalpostsInPlay()
+        public IEnumerator FetchGoalpostsResponse()
         {
-            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsGoalposts(c));
-        }
-
-        public int NumGoalpostsInPlay()
-        {
-            return GoalpostsInPlay().Count();
-        }
-
-        public IEnumerable<Card> GoalpostsInHeroPlayAreas()
-        {
-            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsGoalposts(c) && c.Location.IsHero);
-        }
-
-        public int NumGoalpostsInHeroPlayAreas()
-        {
-            return GoalpostsInHeroPlayAreas().Count();
-        }
-
-        public IEnumerable<Card> GoalpostsInNonHeroPlayAreas()
-        {
-            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsGoalposts(c) && !c.Location.IsHero);
-        }
-
-        public int NumGoalpostsInNonHeroPlayAreas()
-        {
-            return GoalpostsInNonHeroPlayAreas().Count();
-        }
-
-        public IEnumerator DestroyExcessGoalpostsResponse()
-        {
-            // "Then, destroy all but 2 Goalposts cards."
-            int goalpostsCount = NumGoalpostsInPlay();
-            if (goalpostsCount > 2)
+            // "Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck."
+            Card place = FindCard(GoalpostsIdentifier);
+            if (place.IsInDeck || place.IsInTrash)
             {
-                LinqCardCriteria match = new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsGoalposts(c), "goalposts");
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(base.HeroTurnTakerController, match, goalpostsCount - 2, optional: false, dynamicNumberOfCards: () => NumGoalpostsInPlay() - 2, responsibleCard: base.Card, cardSource: GetCardSource());
+                IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, place, isPutIntoPlay: true, optional: false, responsibleTurnTaker: base.TurnTaker, associateCardSource: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                    yield return base.GameController.StartCoroutine(playCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(destroyCoroutine);
+                    base.GameController.ExhaustCoroutine(playCoroutine);
                 }
+            }
+            IEnumerator shuffleCoroutine = ShuffleDeck(base.HeroTurnTakerController, base.TurnTaker.Deck);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(shuffleCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(shuffleCoroutine);
             }
             yield break;
         }

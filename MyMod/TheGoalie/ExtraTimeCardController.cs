@@ -14,20 +14,21 @@ namespace BartKFSentinels.TheGoalie
         public ExtraTimeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, GoalpostsCards);
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Trash, GoalpostsCards);
         }
 
         public override IEnumerator Play()
         {
-            // "Shuffle your trash into your deck."
-            IEnumerator shuffleCoroutine = base.GameController.ShuffleTrashIntoDeck(base.TurnTakerController, cardSource: GetCardSource());
+            // "Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck."
+            IEnumerator searchCoroutine = base.FetchGoalpostsResponse();
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(shuffleCoroutine);
+                yield return base.GameController.StartCoroutine(searchCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(shuffleCoroutine);
+                base.GameController.ExhaustCoroutine(searchCoroutine);
             }
             // "{TheGoalieCharacter} regains 4 HP."
             IEnumerator healCoroutine = base.GameController.GainHP(base.CharacterCard, new int?(4), cardSource: GetCardSource());
@@ -38,16 +39,6 @@ namespace BartKFSentinels.TheGoalie
             else
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
-            }
-            // "Draw a card."
-            IEnumerator drawCoroutine = base.GameController.DrawCard(base.HeroTurnTaker, optional: false, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(drawCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(drawCoroutine);
             }
             // "Immediately end your turn."
             IEnumerator skipCoroutine = base.GameController.ImmediatelyEndTurn(base.TurnTakerController, cardSource: GetCardSource());

@@ -19,9 +19,14 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator Play()
         {
-            // "Reveal the top 5 cards of your deck."
+            yield break;
+        }
+
+        public IEnumerator RevealMovePlayResponse(HeroTurnTaker player)
+        {
+            // "One player reveals the top 5 cards of their deck..."
             List<Card> revealedCards = new List<Card>();
-            IEnumerator revealCoroutine = base.GameController.RevealCards(base.TurnTakerController, base.TurnTaker.Deck, 5, revealedCards, cardSource: GetCardSource());
+            IEnumerator revealCoroutine = base.GameController.RevealCards(base.GameController.FindTurnTakerController(player), player.Deck, 5, revealedCards, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(revealCoroutine);
@@ -40,7 +45,10 @@ namespace BartKFSentinels.TheGoalie
                     countMessage = "No cards were revealed!";
                     break;
                 case 1:
-                    countMessage = "Only one card was revealed! It will automatically be put into " + base.CharacterCard.Title + "'s hand.";
+                    countMessage = "Only one card was revealed! It will automatically be put into " + player.Name + "'s hand.";
+                    break;
+                case 2:
+                    countMessage = "Only two cards were revealed! They will automatically be put into " + player.Name + "'s hand.";
                     break;
                 default:
                     countMessage = "Only " + revealedCards.Count.ToString() + " cards were revealed!";
@@ -60,9 +68,9 @@ namespace BartKFSentinels.TheGoalie
             }
             if (revealedCards.Count > 0)
             {
-                // "Put 1 into your hand..."
+                // "... puts 2 into their hand..."
                 List<MoveCardAction> toHand = new List<MoveCardAction>();
-                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.HeroTurnTakerController, base.TurnTaker.Revealed, new int?(1), 1, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(base.HeroTurnTaker.Hand) }, storedResultsMove: toHand, responsibleTurnTaker: base.TurnTaker, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
+                IEnumerator handCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player), player.Revealed, new int?(2), 2, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.Hand) }, storedResultsMove: toHand, responsibleTurnTaker: player, selectionType: SelectionType.MoveCardToHand, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(handCoroutine);
@@ -78,12 +86,12 @@ namespace BartKFSentinels.TheGoalie
                     inHand = toHand.FirstOrDefault().CardToMove;
                     revealedCards.Remove(inHand);
                 }
-                // "... and the rest into your trash."
+                // "... and the rest into their trash."
                 int numCardsLeft = revealedCards.Count;
                 if (numCardsLeft > 0)
                 {
-                    Location heroRevealed = base.TurnTaker.Revealed;
-                    IEnumerator trashCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.HeroTurnTakerController, heroRevealed, numCardsLeft, numCardsLeft, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(base.TurnTaker.Trash) }, responsibleTurnTaker: base.TurnTaker, allowAutoDecide: true, selectionType: SelectionType.MoveCardToTrash, cardSource: GetCardSource());
+                    Location heroRevealed = player.Revealed;
+                    IEnumerator trashCoroutine = base.GameController.SelectCardsFromLocationAndMoveThem(base.GameController.FindHeroTurnTakerController(player), heroRevealed, numCardsLeft, numCardsLeft, new LinqCardCriteria(), new MoveCardDestination[] { new MoveCardDestination(player.Trash) }, responsibleTurnTaker: player, allowAutoDecide: true, selectionType: SelectionType.MoveCardToTrash, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(trashCoroutine);
@@ -94,8 +102,9 @@ namespace BartKFSentinels.TheGoalie
                     }
                 }
             }
-            // "You may play a card."
-            IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, optional: true);
+            // "That player may play a card now."
+            List<PlayCardAction> played = new List<PlayCardAction>();
+            IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.GameController.FindHeroTurnTakerController(player), optional: true, storedResults: played);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
@@ -103,6 +112,19 @@ namespace BartKFSentinels.TheGoalie
             else
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
+            }
+            if (DidPlayCards(played))
+            {
+                // "If they do, destroy a Goalposts card."
+                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, GoalpostsCards, false, responsibleCard: base.Card, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(destroyCoroutine);
+                }
             }
             yield break;
         }

@@ -19,12 +19,13 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator UsePower(int index = 0)
         {
-            int meleeDamage = GetPowerNumeral(0, 0);
-            int projectileDamage = GetPowerNumeral(1, 1);
-            // "{TheGoalieCharacter} deals 1 target 0 melee damage and another target 1 projectile damage."
+            int meleeTargets = GetPowerNumeral(0, 1);
+            int meleeDamage = GetPowerNumeral(1, 0);
+            int projectileDamage = GetPowerNumeral(2, 1);
+            // "{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
             List<DealDamageAction> damaged = new List<DealDamageAction>();
-            IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), meleeDamage, DamageType.Melee, 1, false, 1, storedResultsDamage: damaged, cardSource: GetCardSource());
-            IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), projectileDamage, DamageType.Projectile, 1, false, 1, additionalCriteria: (Card c) => !damaged.Select((DealDamageAction dda) => dda.Target).Contains(c), storedResultsDamage: damaged, cardSource: GetCardSource());
+            IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), meleeDamage, DamageType.Melee, meleeTargets, false, 0, storedResultsDamage: damaged, cardSource: GetCardSource());
+            IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), projectileDamage, DamageType.Projectile, 1, false, 0, additionalCriteria: (Card c) => !damaged.Select((DealDamageAction dda) => dda.Target).Contains(c), storedResultsDamage: damaged, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(meleeCoroutine);

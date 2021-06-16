@@ -14,14 +14,14 @@ namespace BartKFSentinels.TheGoalie
         public MoveTheGoalpostsCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsGoalposts(c), "goalposts"));
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, GoalpostsCards);
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Trash, GoalpostsCards);
         }
 
         public override IEnumerator Play()
         {
-            // "Search your deck for a Goalposts card and put it into your hand. Shuffle your deck."
-            LinqCardCriteria match = new LinqCardCriteria((Card c) => IsGoalposts(c));
-            IEnumerator searchCoroutine = base.SearchForCards(base.HeroTurnTakerController, true, false, new int?(1), 1, match, false, true, false, optional: false, shuffleAfterwards: new bool?(true));
+            // "Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck."
+            IEnumerator searchCoroutine = base.FetchGoalpostsResponse();
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(searchCoroutine);
@@ -30,9 +30,9 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(searchCoroutine);
             }
-            // "You may destroy one of your Ongoing cards."
+            // "You may destroy an Ongoing or environment card."
             List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing && c.Owner == base.TurnTaker, "ongoing"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing || c.IsEnvironment, "Ongoing or environment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -43,15 +43,15 @@ namespace BartKFSentinels.TheGoalie
             }
             if (destroyed != null && destroyed.Count() > 0 && DidDestroyCard(destroyed.First()))
             {
-                // "If you do, you may play an Ongoing card."
-                IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, optional: true, cardCriteria: new LinqCardCriteria((Card c) => c.IsOngoing));
+                // "If you do, you may play a card or draw a card."
+                IEnumerator drawOrPlayCoroutine = DrawACardOrPlayACard(base.HeroTurnTakerController, true);
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(playCoroutine);
+                    yield return base.GameController.StartCoroutine(drawOrPlayCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(playCoroutine);
+                    base.GameController.ExhaustCoroutine(drawOrPlayCoroutine);
                 }
             }
             yield break;

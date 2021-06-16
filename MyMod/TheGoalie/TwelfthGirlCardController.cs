@@ -15,8 +15,6 @@ namespace BartKFSentinels.TheGoalie
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn), () => base.Card.Title + " has already prevented damage this turn.", () => base.Card.Title + " has not yet prevented damage this turn.", () => true);
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInHeroPlayAreas() > 0;
-            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in hero play areas.").Condition = () => NumGoalpostsInHeroPlayAreas() <= 0;
             AllowFastCoroutinesDuringPretend = false;
         }
 
@@ -31,6 +29,19 @@ namespace BartKFSentinels.TheGoalie
 
         public IEnumerator OneDamageResponse(DealDamageAction dda)
         {
+            if (dda.IsPretend)
+            {
+                IEnumerator preventCoroutine = CancelAction(dda, showOutput: true, cancelFutureRelatedDecisions: true, null, isPreventEffect: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(preventCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(preventCoroutine);
+                }
+                yield break;
+            }
             Log.Debug("TwelfthGirlCardController.OneDamageResponse activated");
             // "... you may..."
             List<YesNoCardDecision> choice = new List<YesNoCardDecision>();
@@ -57,18 +68,15 @@ namespace BartKFSentinels.TheGoalie
                 {
                     base.GameController.ExhaustCoroutine(preventCoroutine);
                 }
-                // "When damage is prevented this way, up to X hero targets each regain 1 HP, where X = 2 times the number of Goalposts cards in hero play areas."
-                if (wouldDealDamage)
+                // "When damage is prevented this way, up to 2 hero targets each regain 1 HP."
+                IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2, requiredDecisions: 0, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
                 {
-                    IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2 * NumGoalpostsInHeroPlayAreas(), requiredDecisions: 0, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(healCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(healCoroutine);
-                    }
+                    yield return base.GameController.StartCoroutine(healCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(healCoroutine);
                 }
             }
             yield break;
