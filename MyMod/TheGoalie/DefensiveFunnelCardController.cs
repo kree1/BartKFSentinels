@@ -14,33 +14,58 @@ namespace BartKFSentinels.TheGoalie
         public DefensiveFunnelCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowSpecialString(TargetsDamagedByOtherHeroesThisRound);
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Trash, cardCriteria: GoalpostsCards);
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the start of the environment turn, {TheGoalieCharacter} may deal 2 melee damage to a target that was dealt damage by another hero this round."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt.IsEnvironment, TeamUpResponse, TriggerType.DealDamage);
+            // "At the start of the villain turn, you may have a villain target deal {TheGoalieCharacter} 1 irreducible melee damage. If {TheGoalieCharacter} is dealt damage this way, you may play a Goalposts card from your trash."
+            AddStartOfTurnTrigger((TurnTaker tt) => tt.IsVillain, PullAggroResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.PlayCard });
         }
 
-        public IEnumerator TeamUpResponse(PhaseChangeAction pca)
+        public IEnumerator PullAggroResponse(PhaseChangeAction pca)
         {
-            // "If a Goalposts card is in play, increase that damage by 1."
-            ITrigger increaseResponse = AddIncreaseDamageTrigger((DealDamageAction dda) => base.GameController.FindCardsWhere(GoalpostsInPlay).Any() && dda.CardSource.CardController == this, 1);
-
-            // "... {TheGoalieCharacter} may deal 2 melee damage to a target that was dealt damage by another hero this round."
-            IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Melee, 1, false, 0, additionalCriteria: DamagedByOtherHeroesThisRound, cardSource: GetCardSource());
+            // "...  you may have a villain target deal {TheGoalieCharacter} 1 irreducible melee damage."
+            List<SelectCardDecision> targetResults = new List<SelectCardDecision>();
+            IEnumerator chooseCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.CardToDealDamage, new LinqCardCriteria((Card c) => c.IsVillain && c.IsTarget && c.IsInPlayAndHasGameText, "villain targets in play", false, false, "villain target in play", "villain targets in play"), targetResults, true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(meleeCoroutine);
+                yield return base.GameController.StartCoroutine(chooseCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(meleeCoroutine);
+                base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
+            Card selectedTarget = GetSelectedCard(targetResults);
+            if (selectedTarget != null)
+            {
+                List<DealDamageAction> damageResults = new List<DealDamageAction>();
+                IEnumerator meleeCoroutine = DealDamage(selectedTarget, base.CharacterCard, 1, DamageType.Melee, isIrreducible: true, storedResults: damageResults, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(meleeCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(meleeCoroutine);
+                }
 
-            RemoveTrigger(increaseResponse);
+                // "If {TheGoalieCharacter} is dealt damage this way, you may play a Goalposts card from your trash."
+                if (DidDealDamage(damageResults, toSpecificTarget: base.CharacterCard))
+                {
+                    MoveCardDestination dest = new MoveCardDestination(base.TurnTaker.PlayArea);
+                    IEnumerator playCoroutine = base.GameController.SelectCardFromLocationAndMoveIt(base.HeroTurnTakerController, base.TurnTaker.Trash, GoalpostsCards, dest.ToEnumerable(), optional: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(playCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(playCoroutine);
+                    }
+                }
+            }
             yield break;
         }
 

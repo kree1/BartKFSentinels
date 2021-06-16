@@ -73,12 +73,12 @@
 				"limited"
 			],
 			"body":[
-				"At the start of the environment turn, {TheGoalieCharacter} may deal 2 melee damage to a target that was dealt damage by another hero this round. If a Goalposts card is in play, increase that damage by 1."
+				"At the start of the villain turn, you may have a villain target deal {TheGoalieCharacter} 1 irreducible melee damage. If {TheGoalieCharacter} is dealt damage this way, you may play a Goalposts card from your trash."
 			],
 			"icons":[
 				"StartOfTurnAction",
 				"DealDamageMelee",
-				"IncreaseDamageDealt"
+				"PlayCardNow"
 			],
 			"flavorQuotes":[
 				{
@@ -226,8 +226,9 @@
 			],
 			"icons":[
 				"HasPower",
-				"DealDamageMelee",
-				"Destroy"
+				"DealDamageProjectile",
+				"Destroy",
+				"DealDamageMelee"
 			],
 			"flavorQuotes":[
 				{
