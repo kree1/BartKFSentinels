@@ -15,7 +15,7 @@ namespace BartKFSentinels.TheGoalie
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowListOfCardsInPlay(GoalpostsCards);
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has already reacted to damage this turn.", () => base.Card.Title + " has not yet reacted to damage this turn.");
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has already reacted to damage this turn.", () => base.Card.Title + " has not yet reacted to damage this turn.").Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         public override void AddTriggers()
