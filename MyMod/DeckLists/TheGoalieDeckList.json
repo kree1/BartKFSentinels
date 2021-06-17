@@ -14,7 +14,7 @@
 			"body": "Goal Kick",
 			"character": true,
 			"powers":[
-				"{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
+				"{TheGoalieCharacter} may deal 1 target 1 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
 			],
 			"icons":[
 				"HasPower",
@@ -444,16 +444,18 @@
 			"title": "The Goalie",
 			"promoTitle": "The Goalie On Ice",
 			"backgroundColor": "D1F7FF",
-			"body": "Stay-At-Home Defense",
+			"body": "Kronwalled!",
 			"character": true,
 			"powers":[
-				"Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck."
+				"Play a Goalposts card from your trash. {TheGoalieCharacter} deals 1 target 1 melee damage and 1 cold damage."
 			],
 			"icons":[
 				"HasPower",
-				"Search"
+				"PlayCardNow",
+				"DealDamageMelee",
+				"DealDamageCold"
 			],
-			"hitpoints": 26,
+			"hitpoints": 27,
 			"nemesisIdentifiers":[
 				"BartKFSentinels.TheGoalie"
 			],

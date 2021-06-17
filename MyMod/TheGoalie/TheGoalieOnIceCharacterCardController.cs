@@ -22,28 +22,31 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Search your deck and trash for a Goalposts card and put it into play. Shuffle your deck."
-            Card place = FindCard(GoalpostsIdentifier);
-            if (place.IsInDeck || place.IsInTrash)
-            {
-                IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, place, isPutIntoPlay: true, optional: false, responsibleTurnTaker: base.TurnTaker, associateCardSource: true, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(playCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(playCoroutine);
-                }
-            }
-            IEnumerator shuffleCoroutine = ShuffleDeck(base.HeroTurnTakerController, base.TurnTaker.Deck);
+            int numTargets = GetPowerNumeral(0, 1);
+            int meleeAmt = GetPowerNumeral(1, 1);
+            int coldAmt = GetPowerNumeral(2, 1);
+            // "Play a Goalposts card from your trash."
+            IEnumerator playCoroutine = base.GameController.SelectAndMoveCard(base.HeroTurnTakerController, (Card c) => c.DoKeywordsContain("goalposts") && c.Location == base.TurnTaker.Trash, base.TurnTaker.PlayArea, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(shuffleCoroutine);
+                yield return base.GameController.StartCoroutine(playCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(shuffleCoroutine);
+                base.GameController.ExhaustCoroutine(playCoroutine);
+            }
+            // "{TheGoalieCharacter} deals 1 target 1 melee damage and 1 cold damage."
+            List<DealDamageAction> instances = new List<DealDamageAction>();
+            instances.Add(new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, meleeAmt, DamageType.Melee));
+            instances.Add(new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, coldAmt, DamageType.Cold));
+            IEnumerator damageCoroutine = SelectTargetsAndDealMultipleInstancesOfDamage(instances, minNumberOfTargets: numTargets, maxNumberOfTargets: numTargets);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(damageCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             yield break;
         }

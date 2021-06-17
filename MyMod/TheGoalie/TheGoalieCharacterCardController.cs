@@ -20,7 +20,7 @@ namespace BartKFSentinels.TheGoalie
         public override IEnumerator UsePower(int index = 0)
         {
             int meleeTargets = GetPowerNumeral(0, 1);
-            int meleeDamage = GetPowerNumeral(1, 0);
+            int meleeDamage = GetPowerNumeral(1, 1);
             int projectileDamage = GetPowerNumeral(2, 1);
             // "{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
             List<DealDamageAction> damaged = new List<DealDamageAction>();
