@@ -125,7 +125,7 @@
 				"one-shot"
 			],
 			"body":[
-				"Reveal the top 5 cards of your deck. Put 1 into your hand and the rest into your trash.",
+				"Reveal the top 5 cards of your deck. Put 2 into your hand and the rest into your trash.",
 				"You may play a card."
 			],
 			"icons":[
@@ -149,7 +149,7 @@
 			],
 			"body":[
 				"Search your deck for a Goalposts card and put it into your hand. Shuffle your deck.",
-				"You may destroy one of your Ongoing cards. If you do, you may play an Ongoing card."
+				"You may destroy an Ongoing or environment card. If you do, you may play an Ongoing card."
 			],
 			"icons":[
 				"Search",
@@ -195,8 +195,9 @@
 				"one-shot"
 			],
 			"body":[
-				"Destroy all Goalposts cards in your play area.",
-				"Draw 3 cards."
+				"Return all Goalposts cards in your play area to your hand.",
+				"{TheGoalieCharacter} deals 1 target 3 melee damage.",
+				"You may play a Goalposts card or draw 3 cards."
 			],
 			"icons":[
 				"Destroy",
@@ -299,7 +300,7 @@
 				"limited"
 			],
 			"body":[
-				"The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 melee damage."
+				"The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 projectile damage."
 			],
 			"powers":[
 				"Draw a card. Increase the next damage dealt by {TheGoalieCharacter} by 2."
@@ -326,7 +327,8 @@
 				"one-shot"
 			],
 			"body":[
-				"{TheGoalieCharacter} deals each non-hero target 2 projectile damage. Destroy a Goalposts card in a non-hero play area."
+				"{TheGoalieCharacter} deals each non-hero target 2 projectile damage.",
+				"Destroy a Goalposts card in a non-hero play area."
 			],
 			"icons":[
 				"DealDamageProjectile",
@@ -375,7 +377,8 @@
 			],
 			"body":[
 				"Discard the top 3 cards of your deck.",
-				"Each hero target regains 1 HP."
+				"Each hero target regains 2 HP.",
+				"One hero may use a power."
 			],
 			"icons":[
 				"Manipulate",
