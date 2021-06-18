@@ -14,7 +14,7 @@
 			"body": "Goal Kick",
 			"character": true,
 			"powers":[
-				"{TheGoalieCharacter} deals 1 target 0 melee damage and another target 1 projectile damage."
+				"{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
 			],
 			"icons":[
 				"HasPower",
