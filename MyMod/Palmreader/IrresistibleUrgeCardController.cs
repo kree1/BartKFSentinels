@@ -19,8 +19,8 @@ namespace BartKFSentinels.Palmreader
 
         public override IEnumerator Play()
         {
-            // "{TheGoalieCharacter} deals 1 target 4 projectile damage."
-            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 4, DamageType.Projectile, new int?(1), false, new int?(1), cardSource: GetCardSource());
+            // "{TheGoalieCharacter} deals 1 target 4 psychic damage."
+            IEnumerator damageCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 4, DamageType.Psychic, new int?(1), false, new int?(1), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

@@ -20,8 +20,8 @@ namespace BartKFSentinels.Palmreader
 
         public override IEnumerator Play()
         {
-            // "{TheGoalieCharacter} deals each non-hero target 2 projectile damage."
-            IEnumerator damageCoroutine = DealDamage(base.CharacterCard, (Card c) => !c.IsHero, 2, DamageType.Projectile, optional: false);
+            // "{TheGoalieCharacter} deals each non-hero target 2 psychic damage."
+            IEnumerator damageCoroutine = DealDamage(base.CharacterCard, (Card c) => !c.IsHero, 2, DamageType.Psychic, optional: false);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

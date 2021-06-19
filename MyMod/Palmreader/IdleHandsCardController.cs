@@ -31,7 +31,7 @@ namespace BartKFSentinels.Palmreader
             {
                 base.GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            // "If that target was in a play area with a Relay card, {PalmreaderCharacter} deals another target in that play area 2 irreducible projectile damage."
+            // "If that target was in a play area with a Relay card, {PalmreaderCharacter} deals another target in that play area 2 irreducible psychic damage."
             if (firstTargeting != null && firstTargeting.Count > 0)
             {
                 Card firstTarget = firstTargeting.FirstOrDefault().SelectedCard;
@@ -46,7 +46,7 @@ namespace BartKFSentinels.Palmreader
                 }
                 if (playArea.IsInPlay && NumRelaysAt(playArea) > 0)
                 {
-                    IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Projectile, new int?(1), false, new int?(1), isIrreducible: true, additionalCriteria: (Card c) => c.Location == playArea && c != firstTarget, cardSource: GetCardSource());
+                    IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), 2, DamageType.Psychic, new int?(1), false, new int?(1), isIrreducible: true, additionalCriteria: (Card c) => c.Location == playArea && c != firstTarget, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(projectileCoroutine);

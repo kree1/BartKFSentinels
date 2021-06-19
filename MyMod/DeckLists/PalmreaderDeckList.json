@@ -9,16 +9,16 @@
 			"identifier": "PalmreaderCharacter",
 			"count": 1,
 			"title": "Palmreader",
-			"backgroundColor": "3DDF00",
-			"body": "Goal Kick",
+			"backgroundColor": "FFA6FF",
+			"body": "Impression",
 			"character": true,
 			"powers":[
-				"{PalmreaderCharacter} may deal 1 target 0 melee damage. {PalmreaderCharacter} may deal another target 1 projectile damage."
+				"{PalmreaderCharacter} may deal 1 target 0 psychic damage. {PalmreaderCharacter} may deal another target 1 melee damage."
 			],
 			"icons":[
 				"HasPower",
-				"DealDamageMelee",
-				"DealDamageProjectile"
+				"DealDamagePsychic",
+				"DealDamageMelee"
 			],
 			"hitpoints": 30,
 			"nemesisIdentifiers":[
@@ -154,11 +154,11 @@
 			],
 			"body":[
 				"{PalmreaderCharacter} deals 1 target 2 melee damage.",
-				"If that target was in a play area with a Relay card, {PalmreaderCharacter} deals another target in that play area 2 irreducible projectile damage."
+				"If that target was in a play area with a Relay card, {PalmreaderCharacter} deals another target in that play area 2 irreducible psychic damage."
 			],
 			"icons":[
 				"DealDamageMelee",
-				"DealDamageProjectile"
+				"DealDamagePsychic"
 			],
 			"flavorQuotes":[
 				{
@@ -176,11 +176,11 @@
 				"one-shot"
 			],
 			"body":[
-				"{PalmreaderCharacter} deals 1 target 4 projectile damage.",
+				"{PalmreaderCharacter} deals 1 target 4 psychic damage.",
 				"The next damage dealt to {PalmreaderCharacter} by a non-hero target is irreducible."
 			],
 			"icons":[
-				"DealDamageProjectile",
+				"DealDamagePsychic",
 				"MakeDamageIrreducible"
 			],
 			"flavorQuotes":[
@@ -320,11 +320,11 @@
 				"one-shot"
 			],
 			"body":[
-				"{PalmreaderCharacter} deals each non-hero target 2 projectile damage.",
+				"{PalmreaderCharacter} deals each non-hero target 2 psychic damage.",
 				"Destroy a Relay card in a non-hero play area."
 			],
 			"icons":[
-				"DealDamageProjectile",
+				"DealDamagePsychic",
 				"Destroy"
 			],
 			"flavorQuotes":[
