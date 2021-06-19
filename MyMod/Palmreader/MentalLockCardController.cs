@@ -7,20 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class StartingWhistleCardController : TheGoalieUtilityCardController
+    public class MentalLockCardController : PalmreaderUtilityCardController
     {
-        public StartingWhistleCardController(Card card, TurnTakerController turnTakerController)
+        public MentalLockCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsGoalposts(c), "goalposts"));
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsRelay(c), "goalposts"));
         }
 
         public override IEnumerator Play()
         {
-            // "Search your deck for a Goalposts card and put it into your hand. Shuffle your deck."
-            LinqCardCriteria match = new LinqCardCriteria((Card c) => IsGoalposts(c));
+            // "Search your deck for a Relay card and put it into your hand. Shuffle your deck."
+            LinqCardCriteria match = new LinqCardCriteria((Card c) => IsRelay(c));
             IEnumerator searchCoroutine = base.SearchForCards(base.HeroTurnTakerController, true, false, new int?(1), 1, match, false, true, false, optional: false, shuffleAfterwards: new bool?(true));
             if (base.UseUnityCoroutines)
             {
@@ -30,9 +30,9 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(searchCoroutine);
             }
-            // "You may play a Goalposts card or draw 2 cards."
+            // "You may play a Relay card or draw 2 cards."
             List<Function> options = new List<Function>();
-            options.Add(new Function(base.HeroTurnTakerController, "Play a Goalposts card", SelectionType.PlayCard, () => SelectAndPlayCardFromHand(base.HeroTurnTakerController, cardCriteria: match), onlyDisplayIfTrue: base.HeroTurnTaker.Hand.Cards.Any((Card c) => IsGoalposts(c))));
+            options.Add(new Function(base.HeroTurnTakerController, "Play a Relay card", SelectionType.PlayCard, () => SelectAndPlayCardFromHand(base.HeroTurnTakerController, cardCriteria: match), onlyDisplayIfTrue: base.HeroTurnTaker.Hand.Cards.Any((Card c) => IsRelay(c))));
             options.Add(new Function(base.HeroTurnTakerController, "Draw 2 cards", SelectionType.DrawCard, () => base.DrawCards(base.HeroTurnTakerController, 2, optional: true)));
             SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, base.HeroTurnTakerController, options, true, cardSource: GetCardSource());
             IEnumerator playDrawCoroutine = base.GameController.SelectAndPerformFunction(choice);

@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class ShootoutCardController : TheGoalieUtilityCardController
+    public class SignalFlareCardController : PalmreaderUtilityCardController
     {
-        public ShootoutCardController(Card card, TurnTakerController turnTakerController)
+        public SignalFlareCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInNonHeroPlayAreas() > 0;
-            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in non-hero play areas.").Condition = () => NumGoalpostsInNonHeroPlayAreas() <= 0;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumRelaysInNonHeroPlayAreas() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in non-hero play areas.").Condition = () => NumRelaysInNonHeroPlayAreas() <= 0;
         }
 
         public override IEnumerator Play()
@@ -30,10 +30,10 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            // "Destroy a Goalposts card in a non-hero play area."
-            if (NumGoalpostsInNonHeroPlayAreas() > 0)
+            // "Destroy a Relay card in a non-hero play area."
+            if (NumRelaysInNonHeroPlayAreas() > 0)
             {
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsGoalposts(c) && !c.Location.IsHero), false, responsibleCard: base.Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && !c.Location.IsHero), false, responsibleCard: base.Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

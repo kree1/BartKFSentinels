@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class TwelfthGirlCardController : TheGoalieUtilityCardController
+    public class PreciseDeflectionCardController : PalmreaderUtilityCardController
     {
-        public TwelfthGirlCardController(Card card, TurnTakerController turnTakerController)
+        public PreciseDeflectionCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn), () => base.Card.Title + " has already prevented damage this turn.", () => base.Card.Title + " has not yet prevented damage this turn.", () => true);
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText && c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumGoalpostsInHeroPlayAreas() > 0;
-            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in hero play areas.").Condition = () => NumGoalpostsInHeroPlayAreas() <= 0;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText && c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumRelaysInHeroPlayAreas() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in hero play areas.").Condition = () => NumRelaysInHeroPlayAreas() <= 0;
             AllowFastCoroutinesDuringPretend = false;
         }
 
@@ -60,7 +60,7 @@ namespace BartKFSentinels.TheGoalie
                 // "When damage is prevented this way, up to X hero targets each regain 1 HP, where X = 2 times the number of Goalposts cards in hero play areas."
                 if (wouldDealDamage)
                 {
-                    IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2 * NumGoalpostsInHeroPlayAreas(), requiredDecisions: 0, cardSource: GetCardSource());
+                    IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2 * NumRelaysInHeroPlayAreas(), requiredDecisions: 0, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(healCoroutine);

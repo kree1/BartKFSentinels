@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class PlaceOfPowerCardController : TheGoalieUtilityCardController
+    public class SignalSuppressionCardController : PalmreaderUtilityCardController
     {
-        public PlaceOfPowerCardController(Card card, TurnTakerController turnTakerController)
+        public SignalSuppressionCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(ReduceOncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
@@ -26,16 +26,16 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Reduce the first damage dealt to {TheGoalieCharacter} each turn by 1."
+            // "Reduce the first damage dealt to {PalmreaderCharacter} each turn by 1."
             this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ReduceOncePerTurn) && dda.Target == base.CharacterCard, ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before, isActionOptional: false);
-            // "Increase the first damage dealt by {TheGoalieCharacter} each turn by 1."
+            // "Increase the first damage dealt by {PalmreaderCharacter} each turn by 1."
             this.IncreaseDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(IncreaseOncePerTurn) && dda.DamageSource.Card == base.CharacterCard, IncreaseResponse, TriggerType.IncreaseDamage, TriggerTiming.Before, isActionOptional: false);
         }
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, you may play a card named [i]18-Yard Box[/i] from your trash."
-            IEnumerator playCoroutine = base.GameController.SelectAndPlayCard(base.HeroTurnTakerController, base.FindCardsWhere(new LinqCardCriteria((Card c) => c.Identifier == "EighteenYardBox" && c.Location == base.TurnTaker.Trash)), optional: true, isPutIntoPlay: false, cardSource: GetCardSource());
+            // "When this card enters play, you may play a card named [i]Signal Tap[/i] from your trash."
+            IEnumerator playCoroutine = base.GameController.SelectAndPlayCard(base.HeroTurnTakerController, base.FindCardsWhere(new LinqCardCriteria((Card c) => c.Identifier == "SignalTap" && c.Location == base.TurnTaker.Trash)), optional: true, isPutIntoPlay: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
@@ -45,7 +45,7 @@ namespace BartKFSentinels.TheGoalie
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
             // "Then, destroy all but 2 Goalposts cards."
-            IEnumerator destroyCoroutine = DestroyExcessGoalpostsResponse();
+            IEnumerator destroyCoroutine = DestroyExcessRelaysResponse();
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

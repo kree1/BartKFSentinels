@@ -155,23 +155,23 @@
     <Compile Include="TheGigamorph\TheGigamorphUtilityCardController.cs" />
     <Compile Include="TheGigamorph\UnderAttackCardController.cs" />
     <Compile Include="TheGigamorph\VirulentStrainCardController.cs" />
-    <Compile Include="TheGoalie\EighteenYardBoxCardController.cs" />
-    <Compile Include="TheGoalie\ExtraTimeCardController.cs" />
-    <Compile Include="TheGoalie\HospitalBallCardController.cs" />
-    <Compile Include="TheGoalie\HuddleUpCardController.cs" />
-    <Compile Include="TheGoalie\MoveTheGoalpostsCardController.cs" />
-    <Compile Include="TheGoalie\OffsidesCardController.cs" />
-    <Compile Include="TheGoalie\OutOfBoundsCardController.cs" />
-    <Compile Include="TheGoalie\OvercrowdingCardController.cs" />
-    <Compile Include="TheGoalie\ParkTheBusCardController.cs" />
-    <Compile Include="TheGoalie\PlaceOfPowerCardController.cs" />
-    <Compile Include="TheGoalie\ReturnToSenderCardController.cs" />
-    <Compile Include="TheGoalie\ShootoutCardController.cs" />
-    <Compile Include="TheGoalie\StartingWhistleCardController.cs" />
-    <Compile Include="TheGoalie\TeamSpiritCardController.cs" />
-    <Compile Include="TheGoalie\TheGoalieCharacterCardController.cs" />
-    <Compile Include="TheGoalie\TheGoalieUtilityCardController.cs" />
-    <Compile Include="TheGoalie\TwelfthGirlCardController.cs" />
+    <Compile Include="Palmreader\SignalTapCardController.cs" />
+    <Compile Include="Palmreader\CenteringExercisesCardController.cs" />
+    <Compile Include="Palmreader\IrresistibleUrgeCardController.cs" />
+    <Compile Include="Palmreader\QuickerThanTheMindCardController.cs" />
+    <Compile Include="Palmreader\AttitudeShiftCardController.cs" />
+    <Compile Include="Palmreader\IdleHandsCardController.cs" />
+    <Compile Include="Palmreader\MomentaryFugueCardController.cs" />
+    <Compile Include="Palmreader\HyperfocusCardController.cs" />
+    <Compile Include="Palmreader\EverywhereAtOnceCardController.cs" />
+    <Compile Include="Palmreader\SignalSuppressionCardController.cs" />
+    <Compile Include="Palmreader\SoPredictableCardController.cs" />
+    <Compile Include="Palmreader\SignalFlareCardController.cs" />
+    <Compile Include="Palmreader\MentalLockCardController.cs" />
+    <Compile Include="Palmreader\JoinHandsCardController.cs" />
+    <Compile Include="Palmreader\PalmreaderCharacterCardController.cs" />
+    <Compile Include="Palmreader\PalmreaderUtilityCardController.cs" />
+    <Compile Include="Palmreader\PreciseDeflectionCardController.cs" />
     <Compile Include="TheShelledOne\AlejandroLeafCardController.cs" />
     <Compile Include="TheShelledOne\AxelTrolololCardController.cs" />
     <Compile Include="TheShelledOne\BatterCardController.cs" />
@@ -230,7 +230,7 @@
     <EmbeddedResource Include="DeckLists\BreakawayDeckList.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DeckLists\TheGoalieDeckList.json" />
+    <EmbeddedResource Include="DeckLists\PalmreaderDeckList.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

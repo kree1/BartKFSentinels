@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class HospitalBallCardController : TheGoalieUtilityCardController
+    public class IrresistibleUrgeCardController : PalmreaderUtilityCardController
     {
-        public HospitalBallCardController(Card card, TurnTakerController turnTakerController)
+        public IrresistibleUrgeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 

@@ -1,0 +1,419 @@
+{
+	"name": "Palmreader",
+	"kind": "Hero",
+	"initialCardIdentifiers":[
+		"PalmreaderCharacter"
+	],
+	"cards":[
+		{
+			"identifier": "PalmreaderCharacter",
+			"count": 1,
+			"title": "Palmreader",
+			"backgroundColor": "3DDF00",
+			"body": "Goal Kick",
+			"character": true,
+			"powers":[
+				"{PalmreaderCharacter} may deal 1 target 0 melee damage. {PalmreaderCharacter} may deal another target 1 projectile damage."
+			],
+			"icons":[
+				"HasPower",
+				"DealDamageMelee",
+				"DealDamageProjectile"
+			],
+			"hitpoints": 30,
+			"nemesisIdentifiers":[
+				"BartKFSentinels.Palmreader"
+			],
+			"incapacitatedAbilities":[
+				"Select a target. Reduce the next damage dealt to that target by 2.",
+				"Select a target. Increase the next damage dealt by that target by 2.",
+				"The 2 hero targets with the lowest HP regain 1 HP each."
+			],
+			"flippedIcons":[
+				"ReduceDamageTaken",
+				"IncreaseDamageDealt",
+				"GainHP"
+			],
+			"complexity":2,
+			"openingLines":{
+				"default": "I already know your next move, but you may as well try.",
+				"OblivAeonFrontPageCharacter": "...\nI don't know if I have a counter for this."
+			}
+		},
+		{
+			"identifier": "AttitudeShift",
+			"count": 2,
+			"title": "Attitude Shift",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Search your deck for a Relay card and put it into your hand. Shuffle your deck.",
+				"You may destroy an Ongoing or environment card. If you do, you may play an Ongoing card."
+			],
+			"icons":[
+				"Search",
+				"DestroyOngoing",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "CenteringExercises",
+			"count": 2,
+			"title": "Centering Exercises",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Shuffle your trash into your deck.",
+				"{PalmreaderCharacter} regains 4 HP.",
+				"Draw a card.",
+				"Immediately end your turn."
+			],
+			"icons":[
+				"Manipulate",
+				"GainHP",
+				"DrawCardNow",
+				"SkipTurn"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "EverywhereAtOnce",
+			"count": 3,
+			"title": "Everywhere at Once",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Redirect all damage that would be dealt to hero targets to {PalmreaderCharacter}.",
+				"Reduce damage dealt to {PalmreaderCharacter} by 1.",
+				"At the start of your turn, discard 3 cards or destroy this card."
+			],
+			"icons":[
+				"RedirectDamage",
+				"ReduceDamageTaken",
+				"StartOfTurnAction",
+				"Discard",
+				"DestroySelf"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Hyperfocus",
+			"count": 3,
+			"title": "Hyperfocus",
+			"keywords":[
+				"ongoing"
+			],
+			"body":[
+				"Whenever a Relay card enters play, it becomes indestructible until the end of the turn and you may play a Relay card from your trash."
+			],
+			"powers":[
+				"{PalmreaderCharacter} deals up to 2 targets 2 melee damage each. If there are 3 or more Relay cards in play, return this card to your hand."
+			],
+			"icons":[
+				"Indestructible",
+				"PlayCardNow",
+				"HasPower",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "IdleHands",
+			"count": 3,
+			"title": "Idle Hands",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{PalmreaderCharacter} deals 1 target 2 melee damage.",
+				"If that target was in a play area with a Relay card, {PalmreaderCharacter} deals another target in that play area 2 irreducible projectile damage."
+			],
+			"icons":[
+				"DealDamageMelee",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "IrresistibleUrge",
+			"count": 3,
+			"title": "Irresistible Urge",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{PalmreaderCharacter} deals 1 target 4 projectile damage.",
+				"The next damage dealt to {PalmreaderCharacter} by a non-hero target is irreducible."
+			],
+			"icons":[
+				"DealDamageProjectile",
+				"MakeDamageIrreducible"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "JoinHands",
+			"count": 3,
+			"title": "Join Hands",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Discard the top 3 cards of your deck.",
+				"Each hero target regains 2 HP.",
+				"One hero may use a power."
+			],
+			"icons":[
+				"Manipulate",
+				"GainHP"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "MentalLock",
+			"count": 4,
+			"title": "Mental Lock",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Search your deck for a Relay card and put it into your hand. Shuffle your deck.",
+				"You may play a Relay card or draw 2 cards.",
+				"{PalmreaderCharacter} deals 1 target 1 melee damage."
+			],
+			"icons":[
+				"Search",
+				"PlayCardNow",
+				"DrawCardNow",
+				"DealDamageMelee"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "MomentaryFugue",
+			"count": 2,
+			"title": "Momentary Fugue",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Return all Relay cards in your play area to your hand.",
+				"{PalmreaderCharacter} deals 1 target 3 melee damage.",
+				"You may play a Relay card or draw 3 cards."
+			],
+			"icons":[
+				"Destroy",
+				"DrawCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "PreciseDeflection",
+			"count": 2,
+			"title": "Precise Deflection",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"Once per turn, when a hero target would be dealt exactly 1 damage, you may prevent that damage.",
+				"When damage is prevented this way, up to X hero targets each regain 1 HP, where X = 2 times the number of Relay cards in hero play areas."
+			],
+			"icons":[
+				"CancelledDamageGreen",
+				"GainHP"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "QuickerThanTheMind",
+			"count": 2,
+			"title": "Quicker than the Mind",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"Reveal the top 5 cards of your deck. Put 2 into your hand and the rest into your trash.",
+				"You may play a card."
+			],
+			"icons":[
+				"Manipulate",
+				"PlayCardNow"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SignalFlare",
+			"count": 3,
+			"title": "Signal Flare",
+			"keywords":[
+				"one-shot"
+			],
+			"body":[
+				"{PalmreaderCharacter} deals each non-hero target 2 projectile damage.",
+				"Destroy a Relay card in a non-hero play area."
+			],
+			"icons":[
+				"DealDamageProjectile",
+				"Destroy"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SignalSuppression",
+			"count": 2,
+			"title": "Signal Suppression",
+			"keywords":[
+				"ongoing",
+				"relay"
+			],
+			"body":[
+				"When this card enters play, you may play a card named [i]Signal Tap[/i] from your trash. Then, destroy all but 2 Relay cards.",
+				"Reduce the first damage dealt to {PalmreaderCharacter} each turn by 1. Increase the first damage dealt by {PalmreaderCharacter} each turn by 1."
+			],
+			"icons":[
+				"PlayCardNow",
+				"Destroy",
+				"ReduceDamageTaken",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SignalTap",
+			"count": 3,
+			"title": "Signal Tap",
+			"keywords":[
+				"ongoing",
+				"relay"
+			],
+			"body":[
+				"When this card enters play, move it to a play area with no other Relay cards. You may play a Relay card from your trash. Then, destroy all but 2 Relay cards.",
+				"When damage would be dealt to or by {PalmreaderCharacter} to or by a target in this play area, you may increase or reduce that damage by 1."
+			],
+			"icons":[
+				"PlayCardNow",
+				"Destroy",
+				"IncreaseDamageDealt",
+				"ReduceDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SoPredictable",
+			"count": 3,
+			"title": "So Predictable",
+			"keywords":[
+				"ongoing",
+				"limited"
+			],
+			"body":[
+				"The first time {PalmreaderCharacter} is dealt damage by a target each turn, {PalmreaderCharacter} may deal that target 1 projectile damage."
+			],
+			"powers":[
+				"Draw a card. Increase the next damage dealt by {PalmreaderCharacter} by 2."
+			],
+			"icons":[
+				"CounterDamage",
+				"HasPower",
+				"DrawCardNow",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes":[
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		}
+	]
+}

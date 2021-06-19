@@ -7,20 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class MoveTheGoalpostsCardController : TheGoalieUtilityCardController
+    public class AttitudeShiftCardController : PalmreaderUtilityCardController
     {
-        public MoveTheGoalpostsCardController(Card card, TurnTakerController turnTakerController)
+        public AttitudeShiftCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsGoalposts(c), "goalposts"));
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsRelay(c), "relay"));
         }
 
         public override IEnumerator Play()
         {
-            // "Search your deck for a Goalposts card and put it into your hand. Shuffle your deck."
-            LinqCardCriteria match = new LinqCardCriteria((Card c) => IsGoalposts(c));
+            // "Search your deck for a Relay card and put it into your hand. Shuffle your deck."
+            LinqCardCriteria match = new LinqCardCriteria((Card c) => IsRelay(c));
             IEnumerator searchCoroutine = base.SearchForCards(base.HeroTurnTakerController, true, false, new int?(1), 1, match, false, true, false, optional: false, shuffleAfterwards: new bool?(true));
             if (base.UseUnityCoroutines)
             {

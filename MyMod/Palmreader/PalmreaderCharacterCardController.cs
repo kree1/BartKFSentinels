@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class TheGoalieCharacterCardController : HeroCharacterCardController
+    public class PalmreaderCharacterCardController : HeroCharacterCardController
     {
-        public TheGoalieCharacterCardController(Card card, TurnTakerController turnTakerController)
+        public PalmreaderCharacterCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -22,7 +22,7 @@ namespace BartKFSentinels.TheGoalie
             int meleeTargets = GetPowerNumeral(0, 1);
             int meleeDamage = GetPowerNumeral(1, 0);
             int projectileDamage = GetPowerNumeral(2, 1);
-            // "{TheGoalieCharacter} may deal 1 target 0 melee damage. {TheGoalieCharacter} may deal another target 1 projectile damage."
+            // "{PalmreaderCharacter} may deal 1 target 0 melee damage. {PalmreaderCharacter} may deal another target 1 projectile damage."
             List<DealDamageAction> damaged = new List<DealDamageAction>();
             IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), meleeDamage, DamageType.Melee, meleeTargets, false, 0, storedResultsDamage: damaged, cardSource: GetCardSource());
             IEnumerator projectileCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.CharacterCard), projectileDamage, DamageType.Projectile, 1, false, 0, additionalCriteria: (Card c) => !damaged.Select((DealDamageAction dda) => dda.Target).Contains(c), storedResultsDamage: damaged, cardSource: GetCardSource());

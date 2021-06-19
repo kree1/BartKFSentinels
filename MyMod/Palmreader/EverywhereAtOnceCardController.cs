@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class ParkTheBusCardController : TheGoalieUtilityCardController
+    public class EverywhereAtOnceCardController : PalmreaderUtilityCardController
     {
-        public ParkTheBusCardController(Card card, TurnTakerController turnTakerController)
+        public EverywhereAtOnceCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -20,9 +20,9 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Redirect all damage that would be dealt to hero targets to {TheGoalieCharacter}."
+            // "Redirect all damage that would be dealt to hero targets to {PalmreaderCharacter}."
             AddRedirectDamageTrigger((DealDamageAction dda) => dda.Target.IsHero && dda.Target != base.CharacterCard, () => base.CharacterCard);
-            // "Reduce damage dealt to {TheGoalieCharacter} by 1."
+            // "Reduce damage dealt to {PalmreaderCharacter} by 1."
             AddReduceDamageTrigger((Card c) => c == base.CharacterCard, 1);
             // "At the start of your turn, discard 3 cards or destroy this card."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardOrDestroyResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.DestroySelf });

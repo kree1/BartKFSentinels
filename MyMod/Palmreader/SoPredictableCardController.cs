@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class ReturnToSenderCardController : TheGoalieUtilityCardController
+    public class SoPredictableCardController : PalmreaderUtilityCardController
     {
-        public ReturnToSenderCardController(Card card, TurnTakerController turnTakerController)
+        public SoPredictableCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -23,7 +23,7 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "The first time {TheGoalieCharacter} is dealt damage by a target each turn, {TheGoalieCharacter} may deal that target 1 projectile damage."
+            // "The first time {PalmreaderCharacter} is dealt damage by a target each turn, {PalmreaderCharacter} may deal that target 1 projectile damage."
             this.DamageResponseTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamage) && dda.Target == base.CharacterCard && dda.DamageSource.IsTarget && dda.Amount > 0, CounterDamageResponse, TriggerType.DealDamage, TriggerTiming.After, requireActionSuccess: true, isActionOptional: true);
         }
 
@@ -40,7 +40,7 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(drawCoroutine);
             }
-            // "Increase the next damage dealt by {TheGoalieCharacter} by 2."
+            // "Increase the next damage dealt by {PalmreaderCharacter} by 2."
             IncreaseDamageStatusEffect increaseEffect = new IncreaseDamageStatusEffect(powerNumeral);
             increaseEffect.SourceCriteria.IsSpecificCard = base.CharacterCard;
             increaseEffect.NumberOfUses = 1;
@@ -59,7 +59,7 @@ namespace BartKFSentinels.TheGoalie
 
         public IEnumerator CounterDamageResponse(DealDamageAction dda)
         {
-            // "... {TheGoalieCharacter} may deal that target 1 projectile damage."
+            // "... {PalmreaderCharacter} may deal that target 1 projectile damage."
             if (dda.DamageSource.IsCard)
             {
                 base.SetCardPropertyToTrueIfRealAction(FirstDamage);

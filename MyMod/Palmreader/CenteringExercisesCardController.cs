@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class ExtraTimeCardController : TheGoalieUtilityCardController
+    public class CenteringExercisesCardController : PalmreaderUtilityCardController
     {
-        public ExtraTimeCardController(Card card, TurnTakerController turnTakerController)
+        public CenteringExercisesCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -29,7 +29,7 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(shuffleCoroutine);
             }
-            // "{TheGoalieCharacter} regains 4 HP."
+            // "{PalmreaderCharacter} regains 4 HP."
             IEnumerator healCoroutine = base.GameController.GainHP(base.CharacterCard, new int?(4), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {

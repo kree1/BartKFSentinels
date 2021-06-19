@@ -7,17 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.TheGoalie
+namespace BartKFSentinels.Palmreader
 {
-    public class EighteenYardBoxCardController : TheGoalieUtilityCardController
+    public class SignalTapCardController : PalmreaderUtilityCardController
     {
-        public EighteenYardBoxCardController(Card card, TurnTakerController turnTakerController)
+        public SignalTapCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             AllowFastCoroutinesDuringPretend = false;
             RunModifyDamageAmountSimulationForThisCard = false;
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumGoalpostsInPlay() > 0;
-            SpecialStringMaker.ShowSpecialString(() => "There are no Goalposts cards in play.").Condition = () => NumGoalpostsInPlay() <= 0;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumRelaysInPlay() > 0;
+            SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in play.").Condition = () => NumRelaysInPlay() <= 0;
             SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "targets", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlay;
         }
 
@@ -44,15 +44,15 @@ namespace BartKFSentinels.TheGoalie
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "When damage would be dealt to or by (TheGoalieCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
+            // "When damage would be dealt to or by (PalmreaderCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
             _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
         }
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, move it to a play area with no other Goalposts cards."
+            // "When this card enters play, move it to a play area with no other Relay cards."
             List<SelectTurnTakerDecision> decisions = new List<SelectTurnTakerDecision>();
-            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsGoalposts(c)).Count() == 0 || tt.PlayArea.Cards.Where((Card c) => IsGoalposts(c)).Count() == 1 && tt.PlayArea == base.Card.Location, cardSource: GetCardSource());
+            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsRelay(c)).Count() == 0 || tt.PlayArea.Cards.Where((Card c) => IsRelay(c)).Count() == 1 && tt.PlayArea == base.Card.Location, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(directCoroutine);
@@ -74,8 +74,8 @@ namespace BartKFSentinels.TheGoalie
                     base.GameController.ExhaustCoroutine(moveCoroutine);
                 }
             }
-            // "You may play a Goalposts card from your trash."
-            IEnumerator playCoroutine = base.GameController.SelectAndPlayCard(base.HeroTurnTakerController, base.FindCardsWhere(new LinqCardCriteria((Card c) => IsGoalposts(c) && c.Location == base.TurnTaker.Trash)), optional: true, isPutIntoPlay: false, cardSource: GetCardSource());
+            // "You may play a Relay card from your trash."
+            IEnumerator playCoroutine = base.GameController.SelectAndPlayCard(base.HeroTurnTakerController, base.FindCardsWhere(new LinqCardCriteria((Card c) => IsRelay(c) && c.Location == base.TurnTaker.Trash)), optional: true, isPutIntoPlay: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
@@ -84,8 +84,8 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            // "Then, destroy all but 2 Goalposts cards."
-            IEnumerator destroyCoroutine = DestroyExcessGoalpostsResponse();
+            // "Then, destroy all but 2 Relay cards."
+            IEnumerator destroyCoroutine = DestroyExcessRelaysResponse();
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
