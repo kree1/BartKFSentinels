@@ -27,13 +27,13 @@
 			],
 			"incapacitatedAbilities":[
 				"Select a target. Reduce the next damage dealt to that target by 2.",
-				"Select a target. Increase the next damage dealt by that target by 2.",
-				"The 2 hero targets with the lowest HP regain 1 HP each."
+				"One player may draw a card now.",
+				"Put an Ongoing card from a trash on top of its deck."
 			],
 			"flippedIcons":[
 				"ReduceDamageTaken",
-				"IncreaseDamageDealt",
-				"GainHP"
+				"DrawCardNow",
+				"Manipulate"
 			],
 			"complexity":2,
 			"openingLines":{

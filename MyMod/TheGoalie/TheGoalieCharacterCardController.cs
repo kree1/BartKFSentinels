@@ -115,40 +115,45 @@ namespace BartKFSentinels.TheGoalie
 
         private IEnumerator UseIncapOption2()
         {
-            // "Select a target. Increase the next damage dealt by that target by 2."
-            IEnumerator increaseCoroutine = base.GameController.SelectTargetAndIncreaseNextDamage(base.HeroTurnTakerController, 2, 1, cardSource: GetCardSource());
+            // "One player may draw a card now."
+            IEnumerator drawCoroutine = base.GameController.SelectHeroToDrawCard(base.HeroTurnTakerController, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(increaseCoroutine);
+                yield return base.GameController.StartCoroutine(drawCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(increaseCoroutine);
+                base.GameController.ExhaustCoroutine(drawCoroutine);
             }
             yield break;
         }
 
         private IEnumerator UseIncapOption3()
         {
-            // "The 2 hero targets with the lowest HP regain 1 HP each."
-            List<Card> lowestHeroTargets = new List<Card>();
-            IEnumerator findLowestCoroutine = base.GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => c.IsHero, lowestHeroTargets, evenIfCannotDealDamage: true, optional: false, cardSource: GetCardSource());
+            // "Put an Ongoing card from a trash on top of its deck."
+            List<SelectCardDecision> selection = new List<SelectCardDecision>();
+            IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.MoveCardOnDeck, new LinqCardCriteria((Card c) => c.IsOngoing && c.IsInTrash), selection, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(findLowestCoroutine);
+                yield return base.GameController.StartCoroutine(selectCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(findLowestCoroutine);
+                base.GameController.ExhaustCoroutine(selectCoroutine);
             }
-            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => lowestHeroTargets.Contains(c), 1, optional: false, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (selection.Any((SelectCardDecision d) => d.Completed && d.SelectedCard != null))
             {
-                yield return base.GameController.StartCoroutine(healCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(healCoroutine);
+                Card selected = selection.FirstOrDefault().SelectedCard;
+                Location deck = selected.Owner.Deck;
+                IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, selected, deck, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(moveCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(moveCoroutine);
+                }
             }
             yield break;
         }
