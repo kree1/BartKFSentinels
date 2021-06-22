@@ -37,7 +37,7 @@
 			"complexity":2,
 			"openingLines":{
 				"default": "I already know your next move, but you may as well try.",
-				"OblivAeonFrontPageCharacter": "...\nI don't know if I have a counter for this."
+				"OblivAeonFrontPageCharacter": "There's a counter for every attack. We just need to find yours."
 			}
 		},
 		{
@@ -54,15 +54,16 @@
 			"icons":[
 				"Search",
 				"DestroyOngoing",
+				"DestroyEnvironment",
 				"PlayCardNow"
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Nothing personal, I'm just{BR}not a fan of your decor."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "CenteringExercises",
@@ -85,11 +86,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Reading lots of people's{BR}bodies can get... weird, after a while."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "EverywhereAtOnce",
@@ -112,11 +113,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Mr. Fixer",
+					"text": "Hmm. Good reaction time."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Mr. Fixer"
 		},
 		{
 			"identifier": "Hyperfocus",
@@ -139,11 +140,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "How's that decryption coming?{BR}Not that I'm not enjoying this..."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "IdleHands",
@@ -162,11 +163,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Seriously, have you guys ever{BR}even fought together before?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "IrresistibleUrge",
@@ -185,11 +186,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "I'm gonna feel [b]that[/b] in the{BR}morning... assuming we survive."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "JoinHands",
@@ -204,16 +205,17 @@
 				"One hero may use a power."
 			],
 			"icons":[
-				"Manipulate",
-				"GainHP"
+				"Discard",
+				"GainHP",
+				"UsePower"
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Fission",
+					"text": "Hey, what the hell are you--{BR}[b]oh.[/b] Never mind, we're cool."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Fission"
 		},
 		{
 			"identifier": "MentalLock",
@@ -235,11 +237,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "The right force in the right{BR}place can move a mountain. I had a{BR}teacher once who said that."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "MomentaryFugue",
@@ -254,16 +256,18 @@
 				"You may play a Relay card or draw 3 cards."
 			],
 			"icons":[
-				"Destroy",
+				"Manipulate",
+				"DealDamageMelee",
+				"PlayCardNow",
 				"DrawCardNow"
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Sorry, where were we?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "PreciseDeflection",
@@ -283,11 +287,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Oh man, you thought I was{BR}using my [b]eyes[/b] to watch you? Priceless."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "QuickerThanTheMind",
@@ -306,11 +310,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Sometimes, the worst thing you{BR}can do is plan too far ahead."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "SignalFlare",
@@ -329,11 +333,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Cover me for a second.{BR}I think I can finish this."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "SignalSuppression",
@@ -355,11 +359,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Visionary",
+					"text": "It's like your body is a car that{BR}someone else is driving. I can read your{BR}thoughts, yes, but not [b]predict[/b] you."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Visionary"
 		},
 		{
 			"identifier": "SignalTap",
@@ -381,11 +385,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "Another day,{BR}another wall of thugs."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		},
 		{
 			"identifier": "SoPredictable",
@@ -409,11 +413,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Palmreader",
+					"text": "A spinning kick? Really?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Palmreader"
 		}
 	]
 }

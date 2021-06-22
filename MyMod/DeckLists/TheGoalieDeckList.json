@@ -58,11 +58,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Acolyte",
+					"text": "Impossible! None can{BR}overcome such despair!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Acolyte"
 		},
 		{
 			"identifier": "DefensiveFunnel",
@@ -82,11 +82,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "They're all coming this way?{BR}Great job, team."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "ExtraTime",
@@ -107,11 +107,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "It's okay! I'll catch up."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "GoalieGloves",
@@ -134,11 +134,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "You are [b]covered[/b] in my friend's{BR}blood. By all means, keep talking."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "HospitalBall",
@@ -158,11 +158,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Eww, rat germs!{BR}... wait, [b]really!?[/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "HuddleUp",
@@ -182,11 +182,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Here, take a minute.{BR}This is a safe space."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "MoveTheGoalposts",
@@ -208,11 +208,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Nope! Not safe!{BR}Everybody out!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "Offsides",
@@ -232,11 +232,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Heartbreaker",
+					"text": "Oh, did the heroes bring a{BR}cheering section? How sw-- [b]OOF![/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Heartbreaker"
 		},
 		{
 			"identifier": "OutOfBounds",
@@ -257,11 +257,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Lacuna? Velocity? Anybody?{BR}... Fine, I'll do it myself."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "ParkTheBus",
@@ -283,11 +283,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Don't worry.{BR}I'll cover the exit."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "PlaceOfPower",
@@ -310,11 +310,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Absolute Zero",
+					"text": "So you have all these powers,{BR}but only if you plant them first?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Absolute Zero"
 		},
 		{
 			"identifier": "ReturnToSender",
@@ -335,11 +335,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Bunker",
+					"text": "And having caught the car,{BR}you decided to throw it [b]back?[/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Bunker"
 		},
 		{
 			"identifier": "Shootout",
@@ -357,11 +357,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Anyone else?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "StartingWhistle",
@@ -382,11 +382,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Hey, they have a big guy!{BR}I call dibs!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "TeamSpirit",
@@ -405,11 +405,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Baron Blade gets knocked down{BR}all the time, and he always gets back up{BR}again. But so do you."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		},
 		{
 			"identifier": "TwelfthGirl",
@@ -429,11 +429,11 @@
 			],
 			"flavorQuotes":[
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Goalie",
+					"text": "Hey! Harpoon guy! Are you in{BR}a highlight reel or a fight? Get serious!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Goalie"
 		}
 	],
 	"promoCards": [
