@@ -42,49 +42,6 @@ namespace BartKFSentinels.Breakaway
             }
         }
 
-        public override IEnumerator DeterminePlayLocation(List<MoveCardDestination> storedResults, bool isPutIntoPlay, List<IDecision> decisionSources, Location overridePlayArea = null, LinqTurnTakerCriteria additionalTurnTakerCriteria = null)
-        {
-            // Both sides: "This card has a maximum HP of {H * 4}"
-            IEnumerator maxHPCoroutine = base.GameController.ChangeMaximumHP(base.Card, Game.H * 4, true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(maxHPCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(maxHPCoroutine);
-            }
-
-            IEnumerator determineCoroutine = base.DeterminePlayLocation(storedResults, isPutIntoPlay, decisionSources, overridePlayArea, additionalTurnTakerCriteria);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(determineCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(determineCoroutine);
-            }
-        }
-
-        public override IEnumerator AfterFlipCardImmediateResponse()
-        {
-            IEnumerator baseFlipResponse = base.AfterFlipCardImmediateResponse();
-            // Both sides: "This card has a maximum HP of {H * 4}"
-            IEnumerator maxHPCoroutine = base.GameController.ChangeMaximumHP(base.Card, Game.H * 4, false, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(baseFlipResponse);
-                yield return base.GameController.StartCoroutine(maxHPCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(baseFlipResponse);
-                base.GameController.ExhaustCoroutine(maxHPCoroutine);
-            }
-
-            yield break;
-        }
-
         public override bool AskIfCardIsIndestructible(Card card)
         {
             // Both sides: "This card ... is indestructible."

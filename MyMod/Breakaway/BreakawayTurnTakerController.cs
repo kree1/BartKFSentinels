@@ -12,7 +12,8 @@ namespace BartKFSentinels.Breakaway
     {
         public BreakawayTurnTakerController(TurnTaker turnTaker, GameController gameController): base(turnTaker, gameController)
         {
-
+            Card momentumCard = base.TurnTaker.FindCard("MomentumCharacter");
+            momentumCard.SetMaximumHP(H * 4, true);
         }
 
         public override IEnumerator StartGame()

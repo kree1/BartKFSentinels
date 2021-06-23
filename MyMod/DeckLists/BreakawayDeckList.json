@@ -108,7 +108,6 @@
                 "StartAndEndOfTurnAction",
                 "GainHP"
             ],
-            "flippedHitpoints":20,
             "flippedHitpointText":"*"
         },
         {
