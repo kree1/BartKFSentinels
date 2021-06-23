@@ -545,7 +545,7 @@ namespace BartKFSentinels.Breakaway
                     chosenNames += ", " + heroTargetsChosen.ElementAt(1).Title;
                 }
             }
-            Log.Debug("heroTargetsChosen after ownerChoiceCoroutine: " + chosenNames);
+            //Log.Debug("heroTargetsChosen after ownerChoiceCoroutine: " + chosenNames);
             // Find the hero target with the highest HP other than that one
             Card firstTarget = heroTargetsChosen.First();
             List<Card> highestHeroTargets = new List<Card>();
@@ -568,7 +568,7 @@ namespace BartKFSentinels.Breakaway
                     chosenNames += ", " + heroTargetsChosen.ElementAt(1).Title;
                 }
             }
-            Log.Debug("heroTargetsChosen after secondChoiceCoroutine: " + chosenNames);
+            //Log.Debug("heroTargetsChosen after secondChoiceCoroutine: " + chosenNames);
             // Deal damage
             IEnumerator damageCoroutine = base.GameController.DealDamage(this.DecisionMaker, this.Card, (Card c) => heroTargetsChosen.Contains(c), 0, DamageType.Melee, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)

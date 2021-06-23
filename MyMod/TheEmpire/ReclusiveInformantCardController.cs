@@ -41,8 +41,8 @@ namespace BartKFSentinels.TheEmpire
             // "... this card deals itself 2 psychic damage. One player may destroy an Equipment card to reduce this damage by 2."
             DealDamageAction previewDamage = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), base.Card, 2, DamageType.Psychic);
             IEnumerable<Card> eqpInPlay = base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.DoKeywordsContain("equipment") && c.IsInPlayAndHasGameText), visibleToCard: GetCardSource());
-            Log.Debug("eqpInPlay.Count(): " + eqpInPlay.Count().ToString());
-            Log.Debug("eqpInPlay.Any(): " + eqpInPlay.Any().ToString());
+            //Log.Debug("eqpInPlay.Count(): " + eqpInPlay.Count().ToString());
+            //Log.Debug("eqpInPlay.Any(): " + eqpInPlay.Any().ToString());
             if (eqpInPlay.Any())
             {
                 List<YesNoCardDecision> chooseToDestroy = new List<YesNoCardDecision>();

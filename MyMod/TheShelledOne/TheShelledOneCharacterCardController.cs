@@ -213,17 +213,17 @@ namespace BartKFSentinels.TheShelledOne
                 }
                 // "Put a random Pitcher and a random Batter from among them into play."
                 IEnumerable<Card> revealedCards = base.TurnTaker.Revealed.Cards;
-                Log.Debug("underCards.Count(): " + revealedCards.Count().ToString());
-                foreach (Card c in revealedCards)
+                //Log.Debug("underCards.Count(): " + revealedCards.Count().ToString());
+                /*foreach (Card c in revealedCards)
                 {
                     Log.Debug("Title: " + c.Title);
                     foreach (string k in c.GetKeywords())
                     {
                         Log.Debug("    Keyword: " + k);
                     }
-                }
+                }*/
                 IEnumerable <Card> revealedPitchers = base.TurnTaker.Revealed.Cards.Where((Card c) => c.DoKeywordsContain("pitcher"));
-                Log.Debug("revealedPitchers.Count(): " + revealedPitchers.Count().ToString());
+                //Log.Debug("revealedPitchers.Count(): " + revealedPitchers.Count().ToString());
                 Card pitcherAssigned = revealedPitchers.ElementAt(Game.RNG.Next(0, revealedPitchers.Count()));
                 IEnumerator fieldPitcherCoroutine = base.GameController.PlayCard(base.TurnTakerController, pitcherAssigned, isPutIntoPlay: true, responsibleTurnTaker: base.TurnTaker, evenIfAlreadyInPlay: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -235,7 +235,7 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(fieldPitcherCoroutine);
                 }
                 IEnumerable<Card> revealedBatters = base.TurnTaker.Revealed.Cards.Where((Card c) => c.DoKeywordsContain("batter"));
-                Log.Debug("revealedBatters.Count(): " + revealedBatters.Count().ToString());
+                //Log.Debug("revealedBatters.Count(): " + revealedBatters.Count().ToString());
                 Card batterAssigned = revealedBatters.ElementAt(Game.RNG.Next(0, revealedBatters.Count()));
                 IEnumerator fieldBatterCoroutine = base.GameController.PlayCard(base.TurnTakerController, batterAssigned, isPutIntoPlay: true, responsibleTurnTaker: base.TurnTaker, evenIfAlreadyInPlay: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)

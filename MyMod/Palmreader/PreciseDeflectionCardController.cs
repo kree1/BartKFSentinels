@@ -31,7 +31,7 @@ namespace BartKFSentinels.Palmreader
 
         public IEnumerator OneDamageResponse(DealDamageAction dda)
         {
-            Log.Debug("TwelfthGirlCardController.OneDamageResponse activated");
+            //Log.Debug("PreciseDeflectionCardController.OneDamageResponse activated");
             // "... you may..."
             List<YesNoCardDecision> choice = new List<YesNoCardDecision>();
             IEnumerator chooseCoroutine = base.GameController.MakeYesNoCardDecision(base.HeroTurnTakerController, SelectionType.PreventDamage, base.Card, dda, choice, cardSource: GetCardSource());
