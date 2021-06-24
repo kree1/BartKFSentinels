@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Handelabra;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace BartKFSentinels.Breakaway
         public BreakawayTurnTakerController(TurnTaker turnTaker, GameController gameController): base(turnTaker, gameController)
         {
             Card momentumCard = base.TurnTaker.FindCard("MomentumCharacter");
-            momentumCard.SetMaximumHP(H * 4, true);
+            Log.Debug("Setting Momentum's max HP to " + (H * 4).ToString() + "...");
+            momentumCard.SetMaximumHP(H * 4, false);
         }
 
         public override IEnumerator StartGame()
@@ -27,6 +29,18 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 this.GameController.ExhaustCoroutine(startingHPCoroutine);
+            }
+
+            // Set Momentum's current HP to its max HP
+            Card momentumCard = base.TurnTaker.FindCard("MomentumCharacter");
+            IEnumerator momentumHPCoroutine = base.GameController.SetHP(momentumCard, momentumCard.MaximumHitPoints.Value, cardSource: base.GameController.FindCardController(momentumCard).GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return this.GameController.StartCoroutine(momentumHPCoroutine);
+            }
+            else
+            {
+                this.GameController.ExhaustCoroutine(momentumHPCoroutine);
             }
 
             yield break;

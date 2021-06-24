@@ -21,7 +21,7 @@ namespace BartKFSentinels.Impulse
         {
             base.AddTriggers();
             // "When that target would be dealt damage, prevent that damage and destroy this card."
-            AddTrigger<DealDamageAction>((DealDamageAction dda) => !dda.IsPretend && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0 && !base.Card.IsBeingDestroyed, DealtDamageResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
+            AddTrigger<DealDamageAction>((DealDamageAction dda) => !dda.IsPretend && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0 && !base.Card.IsBeingDestroyed, DealtDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DestroySelf, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
             // "When this card is destroyed, you may draw a card or use a power."
             AddWhenDestroyedTrigger(OnDestroyResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.UsePower });
         }
