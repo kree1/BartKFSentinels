@@ -37,7 +37,7 @@
 			],
 			"complexity":2,
 			"openingLines":{
-				"default": "You're not getting past me.",
+				"default": "Don't worry, team. They're not getting past me.",
 				"OblivAeonFrontPageCharacter": "You're over the line."
 			}
 		},
@@ -471,7 +471,7 @@
 			],
 			"complexity": 2,
 			"openingLines":{
-				"default": "Get in there, team. I've got your backs.",
+				"default": "Ready to think outside the box?",
 				"OblivAeonFrontPageCharacter": "I'd watch the five-hole if I were you."
 			}
 		}
