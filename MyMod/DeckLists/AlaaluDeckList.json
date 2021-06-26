@@ -93,7 +93,7 @@
 			"hitpoints": 9,
 			"body": [
 				"At the end of the environment turn, this card deals the hero target with the highest HP 4 psychic damage. The player whose target takes damage this way may draw a card and their hero may use a power.",
-				"At the start of the environment turn, reveal the top card of the environment deck and play or discard it. Then, this card deals each Wizard 2 psychic damage."
+				"At the start of the environment turn, reveal the top card of the environment deck. If it's a target, discard it. If not, play it. Then, this card deals each Wizard 2 psychic damage."
 			],
 			"icons": [
 				"StartAndEndOfTurnAction",
@@ -148,7 +148,7 @@
 			"body": [
 				"Whenever a target is dealt damage, that target regains 2 HP.",
 				"Players may draw an additional card during their draw phase.",
-				"Whenever any player draws three or more cards in a single round, destroy this card and play the top card of the environment deck."
+				"Whenever any player draws three or more cards in a single round, destroy this card and play the top card of the villain deck."
 			],
 			"icons": [
 				"GainHP",
@@ -232,16 +232,16 @@
 			],
 			"hitpoints": 6,
 			"body": [
-				"At the end of the environment turn, each other target regains 1 HP. Then, each other target with 3 or fewer HP regains 1 HP.",
-				"At the start of the environment turn, 1 player may discard a card. If they do, destroy all Myths.",
-				"Whenever a player draws a card, reduce the next damage dealt to a character card by 1."
+				"Reduce the first damage dealt each turn by 1.",
+				"At the end of the environment turn, each other target regains 1 HP. Then, each non-environment target regains 1 HP.",
+				"At the start of the environment turn, 1 player may discard a card. If they do, destroy all Myths."
 			],
 			"icons": [
+				"ReduceDamageDealt",
 				"StartAndEndOfTurnAction",
 				"GainHP",
 				"Discard",
-				"DestroyEnvironment",
-				"ReduceDamageTaken"
+				"DestroyEnvironment"
 			],
 			"flavorText": "“I keep getting this feeling that there's{BR}something else that's supposed to be{BR}happening, something I haven't noticed.{BR}And I do stop and look. But so far...”",
 			"flavorQuotes": [
@@ -290,13 +290,13 @@
 			],
 			"body": [
 				"At the end of the environment turn, search the environment deck and trash for [i]The Heart of the World[/i] and put it into play. If you searched the environment deck, shuffle it.",
-				"All damage is irreducible.",
+				"Increase all damage by 2.",
 				"When a Location is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Location from the game."
 			],
 			"icons": [
 				"EndOfTurnAction",
 				"Search",
-				"MakeDamageIrreducible",
+				"IncreaseDamageDealt",
 				"GainHP",
 				"RemoveFromGame"
 			],
@@ -347,7 +347,7 @@
 				"myth"
 			],
 			"body": [
-				"At the end of the environment turn, play the top card of the environment deck.",
+				"At the end of the environment turn, put a villain target from the villain trash into play.",
 				"At the start of the environment turn, put the top card of a hero trash into play. If that card is a One-Shot, deal the associated hero {H - 1} psychic damage and destroy this card."
 			],
 			"icons": [

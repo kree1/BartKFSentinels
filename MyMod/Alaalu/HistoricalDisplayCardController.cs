@@ -24,18 +24,24 @@ namespace BartKFSentinels.Alaalu
             AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Target.IsInPlayAndHasGameText, (DealDamageAction dda) => base.GameController.GainHP(dda.Target, 2, cardSource: GetCardSource()), TriggerType.GainHP, TriggerTiming.After);
             // "Players may draw an additional card during their draw phase."
             AddAdditionalPhaseActionTrigger((TurnTaker tt) => ShouldIncreasePhaseActionCount(tt), Phase.DrawCard, 1);
-            // "Whenever any player draws three or more cards in a single round, destroy this card and play the top card of the environment deck."
+            // "Whenever any player draws three or more cards in a single round, destroy this card and play the top card of the villain deck."
             AddTrigger<DrawCardAction>((DrawCardAction dca) => true, CheckDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
         public IEnumerator CheckDestructResponse(DrawCardAction dca)
         {
-            // Determine whether this is the player's 3rd (or more) draw this round
+            // Determine whether this is the player's 3rd (or more) draw this round since this card entered play
+            PlayCardJournalEntry thisCardPlayed = base.GameController.Game.Journal.QueryJournalEntries((PlayCardJournalEntry e) => e.CardPlayed == base.Card).LastOrDefault();
+            int? playedIndex = base.GameController.Game.Journal.GetEntryIndex(thisCardPlayed);
             IEnumerable<DrawCardJournalEntry> drawsThisRound = (from e in base.Journal.DrawCardEntries() where e.Round == Game.Round && e.Hero == dca.HeroTurnTaker select e);
+            if (playedIndex.HasValue)
+            {
+                drawsThisRound = (from e in drawsThisRound where !base.GameController.Game.Journal.GetEntryIndex(e).HasValue || base.GameController.Game.Journal.GetEntryIndex(e) > playedIndex select e);
+            }
             if (drawsThisRound.Count() >= 3)
             {
-                // If so, destroy this card and play the top card of the environment deck
-                IEnumerator destroyCoroutine = base.GameController.DestroyCard(DecisionMaker, base.Card, showOutput: true, actionSource: dca, responsibleCard: base.Card, postDestroyAction: PlayEnvironmentCardResponse, cardSource: GetCardSource());
+                // If so, destroy this card and play the top card of the villain deck
+                IEnumerator destroyCoroutine = base.GameController.DestroyCard(DecisionMaker, base.Card, showOutput: true, actionSource: dca, responsibleCard: base.Card, postDestroyAction: () => PlayTheTopCardOfTheVillainDeckWithMessageResponse(null), cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

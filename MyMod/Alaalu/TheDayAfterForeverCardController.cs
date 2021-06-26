@@ -22,8 +22,8 @@ namespace BartKFSentinels.Alaalu
             base.AddTriggers();
             // "At the end of the environment turn, search the environment deck and trash for [i]The Heart of the World[/i] and put it into play. If you searched the environment deck, shuffle it."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, ArriveResponse, TriggerType.PutIntoPlay);
-            // "All damage is irreducible."
-            AddMakeDamageIrreducibleTrigger((DealDamageAction dda) => true);
+            // "Increase all damage by 2."
+            AddIncreaseDamageTrigger((DealDamageAction dda) => true, 2);
             // "When a Location is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Location from the game."
             AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.DoKeywordsContain("location") && dca.CardSource != null && dca.CardSource.Card != null && dca.CardSource.Card.IsEnvironmentTarget, MoveOnResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.RemoveFromGame }, TriggerTiming.After);
         }

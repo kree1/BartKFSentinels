@@ -20,13 +20,68 @@ namespace BartKFSentinels.Alaalu
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of the environment turn, play the top card of the environment deck."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, PlayTheTopCardOfTheEnvironmentDeckResponse, TriggerType.PlayCard);
+            // "At the end of the environment turn, put a villain target from the villain trash into play."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, RetrieveVillainTrashResponse, TriggerType.PutIntoPlay);
             // "At the start of the environment turn, put the top card of a hero trash into play. If that card is a One-Shot, deal the associated hero (H) minus 1 psychic damage and destroy this card."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, PutIntoPlayFromTrashResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, RetrieveHeroTrashResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
         }
 
-        public IEnumerator PutIntoPlayFromTrashResponse(GameAction ga)
+        public IEnumerator RetrieveVillainTrashResponse(GameAction ga)
+        {
+            // "... put a villain target from the villain trash into play."
+            IEnumerable<Card> options = FindCardsWhere((Card c) => c.IsVillainTarget && c.Location.IsVillain && c.Location.IsTrash);
+            if (options.Count() == 1)
+            {
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction(base.Card.Title + " returns " + options.First().Title + " from the villain trash to play!", Priority.Low, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
+            }
+            List<SelectLocationDecision> locationResults = new List<SelectLocationDecision>();
+            IEnumerator chooseTrashCoroutine = FindVillainDeck(DecisionMaker, SelectionType.PutIntoPlay, locationResults, (Location deck) => FindTrashFromDeck(deck) != null && FindTrashFromDeck(deck).Cards.Any((Card c) => c.IsVillainTarget));
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(chooseTrashCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(chooseTrashCoroutine);
+            }
+            Location selectedLocation = GetSelectedLocation(locationResults);
+            if (selectedLocation != null)
+            {
+                Location trash = FindTrashFromDeck(selectedLocation);
+                IEnumerator putCoroutine = base.GameController.SelectAndPlayCard(DecisionMaker, (Card c) => c.IsVillainTarget && c.Location == trash, isPutIntoPlay: true, cardSource: GetCardSource(), noValidCardsMessage: "There are no villain targets in " + trash.GetFriendlyName() + " to put into play.");
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(putCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(putCoroutine);
+                }
+            }
+            else
+            {
+                IEnumerator failCoroutine = base.GameController.SendMessageAction("There are no villain targets in any villain trash to put into play.", Priority.Low, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(failCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(failCoroutine);
+                }
+            }
+            yield break;
+        }
+
+        public IEnumerator RetrieveHeroTrashResponse(GameAction ga)
         {
             // "... put the top card of a hero trash into play."
             List<PlayCardAction> played = new List<PlayCardAction>();

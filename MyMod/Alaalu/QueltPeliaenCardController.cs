@@ -14,18 +14,21 @@ namespace BartKFSentinels.Alaalu
         public QueltPeliaenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has reduced damage this turn", () => base.Card.Title + " has not reduced damage this turn").Condition = () => base.Card.IsInPlayAndHasGameText;
         }
+
+        protected const string OncePerTurn = "ReduceFirstDamage";
+        private ITrigger ReduceDamageTrigger;
 
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of the environment turn, each other target regains 1 HP. Then, each other target with 3 or fewer HP regains 1 HP."
+            // "Reduce the first damage dealt each turn by 1."
+            this.ReduceDamageTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Amount > 0, ReduceFirstDamageResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
+            // "At the end of the environment turn, each other target regains 1 HP. Then, each non=environment target regains 1 HP."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, MassHealResponse, TriggerType.GainHP);
             // "At the start of the environment turn, 1 player may discard a card. If they do, destroy all Myths."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardToDestroyResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.DestroyCard });
-            // "Whenever a player draws a card, reduce the next damage dealt to a character card by 1."
-            AddTrigger<DrawCardAction>((DrawCardAction dca) => true, ProtectCharactersResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
 
         public IEnumerator MassHealResponse(GameAction ga)
@@ -40,8 +43,8 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(allHealCoroutine);
             }
-            // "Then, each other target with 3 or fewer HP regains 1 HP."
-            IEnumerator weakHealCoroutine = base.GameController.GainHP(DecisionMaker, (Card c) => c != base.Card && c.HitPoints.HasValue && c.HitPoints.Value <= 3, 1, cardSource: GetCardSource());
+            // "Then, each non-environment target regains 1 HP."
+            IEnumerator weakHealCoroutine = base.GameController.GainHP(DecisionMaker, (Card c) => c.IsNonEnvironmentTarget, 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(weakHealCoroutine);
@@ -81,20 +84,18 @@ namespace BartKFSentinels.Alaalu
             yield break;
         }
 
-        public IEnumerator ProtectCharactersResponse(GameAction ga)
+        public IEnumerator ReduceFirstDamageResponse(DealDamageAction dda)
         {
-            // "... reduce the next damage dealt to a character card by 1."
-            ReduceDamageStatusEffect protection = new ReduceDamageStatusEffect(1);
-            protection.TargetCriteria.IsCharacter = true;
-            protection.NumberOfUses = 1;
-            IEnumerator statusCoroutine = base.GameController.AddStatusEffect(protection, true, GetCardSource());
+            // "Reduce the first damage dealt each turn by 1."
+            base.SetCardPropertyToTrueIfRealAction(OncePerTurn);
+            IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 1, ReduceDamageTrigger, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(statusCoroutine);
+                yield return base.GameController.StartCoroutine(reduceCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(statusCoroutine);
+                base.GameController.ExhaustCoroutine(reduceCoroutine);
             }
             yield break;
         }

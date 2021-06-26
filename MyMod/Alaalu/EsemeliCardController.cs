@@ -22,7 +22,7 @@ namespace BartKFSentinels.Alaalu
             base.AddTriggers();
             // "At the end of the environment turn, this card deals the hero target with the highest HP 4 psychic damage. The player whose target takes damage this way may draw a card and their hero may use a power."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DamageDrawPowerResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DrawCard, TriggerType.UsePower });
-            // "At the start of the environment turn, reveal the top card of the environment deck and play or discard it. Then, this card deals each Wizard 2 psychic damage."
+            // "At the start of the environment turn, reveal the top card of the environment deck. If it's a target, discard it. If not, play it. Then, this card deals each Wizard 2 psychic damage."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, RevealAttackResponse, new TriggerType[] { TriggerType.RevealCard, TriggerType.PlayCard, TriggerType.DiscardCard, TriggerType.DealDamage });
         }
 
@@ -68,8 +68,8 @@ namespace BartKFSentinels.Alaalu
 
         public IEnumerator RevealAttackResponse(GameAction ga)
         {
-            // "... reveal the top card of the environment deck and play or discard it."
-            IEnumerator revealCoroutine = RevealCard_PlayItOrDiscardIt(base.TurnTakerController, base.TurnTaker.Deck, showRevealedCards: true, responsibleTurnTaker: base.TurnTaker);
+            // "... reveal the top card of the environment deck. If it's a target, discard it. If not, play it."
+            IEnumerator revealCoroutine = RevealCard_PlayItOrDiscardIt(base.TurnTakerController, base.TurnTaker.Deck, autoPlayCriteria: new LinqCardCriteria((Card c) => !c.IsTarget), showRevealedCards: true, responsibleTurnTaker: base.TurnTaker);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(revealCoroutine);
