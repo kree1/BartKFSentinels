@@ -14,63 +14,118 @@ namespace BartKFSentinels.TheGigamorph
         public AllergicReactionCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowSpecialString(() => "No damage types are currently monitored.", showInEffectsList: () => true).Condition = () => base.Card.IsInPlayAndHasGameText && !GetMonitoredType().HasValue;
-            SpecialStringMaker.ShowSpecialString(() => GetMonitoredType().ToString() + " damage is currently monitored.", showInEffectsList: () => true).Condition = () => base.Card.IsInPlayAndHasGameText && GetMonitoredType().HasValue;
+            SpecialStringMaker.ShowSpecialString(() => "No damage types are currently [b]monitored.[/b]", showInEffectsList: () => true).Condition = () => base.Card.IsInPlayAndHasGameText && !GetMonitoredType().HasValue;
+            SpecialStringMaker.ShowSpecialString(() => GetMonitoredType().ToString() + " damage is currently [b]monitored.[/b]", showInEffectsList: () => true).Condition = () => base.Card.IsInPlayAndHasGameText && GetMonitoredType().HasValue;
             SpecialStringMaker.ShowIfElseSpecialString(() => FindCardsWhere(new LinqCardCriteria((Card c) => c.NextToLocation.Cards.Where((Card x) => x.DoKeywordsContain("antibody")).Count() > 1), visibleToCard: GetCardSource()).Count() > 0, () => "There are " + FindCardsWhere(new LinqCardCriteria((Card c) => c.NextToLocation.Cards.Where((Card x) => x.DoKeywordsContain("antibody")).Count() > 1), visibleToCard: GetCardSource()).Count().ToString() + " targets with 2 or more Antibodies.", () => "There are no targets with 2 or more Antibodies.", () => false);
         }
 
+        private readonly string MonitoredType = "MonitoredType";
+        private readonly DamageType[] typeOptions = { DamageType.Cold, DamageType.Energy, DamageType.Fire, DamageType.Infernal, DamageType.Lightning, DamageType.Melee, DamageType.Projectile, DamageType.Psychic, DamageType.Radiant, DamageType.Sonic, DamageType.Toxic };
+
         public override void AddTriggers()
         {
+            base.AddTriggers();
+            // "After a target deals 4 or more damage at once, that damage type becomes [b]monitored[/b] and all other damage types are no longer [b]monitored.[/b]"
             // "Whenever a target deals damage of a [b]monitored[/b] type, move the Antibody with the highest HP next to that target."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => GetMonitoredType().HasValue && dda.DamageSource.IsTarget && dda.DamageType == GetMonitoredType().Value, AssignAntibodyResponse, TriggerType.MoveCard, TriggerTiming.After);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.IsTarget, MoveMonitorResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ShowMessage }, TriggerTiming.After);
             // "At the start of the environment turn, if any target has 2 or more Antibodies next to it, destroy this card."
             base.AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyIfStackedResponse, TriggerType.DestroySelf);
-            base.AddTriggers();
+        }
+
+        public override IEnumerator Play()
+        {
+            SetCardProperty(MonitoredType, -1);
+            return base.Play();
         }
 
         private DamageType? GetMonitoredType()
         {
-            // Get the most recent type that was dealt in an amount >= 4 after this card entered play
-            DealDamageJournalEntry aggravated = base.GameController.Game.Journal.MostRecentDealDamageEntry((DealDamageJournalEntry dde) => dde.Amount >= 4);
-            PlayCardJournalEntry monitoring = base.GameController.Game.Journal.QueryJournalEntries<PlayCardJournalEntry>((PlayCardJournalEntry pce) => pce.CardPlayed == base.Card).LastOrDefault();
-            if (monitoring != null)
+            int? monitoredIndex = base.GetCardPropertyJournalEntryInteger(MonitoredType);
+            if (monitoredIndex.HasValue && monitoredIndex.Value >= 0 && monitoredIndex.Value < typeOptions.Length)
             {
-                int? aggravatedIndex = base.GameController.Game.Journal.GetEntryIndex(aggravated);
-                int? monitoringIndex = base.GameController.Game.Journal.GetEntryIndex(monitoring);
-                if (aggravatedIndex.HasValue && monitoringIndex.HasValue && aggravatedIndex.Value > monitoringIndex.Value)
-                {
-                    return aggravated.DamageType;
-                }
+                return typeOptions[monitoredIndex.Value];
             }
             return null;
         }
 
-        public IEnumerator AssignAntibodyResponse(DealDamageAction dda)
+        public IEnumerator MoveMonitorResponse(DealDamageAction dda)
         {
-            // "Whenever a target deals damage of a [b]monitored[/b] type, move the Antibody with the highest HP next to that target."
-            Card source = dda.DamageSource.Card;
-            MoveCardAction example = new MoveCardAction(GetCardSource(), null, source.NextToLocation, false, 0, null, base.TurnTaker, false, dda, false, true, false, true);
-            List<Card> toAssign = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.DoKeywordsContain("antibody"), toAssign, gameAction: example, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            // When a target deals damage, two things happen, IN ORDER:
+            // 1: if the damage type was already monitored, move an Antibody next to the source
+            if (GetMonitoredType().HasValue && dda.DamageType == GetMonitoredType().Value)
             {
-                yield return base.GameController.StartCoroutine(findCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(findCoroutine);
-            }
-            if (toAssign != null && toAssign.Count() > 0)
-            {
-                Card antibodyToMove = toAssign.FirstOrDefault();
-                IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, antibodyToMove, source.NextToLocation, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, actionSource: dda, doesNotEnterPlay: true, cardSource: GetCardSource());
+                //Log.Debug("AllergicReactionCardController.MoveMonitorResponse: damage type (" + dda.DamageType.ToString() + ") is Monitored");
+                //Log.Debug("Finding Antibody to assign...");
+                IEnumerable<Card> antibodiesInPlay = base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("antibody") && c.IsTarget), visibleToCard: GetCardSource());
+                /*Log.Debug("(" + antibodiesInPlay.Count().ToString() + " Antibody cards in play)");
+                foreach (Card antibodyTarget in antibodiesInPlay)
+                {
+                    string locName = antibodyTarget.Location.GetFriendlyName();
+                    if (locName.StartsWith("next to"))
+                    {
+                        Log.Debug("Antibody found (" + antibodyTarget.Title + ") " + antibodyTarget.Location.GetFriendlyName() + ", with " + antibodyTarget.HitPoints.Value.ToString() + " HP");
+                    }
+                    else
+                    {
+                        Log.Debug("Antibody found (" + antibodyTarget.Title + ") in " + antibodyTarget.Location.GetFriendlyName() + ", with " + antibodyTarget.HitPoints.Value.ToString() + " HP");
+                    }
+                }*/
+                if (antibodiesInPlay.Count() > 0)
+                {
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction(dda.DamageSource.Card.Title + " dealt " + dda.DamageType.ToString() + " damage, which is [b]monitored![/b]{BR}Allergic Reaction moves an Antibody next to the source of the damage...", Priority.Medium, GetCardSource(), showCardSource: true);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                    }
+                }
+                Card source = dda.DamageSource.Card;
+                List<Card> toAssign = new List<Card>();
+                IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.DoKeywordsContain("antibody"), toAssign, evenIfCannotDealDamage: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(moveCoroutine);
+                    yield return base.GameController.StartCoroutine(findCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(moveCoroutine);
+                    base.GameController.ExhaustCoroutine(findCoroutine);
+                }
+                //Log.Debug("findCoroutine finished");
+                //Log.Debug("toAssign: " + toAssign.ToString());
+                if (toAssign != null && toAssign.Count() > 0)
+                {
+                    //Log.Debug("toAssign != null && toAssign.Count() > 0");
+                    //Log.Debug("(toAssign.Count(): " + toAssign.Count().ToString() + ")");
+                    Card antibodyToMove = toAssign.FirstOrDefault();
+                    //Log.Debug("Moving " + antibodyToMove.Title + " (currently at " + antibodyToMove.Location.GetFriendlyName() + ", with " + antibodyToMove.HitPoints.Value.ToString() + " HP)...");
+                    IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, antibodyToMove, source.NextToLocation, playCardIfMovingToPlayArea: false, showMessage: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, actionSource: dda, doesNotEnterPlay: true, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(moveCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(moveCoroutine);
+                    }
+                }
+            }
+            else if (dda.Amount >= 4)
+            {
+                // 2: if the damage type wasn't already monitored and the damage amount was at least 4, switch the monitored type to the type dealt
+                base.SetCardProperty(MonitoredType, typeOptions.IndexOf(dda.DamageType).Value);
+                //Log.Debug("AllergicReaction.MoveMonitorResponse: damage amount is " + dda.Amount.ToString() + "(>=4)");
+                //Log.Debug(GetMonitoredType().Value.ToString() + " damage is now [b]monitored.[/b]");
+                IEnumerator messageCoroutine = base.GameController.SendMessageAction(GetMonitoredType().Value.ToString() + " damage is now [b]monitored.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
             }
             yield break;
