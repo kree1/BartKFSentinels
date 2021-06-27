@@ -26,7 +26,8 @@ namespace BartKFSentinels.TheGoalie
             int meleeAmt = GetPowerNumeral(1, 1);
             int coldAmt = GetPowerNumeral(2, 1);
             // "Play a Goalposts card from your trash."
-            IEnumerator playCoroutine = base.GameController.SelectAndMoveCard(base.HeroTurnTakerController, (Card c) => c.DoKeywordsContain("goalposts") && c.Location == base.TurnTaker.Trash, base.TurnTaker.PlayArea, cardSource: GetCardSource());
+            List<PlayCardAction> playResults = new List<PlayCardAction>();
+            IEnumerator playCoroutine = base.GameController.SelectAndPlayCard(base.HeroTurnTakerController, (Card c) => c.DoKeywordsContain("goalposts") && c.Location == base.TurnTaker.Trash, storedResults: playResults, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
@@ -35,18 +36,43 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            // "{TheGoalieCharacter} deals 1 target 1 melee damage and 1 cold damage."
-            List<DealDamageAction> instances = new List<DealDamageAction>();
-            instances.Add(new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, meleeAmt, DamageType.Melee));
-            instances.Add(new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, coldAmt, DamageType.Cold));
-            IEnumerator damageCoroutine = SelectTargetsAndDealMultipleInstancesOfDamage(instances, minNumberOfTargets: numTargets, maxNumberOfTargets: numTargets);
+            Log.Debug("playResults.Count(): " + playResults.Count().ToString());
+            foreach(PlayCardAction pca in playResults)
+            {
+                Log.Debug("    " + pca.ToString());
+                Log.Debug("    WasCardPlayed: " + pca.WasCardPlayed.ToString());
+            }
+            Log.Debug("playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count(): " + playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count().ToString());
+            Log.Debug("playResults.Any((PlayCardAction pca) => pca.WasCardPlayed): " + playResults.Any((PlayCardAction pca) => pca.WasCardPlayed).ToString());
+            // "{TheGoalieCharacter} deals 1 target 1 melee damage."
+            List <SelectCardDecision> selectedTargets = new List<SelectCardDecision>();
+            IEnumerable<DealDamageAction> followUp = null;
+            if (!playResults.Any((PlayCardAction pca) => pca.WasCardPlayed))
+            {
+                followUp = new DealDamageAction[] { new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, coldAmt, DamageType.Cold) };
+            }
+            IEnumerator meleeCoroutine = base.GameController.SelectTargetsAndDealDamage(base.HeroTurnTakerController, new DamageSource(base.GameController, base.Card), meleeAmt, DamageType.Melee, numTargets, false, numTargets, storedResultsDecisions: selectedTargets, followUpDamageInformation: followUp, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(damageCoroutine);
+                yield return base.GameController.StartCoroutine(meleeCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(damageCoroutine);
+                base.GameController.ExhaustCoroutine(meleeCoroutine);
+            }
+            // "If no card entered play this way, {TheGoalieCharacter} deals that target 1 cold damage."
+            IEnumerable<Card> targets = (from SelectCardDecision dec in selectedTargets where dec != null && dec.SelectedCard != null select dec.SelectedCard);
+            if (!playResults.Any((PlayCardAction pca) => pca.WasCardPlayed))
+            {
+                IEnumerator coldCoroutine = base.GameController.DealDamage(base.HeroTurnTakerController, base.Card, (Card c) => targets.Contains(c), coldAmt, DamageType.Cold, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(coldCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(coldCoroutine);
+                }
             }
             yield break;
         }

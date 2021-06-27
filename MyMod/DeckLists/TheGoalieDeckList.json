@@ -447,7 +447,7 @@
 			"body": "Kronwalled!",
 			"character": true,
 			"powers":[
-				"Play a Goalposts card from your trash. {TheGoalieCharacter} deals 1 target 1 melee damage and 1 cold damage."
+				"Play a Goalposts card from your trash. {TheGoalieCharacter} deals 1 target 1 melee damage. If no card entered play this way, {TheGoalieCharacter} deals that target 1 cold damage."
 			],
 			"icons":[
 				"HasPower",
