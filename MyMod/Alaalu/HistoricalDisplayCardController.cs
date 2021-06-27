@@ -15,6 +15,30 @@ namespace BartKFSentinels.Alaalu
             : base(card, turnTakerController)
         {
             base.GameController.AddCardControllerToList(CardControllerListType.IncreasePhaseActionCount, this);
+            SpecialStringMaker.ShowSpecialString(CardsDrawnThisRound).Condition = () => base.Card.IsInPlayAndHasGameText;
+        }
+
+        public string CardsDrawnThisRound()
+        {
+            PlayCardJournalEntry thisCardPlayed = base.GameController.Game.Journal.QueryJournalEntries((PlayCardJournalEntry e) => e.CardPlayed == base.Card).LastOrDefault();
+            int? playedIndex = base.GameController.Game.Journal.GetEntryIndex(thisCardPlayed);
+            IEnumerable<DrawCardJournalEntry> source = (from e in base.Journal.DrawCardEntries() where e.Round == Game.Round select e);
+            source = source.Where(base.Journal.SinceCardWasPlayed<DrawCardJournalEntry>(base.Card));
+            IEnumerable<HeroTurnTaker> turnTakers = (from p in source where p.Hero != null select p.Hero).Distinct();
+            if (turnTakers.Count() > 0)
+            {
+                List<string> list = new List<string>();
+                foreach (HeroTurnTaker hero in turnTakers)
+                {
+                    int count = source.Where((DrawCardJournalEntry dcje) => dcje.Hero == hero).Count();
+                    list.Add(hero.Name + " has drawn " + count + " " + count.ToString_CardOrCards());
+                }
+                return list.ToCommaList(useWordAnd: true) + " this round since " + base.Card.Title + " entered play.";
+            }
+            else
+            {
+                return "No players have drawn any cards yet this round since " + base.Card.Title + " entered play.";
+            }
         }
 
         public override void AddTriggers()
