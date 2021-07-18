@@ -87,6 +87,8 @@ namespace BartKFSentinels.Impulse
                 IEnumerator coroutine = GameController.RedirectDamage(dd, Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
+                    // Use the Journal to record how much HP to regain
+                    Game.Journal.RecordCardProperties(Card, PowerNumeralForHPGainKey, num);
                     yield return base.GameController.StartCoroutine(coroutine);
                 }
                 else
@@ -96,8 +98,6 @@ namespace BartKFSentinels.Impulse
 
                 // Use the CardProperty to activate the heal trigger from AddTriggers()
                 SetCardPropertyToTrueIfRealAction(DamageBeingRedirectedKey);
-                // Use the Journal to record how much HP to regain
-                Game.Journal.RecordCardProperties(Card, PowerNumeralForHPGainKey, num);
             }
             yield break;
         }
