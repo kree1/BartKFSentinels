@@ -36,14 +36,14 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            Log.Debug("playResults.Count(): " + playResults.Count().ToString());
+            //Log.Debug("playResults.Count(): " + playResults.Count().ToString());
             foreach(PlayCardAction pca in playResults)
             {
                 Log.Debug("    " + pca.ToString());
                 Log.Debug("    WasCardPlayed: " + pca.WasCardPlayed.ToString());
             }
-            Log.Debug("playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count(): " + playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count().ToString());
-            Log.Debug("playResults.Any((PlayCardAction pca) => pca.WasCardPlayed): " + playResults.Any((PlayCardAction pca) => pca.WasCardPlayed).ToString());
+            //Log.Debug("playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count(): " + playResults.Where((PlayCardAction pca) => pca.WasCardPlayed).Count().ToString());
+            //Log.Debug("playResults.Any((PlayCardAction pca) => pca.WasCardPlayed): " + playResults.Any((PlayCardAction pca) => pca.WasCardPlayed).ToString());
             // "{TheGoalieCharacter} deals 1 target 1 melee damage."
             List <SelectCardDecision> selectedTargets = new List<SelectCardDecision>();
             IEnumerable<DealDamageAction> followUp = null;

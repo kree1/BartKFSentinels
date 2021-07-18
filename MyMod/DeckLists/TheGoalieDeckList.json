@@ -462,7 +462,7 @@
 			"incapacitatedAbilities":[
 				"One hero may use a power now.",
 				"Destroy an environment card.",
-				"Until the start of your turn, increase melee damage dealt by hero targets by 1.",
+				"Until the start of your turn, increase melee damage dealt by hero targets by 1."
 			],
 			"flippedIcons":[
 				"UsePowerNow",

@@ -46,7 +46,7 @@
             "flippedBody":"Dead-End Job",
             "flippedHitpoints":55,
             "flippedGameplay":[
-                "When {Breakaway} flips to this side...{BR}... remove {TheClient} from the game.{BR}... flip [i]Momentum[/i] to its 'Under Pressure' side.{BR}... destroy {H} non-character hero cards.{BR}... {Breakaway} regains {H * 5} HP.",
+                "When {Breakaway} flips to this side...{BR}... remove {TheClient} from the game.{BR}... flip [i]Momentum[/i] to its “Under Pressure” side.{BR}... destroy {H} non-character hero cards.{BR}... {Breakaway} regains {H * 5} HP.",
                 "Skip start of turn effects on [i]Momentum[/i]. At the start of the villain turn, flip [i]Momentum[/i] twice.",
                 "As long as [i]Momentum[/i] has more than...{BR}... {H * 3} HP, damage dealt by {Breakaway} is irreducible.{BR}... {H * 2} HP, reduce damage dealt to {Breakaway} by 1.{BR}... {H} HP, increase damage dealt by {Breakaway} by 1.",
                 "Whenever [i]Momentum[/i]'s current HP becomes equal to its{BR}maximum HP, {Breakaway} deals each target 1 melee damage.",
