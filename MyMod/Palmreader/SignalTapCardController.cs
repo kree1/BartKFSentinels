@@ -18,7 +18,8 @@ namespace BartKFSentinels.Palmreader
             RunModifyDamageAmountSimulationForThisCard = false;
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumRelaysInPlay() > 0;
             SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in play.").Condition = () => NumRelaysInPlay() <= 0;
-            SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "targets", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlay;
+            SpecialStringMaker.ShowSpecialString(() => "This card is in " + base.Card.Location.GetFriendlyName() + ".").Condition = () => base.Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "target", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         private DealDamageAction MyDamageAction
