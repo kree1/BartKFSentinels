@@ -56,7 +56,7 @@ namespace BartKFSentinels.Breakaway
 
             // Find the hero character card with the lowest HP; save it to tiredHero...
             LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => c.IsHeroCharacterCard && c.IsInPlayAndHasGameText && !c.IsFlipped));
-            IEnumerator findCoroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.HeroCharacterCard, criteria, storedResultsHero, false, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.LowestHP, criteria, storedResultsHero, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(findCoroutine);

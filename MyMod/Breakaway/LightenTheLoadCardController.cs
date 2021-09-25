@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Handelabra;
 using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System.Collections;
@@ -30,6 +31,11 @@ namespace BartKFSentinels.Breakaway
             else
             {
                 this.GameController.ExhaustCoroutine(findPlayersCoroutine);
+            }
+            Log.Debug("LightenTheLoadCardController.Play: loadedHeroes.Count = " + loadedHeroes.Count.ToString());
+            foreach (TurnTaker hero in loadedHeroes)
+            {
+                Log.Debug("    " + hero.NameRespectingVariant);
             }
             LinqTurnTakerCriteria isListedHero = new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && loadedHeroes.Contains(tt));
 

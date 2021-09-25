@@ -24,7 +24,7 @@ namespace BartKFSentinels.Breakaway
 
             // Find the player with the most non-character cards in play, save them to storedResultsHero
             List<TurnTaker> storedResultsHero = new List<TurnTaker>();
-            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(true, 1, 1, (TurnTaker tt) => tt.IsHero, (TurnTaker tt) => GameController.FindCardsWhere((Card c) => c.IsInPlay && !c.IsCharacter && c.Owner == tt).Count(), SelectionType.DealDamage, storedResultsHero, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(true, 1, 1, (TurnTaker tt) => tt.IsHero, (TurnTaker tt) => GameController.FindCardsWhere((Card c) => c.IsInPlay && !c.IsCharacter && c.Owner == tt).Count(), SelectionType.MostCardsInPlay, storedResultsHero, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(findCoroutine);
