@@ -31,7 +31,7 @@ namespace BartKFSentinels.Breakaway
         public override IEnumerator Play()
         {
             // "When this card enters play, reveal the environment deck."
-            Log.Debug("RightOfWayCardController.Play(): reveal the environment deck");
+            //Log.Debug("RightOfWayCardController.Play(): reveal the environment deck");
             Location environmentDeck = FindLocationsWhere((Location loc) => loc.IsDeck && loc.IsEnvironment && base.GameController.IsLocationVisibleToSource(loc, cardSource: GetCardSource())).First();
             List<RevealCardsAction> revealActions = new List<RevealCardsAction>();
             IEnumerator revealCoroutine = base.GameController.RevealCards(base.TurnTakerController, environmentDeck, (Card c) => false, 1, revealActions, cardSource: GetCardSource());
@@ -46,15 +46,15 @@ namespace BartKFSentinels.Breakaway
 
             // "Put one of the 2 revealed cards with the highest HP into play and move this card next to it."
             // Get all the maximum HP values of revealed cards, store them in hpValues
-            Log.Debug("RightOfWayCardController.Play(): get all maximum HP values of revealed cards");
+            //Log.Debug("RightOfWayCardController.Play(): get all maximum HP values of revealed cards");
             List<int> hpValues = new List<int>();
             List<Card> revealedTargets = GetRevealedCards(revealActions).Where((Card c) => c.IsTarget).ToList();
             foreach (Card c in revealedTargets)
             {
                 hpValues.Add((int)c.MaximumHitPoints);
             }
-            Log.Debug("RightOfWayCardController.Play(): hpValues: " + hpValues.ToString());
-            Log.Debug("RightOfWayCardController.Play(): hpValues.Count: " + hpValues.Count.ToString());
+            //Log.Debug("RightOfWayCardController.Play(): hpValues: " + hpValues.ToString());
+            //Log.Debug("RightOfWayCardController.Play(): hpValues.Count: " + hpValues.Count.ToString());
 
             List<Card> revealedOptions = new List<Card>();
             if (hpValues.Count >= 2)
@@ -68,20 +68,20 @@ namespace BartKFSentinels.Breakaway
                 int threshold = hpValues.ElementAt(1);
                 // revealedOptions is all revealed cards with max HP >= threshold
                 revealedOptions = GetRevealedCards(revealActions).Where((Card c) => c.IsTarget && c.MaximumHitPoints >= threshold).ToList();
-                Log.Debug("RightOfWayCardController.Play(): revealedOptions is all revealed cards with at least " + threshold.ToString() + " max HP: ");
+                //Log.Debug("RightOfWayCardController.Play(): revealedOptions is all revealed cards with at least " + threshold.ToString() + " max HP: ");
             }
             else
             {
                 // Otherwise, all revealed cards are valid options
 
                 revealedOptions = GetRevealedCards(revealActions).ToList();
-                Log.Debug("RightOfWayCardController.Play(): revealedOptions is all revealed cards: ");
+                //Log.Debug("RightOfWayCardController.Play(): revealedOptions is all revealed cards: ");
             }
 
-            foreach (Card c in revealedOptions)
+            /*foreach (Card c in revealedOptions)
             {
                 Log.Debug("    " + c.Title);
-            }
+            }*/
 
             // Let the players choose which of revealedOptions to put into play, and move this card next to it
             PlayCardAction environmentPlayed = null;
@@ -101,7 +101,7 @@ namespace BartKFSentinels.Breakaway
                 environmentPlayed = storedResults.First();
                 if (environmentPlayed != null && environmentPlayed.WasCardPlayed)
                 {
-                    Log.Debug("RightOfWayCardController.Play(): players played a card; moving next to it...");
+                    //Log.Debug("RightOfWayCardController.Play(): players played a card; moving next to it...");
                     IEnumerator moveCoroutine = base.GameController.MoveCard(base.TurnTakerController, base.Card, environmentPlayed.CardToPlay.NextToLocation, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
@@ -113,24 +113,49 @@ namespace BartKFSentinels.Breakaway
                     }
                 }
             }
-
-            // "Shuffle the other revealed cards into the environment deck."
-            Log.Debug("RightOfWayCardController.Play(): reshuffling unplayed environment cards...");
-            List<Card> revealedNotPlayed = GetRevealedCards(revealActions).Where((Card c) => c.Location.IsRevealed).ToList();
-            IEnumerator reshuffleCoroutine = CleanupRevealedCards(revealedNotPlayed.FirstOrDefault().Location, environmentDeck, shuffleAfterwards: true);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(reshuffleCoroutine);
-            }
             else
             {
-                base.GameController.ExhaustCoroutine(reshuffleCoroutine);
+                // No cards were revealed
+                //Log.Debug("RightOfWayCardController.Play(): no cards revealed");
+                IEnumerator emptyCoroutine = base.GameController.SendMessageAction(environmentDeck.OwnerName + " is deserted, so " + base.TurnTaker.Name + " has the " + base.Card.Title + "!", Priority.Medium, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(emptyCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(emptyCoroutine);
+                }
             }
+
+            // "Shuffle the other revealed cards into the environment deck."
+            //Log.Debug("RightOfWayCardController.Play(): reshuffling unplayed environment cards...");
+            List<Card> revealedNotPlayed = GetRevealedCards(revealActions).Where((Card c) => c.Location.IsRevealed).ToList();
+            if (revealedNotPlayed.Any())
+            {
+                //Log.Debug("RightOfWayCardController.Play(): unplayed revealed cards found, shuffling now...");
+                List<Location> cleanup = new List<Location>();
+                cleanup.Add(environmentDeck.OwnerTurnTaker.Revealed);
+                IEnumerator reshuffleCoroutine = CleanupCardsAtLocations(cleanup, environmentDeck, shuffleAfterwards: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(reshuffleCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(reshuffleCoroutine);
+                }
+            }
+            /*else
+            {
+                Log.Debug("RightOfWayCardController.Play(): no unplayed revealed cards found");
+            }*/
+            //Log.Debug("RightOfWayCardController.Play(): reshuffling finished");
 
             // "If no targets entered play this way, play the top card of the villain deck."
             if (environmentPlayed == null || !environmentPlayed.WasCardPlayed || !environmentPlayed.CardToPlay.IsTarget)
             {
-                Log.Debug("RightOfWayCardController.Play(): no target entered play this way. Playing the top card of the villain deck...");
+                //Log.Debug("RightOfWayCardController.Play(): no target entered play this way. Playing the top card of the villain deck...");
                 IEnumerator playCoroutine = base.GameController.PlayTopCard(this.DecisionMaker, base.TurnTakerController, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
@@ -141,6 +166,7 @@ namespace BartKFSentinels.Breakaway
                     base.GameController.ExhaustCoroutine(playCoroutine);
                 }
             }
+            //Log.Debug("RightOfWayCardController.Play(): method ends");
 
             yield break;
         }
