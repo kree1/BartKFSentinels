@@ -46,6 +46,7 @@ namespace BartKFSentinels.Impulse
             {
                 CannotDealDamageStatusEffect preventNextDamage = new CannotDealDamageStatusEffect();
                 preventNextDamage.TargetCriteria.IsHero = true;
+                preventNextDamage.TargetCriteria.IsTarget = true;
                 preventNextDamage.NumberOfUses = 1;
                 preventNextDamage.IsPreventEffect = true;
 
