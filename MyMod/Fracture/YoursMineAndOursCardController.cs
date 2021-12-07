@@ -106,7 +106,7 @@ namespace BartKFSentinels.Fracture
                 {
                     list2.Add("draw a card");
                 }
-                return "Stuntman cannot " + list2.ToCommaList(useWordAnd: false, useWordOr: true) + ".";
+                return tt.ToHero().Name + " cannot " + list2.ToCommaList(useWordAnd: false, useWordOr: true) + ".";
             };
             for (int i = 0; i < 3; i++)
             {
