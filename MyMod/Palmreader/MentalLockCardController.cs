@@ -14,7 +14,7 @@ namespace BartKFSentinels.Palmreader
         public MentalLockCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsRelay(c), "goalposts"));
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => IsRelay(c), "relay"));
         }
 
         public override IEnumerator Play()

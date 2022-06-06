@@ -193,7 +193,7 @@ namespace BartKFSentinels.Impulse
                 if (trash != null && trash.HasCards)
                 {
                     List<SelectCardDecision> cardChoice = new List<SelectCardDecision>();
-                    IEnumerator chooseCardCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.MoveCardOnBottomOfDeck, new LinqCardCriteria(), cardChoice, false, cardSource: GetCardSource());
+                    IEnumerator chooseCardCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.MoveCardOnBottomOfDeck, new LinqCardCriteria((Card c) => c.IsInLocation(trash)), cardChoice, false, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(chooseCardCoroutine);

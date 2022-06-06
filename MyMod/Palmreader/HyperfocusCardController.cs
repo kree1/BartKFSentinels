@@ -14,7 +14,7 @@ namespace BartKFSentinels.Palmreader
         public HyperfocusCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => IsRelay(c), "goalposts"));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => IsRelay(c), "relay"));
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
         }
 
