@@ -73,7 +73,7 @@
 				"one-shot"
 			],
 			"body": [
-				"{Memorial} deals the hero target with the highest HP {H} energy damage. Until the start of the villain turn, reduce damage dealt by that hero by 1 and increase damage dealt to that hero by 1."
+				"{Memorial} deals the hero target with the highest HP {H} energy damage. Until the start of the villain turn, reduce damage dealt by that target by 1 and increase damage dealt to that target by 1."
 			],
 			"icons": [
 				"DealDamageEnergy",

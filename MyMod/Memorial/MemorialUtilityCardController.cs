@@ -34,7 +34,7 @@ namespace BartKFSentinels.Memorial
             return c.IsInPlayAndHasGameText && c.IsHeroCharacterCard && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
         }
 
-        public IEnumerable AllRenownedTargets()
+        public IEnumerable<Card> AllRenownedTargets()
         {
             return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenownedTarget(c)));
         }
