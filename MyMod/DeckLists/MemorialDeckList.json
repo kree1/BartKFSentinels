@@ -66,6 +66,44 @@
 			}
 		},
 		{
+			"identifier": "AirLikeMolasses",
+			"count": 2,
+			"title": "Air Like Molasses",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Memorial} deals the hero target with the highest HP {H} energy damage. Until the start of the villain turn, reduce damage dealt by that hero by 1 and increase damage dealt to that hero by 1."
+			],
+			"icons": [
+				"DealDamageEnergy",
+				"ReduceDamageDealt",
+				"IncreaseDamageTaken"
+			],
+			"flavorText": "What the-? How'd you get all the way over there?",
+			"flavorReference": "Tachyon"
+		},
+		{
+			"identifier": "CausalityBuffer",
+			"count": 1,
+			"title": "Causality Buffer",
+			"keywords": [
+				"device"
+			],
+			"hitpoints": 10,
+			"body": [
+				"Reduce damage dealt to villain targets by 1.",
+				"At the end of the villain turn, play the top card of the villain deck."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"EndOfTurnAction",
+				"PlayCardNow"
+			],
+			"flavorText": "Century after century, the story repeats: a legendary figure dies, and the killer escapes without a scratch.",
+			"flavorReference": "Professor Hodson"
+		},
+		{
 			"identifier": "ChildrenOfNight",
 			"count": 1,
 			"title": "Children of Night",
@@ -87,45 +125,60 @@
 			"flavorReference": "Jim Brooks"
 		},
 		{
-			"identifier": "LivingThunderhead",
+			"identifier": "ChronotonPulse",
 			"count": 1,
-			"title": "Living Thunderhead",
+			"title": "Chronoton Pulse",
 			"keywords": [
-				"incident"
+				"device"
 			],
-			"hitpoints": 18,
+			"hitpoints": 3,
 			"body": [
-				"At the end of the villain turn, this card deals the 2 hero targets with the highest HP {H - 1} sonic damage each.",
-				"At the start of the villain turn, destroy a hero Ongoing or Equipment card."
+				"When this card enters or leaves play, destroy {H - 1} hero Ongoing and/or Equipment cards.",
+				"At the end of the villain turn, this card deals itself 1 energy damage."
 			],
 			"icons": [
-				"StartAndEndOfTurnAction",
-				"DealDamageSonic",
 				"DestroyOngoing",
-				"DestroyEquipment"
+				"DestroyEquipment",
+				"EndOfTurnAction",
+				"DealDamageEnergy"
 			],
-			"flavorText":  "... immortal warrior, space traveler, alien ambassador, Virtuoso, and self-professed fist of God...",
-			"flavorReference": "Jim Brooks"
+			"flavorText": "Well, I think we figured out how this guy leaves so little evidence.",
+			"flavorReference": "Absolute Zero"
 		},
 		{
-			"identifier": "ParasiteSwarm",
-			"count": 1,
-			"title": "Parasite Swarm",
+			"identifier": "DueRespect",
+			"count": 3,
+			"title": "Due Respect",
 			"keywords": [
-				"incident"
+				"one-shot"
 			],
-			"hitpoints": 14,
 			"body": [
-				"At the end of the villain turn, this card deals each hero target 2 melee damage.",
-				"At the start of the villain turn, this card regains {H - 1} HP."
+				"Reveal cards from the top of the villain deck until a Renown is revealed. Play it. Shuffle the other revealed cards back into the villain deck.",
+				"{Memorial} deals the hero target with the highest HP {H} melee damage."
 			],
 			"icons": [
-				"StartAndEndOfTurnAction",
-				"DealDamageMelee",
-				"GainHP"
+				"Search",
+				"DealDamageMelee"
 			],
-			"flavorText": "... armored juggernaut, urban ninja, speedster, elementalist, and the ninth of the Parsons line...",
-			"flavorReference": "Jim Brooks"
+			"flavorText": "He targets the extraordinary. War heroes, law enforcement, undefeated champions. People like all of you.",
+			"flavorReference": "Professor Hodson"
+		},
+		{
+			"identifier": "EmptyTheCylinder",
+			"count": 2,
+			"title": "Empty the Cylinder",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Select the [b]Renowned[/b] target with the highest HP. If there are no [b]Renowned[/b] targets, select the hero target with the highest HP instead.",
+				"{Memorial} deals the selected target 2 irreducible projectile damage {H - 1} times."
+			],
+			"icons": [
+				"DealDamageProjectile"
+			],
+			"flavorText": "Ow! Ow ow ow! Can't somebody take that thing away from him?",
+			"flavorReference": "Setback"
 		},
 		{
 			"identifier": "Exemplar",
@@ -185,6 +238,27 @@
 			"flavorReference": "Jim Brooks"
 		},
 		{
+			"identifier": "LivingThunderhead",
+			"count": 1,
+			"title": "Living Thunderhead",
+			"keywords": [
+				"incident"
+			],
+			"hitpoints": 18,
+			"body": [
+				"At the end of the villain turn, this card deals the 2 hero targets with the highest HP {H - 1} sonic damage each.",
+				"At the start of the villain turn, destroy a hero Ongoing or Equipment card."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"DealDamageSonic",
+				"DestroyOngoing",
+				"DestroyEquipment"
+			],
+			"flavorText": "... immortal warrior, space traveler, alien ambassador, Virtuoso, and self-professed fist of God...",
+			"flavorReference": "Jim Brooks"
+		},
+		{
 			"identifier": "Marksman",
 			"count": 1,
 			"title": "Marksman",
@@ -201,6 +275,26 @@
 				"IncreaseDamageDealt"
 			],
 			"flavorText": "Folks say she could take the wings off a fly at a thousand yards.",
+			"flavorReference": "Jim Brooks"
+		},
+		{
+			"identifier": "ParasiteSwarm",
+			"count": 1,
+			"title": "Parasite Swarm",
+			"keywords": [
+				"incident"
+			],
+			"hitpoints": 14,
+			"body": [
+				"At the end of the villain turn, this card deals each hero target 2 melee damage.",
+				"At the start of the villain turn, this card regains {H - 1} HP."
+			],
+			"icons": [
+				"StartAndEndOfTurnAction",
+				"DealDamageMelee",
+				"GainHP"
+			],
+			"flavorText": "... armored juggernaut, urban ninja, speedster, elementalist, and the ninth of the Parsons line...",
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -224,66 +318,6 @@
 			"flavorReference": "Jim Brooks"
 		},
 		{
-			"identifier": "Whirlwind",
-			"count": 1,
-			"title": "Whirlwind",
-			"keywords": [
-				"renown"
-			],
-			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
-				"At the start of this play area's turn, this hero may deal 1 target 2 melee damage."
-			],
-			"icons": [
-				"DealDamageProjectile",
-				"StartOfTurnAction",
-				"DealDamageMelee"
-			],
-			"flavorText": "Mostly I come alone for the challenge. This time, I doubt an army would help.",
-			"flavorReference": "Jim Brooks"
-		},
-		{
-			"identifier": "CausalityBuffer",
-			"count": 1,
-			"title": "Causality Buffer",
-			"keywords": [
-				"device"
-			],
-			"hitpoints": 10,
-			"body": [
-				"Reduce damage dealt to villain targets by 1.",
-				"At the end of the villain turn, play the top card of the villain deck."
-			],
-			"icons": [
-				"ReduceDamageTaken",
-				"EndOfTurnAction",
-				"PlayCardNow"
-			],
-			"flavorText": "Century after century, the story repeats: a legendary figure dies, and the killer escapes without a scratch.",
-			"flavorReference": "Professor Hodson"
-		},
-		{
-			"identifier": "ChronotonPulse",
-			"count": 1,
-			"title": "Chronoton Pulse",
-			"keywords": [
-				"device"
-			],
-			"hitpoints": 3,
-			"body": [
-				"When this card enters or leaves play, destroy {H - 1} hero Ongoing and/or Equipment cards.",
-				"At the end of the villain turn, this card deals itself 1 energy damage."
-			],
-			"icons": [
-				"DestroyOngoing",
-				"DestroyEquipment",
-				"EndOfTurnAction",
-				"DealDamageEnergy"
-			],
-			"flavorText": "Well, I think we figured out how this guy leaves so little evidence.",
-			"flavorReference": "Absolute Zero"
-		},
-		{
 			"identifier": "SedativePayload",
 			"count": 1,
 			"title": "Sedative Payload",
@@ -299,6 +333,24 @@
 			],
 			"flavorText": "This primitive technology is... no match for... ~*",
 			"flavorReference": "Tempest"
+		},
+		{
+			"identifier": "SplitSecondShot",
+			"count": 3,
+			"title": "Split Second Shot",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Memorial} deals the {H - 1} hero targets with the highest HP 2 irreducible projectile damage each.",
+				"Play the top card of the villain deck."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"PlayCardNow"
+			],
+			"flavorText": "The earlier you look, the easier he is to spot. No one knew what a pistol was when he shot Alexander the Great.",
+			"flavorReference": "Professor Hodson"
 		},
 		{
 			"identifier": "ThermiteLauncher",
@@ -321,77 +373,6 @@
 			"flavorReference": "Dr. Blake Washington Jr."
 		},
 		{
-			"identifier": "AirLikeMolasses",
-			"count": 2,
-			"title": "Air Like Molasses",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"{Memorial} deals the hero target with the highest HP {H} energy damage. Until the start of the villain turn, reduce damage dealt by that hero by 1 and increase damage dealt to that hero by 1."
-			],
-			"icons": [
-				"DealDamageEnergy",
-				"ReduceDamageDealt",
-				"IncreaseDamageTaken"
-			],
-			"flavorText": "What the-? How'd you get all the way over there?",
-			"flavorReference": "Tachyon"
-		},
-		{
-			"identifier": "DueRespect",
-			"count": 3,
-			"title": "Due Respect",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Reveal cards from the top of the villain deck until a Renown is revealed. Play it. Shuffle the other revealed cards back into the villain deck.",
-				"{Memorial} deals the hero target with the highest HP {H} melee damage."
-			],
-			"icons": [
-				"Search",
-				"DealDamageMelee"
-			],
-			"flavorText": "He targets the extraordinary. War heroes, law enforcement, undefeated champions. People like all of you.",
-			"flavorReference": "Professor Hodson"
-		},
-		{
-			"identifier": "EmptyTheCylinder",
-			"count": 2,
-			"title": "Empty the Cylinder",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Select the [b]Renowned[/b] target with the highest HP. If there are no [b]Renowned[/b] targets, select the hero target with the highest HP instead.",
-				"{Memorial} deals the selected target 2 irreducible projectile damage {H - 1} times."
-			],
-			"icons": [
-				"DealDamageProjectile"
-			],
-			"flavorText": "Ow! Ow ow ow! Can't somebody take that thing away from him?",
-			"flavorReference": "Setback"
-		},
-		{
-			"identifier": "SplitSecondShot",
-			"count": 3,
-			"title": "Split Second Shot",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"{Memorial} deals the {H - 1} hero targets with the highest HP 2 irreducible projectile damage each.",
-				"Play the top card of the villain deck."
-			],
-			"icons": [
-				"DealDamageProjectile",
-				"PlayCardNow"
-			],
-			"flavorText": "The earlier you look, the easier he is to spot. No one knew what a pistol was when he shot Alexander the Great.",
-			"flavorReference": "Professor Hodson"
-		},
-		{
 			"identifier": "WeaponsPortal",
 			"count": 2,
 			"title": "Weapons Portal",
@@ -408,6 +389,25 @@
 			],
 			"flavorText": "His victims are mourned, studied, commemmorated. Meanwhile, he vanishes from history, as if hiding in their shadow.",
 			"flavorReference": "Professor Hodson"
+		},
+		{
+			"identifier": "Whirlwind",
+			"count": 1,
+			"title": "Whirlwind",
+			"keywords": [
+				"renown"
+			],
+			"body": [
+				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"At the start of this play area's turn, this hero may deal 1 target 2 melee damage."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"StartOfTurnAction",
+				"DealDamageMelee"
+			],
+			"flavorText": "Mostly I come alone for the challenge. This time, I doubt an army would help.",
+			"flavorReference": "Jim Brooks"
 		}
 	]
 }

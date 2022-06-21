@@ -128,6 +128,11 @@
     <Compile Include="Impulse\WonderComicsImpulseCharacterCardController.cs" />
     <Compile Include="Impulse\YouDroppedThisCardController.cs" />
     <Compile Include="Impulse\ZeroAttentionSpanCardController.cs" />
+    <Compile Include="Memorial\ChildrenOfNightCardController.cs" />
+    <Compile Include="Memorial\LivingThunderheadCardController.cs" />
+    <Compile Include="Memorial\MemorialUtilityCardController.cs" />
+    <Compile Include="Memorial\ParasiteSwarmCardController.cs" />
+    <Compile Include="Memorial\RenownCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TheEmpire\CampaignOfTerrorCardController.cs" />
     <Compile Include="TheEmpire\ConstantSurveillanceCardController.cs" />
