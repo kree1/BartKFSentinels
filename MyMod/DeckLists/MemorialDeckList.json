@@ -19,7 +19,7 @@
 				""
 			],
 			"setup": [
-				"Put {Memorial} into play, ìA Day to Rememberî side up. Search the villain deck for all Incident cards and select one at random. Put that Incident into play and remove the others from the game. Shuffle the villain deck."
+				"Put {Memorial} into play, ‚ÄúA Day to Remember‚Äù side up. Search the villain deck for all Incident cards and select one at random. Put that Incident into play and remove the others from the game. Shuffle the villain deck."
 			],
 			"gameplay": [
 				"When a non-Incident villain card would enter play, instead shuffle it into the villain deck and the non-hero target with the highest HP deals the hero target with the highest HP {H - 1} projectile damage.",
@@ -40,8 +40,8 @@
 			"flippedHitpoints": 65,
 			"flippedGameplay": [
 				"When {Memorial} flips to this side, search the villain deck for Causality Buffer and put it into play. Reveal cards from the villain deck until 3 Renowns are revealed. Put those Renowns into play. Shuffle the other revealed cards back into the villain deck.",
-				"When a villain Renown enters play, move it next to a non-Renowned hero character target. If there are none, discard it and play the top card of the villain deck.",
-				"Whenever a villain target deals 2 or more damage to a Renowned target, activate the first effect in this list that hasn't been activated this turn:{BR}1) {Memorial} regains {H - 1} HP.{BR}2) One player discards a card.{BR}3) Reduce damage dealt to {Memorial} by 1 until the start of the villain turn.{BR}4) Destroy a non-character hero card.{BR}5) Destroy a hero Ongoing or Equipment card.{BR}6) Destroy the non-character non-villain target with the lowest HP.",
+				"When a villain Renown enters play, move it next to a non-[i][b]Renowned[/b][/i] hero character target. If there are none, discard it and play the top card of the villain deck.",
+				"Whenever a villain target deals 2 or more damage to a [i][b]Renowned[/b][/i] target, activate the first effect in this list that hasn't been activated this turn:{BR}1) {Memorial} regains {H - 1} HP.{BR}2) One player discards a card.{BR}3) Reduce damage dealt to {Memorial} by 1 until the start of the villain turn.{BR}4) Destroy a non-character hero card.{BR}5) Destroy a hero Ongoing or Equipment card.{BR}6) Destroy the non-character non-villain target with the lowest HP.",
 				"At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
 			],
 			"flippedAdvanced": [
@@ -80,7 +80,12 @@
 				"ReduceDamageDealt",
 				"IncreaseDamageTaken"
 			],
-			"flavorText": "What the-? How'd you get all the way over there?",
+            "flavorQuotes":[
+                {
+                    "identifier": "Tachyon",
+                    "text": "What the-? How'd you get all{BR}the way over there?"
+                }
+            ],
 			"flavorReference": "Tachyon"
 		},
 		{
@@ -100,7 +105,12 @@
 				"EndOfTurnAction",
 				"PlayCardNow"
 			],
-			"flavorText": "Century after century, the story repeats: a legendary figure dies, and the killer escapes without a scratch.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Professor Hodson",
+                    "text": "Century after century, the story{BR}repeats: a legendary figure dies, and the{BR}killer escapes without a scratch."
+                }
+            ],
 			"flavorReference": "Professor Hodson"
 		},
 		{
@@ -121,7 +131,12 @@
 				"DealDamageInfernal",
 				"DealDamagePsychic"
 			],
-			"flavorText": "... strategist, sorcerer and apprentice, martial arts legend, and whatever [b]that[/b] guy does...",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "... strategist, sorcerer and{BR}apprentice, martial arts legend, and{BR}whatever [b]that[/b] guy does..."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -142,7 +157,12 @@
 				"EndOfTurnAction",
 				"DealDamageEnergy"
 			],
-			"flavorText": "Well, I think we figured out how this guy leaves so little evidence.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Absolute Zero",
+                    "text": "Well, I think we figured out{BR}how this guy leaves so little evidence."
+                }
+            ],
 			"flavorReference": "Absolute Zero"
 		},
 		{
@@ -160,7 +180,12 @@
 				"Search",
 				"DealDamageMelee"
 			],
-			"flavorText": "He targets the extraordinary. War heroes, law enforcement, undefeated champions. People like all of you.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Professor Hodson",
+                    "text": "He targets the extraordinary.{BR}War heroes, law enforcement, undefeated{BR}champions. People like all of you."
+                }
+            ],
 			"flavorReference": "Professor Hodson"
 		},
 		{
@@ -171,13 +196,18 @@
 				"one-shot"
 			],
 			"body": [
-				"Select the [b]Renowned[/b] target with the highest HP. If there are no [b]Renowned[/b] targets, select the hero target with the highest HP instead.",
+				"Select the [i][b]Renowned[/b][/i] target with the highest HP. If there are no [i][b]Renowned[/b][/i] targets, select the hero target with the highest HP instead.",
 				"{Memorial} deals the selected target 2 irreducible projectile damage {H - 1} times."
 			],
 			"icons": [
 				"DealDamageProjectile"
 			],
-			"flavorText": "Ow! Ow ow ow! Can't somebody take that thing away from him?",
+            "flavorQuotes":[
+                {
+                    "identifier": "Setback",
+                    "text": "Ow! Ow ow ow! Can't somebody{BR}take that thing away from him?"
+                }
+            ],
 			"flavorReference": "Setback"
 		},
 		{
@@ -188,7 +218,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero may use a power."
 			],
 			"icons": [
@@ -196,7 +226,12 @@
 				"StartOfTurnAction",
 				"UsePowerNow"
 			],
-			"flavorText": "Huh. Thought you'd be taller. Statues do that, I guess.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "Huh. Thought you'd be taller.{BR}Statues do that, I guess."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -207,7 +242,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero may regain 2 HP."
 			],
 			"icons": [
@@ -215,7 +250,12 @@
 				"StartOfTurnAction",
 				"GainHP"
 			],
-			"flavorText": "So the thing with the hundreds of little knife critters was true, huh?",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "So the thing with the hundreds{BR}of little knife critters was true, huh?"
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -226,7 +266,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero's player may draw a card."
 			],
 			"icons": [
@@ -234,7 +274,12 @@
 				"StartOfTurnAction",
 				"DrawCardNow"
 			],
-			"flavorText": "Always wondered if one day someone'd be expecting me. Figures it would be you.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "Always wondered if one day{BR}someone'd be expecting me.{BR}Figures it would be you."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -255,7 +300,12 @@
 				"DestroyOngoing",
 				"DestroyEquipment"
 			],
-			"flavorText": "... immortal warrior, space traveler, alien ambassador, Virtuoso, and self-professed fist of God...",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "... immortal warrior, space{BR}traveler, alien ambassador, Virtuoso, and{BR}self-professed fist of God..."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -266,7 +316,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero's player may increase the next damage dealt by this hero by 2."
 			],
 			"icons": [
@@ -274,7 +324,12 @@
 				"StartOfTurnAction",
 				"IncreaseDamageDealt"
 			],
-			"flavorText": "Folks say she could take the wings off a fly at a thousand yards.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "Folks say she could take the{BR}wings off a fly at a thousand yards."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -294,7 +349,12 @@
 				"DealDamageMelee",
 				"GainHP"
 			],
-			"flavorText": "... armored juggernaut, urban ninja, speedster, elementalist, and the ninth of the Parsons line...",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "... armored juggernaut, urban{BR}ninja, speedster, elementalist, and the{BR}ninth of the Parsons line..."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -305,7 +365,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero's player may discard a card to play an Ongoing or Equipment card."
 			],
 			"icons": [
@@ -314,7 +374,12 @@
 				"Discard",
 				"PlayCardNow"
 			],
-			"flavorText": "You wouldn't believe how many people claim to have studied with you. 'Course, I don't believe them either.",
+            "flavorQuotes":[
+                {
+                    "identifier": "",
+                    "text": "You wouldn't believe how many{BR}people claim to have studied with you.{BR}'Course, I don't believe them either."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		},
 		{
@@ -331,7 +396,12 @@
 			"icons": [
 				"ReduceDamageDealt"
 			],
-			"flavorText": "This primitive technology is... no match for... ~*",
+            "flavorQuotes":[
+                {
+                    "identifier": "Tempest",
+                    "text": "This primitive technology{BR}is... no match for... -*"
+                }
+            ],
 			"flavorReference": "Tempest"
 		},
 		{
@@ -349,7 +419,12 @@
 				"DealDamageProjectile",
 				"PlayCardNow"
 			],
-			"flavorText": "The earlier you look, the easier he is to spot. No one knew what a pistol was when he shot Alexander the Great.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Professor Hodson",
+                    "text": "The earlier you look, the easier{BR}he is to spot. No one knew what a pistol{BR}was when he shot Alexander the Great."
+                }
+            ],
 			"flavorReference": "Professor Hodson"
 		},
 		{
@@ -369,7 +444,12 @@
 				"EndOfTurnAction",
 				"DealDamageFire"
 			],
-			"flavorText": "How dare you! These are irreplaceable antiquities!",
+            "flavorQuotes":[
+                {
+                    "identifier": "Dr. Blake Washington Jr.",
+                    "text": "How dare you! These are{BR}irreplaceable antiquities!"
+                }
+            ],
 			"flavorReference": "Dr. Blake Washington Jr."
 		},
 		{
@@ -387,7 +467,12 @@
 				"Search",
 				"DealDamageFire"
 			],
-			"flavorText": "His victims are mourned, studied, commemmorated. Meanwhile, he vanishes from history, as if hiding in their shadow.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Professor Hodson",
+                    "text": "His victims are mourned, studied,{BR}commemmorated. Meanwhile, he vanishes from{BR}history, as if hiding in their shadow."
+                }
+            ],
 			"flavorReference": "Professor Hodson"
 		},
 		{
@@ -398,7 +483,7 @@
 				"renown"
 			],
 			"body": [
-				"Heroes in this play area are [b]Renowned.[/b] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
+				"Heroes in this play area are [i][b]Renowned.[/b][/i] When this card enters play, {Memorial} deals this hero 2 projectile damage.",
 				"At the start of this play area's turn, this hero may deal 1 target 2 melee damage."
 			],
 			"icons": [
@@ -406,7 +491,12 @@
 				"StartOfTurnAction",
 				"DealDamageMelee"
 			],
-			"flavorText": "Mostly I come alone for the challenge. This time, I doubt an army would help.",
+            "flavorQuotes":[
+                {
+                    "identifier": "Jim Brooks",
+                    "text": "Mostly I come alone for the{BR}challenge. This time, I doubt{BR}an army would help."
+                }
+            ],
 			"flavorReference": "Jim Brooks"
 		}
 	]

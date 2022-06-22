@@ -72,7 +72,7 @@ namespace BartKFSentinels.Memorial
                 // "4) Destroy a non-character hero card."
                 // "5) Destroy a hero Ongoing or Equipment card."
                 // "6) Destroy the non-character non-villain target with the lowest HP."
-                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == Card && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && MemorialUtilityCardController.IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && MemorialUtilityCardController.NumRenownsAt(dda.Target.Location) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
+                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && MemorialUtilityCardController.IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && MemorialUtilityCardController.NumRenownsAt(dda.Target.Location) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
 
                 // "At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
                 SideTriggers.Add(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PewPewPewResponse, TriggerType.DealDamage));

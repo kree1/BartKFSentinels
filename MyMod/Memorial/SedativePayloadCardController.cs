@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Memorial
 {
-    public class SedativeLauncherCardController : CardController
+    public class SedativePayloadCardController : CardController
     {
-        public SedativeLauncherCardController(Card card, TurnTakerController turnTakerController)
+        public SedativePayloadCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 

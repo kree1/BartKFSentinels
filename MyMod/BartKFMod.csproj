@@ -145,7 +145,7 @@
     <Compile Include="Memorial\ParasiteSwarmCardController.cs" />
     <Compile Include="Memorial\PolymathCardController.cs" />
     <Compile Include="Memorial\RenownCardController.cs" />
-    <Compile Include="Memorial\SedativeLauncherCardController.cs" />
+    <Compile Include="Memorial\SedativePayloadCardController.cs" />
     <Compile Include="Memorial\SplitSecondShotCardController.cs" />
     <Compile Include="Memorial\ThermiteLauncherCardController.cs" />
     <Compile Include="Memorial\WeaponsPortalCardController.cs" />

@@ -9,13 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Memorial
 {
-    public class PolymathCardController : CardController
+    public class PolymathCardController : RenownCardController
     {
         public PolymathCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => c.IsOngoing || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
+            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
+            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => c.IsOngoing || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
         }
 
         public override void AddTriggers()
