@@ -139,6 +139,8 @@
     <Compile Include="Memorial\GeniusCardController.cs" />
     <Compile Include="Memorial\LivingThunderheadCardController.cs" />
     <Compile Include="Memorial\MarksmanCardController.cs" />
+    <Compile Include="Memorial\MemorialCharacterCardController.cs" />
+    <Compile Include="Memorial\MemorialTurnTakerController.cs" />
     <Compile Include="Memorial\MemorialUtilityCardController.cs" />
     <Compile Include="Memorial\ParasiteSwarmCardController.cs" />
     <Compile Include="Memorial\PolymathCardController.cs" />

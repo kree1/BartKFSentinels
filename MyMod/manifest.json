@@ -6,7 +6,7 @@
 	"description": [
 		"A collection of my playtest-ready custom decks for Sentinels of the Multiverse."
 	],
-	"version": "v0.1.3",
+	"version": "v0.1.4",
 	"credits": [
 		"Card Design: Bart_KF",
 		"Software Development: Bart_KF",
@@ -25,6 +25,7 @@
 		],
 		"villains": [
 			"Breakaway",
+			"Memorial",
 			"TheShelledOne"
 		],
 		"environments": [

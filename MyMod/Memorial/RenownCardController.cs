@@ -25,12 +25,12 @@ namespace BartKFSentinels.Memorial
             if (base.CharacterCard.IsFlipped)
             {
                 // "When a villain Renown enters play, move it next to a non-Renowned hero character target."
-                if (NonRenownedHeroCharacterTargets().Count() == 0)
+                /*if (NonRenownedHeroCharacterTargets().Count() == 0)
                 {
                     storedResults.Add(new MoveCardDestination(base.TurnTaker.Trash));
                     _foundHero = false;
                     yield break;
-                }
+                }*/
                 IEnumerator selectCoroutine = SelectCardThisCardWillMoveNextTo(IsNonRenownedHeroCharacterTarget(), storedResults, isPutIntoPlay, decisionSources);
                 if (base.UseUnityCoroutines)
                 {
@@ -47,7 +47,7 @@ namespace BartKFSentinels.Memorial
             }
         }
 
-        public override IEnumerator RunIfUnableToEnterPlay()
+        /*public override IEnumerator RunIfUnableToEnterPlay()
         {
             if (base.CharacterCard.IsFlipped)
             {
@@ -93,11 +93,11 @@ namespace BartKFSentinels.Memorial
             {
                 yield return base.RunIfUnableToEnterPlay();
             }
-        }
+        }*/
 
         public override IEnumerator Play()
         {
-            if (base.CharacterCard.IsFlipped)
+            /*if (base.CharacterCard.IsFlipped)
             {
                 if (!_foundHero && NonRenownedHeroCharacterTargets().Count() == 0)
                 {
@@ -112,7 +112,7 @@ namespace BartKFSentinels.Memorial
                         base.GameController.ExhaustCoroutine(runCoroutine);
                     }
                 }
-            }
+            }*/
             // "When this card enters play, {Memorial} deals this hero 2 projectile damage."
             if (_foundHero)
             {
