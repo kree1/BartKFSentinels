@@ -30,7 +30,7 @@ namespace BartKFSentinels.Memorial
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             // "Play the top card of the villain deck."
-            IEnumerator playCoroutine = base.GameController.PlayTopCard(DecisionMaker, base.TurnTakerController, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+            IEnumerator playCoroutine = PlayTheTopCardOfTheVillainDeckResponse(null);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);

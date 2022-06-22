@@ -38,5 +38,15 @@ namespace BartKFSentinels.Memorial
         {
             return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenownedTarget(c)));
         }
+
+        public LinqCardCriteria IsNonRenownedHeroCharacterTarget()
+        {
+            return new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c), "non-Renowned hero character targets", false, false, "non-Renowned hero character target", "non-Renowned hero caracter targets");
+        }
+
+        public IEnumerable<Card> NonRenownedHeroCharacterTargets()
+        {
+            return GameController.FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c));
+        }
     }
 }
