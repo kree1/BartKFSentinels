@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Memorial
 {
-    internal class MemorialCharacterCardController : VillainCharacterCardController
+    internal class MemorialCharacterCardController : MemorialUtilityCharacterCardController
     {
         public MemorialCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
@@ -37,33 +38,6 @@ namespace BartKFSentinels.Memorial
         protected const string RenownedHit5 = "FifthRenownedHit";
         protected const string RenownedHit6 = "SixthRenownedHit";
 
-        public static readonly string RenownKeyword = "renown";
-
-        public static bool IsRenown(Card c)
-        {
-            return c.DoKeywordsContain(RenownKeyword);
-        }
-
-        public int NumRenownsAt(Location loc)
-        {
-            if (loc.HighestRecursiveLocation == loc)
-            {
-                return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location.HighestRecursiveLocation == loc)).Count();
-            }
-            return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location == loc)).Count();
-        }
-
-        public bool IsRenownedTarget(Card c)
-        {
-            /*Log.Debug("IsRenownedTarget(" + c.Title + ")");
-            Log.Debug(c.Title + ".IsInPlayAndHasGameText: " + c.IsInPlayAndHasGameText.ToString());
-            Log.Debug(c.Title + ".IsHeroCharacterCard: " + c.IsHeroCharacterCard.ToString());
-            Log.Debug(c.Title + ".Owner.IsHero: " + c.Owner.IsHero.ToString());
-            Log.Debug("!" + c.Title + ".Owner.ToHero().IsIncapacitatedOrOutOfGame: " + (!c.Owner.ToHero().IsIncapacitatedOrOutOfGame).ToString());
-            Log.Debug(c.Title + ".IsTarget: " + c.IsTarget.ToString());*/
-            return c.IsInPlayAndHasGameText && c.IsHeroCharacterCard && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
-        }
-
         public override void AddSideTriggers()
         {
             base.AddSideTriggers();
@@ -90,7 +64,7 @@ namespace BartKFSentinels.Memorial
                 // [handled in RenownCardController]
 
                 // "If there are none, discard it and play the top card of the villain deck."
-                SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.DoKeywordsContain(RenownKeyword) && !FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c)).Any(), DiscardAndPlayResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
+                //SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.DoKeywordsContain(RenownKeyword) && !FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c)).Any(), ExtraRenownResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
 
                 // "Whenever a villain target deals 2 or more damage to a Renowned target, activate the first effect in this list that hasn't been activated this turn:"
                 // "1) {Memorial} regains {H - 1} HP."
@@ -196,61 +170,56 @@ namespace BartKFSentinels.Memorial
             yield break;
         }
 
-        private IEnumerator DiscardAndPlayResponse(CardEntersPlayAction cepa)
+        public override IEnumerator ExtraRenownResponse(Card entering)
         {
-            // "... discard it and play the top card of the villain deck."
-            Card entering = cepa.CardEnteringPlay;
-            IEnumerator cancelCoroutine = CancelAction(cepa);
-            if (base.UseUnityCoroutines)
+            Log.Debug("MemorialCharacterCardController.ExtraRenownResponse(" + entering.Title + ") started");
+            if (Card.IsFlipped)
             {
-                yield return base.GameController.StartCoroutine(cancelCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(cancelCoroutine);
-            }
-            IEnumerator discardCoroutine = GameController.MoveCard(TurnTakerController, entering, TurnTaker.Trash, responsibleTurnTaker: TurnTaker, isDiscard: true, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(discardCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(discardCoroutine);
-            }
-            if (base.TurnTaker.Deck.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)) || base.TurnTaker.Trash.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)))
-            {
-                IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned! Moving this card to the villain trash and playing the top card of the villain deck...", Priority.High, GetCardSource());
+                // "... discard it and play the top card of the villain deck."
+                IEnumerator discardCoroutine = GameController.MoveCard(TurnTakerController, entering, TurnTaker.Trash, responsibleTurnTaker: TurnTaker, isDiscard: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                    yield return base.GameController.StartCoroutine(discardCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                    base.GameController.ExhaustCoroutine(discardCoroutine);
                 }
-                IEnumerator playCoroutine = PlayTheTopCardOfTheVillainDeckResponse(null);
-                if (base.UseUnityCoroutines)
+                if (base.TurnTaker.Deck.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)) || base.TurnTaker.Trash.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)))
                 {
-                    yield return base.GameController.StartCoroutine(playCoroutine);
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned! Discarding " + entering.Title + " and playing the top card of the villain deck...", Priority.High, GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                    }
+                    IEnumerator playCoroutine = PlayTheTopCardOfTheVillainDeckResponse(null);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(playCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(playCoroutine);
+                    }
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(playCoroutine);
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned, and there are no non-Renown cards in the villain deck or trash to play.", Priority.High, GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                    }
                 }
             }
-            else
-            {
-                IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned, and there are no non-Renown cards in the villain deck or trash to play.", Priority.High, GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(messageCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(messageCoroutine);
-                }
-            }
+            Log.Debug("MemorialCharacterCardController.ExtraRenownResponse(" + entering.Title + ") finished");
             yield break;
         }
 

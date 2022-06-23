@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "When this card ... leaves play, destroy {H - 1} hero Ongoing and/or Equipment cards."
-            AddTrigger((MoveCardAction mca) => mca.CardToMove == base.Card && mca.Origin.IsInPlay && !mca.Destination.IsInPlay, DestroyCardsResponse, TriggerType.DestroyCard, TriggerTiming.Before);
+            AddBeforeLeavesPlayAction(DestroyCardsResponse, TriggerType.DestroyCard);
             // "At the end of the villain turn, this card deals itself 1 energy damage."
             AddDealDamageAtEndOfTurnTrigger(TurnTaker, base.Card, (Card c) => c == base.Card, TargetType.All, 1, DamageType.Energy);
         }
