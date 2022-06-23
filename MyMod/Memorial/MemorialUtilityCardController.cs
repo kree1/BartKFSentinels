@@ -24,13 +24,23 @@ namespace BartKFSentinels.Memorial
             return c.DoKeywordsContain(RenownKeyword);
         }
 
-        public static int NumRenownsAt(Location loc)
+        public int NumRenownsAt(Location loc)
         {
-            return loc.Cards.Where((Card c) => IsRenown(c)).Count();
+            if (loc.HighestRecursiveLocation == loc)
+            {
+                return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location.HighestRecursiveLocation == loc)).Count();
+            }
+            return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location == loc)).Count();
         }
 
-        public static bool IsRenownedTarget(Card c)
+        public bool IsRenownedTarget(Card c)
         {
+            /*Log.Debug("IsRenownedTarget(" + c.Title + ")");
+            Log.Debug(c.Title + ".IsInPlayAndHasGameText: " + c.IsInPlayAndHasGameText.ToString());
+            Log.Debug(c.Title + ".IsHeroCharacterCard: " + c.IsHeroCharacterCard.ToString());
+            Log.Debug(c.Title + ".Owner.IsHero: " + c.Owner.IsHero.ToString());
+            Log.Debug("!" + c.Title + ".Owner.ToHero().IsIncapacitatedOrOutOfGame: " + (!c.Owner.ToHero().IsIncapacitatedOrOutOfGame).ToString());
+            Log.Debug(c.Title + ".IsTarget: " + c.IsTarget.ToString());*/
             return c.IsInPlayAndHasGameText && c.IsHeroCharacterCard && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
         }
 
@@ -39,7 +49,7 @@ namespace BartKFSentinels.Memorial
             return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenownedTarget(c)));
         }
 
-        public static LinqCardCriteria IsNonRenownedHeroCharacterTarget()
+        public LinqCardCriteria IsNonRenownedHeroCharacterTarget()
         {
             return new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c), "non-Renowned hero character targets", false, false, "non-Renowned hero character target", "non-Renowned hero caracter targets");
         }

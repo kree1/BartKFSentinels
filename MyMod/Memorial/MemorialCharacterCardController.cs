@@ -19,7 +19,7 @@ namespace BartKFSentinels.Memorial
             // Back side: who are the H - 1 hero targets with the highest HP?
             SpecialStringMaker.ShowHeroTargetWithHighestHP(1, H - 1).Condition = () => Card.IsFlipped;
             // Back side: which targets are Renowned?
-            SpecialStringMaker.ShowListOfCards(new LinqCardCriteria((Card c) => MemorialUtilityCardController.IsRenownedTarget(c), "Renowned targets", false, false, "Renowned target", "Renowned targets"), () => true).Condition = () => Card.IsFlipped;
+            SpecialStringMaker.ShowListOfCards(new LinqCardCriteria((Card c) => IsRenownedTarget(c), "Renowned targets", false, false, "Renowned target", "Renowned targets"), () => true).Condition = () => Card.IsFlipped;
             // Back side: how many times has Memorial dealt 2 or more damage to a Renowned target this turn?
             SpecialStringMaker.ShowSpecialString(() => "Memorial has not dealt 2 or more damage to any Renowned targets this turn.", () => true).Condition = () => Card.IsFlipped && !HasBeenSetToTrueThisTurn(RenownedHit1);
             SpecialStringMaker.ShowSpecialString(() => "Memorial has dealt 2 or more damage to a Renowned target 1 time this turn.", () => true).Condition = () => Card.IsFlipped && HasBeenSetToTrueThisTurn(RenownedHit1) && !HasBeenSetToTrueThisTurn(RenownedHit2);
@@ -36,6 +36,33 @@ namespace BartKFSentinels.Memorial
         protected const string RenownedHit4 = "FourthRenownedHit";
         protected const string RenownedHit5 = "FifthRenownedHit";
         protected const string RenownedHit6 = "SixthRenownedHit";
+
+        public static readonly string RenownKeyword = "renown";
+
+        public static bool IsRenown(Card c)
+        {
+            return c.DoKeywordsContain(RenownKeyword);
+        }
+
+        public int NumRenownsAt(Location loc)
+        {
+            if (loc.HighestRecursiveLocation == loc)
+            {
+                return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location.HighestRecursiveLocation == loc)).Count();
+            }
+            return GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRenown(c) && c.Location == loc)).Count();
+        }
+
+        public bool IsRenownedTarget(Card c)
+        {
+            /*Log.Debug("IsRenownedTarget(" + c.Title + ")");
+            Log.Debug(c.Title + ".IsInPlayAndHasGameText: " + c.IsInPlayAndHasGameText.ToString());
+            Log.Debug(c.Title + ".IsHeroCharacterCard: " + c.IsHeroCharacterCard.ToString());
+            Log.Debug(c.Title + ".Owner.IsHero: " + c.Owner.IsHero.ToString());
+            Log.Debug("!" + c.Title + ".Owner.ToHero().IsIncapacitatedOrOutOfGame: " + (!c.Owner.ToHero().IsIncapacitatedOrOutOfGame).ToString());
+            Log.Debug(c.Title + ".IsTarget: " + c.IsTarget.ToString());*/
+            return c.IsInPlayAndHasGameText && c.IsHeroCharacterCard && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
+        }
 
         public override void AddSideTriggers()
         {
@@ -63,7 +90,7 @@ namespace BartKFSentinels.Memorial
                 // [handled in RenownCardController]
 
                 // "If there are none, discard it and play the top card of the villain deck."
-                SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.DoKeywordsContain("renown") && !FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !MemorialUtilityCardController.IsRenownedTarget(c)).Any(), DiscardAndPlayResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
+                SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.DoKeywordsContain(RenownKeyword) && !FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c)).Any(), DiscardAndPlayResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
 
                 // "Whenever a villain target deals 2 or more damage to a Renowned target, activate the first effect in this list that hasn't been activated this turn:"
                 // "1) {Memorial} regains {H - 1} HP."
@@ -72,7 +99,7 @@ namespace BartKFSentinels.Memorial
                 // "4) Destroy a non-character hero card."
                 // "5) Destroy a hero Ongoing or Equipment card."
                 // "6) Destroy the non-character non-villain target with the lowest HP."
-                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && MemorialUtilityCardController.IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && MemorialUtilityCardController.NumRenownsAt(dda.Target.Location) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
+                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && NumRenownsAt(dda.Target.Location) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
 
                 // "At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
                 SideTriggers.Add(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PewPewPewResponse, TriggerType.DealDamage));
@@ -191,7 +218,7 @@ namespace BartKFSentinels.Memorial
             {
                 base.GameController.ExhaustCoroutine(discardCoroutine);
             }
-            if (base.TurnTaker.Deck.Cards.Any((Card c) => !c.DoKeywordsContain("renown")) || base.TurnTaker.Trash.Cards.Any((Card c) => !c.DoKeywordsContain("renown")))
+            if (base.TurnTaker.Deck.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)) || base.TurnTaker.Trash.Cards.Any((Card c) => !c.DoKeywordsContain(RenownKeyword)))
             {
                 IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned! Moving this card to the villain trash and playing the top card of the villain deck...", Priority.High, GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -393,7 +420,7 @@ namespace BartKFSentinels.Memorial
                 base.GameController.ExhaustCoroutine(playBufferCoroutine);
             }
             // "Reveal cards from the villain deck until 3 Renowns are revealed. Put those Renowns into play. Shuffle the other revealed cards back into the villain deck."
-            IEnumerator renownCoroutine = RevealCards_MoveMatching_ReturnNonMatchingCards(TurnTakerController, TurnTaker.Deck, false, true, false, new LinqCardCriteria((Card c) => c.DoKeywordsContain("renown"), "Renown"), 3, showMessage: true, revealedCardDisplay: RevealedCardDisplay.ShowMatchingCards);
+            IEnumerator renownCoroutine = RevealCards_MoveMatching_ReturnNonMatchingCards(TurnTakerController, TurnTaker.Deck, false, true, false, new LinqCardCriteria((Card c) => c.DoKeywordsContain(RenownKeyword), "Renown"), 3, showMessage: true, revealedCardDisplay: RevealedCardDisplay.ShowMatchingCards);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(renownCoroutine);
