@@ -45,7 +45,7 @@ namespace BartKFSentinels.Memorial
             {
                 // Front side:
                 // "When a non-Incident villain card would enter play, instead shuffle it into the villain deck and the non-hero target with the highest HP deals the hero target with the highest HP {H - 1} projectile damage."
-                SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay != Card && !cepa.CardEnteringPlay.DoKeywordsContain("incident"), ShuffleAndShootResponse, new TriggerType[] { TriggerType.CancelAction }, TriggerTiming.Before));
+                SideTriggers.Add(AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay.IsVillain && pca.CardToPlay != Card && !pca.CardToPlay.DoKeywordsContain("incident"), ShuffleAndShootResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DealDamage }, TriggerTiming.Before));
                 // "When a villain Incident leaves play, remove that Incident from the game."
                 SideTriggers.Add(AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove.IsVillain && mca.CardToMove.DoKeywordsContain("incident") && mca.Origin.IsInPlay && !mca.Destination.IsInPlay, RemoveResolvedIncidentResponse, new TriggerType[] { TriggerType.RemoveFromGame }, TriggerTiming.After));
                 // "At the start of the villain turn, if there are no villain Incidents in play, flip {Memorial}."
@@ -54,7 +54,7 @@ namespace BartKFSentinels.Memorial
                 if (base.IsGameAdvanced)
                 {
                     // Front side, Advanced:
-                    // [none]
+                    // [none yet]
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace BartKFSentinels.Memorial
                 // "4) Destroy a non-character hero card."
                 // "5) Destroy a hero Ongoing or Equipment card."
                 // "6) Destroy the non-character non-villain target with the lowest HP."
-                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && NumRenownsAt(dda.Target.Location) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
+                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && dda.DidDealDamage && dda.Amount >= 2 && ((!dda.DidDestroyTarget && IsRenownedTarget(dda.Target)) || (dda.DidDestroyTarget && dda.DestroyCardAction != null && NumRenownsAt(GameController.Game.Journal.MostRecentDestroyCardEntry((DestroyCardJournalEntry dcje) => dcje.Card == dda.DestroyCardAction.CardToDestroy.Card).OriginalLocation) > 0)), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
 
                 // "At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
                 SideTriggers.Add(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PewPewPewResponse, TriggerType.DealDamage));
@@ -81,17 +81,27 @@ namespace BartKFSentinels.Memorial
                 if (base.IsGameAdvanced)
                 {
                     // Back side, Advanced:
-                    // [none]
+                    // [none yet]
                 }
             }
             AddDefeatedIfDestroyedTriggers();
         }
 
-        private IEnumerator ShuffleAndShootResponse(CardEntersPlayAction cepa)
+        private IEnumerator ShuffleAndShootResponse(PlayCardAction pca)
         {
             // "... instead shuffle it into the villain deck..."
-            Card entering = cepa.CardEnteringPlay;
-            IEnumerator cancelCoroutine = CancelAction(cepa);
+            Card entering = pca.CardToPlay;
+            pca.AllowPutIntoPlayCancel = true;
+            IEnumerator messageCoroutine = GameController.SendMessageAction(Card.Title + " isn't ready to reveal himself yet, so " + entering.Title + " is shuffled back into the villain deck, and someone shoots at the heroes from the shadows...", Priority.High, GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(messageCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(messageCoroutine);
+            }
+            IEnumerator cancelCoroutine = CancelAction(pca, showOutput: false);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(cancelCoroutine);
@@ -229,6 +239,15 @@ namespace BartKFSentinels.Memorial
             if (!HasBeenSetToTrueThisTurn(RenownedHit1))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit1);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his first hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "1) {Memorial} regains {H - 1} HP."
                 IEnumerator healCoroutine = GameController.GainHP(Card, H - 1, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -243,6 +262,15 @@ namespace BartKFSentinels.Memorial
             else if (HasBeenSetToTrueThisTurn(RenownedHit1) && !HasBeenSetToTrueThisTurn(RenownedHit2))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit2);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his second hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "2) One player discards a card."
                 IEnumerator discardCoroutine = GameController.SelectHeroToDiscardCard(DecisionMaker, false, false, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -257,6 +285,15 @@ namespace BartKFSentinels.Memorial
             else if (HasBeenSetToTrueThisTurn(RenownedHit2) && !HasBeenSetToTrueThisTurn(RenownedHit3))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit3);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his third hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "3) Reduce damage dealt to {Memorial} by 1 until the start of the villain turn."
                 ReduceDamageStatusEffect cover = new ReduceDamageStatusEffect(1);
                 cover.TargetCriteria.IsSpecificCard = Card;
@@ -275,6 +312,15 @@ namespace BartKFSentinels.Memorial
             else if (HasBeenSetToTrueThisTurn(RenownedHit3) && !HasBeenSetToTrueThisTurn(RenownedHit4))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit4);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his fourth hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "4) Destroy a non-character hero card."
                 IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter && !AskIfCardIsIndestructible(c), "non-character hero"), false, responsibleCard: Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -289,6 +335,15 @@ namespace BartKFSentinels.Memorial
             else if (HasBeenSetToTrueThisTurn(RenownedHit4) && !HasBeenSetToTrueThisTurn(RenownedHit5))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit5);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his fifth hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "5) Destroy a hero Ongoing or Equipment card."
                 IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (c.IsOngoing || IsEquipment(c)) && !AskIfCardIsIndestructible(c), "hero Ongoing or Equipment"), false, responsibleCard: Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -303,6 +358,15 @@ namespace BartKFSentinels.Memorial
             else if (HasBeenSetToTrueThisTurn(RenownedHit5) && !HasBeenSetToTrueThisTurn(RenownedHit6))
             {
                 SetCardPropertyToTrueIfRealAction(RenownedHit6);
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " scores his sixth hit against a Renowned target!", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
+                }
                 // "6) Destroy the non-character non-villain target with the lowest HP."
                 List<Card> storedResultsLowest = new List<Card>();
                 IEnumerator findCoroutine = GameController.FindTargetWithLowestHitPoints(1, (Card c) => !c.IsVillain && !c.IsCharacter, storedResultsLowest, cardSource: GetCardSource());
@@ -328,15 +392,27 @@ namespace BartKFSentinels.Memorial
                 }
                 else
                 {
-                    IEnumerator messageCoroutine = GameController.SendMessageAction("There are no non-character non-villain targets for " + Card.Title + " to destroy.", Priority.High, GetCardSource());
+                    IEnumerator failMessageCoroutine = GameController.SendMessageAction("There are no non-character non-villain targets for " + Card.Title + " to destroy.", Priority.High, GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
-                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                        yield return base.GameController.StartCoroutine(failMessageCoroutine);
                     }
                     else
                     {
-                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                        base.GameController.ExhaustCoroutine(failMessageCoroutine);
                     }
+                }
+            }
+            else if (HasBeenSetToTrueThisTurn(RenownedHit6))
+            {
+                IEnumerator messageCoroutine = GameController.SendMessageAction(base.Card.Title + " has already scored six or more hits against Renowned targets this turn.", Priority.High, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(messageCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
             }
             yield break;
