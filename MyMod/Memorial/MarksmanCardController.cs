@@ -27,7 +27,7 @@ namespace BartKFSentinels.Memorial
         private IEnumerator OptionalIncreaseNextDamageResponse(PhaseChangeAction pca)
         {
             // "... this hero's player may increase the next damage dealt by this hero by 2."
-            YesNoAmountDecision yesno = new YesNoAmountDecision(GameController, GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), SelectionType.IncreaseDamage, 2, cardSource: GetCardSource());
+            YesNoAmountDecision yesno = new YesNoAmountDecision(GameController, GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), SelectionType.Custom, 2, cardSource: GetCardSource());
             IEnumerator decideCoroutine = GameController.MakeDecisionAction(yesno);
             if (base.UseUnityCoroutines)
             {
@@ -53,6 +53,17 @@ namespace BartKFSentinels.Memorial
                 }
             }
             yield break;
+        }
+
+        public override CustomDecisionText GetCustomDecisionText(IDecision decision)
+        {
+            string turnTakerName = decision.DecisionMaker.Name;
+            string heroName = decision.DecisionMaker.CharacterCard.Title;
+            if (GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard)
+            {
+                heroName = GetCardThisCardIsNextTo().Title;
+            }
+            return new CustomDecisionText("Do you want to increase the next damage dealt by " + heroName + " by 2?", "Should " + turnTakerName + " increase the next damage dealt by " + heroName + " by 2?", "Vote whether to increase the next damage dealt by " + heroName + " by 2", "increasing the next damage dealt by " + heroName + " by 2");
         }
     }
 }
