@@ -22,7 +22,7 @@ namespace BartKFSentinels.Memorial
 
         public override IEnumerator DeterminePlayLocation(List<MoveCardDestination> storedResults, bool isPutIntoPlay, List<IDecision> decisionSources, Location overridePlayArea = null, LinqTurnTakerCriteria additionalTurnTakerCriteria = null)
         {
-            Log.Debug(Card.Title + ".DeterminePlayLocation() started");
+            //Log.Debug(Card.Title + ".DeterminePlayLocation() started");
             if (base.CharacterCard.IsFlipped)
             {
                 // "When a villain Renown enters play, move it next to a non-Renowned hero character target."
@@ -47,60 +47,12 @@ namespace BartKFSentinels.Memorial
             {
                 yield return base.DeterminePlayLocation(storedResults, isPutIntoPlay, decisionSources, overridePlayArea, additionalTurnTakerCriteria);
             }
-            Log.Debug(Card.Title + ".DeterminePlayLocation() finished");
+            //Log.Debug(Card.Title + ".DeterminePlayLocation() finished");
         }
-
-        /*public override IEnumerator RunIfUnableToEnterPlay()
-        {
-            if (base.CharacterCard.IsFlipped)
-            {
-                // "... If there are none, discard it and play the top card of the villain deck."
-                if (!_foundHero && NonRenownedHeroCharacterTargets().Count() == 0)
-                {
-                    if (base.TurnTaker.Deck.Cards.Any((Card c) => !IsRenown(c)) || base.TurnTaker.Trash.Cards.Any((Card c) => !IsRenown(c)))
-                    {
-                        IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned! Moving this card to the villain trash and playing the top card of the villain deck...", Priority.High, GetCardSource());
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(messageCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(messageCoroutine);
-                        }
-                        IEnumerator playCoroutine = PlayTheTopCardOfTheVillainDeckResponse(null);
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(playCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(playCoroutine);
-                        }
-                    }
-                    else
-                    {
-                        IEnumerator messageCoroutine = base.GameController.SendMessageAction("All hero character targets are already Renowned, and there are no non-Renown cards in the villain deck or trash to play.", Priority.High, GetCardSource());
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(messageCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(messageCoroutine);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                yield return base.RunIfUnableToEnterPlay();
-            }
-        }*/
 
         public override IEnumerator RunIfUnableToEnterPlay()
         {
-            Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() started");
+            //Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() started");
             if (FindCardController(CharacterCard) is MemorialUtilityCharacterCardController)
             {
                 IEnumerator runCoroutine = ((MemorialUtilityCharacterCardController)FindCardController(base.CharacterCard)).ExtraRenownResponse(Card);
@@ -112,18 +64,18 @@ namespace BartKFSentinels.Memorial
                 {
                     base.GameController.ExhaustCoroutine(runCoroutine);
                 }
-                Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() finished");
+                //Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() finished");
             }
             else
             {
-                Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() handing off to base class");
+                //Log.Debug(Card.Title + ".RunIfUnableToEnterPlay() handing off to base class");
                 yield return base.RunIfUnableToEnterPlay();
             }
         }
 
         public override IEnumerator Play()
         {
-            Log.Debug(Card.Title + ".Play() started");
+            //Log.Debug(Card.Title + ".Play() started");
             if (!_foundHero && NonRenownedHeroCharacterTargets().Count() == 0)
             {
                 // "... If there are none, discard it and play the top card of the villain deck."
@@ -152,7 +104,7 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            Log.Debug(Card.Title + ".Play() finished");
+            //Log.Debug(Card.Title + ".Play() finished");
             yield break;
         }
     }
