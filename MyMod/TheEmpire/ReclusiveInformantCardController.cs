@@ -67,13 +67,19 @@ namespace BartKFSentinels.TheEmpire
                     {
                         base.GameController.ExhaustCoroutine(destroyCoroutine);
                     }
+                    //Log.Debug("ReclusiveInformantCardController.DamageWithReductionResponse: DidDestroyCard(destroyed): " + DidDestroyCard(destroyed).ToString());
+                    //Log.Debug("ReclusiveInformantCardController.DamageWithReductionResponse: IsRealAction(): " + IsRealAction().ToString());
                     if (DidDestroyCard(destroyed) && IsRealAction())
                     {
+                        //Log.Debug("DidDestroyToReduce: " + Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce).ToString());
+                        //Log.Debug("ReclusiveInformantCardController.DamageWithReductionResponse: setting DidDestroyToReduce to true");
                         Journal.RecordCardProperties(base.Card, DidDestroyToReduce, true);
+                        //Log.Debug("DidDestroyToReduce: " + Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce).ToString());
                     }
                 }
             }
 
+            //Log.Debug("ReclusiveInformantCardController.DamageWithReductionResponse: initiating damage");
             IEnumerator damageCoroutine = DealDamage(base.Card, base.Card, 2, DamageType.Psychic, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -89,6 +95,7 @@ namespace BartKFSentinels.TheEmpire
         public IEnumerator DestroyedReduceResponse(DealDamageAction dda)
         {
             // "... to reduce this damage by 2."
+            //Log.Debug("ReclusiveInformantCardController.DestroyedReduceResponse called");
             IEnumerator reduceCoroutine = base.GameController.ReduceDamage(dda, 2, reduceDamageTrigger, GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -98,8 +105,14 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(reduceCoroutine);
             }
-            SetCardProperty(DidDestroyToReduce, false);
-            yield break;
+            if (IsRealAction())
+            {
+                //Log.Debug("DidDestroyToReduce: " + Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce).ToString());
+                //Log.Debug("ReclusiveInformantCardController.DestroyedReduceResponse: setting DidDestroyToReduce to false");
+                SetCardProperty(DidDestroyToReduce, false);
+                //Log.Debug("DidDestroyToReduce: " + Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce).ToString());
+                //Log.Debug("ReclusiveInformantCardController.DestroyedReduceResponse finished");
+            }
         }
 
         public IEnumerator OnePlayerDrawsResponse(GameAction ga)
