@@ -38,7 +38,8 @@
 			"complexity":2,
 			"openingLines":{
 				"default": "Don't worry, team. They're not getting past me.",
-				"OblivAeonFrontPageCharacter": "You're over the line."
+				"OblivAeonFrontPageCharacter": "You're over the line.",
+				"Menagerie.UnmuteCharacter": "My field is wherever people need help. Looks like I'm in the right spot."
 			}
 		},
 		{
@@ -472,7 +473,8 @@
 			"complexity": 2,
 			"openingLines":{
 				"default": "Ready to think outside the box?",
-				"OblivAeonFrontPageCharacter": "I'd watch the five-hole if I were you."
+				"OblivAeonFrontPageCharacter": "I'd watch the five-hole if I were you.",
+				"Menagerie.UnmuteCharacter": "Thanks! You're gonna wish you brought some."
 			}
 		}
 	]
