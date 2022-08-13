@@ -294,4 +294,9 @@
   <PropertyGroup>
     <PostBuildEvent>call "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\postbuild.bat"</PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties manifest_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
