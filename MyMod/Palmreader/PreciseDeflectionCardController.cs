@@ -31,6 +31,19 @@ namespace BartKFSentinels.Palmreader
 
         public IEnumerator OneDamageResponse(DealDamageAction dda)
         {
+            if (dda.IsPretend)
+            {
+                IEnumerator preventCoroutine = CancelAction(dda, showOutput: true, cancelFutureRelatedDecisions: true, null, isPreventEffect: true);
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(preventCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(preventCoroutine);
+                }
+                yield break;
+            }
             //Log.Debug("PreciseDeflectionCardController.OneDamageResponse activated");
             // "... you may..."
             List<YesNoCardDecision> choice = new List<YesNoCardDecision>();

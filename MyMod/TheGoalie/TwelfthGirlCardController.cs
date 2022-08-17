@@ -42,7 +42,7 @@ namespace BartKFSentinels.TheGoalie
                 }
                 yield break;
             }
-            Log.Debug("TwelfthGirlCardController.OneDamageResponse activated");
+            //Log.Debug("TwelfthGirlCardController.OneDamageResponse activated");
             // "... you may..."
             List<YesNoCardDecision> choice = new List<YesNoCardDecision>();
             IEnumerator chooseCoroutine = base.GameController.MakeYesNoCardDecision(base.HeroTurnTakerController, SelectionType.PreventDamage, base.Card, dda, choice, cardSource: GetCardSource());
