@@ -73,7 +73,7 @@ namespace BartKFSentinels.Torrent
                 ddaPrime.Target = base.CharacterCard;
                 ddaPrime.Amount = 1;
                 Card source = null;
-                if (ddaPrime.DamageSource != null && ddaPrime.DamageSource.Card != null)
+                if (ddaPrime.DamageSource != null && ddaPrime.DamageSource.IsCard)
                 {
                     source = ddaPrime.DamageSource.Card;
                 }

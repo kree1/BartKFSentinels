@@ -21,7 +21,7 @@ namespace BartKFSentinels.TheGigamorph
         public override void AddTriggers()
         {
             // "Increase damage dealt to that target by Immune cards by 1."
-            AddIncreaseDamageTrigger((DealDamageAction dda) => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && dda.Target == GetCardThisCardIsNextTo() && dda.DamageSource.IsCard && dda.DamageSource.Card.DoKeywordsContain("immune"), (DealDamageAction dda) => 1);
+            AddIncreaseDamageTrigger((DealDamageAction dda) => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && dda.Target == GetCardThisCardIsNextTo() && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.DoKeywordsContain("immune"), (DealDamageAction dda) => 1);
             // "At the start of that target's turn, this card deals it 1 toxic damage."
             base.AddStartOfTurnTrigger((TurnTaker tt) => GetCardThisCardIsNextTo() != null && tt == GetCardThisCardIsNextTo().Owner && GetCardThisCardIsNextTo().IsTarget, (PhaseChangeAction pca) => DealDamage(base.Card, GetCardThisCardIsNextTo(), 1, DamageType.Toxic, cardSource: GetCardSource()), TriggerType.DealDamage);
             // "When this card would leave play, instead it and the target it's next to each regain 5 HP, then move it next to the non-Antibody non-[b]tagged[/b] target with the third lowest HP and it becomes indestructible until the end of the turn."

@@ -23,7 +23,7 @@ namespace BartKFSentinels.EvidenceStorage
             // "Reduce damage dealt to this card to 1."
             AddReduceDamageToSetAmountTrigger((DealDamageAction dda) => dda.Target == base.Card, 1);
             // "Whenever a non-environment target deals damage to this card, discard the top card of the environment deck. Then, select a Device card at random from the environment trash and put it into play in the play area of the target that dealt damage."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.IsTarget && !dda.DamageSource.IsEnvironmentSource && dda.Target == base.Card && dda.Amount > 0 && !dda.IsPretend, OpenCrateResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay }, TriggerTiming.After, isActionOptional: false);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.IsTarget && !dda.DamageSource.IsEnvironmentSource && dda.Target == base.Card && dda.Amount > 0 && !dda.IsPretend, OpenCrateResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay }, TriggerTiming.After, isActionOptional: false);
             base.AddTriggers();
         }
 

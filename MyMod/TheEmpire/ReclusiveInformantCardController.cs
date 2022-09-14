@@ -33,7 +33,7 @@ namespace BartKFSentinels.TheEmpire
 
         private bool EndOfTurnDamageCriteria(DealDamageAction dda)
         {
-            return dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.IsSameCard(base.Card) && dda.OriginalAmount == 2 && dda.OriginalDamageType == DamageType.Psychic && dda.CardSource.Card == base.Card && Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce) == true;
+            return dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.IsSameCard(base.Card) && dda.OriginalAmount == 2 && dda.OriginalDamageType == DamageType.Psychic && dda.CardSource.Card == base.Card && Journal.GetCardPropertiesBoolean(base.Card, DidDestroyToReduce) == true;
         }
 
         public IEnumerator DamageWithReductionResponse(PhaseChangeAction pca)

@@ -87,7 +87,7 @@ namespace BartKFSentinels.Memorial
                 // "5) Destroy a hero Ongoing or Equipment card."
                 // "6) Destroy the non-character non-villain target with the lowest HP."
                 // Before damage is dealt, check whether the target is Renowned and save the InstanceIdentifier to _recentDamageIDs if so
-                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card.IsVillainTarget && IsRenownedTarget(dda.Target) && !dda.IsPretend && dda.IsSuccessful && dda.Amount >= 2, SaveGUIDResponse, TriggerType.HiddenLast, TriggerTiming.Before));
+                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsVillainTarget && IsRenownedTarget(dda.Target) && !dda.IsPretend && dda.IsSuccessful && dda.Amount >= 2, SaveGUIDResponse, TriggerType.HiddenLast, TriggerTiming.Before));
                 // After damage is dealt, if the InstanceIdentifier was in _recentDamageIDs, do the next thing on the list
                 SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Amount >= 2 && RecentDamageIDs.Contains(dda.InstanceIdentifier), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
 

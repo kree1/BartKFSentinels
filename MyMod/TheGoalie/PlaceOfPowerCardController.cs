@@ -23,7 +23,7 @@ namespace BartKFSentinels.TheGoalie
             // "Reduce damage dealt to {TheGoalieCharacter} by 1."
             AddReduceDamageTrigger((Card c) => c == base.CharacterCard, 1);
             // "Increase non-melee damage dealt by {TheGoalieCharacter} by 1."
-            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card == base.CharacterCard && dda.DamageType != DamageType.Melee, (DealDamageAction dda) => 1);
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == base.CharacterCard && dda.DamageType != DamageType.Melee, (DealDamageAction dda) => 1);
             // "At the end of your turn, {TheGoalieCharacter} regains 1 HP."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, (PhaseChangeAction pca) => base.GameController.GainHP(base.CharacterCard, 1, cardSource: GetCardSource()), TriggerType.GainHP);
         }

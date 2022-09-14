@@ -27,7 +27,7 @@ namespace BartKFSentinels.TheGigamorph
             base.AddTriggers();
             // "After a target deals 4 or more damage at once, that damage type becomes [b]monitored[/b] and all other damage types are no longer [b]monitored.[/b]"
             // "Whenever a target deals damage of a [b]monitored[/b] type, move the Antibody with the highest HP next to that target."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.IsTarget && dda.DidDealDamage, MoveMonitorResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ShowMessage }, TriggerTiming.After);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DidDealDamage, MoveMonitorResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ShowMessage }, TriggerTiming.After);
             // "At the start of the environment turn, if any target has 2 or more Antibodies next to it, destroy this card."
             base.AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyIfStackedResponse, TriggerType.DestroySelf);
         }

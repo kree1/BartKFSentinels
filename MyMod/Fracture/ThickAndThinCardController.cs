@@ -23,7 +23,7 @@ namespace BartKFSentinels.Fracture
         {
             base.AddTriggers();
             // "Reduce the first damage dealt by that target to another target each turn by 2."
-            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card == GetCardThisCardIsNextTo() && dda.Target != GetCardThisCardIsNextTo(), ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo() && dda.Target != GetCardThisCardIsNextTo(), ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
         }
 
         public IEnumerator ReduceResponse(DealDamageAction dda)

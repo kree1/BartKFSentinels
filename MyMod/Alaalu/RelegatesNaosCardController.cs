@@ -32,10 +32,10 @@ namespace BartKFSentinels.Alaalu
             base.AddTriggers();
             // "Reduce damage dealt to and by the villain target with the lowest HP by 2."
             reduceDamageToLowest = AddTrigger((DealDamageAction dda) => CanCardBeConsideredLowestHitPoints(dda.Target, (Card c) => c.IsVillain), MaybeReduceDamageTakenResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
-            reduceDamageByLowest = AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && CanCardBeConsideredLowestHitPoints(dda.DamageSource.Card, (Card c) => c.IsVillain), MaybeReduceDamageDealtResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
+            reduceDamageByLowest = AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && CanCardBeConsideredLowestHitPoints(dda.DamageSource.Card, (Card c) => c.IsVillain), MaybeReduceDamageDealtResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
             // "Reduce damage dealt to and by the [i]Lone Power[/i] by 2."
             reduceDamageToLoneOne = AddReduceDamageTrigger((Card c) => c.DoKeywordsContain("lone power"), 2);
-            reduceDamageByLoneOne = AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card.DoKeywordsContain("lone power"), (DealDamageAction dda) => 2);
+            reduceDamageByLoneOne = AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.DoKeywordsContain("lone power"), (DealDamageAction dda) => 2);
             // "At the start of the environment turn, 1 player may discard 2 cards. If they do, put the [i]Lone Power[/i] from the environment trash into play and destroy this card."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardToLeaveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay, TriggerType.DestroySelf });
         }

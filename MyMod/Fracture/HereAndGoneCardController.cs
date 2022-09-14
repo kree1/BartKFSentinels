@@ -21,7 +21,7 @@ namespace BartKFSentinels.Fracture
         {
             base.AddTriggers();
             // "When the target next to this card deals damage, you may redirect that damage to a target of your choice. Then, destroy this card."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && dda.DamageSource.Card == GetCardThisCardIsNextTo(), RedirectDestroyResponse, new TriggerType[] { TriggerType.RedirectDamage, TriggerType.DestroySelf }, TriggerTiming.Before);
+            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo(), RedirectDestroyResponse, new TriggerType[] { TriggerType.RedirectDamage, TriggerType.DestroySelf }, TriggerTiming.Before);
         }
 
         public override IEnumerator Play()

@@ -46,7 +46,7 @@ namespace BartKFSentinels.Palmreader
         {
             base.AddTriggers();
             // "When damage would be dealt to or by (PalmreaderCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
-            _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
+            _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
         }
 
         public override IEnumerator Play()

@@ -115,7 +115,7 @@ namespace BartKFSentinels.Breakaway
                 // "As long as {Momentum} has more than..."
                 // "... {H * 3} HP, damage dealt by {Breakaway} is irreducible."
                 // "... {H} HP, increase damage dealt by {Breakaway} by 1."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource.Card == this.Card, DeadEndJobDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.Before));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == this.Card, DeadEndJobDealingDamageResponse, new TriggerType[] { TriggerType.MakeDamageIrreducible, TriggerType.IncreaseDamage }, TriggerTiming.Before));
 
                 // "As long as {Momentum} has more than..."
                 // "... {H * 2} times 2 HP, reduce damage dealt to {Breakaway} by 1."
@@ -132,7 +132,7 @@ namespace BartKFSentinels.Breakaway
                 {
                     // Back side, Advanced:
                     // "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
-                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
+                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
                 }
             }
 

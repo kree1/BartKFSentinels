@@ -22,10 +22,10 @@ namespace BartKFSentinels.EvidenceStorage
         public override void AddTriggers()
         {
             // "When a non-Device target in this play area deals damage to a target from another deck, increase that damage by 1 and change its type to projectile."
-            base.AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, 1);
-            base.AddChangeDamageTypeTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, DamageType.Projectile);
+            base.AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, 1);
+            base.AddChangeDamageTypeTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, DamageType.Projectile);
             // "Then, if the damaged target is still in play, move this card to the damaged target’s play area."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.Card != null && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, ThrowResponse, TriggerType.MoveCard, TriggerTiming.After, isConditional: true, isActionOptional: false);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && !dda.DamageSource.Card.DoKeywordsContain("device") && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource.Card.Owner != dda.Target.Owner, ThrowResponse, TriggerType.MoveCard, TriggerTiming.After, isConditional: true, isActionOptional: false);
             base.AddTriggers();
         }
 
