@@ -14,13 +14,13 @@ namespace BartKFSentinels.Palmreader
         public MomentaryFugueCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowListOfCardsAtLocation(base.TurnTaker.PlayArea, new LinqCardCriteria((Card c) => IsRelay(c), "relay")).Condition = () => NumRelaysAt(base.TurnTaker.PlayArea) > 0;
+            ShowListOfCardsAtLocationRecursive(base.TurnTaker.PlayArea, new LinqCardCriteria((Card c) => IsRelay(c), "relay")).Condition = () => NumRelaysAt(base.TurnTaker.PlayArea) > 0;
             SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in " + base.TurnTaker.NameRespectingVariant + "'s play area.").Condition = () => NumRelaysAt(base.TurnTaker.PlayArea) <= 0;
         }
 
         public override IEnumerator Play()
         {
-            // "Return all Goalposts cards in your play area to your hand."
+            // "Return all Relay cards in your play area to your hand."
             IEnumerator returnCoroutine = base.GameController.MoveCards(base.TurnTakerController, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText && c.Location.HighestRecursiveLocation.OwnerTurnTaker == base.TurnTaker, "Relay cards in " + base.TurnTaker.Name + "'s play area", false, false, "Relay card in " + base.TurnTaker.Name + "'s play area", "Relay cards in " + base.TurnTaker.Name + "'s play area"), visibleToCard: GetCardSource()), (Card c) => new MoveCardDestination(base.HeroTurnTaker.Hand), responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {

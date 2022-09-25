@@ -19,7 +19,7 @@ namespace BartKFSentinels.Palmreader
             SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText), specifyPlayAreas: true).Condition = () => NumRelaysInPlay() > 0;
             SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in play.").Condition = () => NumRelaysInPlay() <= 0;
             SpecialStringMaker.ShowSpecialString(() => "This card is in " + base.Card.Location.GetFriendlyName() + ".").Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowListOfCardsAtLocationOfCard(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "target", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlayAndHasGameText;
+            ShowListOfCardsAtLocationOfCardRecursive(base.Card, new LinqCardCriteria((Card c) => c.IsTarget, "target", useCardsSuffix: false, false, "target", "targets")).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         private DealDamageAction MyDamageAction
@@ -46,14 +46,14 @@ namespace BartKFSentinels.Palmreader
         {
             base.AddTriggers();
             // "When damage would be dealt to or by (PalmreaderCharacter) to or by a target in this play area, you may increase or reduce that damage by 1."
-            _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DamageSource.Card.Location == base.Card.Location && dda.Target == base.CharacterCard) || (dda.Target.Location == base.Card.Location && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
+            _modifyDamageAmount = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.Target == base.CharacterCard) || (dda.Target.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == base.CharacterCard), ModifyDamageResponse, new TriggerType[] { TriggerType.IncreaseDamage, TriggerType.ReduceDamage }, TriggerTiming.Before, isActionOptional: true);
         }
 
         public override IEnumerator Play()
         {
             // "When this card enters play, move it to a play area with no other Relay cards."
             List<SelectTurnTakerDecision> decisions = new List<SelectTurnTakerDecision>();
-            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsRelay(c)).Count() == 0 || tt.PlayArea.Cards.Where((Card c) => IsRelay(c)).Count() == 1 && tt.PlayArea == base.Card.Location, cardSource: GetCardSource());
+            IEnumerator directCoroutine = base.GameController.SelectTurnTaker(base.HeroTurnTakerController, SelectionType.MoveCardToPlayArea, decisions, optional: false, additionalCriteria: (TurnTaker tt) => tt.PlayArea.Cards.Where((Card c) => IsRelay(c) && c != base.Card).Count() == 0, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(directCoroutine);

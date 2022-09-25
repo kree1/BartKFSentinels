@@ -14,7 +14,7 @@ namespace BartKFSentinels.Palmreader
         public SignalFlareCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText && !c.Location.IsHero), specifyPlayAreas: true).Condition = () => NumRelaysInNonHeroPlayAreas() > 0;
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => IsRelay(c) && c.IsInPlayAndHasGameText && !c.Location.HighestRecursiveLocation.IsHero), specifyPlayAreas: true).Condition = () => NumRelaysInNonHeroPlayAreas() > 0;
             SpecialStringMaker.ShowSpecialString(() => "There are no Relay cards in non-hero play areas.").Condition = () => NumRelaysInNonHeroPlayAreas() <= 0;
         }
 
@@ -33,7 +33,7 @@ namespace BartKFSentinels.Palmreader
             // "Destroy a Relay card in a non-hero play area."
             if (NumRelaysInNonHeroPlayAreas() > 0)
             {
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && !c.Location.IsHero), false, responsibleCard: base.Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && !c.Location.HighestRecursiveLocation.IsHero), false, responsibleCard: base.Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

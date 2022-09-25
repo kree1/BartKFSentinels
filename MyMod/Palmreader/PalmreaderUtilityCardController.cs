@@ -40,7 +40,7 @@ namespace BartKFSentinels.Palmreader
 
         public IEnumerable<Card> RelaysInHeroPlayAreas()
         {
-            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && c.Location.IsHero);
+            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && c.Location.HighestRecursiveLocation.IsHero);
         }
 
         public int NumRelaysInHeroPlayAreas()
@@ -50,12 +50,81 @@ namespace BartKFSentinels.Palmreader
 
         public IEnumerable<Card> RelaysInNonHeroPlayAreas()
         {
-            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && !c.Location.IsHero);
+            return base.TurnTaker.GetCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsRelay(c) && !c.Location.HighestRecursiveLocation.IsHero);
         }
 
         public int NumRelaysInNonHeroPlayAreas()
         {
             return RelaysInNonHeroPlayAreas().Count();
+        }
+
+        public SpecialString ShowListOfCardsAtLocationOfCardRecursive(Card cardToCheck, LinqCardCriteria cardCriteria, Func<bool> showInEffectsList = null)
+        {
+            Func<string> output = () => StringForListOfCards(new LinqCardCriteria((Card c) => c.Location.HighestRecursiveLocation == cardToCheck.Location.HighestRecursiveLocation && cardCriteria.Criteria(c), cardCriteria.Description), GetLocationOutput(cardToCheck.Location, specifyPlayAreas: true));
+            return SpecialStringMaker.ShowSpecialString(output, showInEffectsList);
+        }
+
+        public SpecialString ShowListOfCardsAtLocationRecursive(Location location, LinqCardCriteria cardCriteria, Func<bool> showInEffectsList = null)
+        {
+            Func<string> output = () => StringForListOfCards(new LinqCardCriteria((Card c) => c.Location.HighestRecursiveLocation == location.HighestRecursiveLocation && cardCriteria.Criteria(c), cardCriteria.Description), GetLocationOutput(location, specifyPlayAreas: true));
+            return SpecialStringMaker.ShowSpecialString(output, showInEffectsList);
+        }
+
+        public string StringForListOfCards(LinqCardCriteria cardCriteria, string where = null, bool consolodateDuplicates = true)
+        {
+            IEnumerable<Card> source = this.FindCardsWhere((Card c) => cardCriteria.Criteria(c));
+            int num = source.Count();
+            if (where != null)
+            {
+                where = " " + where;
+            }
+            if (num == 0)
+            {
+                int number = this.FindCardsWhere((Card c) => c.IsInPlay && cardCriteria.Criteria(c)).Count();
+                return "There " + number.ToString_NumberOfCards(cardCriteria.GetDescription(plural: true, false), cardCriteria.UseCardsSuffix) + where + ".";
+            }
+            List<string> list = new List<string>();
+            IEnumerable<string> source2 = source.Select((Card c) => c.AlternateTitleOrTitle);
+            if (consolodateDuplicates)
+            {
+                foreach (string distinctTitle in source2.Distinct())
+                {
+                    int num2 = source2.Where((string s) => s == distinctTitle).Count();
+                    string text = distinctTitle;
+                    if (num2 > 1)
+                    {
+                        text = text + " (x" + num2 + ")";
+                    }
+                    list.Add(text);
+                }
+            }
+            else
+            {
+                list = source2.ToList();
+            }
+            return cardCriteria.GetDescription().Capitalize() + where + ": " + list.ToCommaList(useWordAnd: true) + ".";
+        }
+
+        public string GetLocationOutput(Location location, bool specifyPlayAreas)
+        {
+            string text = location.GetFriendlyName();
+            if (location.Name == LocationName.PlayArea)
+            {
+                if (specifyPlayAreas)
+                {
+                    string name = location.OwnerTurnTaker.Name;
+                    text = ((!name.EndsWith("s")) ? (name + "'s play area") : (name + "' play area"));
+                }
+                else
+                {
+                    text = "play";
+                }
+            }
+            if (location.Name != LocationName.NextToCard && location.Name != LocationName.UnderCard)
+            {
+                text = "in " + text;
+            }
+            return text;
         }
 
         public IEnumerator DestroyExcessRelaysResponse()
