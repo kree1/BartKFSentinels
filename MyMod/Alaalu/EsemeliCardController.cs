@@ -43,24 +43,39 @@ namespace BartKFSentinels.Alaalu
             if (success != null)
             {
                 Card damaged = success.Target;
-                HeroTurnTakerController owner = base.GameController.FindHeroTurnTakerController(damaged.Owner.ToHero());
-                IEnumerator drawCoroutine = base.GameController.DrawCard(owner.HeroTurnTaker, optional: true, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
+                if (damaged.Owner.IsHero)
                 {
-                    yield return base.GameController.StartCoroutine(drawCoroutine);
+                    HeroTurnTakerController owner = base.GameController.FindHeroTurnTakerController(damaged.Owner.ToHero());
+                    IEnumerator drawCoroutine = base.GameController.DrawCard(owner.HeroTurnTaker, optional: true, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(drawCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(drawCoroutine);
+                    }
+                    IEnumerator powerCoroutine = base.GameController.SelectAndUsePower(owner, cardSource: GetCardSource());
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(powerCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(powerCoroutine);
+                    }
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(drawCoroutine);
-                }
-                IEnumerator powerCoroutine = base.GameController.SelectAndUsePower(owner, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(powerCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(powerCoroutine);
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction(damaged.Owner.Name + " is not a hero, so they can't draw a card or use a power.", Priority.Medium, GetCardSource(), damaged.ToEnumerable(), showCardSource: true);
+                    if (base.UseUnityCoroutines)
+                    {
+                        yield return base.GameController.StartCoroutine(messageCoroutine);
+                    }
+                    else
+                    {
+                        base.GameController.ExhaustCoroutine(messageCoroutine);
+                    }
                 }
             }
             yield break;
