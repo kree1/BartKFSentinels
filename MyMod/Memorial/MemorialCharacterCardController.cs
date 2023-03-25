@@ -368,7 +368,7 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
                 // "5) Destroy a hero Ongoing or Equipment card."
-                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (c.IsOngoing || IsEquipment(c)) && !AskIfCardIsIndestructible(c), "hero Ongoing or Equipment"), false, responsibleCard: Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

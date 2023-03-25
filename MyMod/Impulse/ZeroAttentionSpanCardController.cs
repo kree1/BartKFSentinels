@@ -29,7 +29,7 @@ namespace BartKFSentinels.Impulse
         {
             // "At the end of your turn, you may destroy an Ongoing card. If you don't, {ImpulseCharacter} deals himself 1 energy damage."
             List<DestroyCardAction> destroyActions = new List<DestroyCardAction>();
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsInPlay && c.IsOngoing, "ongoing"), optional: true, storedResultsAction: destroyActions, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => IsOngoing(c), "Ongoing"), optional: true, storedResultsAction: destroyActions, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

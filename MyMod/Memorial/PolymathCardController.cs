@@ -15,7 +15,7 @@ namespace BartKFSentinels.Memorial
             : base(card, turnTakerController)
         {
             //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
-            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => c.IsOngoing || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
+            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
         }
 
         public override void AddTriggers()
@@ -31,7 +31,7 @@ namespace BartKFSentinels.Memorial
 
             /*bool shouldDiscard = true;
             // Check if they have a card in hand they can play
-            if (!FindCardsWhere(new LinqCardCriteria((Card c) => c.Location == GetCardThisCardIsNextTo().Owner.ToHero().Hand && (c.IsOngoing || IsEquipment(c))), visibleToCard: GetCardSource()).Any())
+            if (!FindCardsWhere(new LinqCardCriteria((Card c) => c.Location == GetCardThisCardIsNextTo().Owner.ToHero().Hand && (IsOngoing(c) || IsEquipment(c))), visibleToCard: GetCardSource()).Any())
             {
                 shouldDiscard = false;
                 // If not, ask if they want to discard anyway for no effect
@@ -49,7 +49,7 @@ namespace BartKFSentinels.Memorial
             }
             if (DidDiscardCards(discards, 1))
             {
-                IEnumerator playCoroutine = SelectAndPlayCardFromHand(GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), cardCriteria: new LinqCardCriteria((Card c) => c.IsOngoing || IsEquipment(c), "Ongoing or Equipment"));
+                IEnumerator playCoroutine = SelectAndPlayCardFromHand(GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), cardCriteria: new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c), "Ongoing or Equipment"));
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(playCoroutine);

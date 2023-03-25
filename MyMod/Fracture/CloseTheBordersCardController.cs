@@ -20,7 +20,7 @@ namespace BartKFSentinels.Fracture
         public override IEnumerator Play()
         {
             // "You may destroy an Ongoing or environment card."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing || c.IsEnvironment, "ongoing or environment"), true, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => IsOngoing(c) || c.IsEnvironment, "Ongoing or environment"), true, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -69,7 +69,7 @@ namespace BartKFSentinels.Fracture
         {
             // "... you may either destroy an Ongoing or environment card or draw a card."
             List<Function> options = new List<Function>();
-            Function destroy = new Function(base.HeroTurnTakerController, "Destroy an ongoing or environment card", SelectionType.DestroyCard, () => base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing || c.IsEnvironment, "ongoing or environment"), false, responsibleCard: base.Card, cardSource: GetCardSource()), FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && (c.IsOngoing || c.IsEnvironment)).Count() > 0);
+            Function destroy = new Function(base.HeroTurnTakerController, "Destroy an ongoing or environment card", SelectionType.DestroyCard, () => base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => IsOngoing(c) || c.IsEnvironment, "Ongoing or environment"), false, responsibleCard: base.Card, cardSource: GetCardSource()), FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && (IsOngoing(c) || c.IsEnvironment)).Count() > 0);
             options.Add(destroy);
             Function draw = new Function(base.HeroTurnTakerController, "Draw a card", SelectionType.DrawCard, () => base.GameController.DrawCard(base.HeroTurnTaker, cardSource: GetCardSource()));
             options.Add(draw);

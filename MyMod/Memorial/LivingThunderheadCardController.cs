@@ -29,7 +29,7 @@ namespace BartKFSentinels.Memorial
         private IEnumerator DestroyCardResponse(PhaseChangeAction pca)
         {
             // "... destroy a hero Ongoing or Equipment card."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsInPlay && c.IsHero && (c.IsOngoing || IsEquipment(c)), "hero ongoing or equipment"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

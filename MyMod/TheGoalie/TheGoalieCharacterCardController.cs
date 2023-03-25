@@ -132,7 +132,7 @@ namespace BartKFSentinels.TheGoalie
         {
             // "Put an Ongoing card from a trash on top of its deck."
             List<SelectCardDecision> selection = new List<SelectCardDecision>();
-            IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.MoveCardOnDeck, new LinqCardCriteria((Card c) => c.IsOngoing && c.IsInTrash), selection, false, cardSource: GetCardSource());
+            IEnumerator selectCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.MoveCardOnDeck, new LinqCardCriteria((Card c) => IsOngoing(c) && c.IsInTrash), selection, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectCoroutine);

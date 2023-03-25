@@ -32,7 +32,7 @@ namespace BartKFSentinels.Palmreader
             }
             // "You may destroy an Ongoing or environment card."
             List<DestroyCardAction> destroyed = new List<DestroyCardAction>();
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => c.IsOngoing || c.IsEnvironment, "Ongoing or environment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.HeroTurnTakerController, new LinqCardCriteria((Card c) => IsOngoing(c) || c.IsEnvironment, "Ongoing or environment"), true, storedResultsAction: destroyed, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -44,7 +44,7 @@ namespace BartKFSentinels.Palmreader
             if (destroyed != null && destroyed.Count() > 0 && DidDestroyCard(destroyed.First()))
             {
                 // "If you do, you may play an Ongoing card."
-                IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, optional: true, cardCriteria: new LinqCardCriteria((Card c) => c.IsOngoing));
+                IEnumerator playCoroutine = SelectAndPlayCardFromHand(base.HeroTurnTakerController, optional: true, cardCriteria: new LinqCardCriteria((Card c) => IsOngoing(c), "Ongoing"));
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(playCoroutine);
