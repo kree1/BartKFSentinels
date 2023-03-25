@@ -2647,14 +2647,14 @@ namespace Handelabra.Sentinels.UnitTest
 
         protected IEnumerable<DamagePreviewResult> GetDamagePreviewResults(Card source, Card target, int amount, DamageType? damageType, bool isIrreducible = false)
         {
-            var results = this.GameController.GetDamagePreviewResults(new DamageSource(this.GameController, source), target, amount, null, damageType, isIrreducible);
+            var results = this.GameController.GetDamagePreviewResults(new DamageSource(this.GameController, source), target, amount, null, damageType, isIrreducible, ambiguousChoice: null);
             OutputDamagePreviewResults(results);
             return results;
         }
 
         protected IEnumerable<DamagePreviewResult> GetDamagePreviewResults(TurnTaker source, Card target, int amount, DamageType? damageType, bool isIrreducible = false)
         {
-            var results = this.GameController.GetDamagePreviewResults(new DamageSource(this.GameController, source), target, amount, null, damageType, isIrreducible);
+            var results = this.GameController.GetDamagePreviewResults(new DamageSource(this.GameController, source), target, amount, null, damageType, isIrreducible, ambiguousChoice: null);
             OutputDamagePreviewResults(results);
             return results;
         }
@@ -5037,12 +5037,12 @@ namespace Handelabra.Sentinels.UnitTest
             }
         }
 
-        protected void ActivateAbility(string key, Card card)
+        /*protected void ActivateAbility(string key, Card card)
         {
             var cc = this.GameController.FindCardController(card);
             var ability = new ActivatableAbility(this.GameController.FindTurnTakerController(card.Owner), cc, key, cc.Card.GetActivatableAbilityDescription(key), cc.ActivateAbility(key), 0, null, null, new CardSource(cc));
             this.RunCoroutine(this.GameController.ActivateAbility(ability, new CardSource(cc)));
-        }
+        }*/
 
         protected void AssertNotTargets(Func<Card, bool> cardCriteria)
         {
