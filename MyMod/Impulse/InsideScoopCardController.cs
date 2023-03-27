@@ -24,16 +24,11 @@ namespace BartKFSentinels.Impulse
             base.AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.WasCardDestroyed, CardDestroyedResponse, TriggerType.RevealCard, TriggerTiming.After, isActionOptional: true);
         }
 
-        public override IEnumerator Play()
-        {
-            yield break;
-        }
-
         public IEnumerator CardDestroyedResponse(DestroyCardAction dca)
         {
             // "When a card is destroyed, you may reveal the top card of its deck, then replace it."
             Card destroyed = dca.CardToDestroy.Card;
-            Location toCheck = destroyed.NativeDeck;
+            Location toCheck = GetNativeDeck(destroyed);
             Card toReveal = toCheck.TopCard;
             List<YesNoCardDecision> results = new List<YesNoCardDecision>();
             IEnumerator chooseCoroutine = base.GameController.MakeYesNoCardDecision(base.HeroTurnTakerController, SelectionType.RevealTopCardOfDeck, base.Card, action: dca, storedResults: results, cardSource: GetCardSource());
@@ -58,7 +53,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(revealCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

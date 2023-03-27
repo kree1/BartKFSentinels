@@ -68,10 +68,10 @@ namespace BartKFSentinels.Fracture
             foreach (Card c in targets)
             {
                 //Log.Debug("Creating CannotPlayCardsStatusEffect for " + c.Title);
-                //Log.Debug(c.Title + "'s associated deck is " + c.NativeDeck.Identifier);
+                //Log.Debug(c.Title + "'s associated deck is " + GetNativeDeck(c).Identifier);
                 //Log.Debug("'You' in this power is " + player.Identifier);
                 CannotPlayCardsStatusEffect hinder = new CannotPlayCardsStatusEffect();
-                hinder.CardCriteria.NativeDeck = c.NativeDeck;
+                hinder.CardCriteria.NativeDeck = GetNativeDeck(c);
                 hinder.UntilStartOfNextTurn(player);
                 IEnumerator statusCoroutine = AddStatusEffect(hinder);
                 if (base.UseUnityCoroutines)
@@ -83,7 +83,6 @@ namespace BartKFSentinels.Fracture
                     base.GameController.ExhaustCoroutine(statusCoroutine);
                 }
             }
-            yield break;
         }
     }
 }
