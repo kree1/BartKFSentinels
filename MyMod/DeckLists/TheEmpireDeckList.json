@@ -30,8 +30,12 @@
 			"flavorText": "“So, what kind of wacky alternate world is{BR}this supposed to be?” Ryan asked. “You don't{BR}understand. I visited these coordinates{BR}yesterday. It was a bright future. [b]Our[/b] future.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Ryan",
+					"text": "So, what kind of wacky alternate world is{BR}this supposed to be?"
+				},
+				{
+					"identifier": "Unattributed",
+					"text": "You don't{BR}understand. I visited these coordinates{BR}yesterday. It was a bright future. [b]Our[/b] future."
 				}
 			]
 		},
@@ -54,8 +58,8 @@
 			"flavorText": "“How can we prove ourselves to people who've{BR}been taught to fear and despise us? The same{BR}way we always do. We fight for what's right,{BR}and let them draw their own conclusions.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Unattributed",
+					"text": "How can we prove ourselves to people who've{BR}been taught to fear and despise us? The same{BR}way we always do. We fight for what's right,{BR}and let them draw their own conclusions."
 				}
 			]
 		},
@@ -101,8 +105,12 @@
 			"flavorText": "“I don't understand. That's not how it{BR}happened, but I can't see why...” “Then we'll{BR}have to make our own adjustments.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Unattributed",
+					"text": "I don't understand. That's not how it{BR}happened, but I can't see why..."
+				},
+				{
+					"identifier": "Unattributed",
+					"text": "Then we'll{BR}have to make our own adjustments."
 				}
 			]
 		},
@@ -128,8 +136,12 @@
 			"flavorText": "“Steven, it's me, it's TJ--” Torrent pleaded,{BR}but the specially uniformed agent was{BR}already leveling his visor at them.{BR}“It's Agent Craig to you, [i]Torrent.[/i]”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Torrent",
+					"text": "Steven, it's me, it's TJ--"
+				},
+				{
+					"identifier": "Agent Craig",
+					"text": "It's Agent Craig to you, [i]Torrent.[/i]"
 				}
 			]
 		},
@@ -154,8 +166,12 @@
 			"flavorText": "“Oh, I can sense the distortion in the timeline!”{BR}the Idealist repeated mockingly while{BR}dodging blaster fire. “What, the cyborg{BR}samurai and dino cops were too subtle?”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "The Idealist",
+					"text": "Oh, I can sense the distortion in the timeline!"
+				},
+				{
+					"identifier": "The Idealist",
+					"text": "What, the cyborg{BR}samurai and dino cops were too subtle?"
 				}
 			]
 		},
@@ -180,8 +196,12 @@
 			"flavorText": "“But we've studied M'kk's abilities. He [i]can't[/i]--”{BR}“I know. But we can't fix this without finding{BR}out what [b]did[/b] cause it. Without proof, we're{BR}just another subversive gang with powers.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Unattributed",
+					"text": "But we've studied M'kk's abilities. He [i]can't[/i]--"
+				},
+				{
+					"identifier": "Unattributed",
+					"text": "I know. But we can't fix this without finding{BR}out what [b]did[/b] cause it. Without proof, we're{BR}just another subversive gang with powers."
 				}
 			]
 		},
@@ -223,8 +243,12 @@
 			"flavorText": "“This is not a natural chain of events, I can{BR}sense it.” La Comodora was tapping away at{BR}one of her gadgets. “Someone steered this{BR}world down this path. We need to know who, and how.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "La Comodora",
+					"text": "This is not a natural chain of events, I can{BR}sense it."
+				},
+				{
+					"identifier": "La Comodora",
+					"text": "Someone steered this{BR}world down this path. We need to know who, and how."
 				}
 			]
 		},
@@ -249,8 +273,12 @@
 			"flavorText": "“Time travel!” Mantey exclaimed. “Didn't I tell{BR}you? This isn't the first time our world's been{BR}rearranged, and it won't be the last!” Despite{BR}his reputation, this time no one was laughing.",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Mantey",
+					"text": "Time travel!"
+				},
+				{
+					"identifier": "Mantey",
+					"text": "Didn't I tell{BR}you? This isn't the first time our world's been{BR}rearranged, and it won't be the last!"
 				}
 			]
 		},
@@ -296,8 +324,8 @@
 			"flavorText": "“Freeze! Hands up, powers down!” boomed a{BR}voice as the agents stormed the lobby.{BR}Several of the heroes complied. Fanatic{BR}was not among them.",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Voice",
+					"text": "Freeze! Hands up, powers down!"
 				}
 			]
 		},
@@ -320,8 +348,12 @@
 			"flavorText": "“This is Jones. Targets sighted,” the uniformed{BR}agent reported. “Either they're the world's{BR}least tasteful cosplayers, or there's been a{BR}jailbreak we didn't hear about.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Jones",
+					"text": "This is Jones. Targets sighted,"
+				},
+				{
+					"identifier": "Jones",
+					"text": "Either they're the world's{BR}least tasteful cosplayers, or there's been a{BR}jailbreak we didn't hear about."
 				}
 			]
 		},
@@ -342,11 +374,19 @@
 				"DealDamageMelee",
 				"MakeDamageIrreducible"
 			],
-			"flavorText": "“I don't know what's so surprising,” Absolute{BR}Zero said. “We all know children are the{BR}future.” The four-foot-tall rebel leader just{BR}glared. “And geezers like you are history.”",
+			"flavorText": "“I don't get what's so surprising,” Absolute{BR}Zero said. “We all know children are the{BR}future.” The four-foot-tall rebel leader just{BR}glared. “And geezers like you are history.”",
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Absolute Zero",
+					"text": "I don't get what's so surprising,"
+				},
+				{
+					"identifier": "Absolute Zero",
+					"text": "We all know children are the{BR}future."
+				},
+				{
+					"identifier": "Uprising",
+					"text": "And geezers like you are history."
 				}
 			]
 		}
