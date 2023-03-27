@@ -69,7 +69,7 @@ namespace BartKFSentinels.Torrent
                 }
                 List<Location> toClean = new List<Location>();
                 toClean.Add(base.TurnTaker.Revealed);
-                IEnumerator cleanupCoroutine = CleanupCardsAtLocations(toClean, base.TurnTaker.Deck);
+                IEnumerator cleanupCoroutine = base.GameController.CleanupCardsAtLocations(base.TurnTakerController, toClean, base.TurnTaker.Deck, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(cleanupCoroutine);
@@ -79,7 +79,6 @@ namespace BartKFSentinels.Torrent
                     base.GameController.ExhaustCoroutine(cleanupCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator PlayRevealedCardResponse(DestroyCardAction dca)
@@ -176,7 +175,7 @@ namespace BartKFSentinels.Torrent
                 }
                 List<Location> toClean = new List<Location>();
                 toClean.Add(chosenDeck.OwnerTurnTaker.Revealed);
-                IEnumerator cleanupCoroutine = CleanupCardsAtLocations(toClean, chosenDeck.OwnerTurnTaker.Trash);
+                IEnumerator cleanupCoroutine = base.GameController.CleanupCardsAtLocations(base.TurnTakerController, toClean, chosenDeck.OwnerTurnTaker.Trash, isDiscard: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(cleanupCoroutine);
@@ -186,7 +185,6 @@ namespace BartKFSentinels.Torrent
                     base.GameController.ExhaustCoroutine(cleanupCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

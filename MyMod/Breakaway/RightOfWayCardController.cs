@@ -136,7 +136,7 @@ namespace BartKFSentinels.Breakaway
                 //Log.Debug("RightOfWayCardController.Play(): unplayed revealed cards found, shuffling now...");
                 List<Location> cleanup = new List<Location>();
                 cleanup.Add(environmentDeck.OwnerTurnTaker.Revealed);
-                IEnumerator reshuffleCoroutine = CleanupCardsAtLocations(cleanup, environmentDeck, shuffleAfterwards: true);
+                IEnumerator reshuffleCoroutine = base.GameController.CleanupCardsAtLocations(base.TurnTakerController, cleanup, environmentDeck, shuffleAfterwards: true);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(reshuffleCoroutine);
