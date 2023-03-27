@@ -29,7 +29,7 @@ namespace BartKFSentinels.TheGigamorph
         public override IEnumerator Play()
         {
             // "When this card enters play, destroy 1 hero Ongoing card and 1 villain Ongoing card."
-            IEnumerator heroDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.DoKeywordsContain("ongoing")), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator heroDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && IsOngoing(c), "hero Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(heroDestroyCoroutine);
@@ -38,7 +38,7 @@ namespace BartKFSentinels.TheGigamorph
             {
                 base.GameController.ExhaustCoroutine(heroDestroyCoroutine);
             }
-            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && c.DoKeywordsContain("ongoing")), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(villainDestroyCoroutine);
@@ -47,7 +47,6 @@ namespace BartKFSentinels.TheGigamorph
             {
                 base.GameController.ExhaustCoroutine(villainDestroyCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator DrawAndDestroyResponse(PhaseChangeAction pca)
@@ -72,7 +71,6 @@ namespace BartKFSentinels.TheGigamorph
             {
                 base.GameController.ExhaustCoroutine(selfDestructCoroutine);
             }
-            yield break;
         }
     }
 }

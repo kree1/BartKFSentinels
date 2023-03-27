@@ -21,7 +21,7 @@ namespace BartKFSentinels.Fracture
         {
             base.AddTriggers();
             // "Reduce damage dealt by non-hero targets by 2."
-            AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsTarget && !dda.DamageSource.IsHero, (DealDamageAction dda) => 2);
+            AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), (DealDamageAction dda) => 2);
             // "At the start of your turn, destroy this card."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyThisCardResponse, TriggerType.DestroySelf);
         }

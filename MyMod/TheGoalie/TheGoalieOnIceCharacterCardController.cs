@@ -74,7 +74,6 @@ namespace BartKFSentinels.TheGoalie
                     base.GameController.ExhaustCoroutine(coldCoroutine);
                 }
             }
-            yield break;
         }
 
         public override IEnumerator UseIncapacitatedAbility(int index)
@@ -131,7 +130,6 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(powerCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption2()
@@ -146,7 +144,6 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption3()
@@ -166,7 +163,6 @@ namespace BartKFSentinels.TheGoalie
             {
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
-            yield break;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace BartKFSentinels.TheEmpire
         public IEnumerator DestroyDamageSequence(PhaseChangeAction pca)
         {
             // "... destroy a hero Ongoing card."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.DoKeywordsContain("ongoing"), "hero Ongoing", true), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && IsOngoing(c), "hero Ongoing", true), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

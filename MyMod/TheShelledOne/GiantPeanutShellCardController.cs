@@ -31,7 +31,7 @@ namespace BartKFSentinels.TheShelledOne
         {
             // "When this card enters play, move it next to the hero with the highest HP."
             List<Card> highest = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero && (overridePlayArea == null || c.IsAtLocationRecursive(overridePlayArea)), highest, null, null, evenIfCannotDealDamage: false, optional: false, null, ignoreBattleZone: false, GetCardSource());
+            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroCharacterCard(c) && (overridePlayArea == null || c.IsAtLocationRecursive(overridePlayArea)), highest, null, null, evenIfCannotDealDamage: false, optional: false, null, ignoreBattleZone: false, GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);
@@ -83,7 +83,7 @@ namespace BartKFSentinels.TheShelledOne
             // "... if {TheShelledOne} is a target, that hero deals each other hero target 1 toxic damage."
             if (base.CharacterCard.IsTarget && GetCardThisCardIsNextTo().IsTarget)
             {
-                IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, GetCardThisCardIsNextTo(), (Card c) => c.IsHero && c.IsTarget && c != GetCardThisCardIsNextTo(), 1, DamageType.Toxic, cardSource: GetCardSource());
+                IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, GetCardThisCardIsNextTo(), (Card c) => IsHeroTarget(c) && c != GetCardThisCardIsNextTo(), 1, DamageType.Toxic, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -146,36 +146,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
-        }
-
-        public IEnumerator RedirectDamageResponse(DealDamageAction dda)
-        {
-            // "... redirect damage [on that card] to the hero target with the highest HP."
-            List<Card> highest = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero, highest, gameAction: dda, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(findCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(findCoroutine);
-            }
-            Card highestHero = highest.FirstOrDefault();
-            if (highestHero != null)
-            {
-                IEnumerator redirectCoroutine = base.GameController.RedirectDamage(dda, highestHero, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
-                {
-                    yield return base.GameController.StartCoroutine(redirectCoroutine);
-                }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(redirectCoroutine);
-                }
-            }
-            yield break;
         }
     }
 }

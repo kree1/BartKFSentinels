@@ -44,7 +44,7 @@ namespace BartKFSentinels.TheShelledOne
             if (destroyed.Where((DestroyCardAction dca) => dca.WasCardDestroyed).Count() < H - 1)
             {
                 List<Card> highest = new List<Card>();
-                IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHeroCharacterCard, highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+                IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroCharacterCard(c), highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(findCoroutine);
@@ -254,7 +254,6 @@ namespace BartKFSentinels.TheShelledOne
 					}
 				}
             }
-            yield break;
         }
     }
 }

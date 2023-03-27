@@ -20,7 +20,7 @@ namespace BartKFSentinels.TheGoalie
         public override IEnumerator Play()
 		{
 			// "Each non-hero target deals {TheGoalieCharacter} 1 projectile damage."
-			IEnumerator incomingCoroutine = DealDamage((Card c) => c.IsInPlay && c.IsTarget && !c.IsHero, (Card c) => c == base.CharacterCard, (Card c) => 1, DamageType.Projectile);
+			IEnumerator incomingCoroutine = DealDamage((Card c) => c.IsInPlay && c.IsTarget && !IsHeroTarget(c), (Card c) => c == base.CharacterCard, (Card c) => 1, DamageType.Projectile);
 			if (base.UseUnityCoroutines)
 			{
 				yield return base.GameController.StartCoroutine(incomingCoroutine);
@@ -30,7 +30,7 @@ namespace BartKFSentinels.TheGoalie
 				base.GameController.ExhaustCoroutine(incomingCoroutine);
 			}
 			// "{TheGoalieCharacter} deals each non-hero target 3 projectile damage."
-			IEnumerator outgoingCoroutine = DealDamage(base.CharacterCard, (Card c) => c.IsInPlay && c.IsTarget && !c.IsHero, 3, DamageType.Projectile);
+			IEnumerator outgoingCoroutine = DealDamage(base.CharacterCard, (Card c) => c.IsInPlay && c.IsTarget && !IsHeroTarget(c), 3, DamageType.Projectile);
 			if (base.UseUnityCoroutines)
 			{
 				yield return base.GameController.StartCoroutine(outgoingCoroutine);
@@ -39,7 +39,6 @@ namespace BartKFSentinels.TheGoalie
 			{
 				base.GameController.ExhaustCoroutine(outgoingCoroutine);
 			}
-			yield break;
         }
     }
 }

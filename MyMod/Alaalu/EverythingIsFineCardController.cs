@@ -31,7 +31,7 @@ namespace BartKFSentinels.Alaalu
         public IEnumerator DestroyOngoingResponse(GameAction ga)
         {
             // "... destroy 1 hero Ongoing card and 1 villain Ongoing card."
-            IEnumerator destroyHeroCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.DoKeywordsContain("ongoing"), "hero Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyHeroCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && IsOngoing(c), "hero Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyHeroCoroutine);
@@ -40,7 +40,7 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(destroyHeroCoroutine);
             }
-            IEnumerator destroyVillainCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && c.DoKeywordsContain("ongoing"), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyVillainCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyVillainCoroutine);

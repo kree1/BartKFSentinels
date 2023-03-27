@@ -21,7 +21,7 @@ namespace BartKFSentinels.Palmreader
         {
             base.AddTriggers();
             // "Redirect all damage that would be dealt to hero targets to {PalmreaderCharacter}."
-            AddRedirectDamageTrigger((DealDamageAction dda) => dda.Target.IsHero && dda.Target != base.CharacterCard, () => base.CharacterCard);
+            AddRedirectDamageTrigger((DealDamageAction dda) => IsHeroTarget(dda.Target) && dda.Target != base.CharacterCard, () => base.CharacterCard);
             // "Reduce damage dealt to {PalmreaderCharacter} by 1."
             AddReduceDamageTrigger((Card c) => c == base.CharacterCard, 1);
             // "At the start of your turn, discard 3 cards or destroy this card."
@@ -53,7 +53,6 @@ namespace BartKFSentinels.Palmreader
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

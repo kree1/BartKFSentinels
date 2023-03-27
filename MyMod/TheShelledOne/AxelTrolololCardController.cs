@@ -87,7 +87,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
         }
     }
 }

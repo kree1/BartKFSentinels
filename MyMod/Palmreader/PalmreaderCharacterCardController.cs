@@ -14,7 +14,7 @@ namespace BartKFSentinels.Palmreader
         public PalmreaderCharacterCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowHeroTargetWithLowestHP(1, 2).Condition = () => base.Card.IsFlipped;
         }
 
         public override IEnumerator UsePower(int index = 0)
@@ -132,7 +132,7 @@ namespace BartKFSentinels.Palmreader
         {
             // "The 2 hero targets with the lowest HP regain 1 HP each."
             List<Card> lowestHeroTargets = new List<Card>();
-            IEnumerator findLowestCoroutine = base.GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => c.IsHero, lowestHeroTargets, evenIfCannotDealDamage: true, optional: false, cardSource: GetCardSource());
+            IEnumerator findLowestCoroutine = base.GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => IsHeroTarget(c), lowestHeroTargets, evenIfCannotDealDamage: true, optional: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findLowestCoroutine);

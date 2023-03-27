@@ -58,7 +58,7 @@ namespace BartKFSentinels.Breakaway
 
             // "Destroy a hero card in the villain play area."
             List<DestroyCardAction> villainDestroyed = new List<DestroyCardAction>();
-            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && c.Location.HighestRecursiveLocation == base.TurnTaker.FindCard("BreakawayCharacter").Location.HighestRecursiveLocation), new int?(1), storedResultsAction: villainDestroyed, responsibleCard: this.Card, cardSource: GetCardSource());
+            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && c.Location.HighestRecursiveLocation == base.TurnTaker.PlayArea), new int?(1), storedResultsAction: villainDestroyed, responsibleCard: this.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(villainDestroyCoroutine);
@@ -103,8 +103,6 @@ namespace BartKFSentinels.Breakaway
                 }
 
             }
-
-            yield break;
         }
 
         private IEnumerator ReduceNextDamage(Card target, int reduction)
@@ -124,8 +122,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(statusCoroutine);
             }
-
-            yield break;
         }
     }
 }

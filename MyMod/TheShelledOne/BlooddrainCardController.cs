@@ -29,7 +29,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator DestroyResponse(GameAction ga)
         {
             // "... destroy {H - 1} hero Ongoing cards."
-            LinqCardCriteria heroOngoingInPlay = new LinqCardCriteria((Card c) => c.IsHero && c.DoKeywordsContain("ongoing") && c.IsInPlayAndHasGameText && base.GameController.IsCardVisibleToCardSource(c, GetCardSource()), "hero Ongoing");
+            LinqCardCriteria heroOngoingInPlay = new LinqCardCriteria((Card c) => IsHero(c) && IsOngoing(c) && c.IsInPlayAndHasGameText && base.GameController.IsCardVisibleToCardSource(c, GetCardSource()), "hero Ongoing");
             IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, heroOngoingInPlay, H - 1, requiredDecisions: H - 1, allowAutoDecide: base.GameController.FindCardsWhere(heroOngoingInPlay, visibleToCard: GetCardSource()).Count() <= H - 1, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -45,7 +45,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator HealResponse(DestroyCardAction dca)
         {
             // "... 1 villain target with less than its maximum HP regains 1 HP."
-            IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 1, additionalCriteria: (Card c) => c.IsVillainTarget && c.HitPoints < c.MaximumHitPoints && !c.DoKeywordsContain("terrain"), numberOfTargets: 1, cardSource: GetCardSource());
+            IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 1, additionalCriteria: (Card c) => c.IsVillainTarget && c.HitPoints < c.MaximumHitPoints, numberOfTargets: 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(healVillainCoroutine);

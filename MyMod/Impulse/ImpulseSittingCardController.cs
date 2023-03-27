@@ -17,11 +17,6 @@ namespace BartKFSentinels.Impulse
 
         }
 
-        public override void AddTriggers()
-        {
-            base.AddTriggers();
-        }
-
         public override IEnumerator Play()
         {
             // "One player, other than you, may play a card or use a power."
@@ -40,7 +35,7 @@ namespace BartKFSentinels.Impulse
                 base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
             // "If another player played a card this turn, prevent the next damage dealt to a hero target."
-            List<PlayCardJournalEntry> thisTurnPlays = base.GameController.Game.Journal.PlayCardEntriesThisTurn().Where((PlayCardJournalEntry pcje) => pcje.CardPlayed.Owner.IsHero && pcje.CardPlayed.Owner != base.TurnTaker).ToList();
+            List<PlayCardJournalEntry> thisTurnPlays = base.GameController.Game.Journal.PlayCardEntriesThisTurn().Where((PlayCardJournalEntry pcje) => IsHero(pcje.ResponsibleTurnTaker) && pcje.ResponsibleTurnTaker != base.TurnTaker).ToList();
             bool otherHasPlayed = thisTurnPlays.Count > 0;
             if (otherHasPlayed)
             {
@@ -88,7 +83,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

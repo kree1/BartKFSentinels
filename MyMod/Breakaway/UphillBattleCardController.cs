@@ -28,11 +28,6 @@ namespace BartKFSentinels.Breakaway
             AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter") && !fca.ToFaceDown, SelfDestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
-        public override IEnumerator Play()
-        {
-            yield break;
-        }
-
         private IEnumerator DiscardResponse(UsePowerAction upa)
         {
             // "Whenever a hero uses a power, their player discards a card."
@@ -46,7 +41,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(discardCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator DealDamageResponse(PhaseChangeAction pca)
@@ -55,7 +49,7 @@ namespace BartKFSentinels.Breakaway
             List<SelectCardDecision> storedResultsHero = new List<SelectCardDecision>();
 
             // Find the hero character card with the lowest HP; save it to tiredHero...
-            LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => c.IsHeroCharacterCard && c.IsInPlayAndHasGameText && !c.IsFlipped));
+            LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => IsHeroCharacterCard(c) && c.IsInPlayAndHasGameText && !c.IsFlipped));
             IEnumerator findCoroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.LowestHP, criteria, storedResultsHero, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -79,7 +73,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator SelfDestructResponse(FlipCardAction fca)
@@ -95,8 +88,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-
-            yield break;
         }
     }
 }

@@ -14,12 +14,12 @@ namespace BartKFSentinels.Breakaway
         public MindTheGapCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter, "hero non-character"));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => IsHero(c) && !c.IsCharacter, "hero non-character"));
         }
 
         public override IEnumerator Play()
         {
-            if (GameController.FindCardsWhere((Card c) => c.IsInPlay && c.IsHero && !c.IsCharacter).Any())
+            if (GameController.FindCardsWhere((Card c) => c.IsInPlay && IsHero(c) && !c.IsCharacter).Any())
             {
                 // "Each player may destroy any number of their non-character cards."
                 List<DestroyCardAction> destroyAttempts = new List<DestroyCardAction>();
@@ -46,7 +46,7 @@ namespace BartKFSentinels.Breakaway
                             DestroyCardAction destroyed = enumerator.Current;
                             if (destroyed.WasCardDestroyed && !heroesWithDestroyed.Contains(destroyed.CardToDestroy.TurnTaker))
                             {
-                                Log.Debug(destroyed.CardToDestroy.TurnTaker.Identifier + " has destroyed a card");
+                                //Log.Debug(destroyed.CardToDestroy.TurnTaker.Identifier + " has destroyed a card");
                                 heroesWithDestroyed.Add(destroyed.CardToDestroy.TurnTaker);
                             }
                         }
@@ -72,7 +72,7 @@ namespace BartKFSentinels.Breakaway
                     }
 
                     // "... and 1 hero target regains 1 HP."
-                    IEnumerator heroHealCoroutine = base.GameController.SelectAndGainHP(this.DecisionMaker, 1, additionalCriteria: (Card c) => c.IsHero && c.IsTarget && c.IsInPlayAndNotUnderCard, numberOfTargets: 1, cardSource: GetCardSource());
+                    IEnumerator heroHealCoroutine = base.GameController.SelectAndGainHP(this.DecisionMaker, 1, additionalCriteria: (Card c) => IsHeroTarget(c), numberOfTargets: 1, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return this.GameController.StartCoroutine(heroHealCoroutine);
@@ -85,7 +85,7 @@ namespace BartKFSentinels.Breakaway
             }
 
             // "{Breakaway} regains X HP, where X = 3 plus the number of non-character hero cards in play."
-            int hpAmount = FindCardsWhere((Card c) => c.IsInPlay && c.IsHero && !c.IsCharacter).Count() + 3;
+            int hpAmount = FindCardsWhere((Card c) => c.IsInPlay && IsHero(c) && !c.IsCharacter).Count() + 3;
             IEnumerator hpGainCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), hpAmount, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {

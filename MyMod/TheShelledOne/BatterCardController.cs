@@ -41,8 +41,6 @@ namespace BartKFSentinels.TheShelledOne
             // "Reduce damage dealt to this card by 1."
             AddReduceDamageTrigger((Card c) => c == base.Card, 1);
             // "X on this card = the number of tokens on this card."
-            /*// "Whenever a hero target deals a villain target 1 or less damage, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsHero && dda.DamageSource.Card.IsTarget && dda.Target.IsVillain && dda.Amount <= 1, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);*/
 
             // "The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target.IsVillain && dda.DidDealDamage, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
@@ -80,7 +78,7 @@ namespace BartKFSentinels.TheShelledOne
             if (BasePoolValue() <= 3)
             {
                 // "Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage."
-                IEnumerator swingCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => c.IsHero, (Card c) => BasePoolValue(), DamageType.Melee);
+                IEnumerator swingCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => IsHeroTarget(c), (Card c) => BasePoolValue(), DamageType.Melee);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(swingCoroutine);
@@ -93,7 +91,7 @@ namespace BartKFSentinels.TheShelledOne
             else
             {
                 // "Otherwise, this card deals each hero target X toxic damage..."
-                IEnumerator runCoroutine = base.GameController.DealDamage(DecisionMaker, base.Card, (Card c) => c.IsHero, BasePoolValue(), DamageType.Toxic, cardSource: GetCardSource());
+                IEnumerator runCoroutine = base.GameController.DealDamage(DecisionMaker, base.Card, (Card c) => IsHeroTarget(c), BasePoolValue(), DamageType.Toxic, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(runCoroutine);
@@ -126,7 +124,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }*/
             }
-            yield break;
         }
     }
 }

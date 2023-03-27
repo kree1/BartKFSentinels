@@ -21,16 +21,11 @@ namespace BartKFSentinels.Impulse
         {
             base.AddTriggers();
             // "Whenever a non-hero card is destroyed by a hero card, you may put it under this card."
-            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardSource != null && dca.CardToDestroy.CanBeDestroyed && dca.WasCardDestroyed && dca.CardSource.Card.Owner.IsHero && !dca.CardToDestroy.Card.Owner.IsHero && dca.PostDestroyDestinationCanBeChanged && (dca.DealDamageAction == null || dca.DealDamageAction.DamageSource.IsHero), MoveResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ChangePostDestroyDestination }, TriggerTiming.After, isActionOptional: true);
+            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardSource != null && dca.CardToDestroy.CanBeDestroyed && dca.WasCardDestroyed && IsHero(dca.CardSource.Card) && !IsHero(dca.CardToDestroy.Card) && dca.PostDestroyDestinationCanBeChanged && (dca.DealDamageAction == null || dca.DealDamageAction.DamageSource.IsHero), MoveResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ChangePostDestroyDestination }, TriggerTiming.After, isActionOptional: true);
             // "At the start of your turn, discard 3 cards from under this card. {ImpulseCharacter} deals 1 target 1 projectile damage for each card discarded this way."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardForDamageResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.DealDamage });
             // Implied: when this card leaves play, put all cards under it into their appropriate trashes
             AddBeforeLeavesPlayActions(EmptyResponse);
-        }
-
-        public override IEnumerator Play()
-        {
-            yield break;
         }
 
         public IEnumerator MoveResponse(DestroyCardAction dca)
@@ -50,7 +45,6 @@ namespace BartKFSentinels.Impulse
             {
                 dca.SetPostDestroyDestination(base.Card.UnderLocation, decisionSources: result.CastEnumerable<YesNoCardDecision, IDecision>());
             }
-            yield break;
         }
 
         public IEnumerator DiscardForDamageResponse(PhaseChangeAction pca)
@@ -100,7 +94,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator EmptyResponse(GameAction ga)
@@ -120,7 +113,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(moveCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

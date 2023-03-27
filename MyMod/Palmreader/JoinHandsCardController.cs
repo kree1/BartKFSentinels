@@ -30,7 +30,7 @@ namespace BartKFSentinels.Palmreader
                 base.GameController.ExhaustCoroutine(discardCoroutine);
             }
             // "Each hero target regains 2 HP."
-            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => c.IsHero && c.IsTarget && c.IsInPlayAndHasGameText, 2, optional: false, cardSource: GetCardSource());
+            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => IsHeroTarget(c), 2, optional: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);

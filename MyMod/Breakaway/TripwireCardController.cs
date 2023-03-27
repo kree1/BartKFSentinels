@@ -20,7 +20,7 @@ namespace BartKFSentinels.Breakaway
         {
             base.AddTriggers();
             // "When this card is destroyed, each hero target deals itself 2 melee damage. Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
-            base.AddWhenDestroyedTrigger(EveryoneTripsResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.ReduceDamage });
+            base.AddWhenDestroyedTrigger(EveryoneTripsResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.CreateStatusEffect });
 
             // "When {Breakaway} loses HP or is dealt damage, destroy this card."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Target == base.TurnTaker.FindCard("BreakawayCharacter"), base.DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
@@ -37,7 +37,7 @@ namespace BartKFSentinels.Breakaway
         private IEnumerator EveryoneTripsResponse(DestroyCardAction dca)
         {
             // "... each hero target deals itself 2 melee damage. Reduce damage dealt by targets dealt damage this way by 1 until the start of the villain turn."
-            IEnumerator damageCoroutine = base.GameController.DealDamageToSelf(this.DecisionMaker, (Card c) => c.IsHero, 2, DamageType.Melee, addStatusEffect: ReduceDamageResponse, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.DealDamageToSelf(this.DecisionMaker, (Card c) => IsHeroTarget(c), 2, DamageType.Melee, addStatusEffect: ReduceDamageResponse, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -46,7 +46,6 @@ namespace BartKFSentinels.Breakaway
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator ReduceDamageResponse(DealDamageAction dd)
@@ -67,7 +66,6 @@ namespace BartKFSentinels.Breakaway
                     base.GameController.ExhaustCoroutine(statusCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

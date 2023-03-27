@@ -33,7 +33,7 @@ namespace BartKFSentinels.Memorial
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
             // "{Memorial} deals the hero target with the highest HP {H} fire damage."
-            IEnumerator damageCoroutine = base.DealDamageToHighestHP(base.CharacterCard, 1, (Card c) => c.IsHero, (Card c) => H, DamageType.Fire, numberOfTargets: () => 1);
+            IEnumerator damageCoroutine = base.DealDamageToHighestHP(base.CharacterCard, 1, (Card c) => IsHeroTarget(c), (Card c) => H, DamageType.Fire, numberOfTargets: () => 1);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -42,7 +42,6 @@ namespace BartKFSentinels.Memorial
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
     }
 }

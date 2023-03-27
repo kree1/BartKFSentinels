@@ -32,7 +32,7 @@ namespace BartKFSentinels.TheShelledOne
 		}
 		private bool ShouldIncreasePhaseActionCount(TurnTaker tt)
 		{
-			if (tt.IsHero)
+			if (IsHero(tt))
 			{
 				return tt.BattleZone == base.BattleZone;
 			}
@@ -51,7 +51,7 @@ namespace BartKFSentinels.TheShelledOne
 		public IEnumerator HealDamagePlayRemoveResponse(GameAction ga)
         {
 			// "... each non-hero target regains {H} HP..."
-			IEnumerator healCoroutine = base.GameController.GainHP(DecisionMaker, (Card c) => !c.IsHero, H, cardSource: GetCardSource());
+			IEnumerator healCoroutine = base.GameController.GainHP(DecisionMaker, (Card c) => !IsHeroTarget(c), H, cardSource: GetCardSource());
 			if (base.UseUnityCoroutines)
 			{
 				yield return base.GameController.StartCoroutine(healCoroutine);
@@ -62,7 +62,7 @@ namespace BartKFSentinels.TheShelledOne
 			}
 			// "... and the non-hero target with the highest HP deals each hero target 4 infernal damage."
 			List<Card> highest = new List<Card>();
-			IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => !c.IsHero, highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+			IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => !IsHeroTarget(c), highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
 			if (base.UseUnityCoroutines)
 			{
 				yield return base.GameController.StartCoroutine(findCoroutine);
@@ -74,7 +74,7 @@ namespace BartKFSentinels.TheShelledOne
 			Card highestNonHero = highest.FirstOrDefault();
 			if (highestNonHero != null)
 			{
-				IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, highestNonHero, (Card c) => c.IsHero, 4, DamageType.Infernal, cardSource: GetCardSource());
+				IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, highestNonHero, (Card c) => IsHeroTarget(c), 4, DamageType.Infernal, cardSource: GetCardSource());
 				if (base.UseUnityCoroutines)
 				{
 					yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -104,7 +104,6 @@ namespace BartKFSentinels.TheShelledOne
 			{
 				base.GameController.ExhaustCoroutine(removeCoroutine);
 			}
-			yield break;
         }
 	}
 }

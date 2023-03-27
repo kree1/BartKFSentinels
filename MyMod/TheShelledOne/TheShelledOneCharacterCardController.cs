@@ -16,7 +16,7 @@ namespace BartKFSentinels.TheShelledOne
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             AddThisCardControllerToList(CardControllerListType.ModifiesKeywords);
             SpecialStringMaker.ShowTokenPool(base.Card.Identifier, StrikePoolIdentifier).Condition = () => !base.Card.IsFlipped;
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsVillainTarget && !c.IsCharacter, "non-character villain targets", false, false, "non-character villain target", "non-character villain targets")).Condition = () => base.Card.IsFlipped;
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsVillainTarget && !c.IsCharacter, "non-character villain", singular: "target", plural: "targets")).Condition = () => base.Card.IsFlipped;
             SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("weather effect"), "Weather Effect")).Condition = () => base.Card.IsFlipped;
         }
 
@@ -263,7 +263,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator EnvironmentDamagePlayResponse(GameAction ga)
         {
             // "... each environment target deals each hero target 1 psychic damage."
-            IEnumerator damageCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsEnvironmentTarget, "environment targets", false, false, "environment target", "environment targets"), TargetType.All, null, new LinqCardCriteria((Card c) => c.IsHero && c.IsTarget, "hero target", false, false, "hero target", "hero targets"), 1, DamageType.Psychic);
+            IEnumerator damageCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.IsEnvironmentTarget, "environment", singular: "target", plural: "targets"), TargetType.All, null, new LinqCardCriteria((Card c) => IsHeroTarget(c), "hero", singular: "target", plural: "targets"), 1, DamageType.Psychic);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

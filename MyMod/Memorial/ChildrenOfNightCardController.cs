@@ -33,7 +33,7 @@ namespace BartKFSentinels.Memorial
                 new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), null, H - 2, DamageType.Psychic)
             };
             List<Card> storedResults = new List<Card>();
-            IEnumerator damageCoroutine = DealMultipleInstancesOfDamageToHighestLowestHP(list, (Card c) => c.IsHero, HighestLowestHP.HighestHP);
+            IEnumerator damageCoroutine = DealMultipleInstancesOfDamageToHighestLowestHP(list, (Card c) => IsHeroTarget(c), HighestLowestHP.HighestHP);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

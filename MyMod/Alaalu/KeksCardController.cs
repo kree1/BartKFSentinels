@@ -65,7 +65,7 @@ namespace BartKFSentinels.Alaalu
             }
             // "Then, play the top card of the hero deck with the fewest cards in its trash."
             List<TurnTaker> heroResult = new List<TurnTaker>();
-            IEnumerator selectHeroCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, 1, (TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && tt.IsHero, (TurnTaker tt) => tt.Trash.NumberOfCards, SelectionType.PlayTopCard, heroResult, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator selectHeroCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, 1, (TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsHero(tt), (TurnTaker tt) => tt.Trash.NumberOfCards, SelectionType.PlayTopCard, heroResult, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectHeroCoroutine);

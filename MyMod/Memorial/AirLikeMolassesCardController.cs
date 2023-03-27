@@ -20,7 +20,7 @@ namespace BartKFSentinels.Memorial
         public override IEnumerator Play()
         {
             // "{Memorial} deals the hero target with the highest HP {H} energy damage."
-            IEnumerator damageCoroutine = base.DealDamageToHighestHP(base.CharacterCard, 1, (Card c) => c.IsHero, (Card c) => H, DamageType.Energy, numberOfTargets: () => 1, addStatusEffect: FreezeTimeResponse, selectTargetEvenIfCannotDealDamage: true);
+            IEnumerator damageCoroutine = base.DealDamageToHighestHP(base.CharacterCard, 1, (Card c) => IsHeroTarget(c), (Card c) => H, DamageType.Energy, numberOfTargets: () => 1, addStatusEffect: FreezeTimeResponse, selectTargetEvenIfCannotDealDamage: true);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -29,7 +29,6 @@ namespace BartKFSentinels.Memorial
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator FreezeTimeResponse(DealDamageAction dda)

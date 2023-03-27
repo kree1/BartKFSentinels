@@ -25,13 +25,16 @@ namespace BartKFSentinels.Impulse
             // "When damage that would be dealt to a hero target is prevented or reduced to 0 or less, put a token on this card."
             AddTrigger<DealDamageAction>((DealDamageAction dda) => CheckDamageCriteria(dda), (DealDamageAction dda) => base.GameController.AddTokensToPool(YouDroppedThisPool, 1, GetCardSource()), TriggerType.AddTokensToPool, TriggerTiming.After, isActionOptional: false);
             AddTrigger<CancelAction>((CancelAction ca) => ca.ActionToCancel is DealDamageAction && ca.IsPreventEffect && CheckDamageCriteria(ca.ActionToCancel as DealDamageAction), (CancelAction ca) => base.GameController.AddTokensToPool(YouDroppedThisPool, 1, GetCardSource()), TriggerType.AddTokensToPool, TriggerTiming.After, isActionOptional: false);
+            // When leaves play: reset token pool
+            AddWhenDestroyedTrigger((DestroyCardAction dca) => ResetTokenValue(), TriggerType.Hidden);
+            AddTrigger((MoveCardAction mca) => mca.CardToMove == base.Card && mca.Origin.IsInPlayAndNotUnderCard && !mca.Destination.IsInPlayAndNotUnderCard, (MoveCardAction mca) => ResetTokenValue(), TriggerType.Hidden, TriggerTiming.After, outOfPlayTrigger: true);
         }
 
-        public override IEnumerator Play()
+        public IEnumerator ResetTokenValue()
         {
             // Reset the token pool
-            //YouDroppedThisPool.SetToInitialValue();
-            yield break;
+            YouDroppedThisPool.SetToInitialValue();
+            yield return null;
         }
 
         private TokenPool YouDroppedThisPool
@@ -44,9 +47,13 @@ namespace BartKFSentinels.Impulse
 
         private bool CheckDamageCriteria(DealDamageAction dda)
         {
-            if (!dda.IsPretend && dda.Target.IsHero && !dda.DidDealDamage)
+            if (IsHeroTarget(dda.Target))
             {
-                return dda.OriginalAmount > 0;
+                return WasDamageToTargetAvoided(dda);
+            }
+            else if (IsHeroTarget(dda.OriginalTarget))
+            {
+                return WasDamageToTargetAvoided(dda, dda.OriginalTarget);
             }
             return false;
         }
@@ -80,7 +87,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
     }
 }

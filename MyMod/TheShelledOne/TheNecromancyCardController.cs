@@ -28,7 +28,7 @@ namespace BartKFSentinels.TheShelledOne
         public override IEnumerator Play()
         {
             // "... put the top card of each hero trash on top of its deck."
-            foreach (TurnTaker item in FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.Trash.HasCards && tt.BattleZone == base.Card.BattleZone))
+            foreach (TurnTaker item in FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt.Trash.HasCards && tt.BattleZone == base.Card.BattleZone))
             {
                 IEnumerator recycleCoroutine = base.GameController.MoveCard(base.TurnTakerController, item.Trash.TopCard, item.Deck, toBottom: false, isPutIntoPlay: false, playCardIfMovingToPlayArea: true, null, showMessage: true, null, null, null, evenIfIndestructible: false, flipFaceDown: false, null, isDiscard: false, evenIfPretendGameOver: false, shuffledTrashIntoDeck: false, doesNotEnterPlay: false, GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -40,13 +40,12 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(recycleCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator UnstableResponse(GameAction ga)
         {
             // "... the hero with the highest HP deals the hero with the second lowest HP {H - 1} fire damage."
-            IEnumerator damageCoroutine = DealDamageToLowestHP(null, 2, (Card c) => c.IsHeroCharacterCard, (Card c) => H - 1, DamageType.Fire, damageSourceInfo: new TargetInfo(HighestLowestHP.HighestHP, 1, 1, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard, "The hero with the highest HP")));
+            IEnumerator damageCoroutine = DealDamageToLowestHP(null, 2, (Card c) => IsHeroCharacterCard(c), (Card c) => H - 1, DamageType.Fire, damageSourceInfo: new TargetInfo(HighestLowestHP.HighestHP, 1, 1, new LinqCardCriteria((Card c) => IsHeroCharacterCard(c), "The hero with the highest HP")));
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -55,7 +54,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
     }
 }

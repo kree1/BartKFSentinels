@@ -30,7 +30,7 @@ namespace BartKFSentinels.Alaalu
         {
             // "... this card deals the hero target with the highest HP 4 psychic damage. The player whose target takes damage this way may draw a card and their hero may use a power."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => c.IsHero, (Card c) => 4, DamageType.Psychic, storedResults: damageResults);
+            IEnumerator damageCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => IsHeroTarget(c), (Card c) => 4, DamageType.Psychic, storedResults: damageResults);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -39,7 +39,7 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            DealDamageAction success = damageResults.FirstOrDefault((DealDamageAction dda) => dda.DidDealDamage && dda.Target.IsHero);
+            DealDamageAction success = damageResults.FirstOrDefault((DealDamageAction dda) => dda.DidDealDamage && IsHeroTarget(dda.Target));
             if (success != null)
             {
                 Card damaged = success.Target;

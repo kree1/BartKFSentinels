@@ -21,9 +21,9 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "When a hero character would be reduced to 0 or fewer HP, restore them to their maximum HP instead and destroy this card."
-            AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target.IsHeroCharacterCard && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value - dda.Amount <= 0 && dda.IsSuccessful, RestoreDestructResponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
-            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.IsHeroCharacterCard && dca.CardToDestroy.Card.HitPoints.HasValue && dca.CardToDestroy.Card.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.CancelAction, TriggerTiming.Before);
-            AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target.IsHeroCharacterCard && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.GainHP, TriggerTiming.After);
+            AddTrigger<DealDamageAction>((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value - dda.Amount <= 0 && dda.IsSuccessful, RestoreDestructResponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
+            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => IsHeroCharacterCard(dca.CardToDestroy.Card) && dca.CardToDestroy.Card.HitPoints.HasValue && dca.CardToDestroy.Card.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.CancelAction, TriggerTiming.Before);
+            AddTrigger<DealDamageAction>((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.GainHP, TriggerTiming.After);
             // "When this card is destroyed, increase damage dealt by villain targets by 1 and remove this card from the game."
             AddWhenDestroyedTrigger((DestroyCardAction dca) => PermanentIncreaseResponse(dca), new TriggerType[] { TriggerType.CreateStatusEffect, TriggerType.RemoveFromGame });
         }

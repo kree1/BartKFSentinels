@@ -82,7 +82,7 @@ namespace BartKFSentinels.TheEmpire
                 base.GameController.ExhaustCoroutine(messageCoroutine);
             }
             // "... each hero target regains 8 HP..."
-            IEnumerator healCoroutine = base.GameController.GainHP(base.DecisionMaker, (Card c) => c.IsHero, 8, cardSource: GetCardSource());
+            IEnumerator healCoroutine = base.GameController.GainHP(base.DecisionMaker, (Card c) => IsHeroTarget(c), 8, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);
@@ -92,7 +92,7 @@ namespace BartKFSentinels.TheEmpire
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
             // "... and each player may return a card from their trash to their hand."
-            IEnumerator selectCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero), SelectionType.MoveCardToHandFromTrash, MoveCardToHandResponse, allowAutoDecide: true, numberOfCards: 1, cardSource: GetCardSource());
+            IEnumerator selectCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt)), SelectionType.MoveCardToHandFromTrash, MoveCardToHandResponse, allowAutoDecide: true, numberOfCards: 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectCoroutine);

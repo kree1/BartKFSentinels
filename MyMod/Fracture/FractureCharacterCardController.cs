@@ -108,7 +108,7 @@ namespace BartKFSentinels.Fracture
         private IEnumerator UseIncapOption2()
         {
             // "Select a hero. Increase the next damage dealt by that hero by 2."
-            IEnumerator increaseCoroutine = base.GameController.SelectTargetAndIncreaseNextDamage(base.HeroTurnTakerController, 2, 1, additionalCriteria: new LinqCardCriteria((Card c) => c.IsHeroCharacterCard), cardSource: GetCardSource());
+            IEnumerator increaseCoroutine = base.GameController.SelectTargetAndIncreaseNextDamage(base.HeroTurnTakerController, 2, 1, additionalCriteria: new LinqCardCriteria((Card c) => IsHeroCharacterCard(c), "", singular: "hero", plural: "heroes"), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(increaseCoroutine);

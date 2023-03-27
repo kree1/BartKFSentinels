@@ -21,7 +21,7 @@ namespace BartKFSentinels.Fracture
         {
             base.AddTriggers();
             // "The first time any hero target is dealt damage each turn, reduce damage dealt to {FractureCharacter} this turn by 1 and {FractureCharacter} may deal the source of that damage 1 psychic damage."
-            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target != null && dda.Target.IsHero && dda.DidDealDamage, ReduceRetaliateResponse, new TriggerType[] { TriggerType.CreateStatusEffect, TriggerType.DealDamage }, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target != null && IsHeroTarget(dda.Target) && dda.DidDealDamage, ReduceRetaliateResponse, new TriggerType[] { TriggerType.CreateStatusEffect, TriggerType.DealDamage }, TriggerTiming.After);
         }
 
         private const string OncePerTurn = "ReactOncePerTurn";

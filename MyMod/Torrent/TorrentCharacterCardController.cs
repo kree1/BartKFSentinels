@@ -41,7 +41,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(drawCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator UseIncapacitatedAbility(int index)
@@ -98,7 +97,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption2()
@@ -113,7 +111,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption3()
@@ -132,13 +129,12 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator HealResponse()
         {
             // "... 1 hero target regains 3 HP."
-            IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 3, false, (Card c) => c.IsHero, 1, 1, cardSource: GetCardSource());
+            IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 3, false, (Card c) => IsHeroTarget(c), 1, 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);
@@ -147,7 +143,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
-            yield break;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace BartKFSentinels.Breakaway
                 // "If this card did not flip this turn, return {H - 2} hero cards in play to their players' hands."
                 if (!Journal.WasCardFlippedThisTurn(base.Card))
                 {
-                    LinqCardCriteria choices = new LinqCardCriteria((Card c) => c.IsHero && c.IsInPlay && !c.IsCharacter);
+                    LinqCardCriteria choices = new LinqCardCriteria((Card c) => IsHero(c) && c.IsInPlay && !c.IsCharacter);
                     IEnumerator returnCoroutine = base.GameController.SelectAndReturnCards(this.DecisionMaker, Game.H - 2, choices, true, false, false, Game.H - 2, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
@@ -112,7 +112,7 @@ namespace BartKFSentinels.Breakaway
                 this.GameController.ExhaustCoroutine(selfDamageCoroutine);
             }
 
-            IEnumerator heroDamageCoroutine = DealDamageToHighestHP(breakaway, 1, (Card c) => c.IsHero && GameController.IsCardVisibleToCardSource(c, GetCardSource()), (Card c) => 2, DamageType.Melee, numberOfTargets: () => 2);
+            IEnumerator heroDamageCoroutine = DealDamageToHighestHP(breakaway, 1, (Card c) => IsHero(c) && GameController.IsCardVisibleToCardSource(c, GetCardSource()), (Card c) => 2, DamageType.Melee, numberOfTargets: () => 2);
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(heroDamageCoroutine);

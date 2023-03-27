@@ -30,7 +30,7 @@ namespace BartKFSentinels.TheEmpire
         {
             // "... this card deals the hero with the most cards in play {H - 2} melee damage."
             List<DealDamageAction> damage = new List<DealDamageAction>();
-            IEnumerator damageCoroutine = DealDamageToMostCardsInPlay(base.Card, 1, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard), H - 2, DamageType.Melee, storedResults: damage, mostFewestSelectionType: SelectionType.MostCardsInPlay);
+            IEnumerator damageCoroutine = DealDamageToMostCardsInPlay(base.Card, 1, new LinqCardCriteria((Card c) => IsHeroCharacterCard(c)), H - 2, DamageType.Melee, storedResults: damage, mostFewestSelectionType: SelectionType.MostCardsInPlay);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -40,7 +40,7 @@ namespace BartKFSentinels.TheEmpire
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
             // "Destroy an Equipment card belonging to a hero dealt damage this way."
-            List<Card> damagedHeroes = (from DealDamageAction dda in damage where dda.Target.IsHeroCharacterCard && dda.DidDealDamage select dda.Target).ToList();
+            List<Card> damagedHeroes = (from DealDamageAction dda in damage where IsHeroCharacterCard(dda.Target) && dda.DidDealDamage select dda.Target).ToList();
             if (damagedHeroes.Count() > 0)
             {
                 LinqCardCriteria equipmentOfDamaged = new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("equipment") && damagedHeroes.Any((Card target) => target.Owner == c.Owner), "Equipment cards owned by heroes who were dealt damage by " + base.Card.Title, false, false, "Equipment card owned by a hero who was dealt damage by " + base.Card.Title, "Equipment cards owned by a hero who was dealt damage by " + base.Card.Title);
@@ -60,7 +60,6 @@ namespace BartKFSentinels.TheEmpire
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

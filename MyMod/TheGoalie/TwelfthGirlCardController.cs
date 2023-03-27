@@ -24,7 +24,7 @@ namespace BartKFSentinels.TheGoalie
         {
             base.AddTriggers();
             // "Once per turn, when a hero target would be dealt exactly 1 damage, you may prevent that damage."
-            base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && dda.Target.IsHero && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
+            base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && IsHeroTarget(dda.Target) && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
         }
 
         public IEnumerator OneDamageResponse(DealDamageAction dda)
@@ -69,7 +69,7 @@ namespace BartKFSentinels.TheGoalie
                     base.GameController.ExhaustCoroutine(preventCoroutine);
                 }
                 // "When damage is prevented this way, up to 2 hero targets each regain 1 HP."
-                IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => c.IsHero, numberOfTargets: 2, requiredDecisions: 0, cardSource: GetCardSource());
+                IEnumerator healCoroutine = base.GameController.SelectAndGainHP(base.HeroTurnTakerController, 1, optional: false, (Card c) => IsHeroTarget(c), numberOfTargets: 2, requiredDecisions: 0, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(healCoroutine);

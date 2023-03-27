@@ -25,7 +25,7 @@ namespace BartKFSentinels.Breakaway
             // Back side: who are the 2 hero targets with the highest HP?
             SpecialStringMaker.ShowHeroTargetWithHighestHP(1, 2).Condition = () => base.Card.IsFlipped;
             // Back side, Advanced: if it's a hero turn, has Breakaway dealt damage this turn?
-            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(dealtDamageHero), () => "Breakaway has already dealt damage this turn", () => "Breakaway has not yet dealt damage this turn", () => base.GameController.ActiveTurnTaker.IsHero).Condition = () => (base.Game.IsAdvanced && base.Card.IsFlipped);
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(dealtDamageHero), () => "Breakaway has already dealt damage this turn", () => "Breakaway has not yet dealt damage this turn", () => IsHero(base.GameController.ActiveTurnTaker)).Condition = () => (base.Game.IsAdvanced && base.Card.IsFlipped);
         }
 
         private List<Card> hitMomentumLastTurn = new List<Card>();
@@ -126,13 +126,13 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddTrigger<SetHPAction>((SetHPAction sha) => sha.HpGainer == this.TurnTaker.FindCard("MomentumCharacter"), MomentumHPCheckResponse2, TriggerType.DealDamage, TriggerTiming.After));
 
                 // "The first time a hero card enters play each turn, {Breakaway} deals that hero and the other hero target with the highest HP 0 melee damage each."
-                base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && pca.CardToPlay.IsHero, DeadEndJobHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
+                base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => !HasBeenSetToTrueThisTurn(heroCardEntered) && IsHero(pca.CardToPlay), DeadEndJobHeroPlayResponse, TriggerType.DealDamage, TriggerTiming.After));
 
                 if (base.IsGameAdvanced)
                 {
                     // Back side, Advanced:
                     // "The first time {Breakaway} would deal damage each hero turn, increase that damage by 1."
-                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == this.Card && base.GameController.ActiveTurnTaker.IsHero, DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
+                    base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(dealtDamageHero) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == this.Card && IsHero(base.GameController.ActiveTurnTaker), DeadEndJobFirstDamageDealtResponse, TriggerType.IncreaseDamage, TriggerTiming.After, requireActionSuccess: false));
                 }
             }
 
@@ -395,7 +395,7 @@ namespace BartKFSentinels.Breakaway
                     this.GameController.ExhaustCoroutine(flipCoroutine);
                 }
                 // "... destroy {H} non-character hero cards."
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter), Game.H, responsibleCard: this.Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(this.DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && !c.IsCharacter, "non-character hero"), Game.H, responsibleCard: this.Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return this.GameController.StartCoroutine(destroyCoroutine);
@@ -549,7 +549,7 @@ namespace BartKFSentinels.Breakaway
             // Find the hero target with the highest HP other than that one
             Card firstTarget = heroTargetsChosen.First();
             List<Card> highestHeroTargets = new List<Card>();
-            IEnumerator secondChoiceCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero && c != firstTarget, highestHeroTargets, cardSource: GetCardSource());
+            IEnumerator secondChoiceCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroTarget(c) && c != firstTarget, highestHeroTargets, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(secondChoiceCoroutine);

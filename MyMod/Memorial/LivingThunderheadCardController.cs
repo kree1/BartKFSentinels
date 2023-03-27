@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the end of the villain turn, this card deals the 2 hero targets with the highest HP {H - 1} sonic damage each."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, (PhaseChangeAction pca) => DealDamageToHighestHP(base.Card, 1, (Card c) => c.IsHero, (Card c) => H - 1, DamageType.Sonic, numberOfTargets: () => 2), TriggerType.DealDamage);
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, (PhaseChangeAction pca) => DealDamageToHighestHP(base.Card, 1, (Card c) => IsHeroTarget(c), (Card c) => H - 1, DamageType.Sonic, numberOfTargets: () => 2), TriggerType.DealDamage);
             // "At the start of the villain turn, destroy a hero Ongoing or Equipment card."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyCardResponse, TriggerType.DestroyCard);
         }
@@ -29,7 +29,7 @@ namespace BartKFSentinels.Memorial
         private IEnumerator DestroyCardResponse(PhaseChangeAction pca)
         {
             // "... destroy a hero Ongoing or Equipment card."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

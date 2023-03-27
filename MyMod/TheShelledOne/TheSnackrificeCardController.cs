@@ -21,16 +21,16 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "Hero cards cannot be played."
-            CannotPlayCards((TurnTakerController turnTaker) => turnTaker?.IsHero ?? false, (Card c) => c.IsHero);
+            CannotPlayCards((TurnTakerController turnTaker) => turnTaker != null && IsHero(turnTaker.TurnTaker), (Card c) => IsHero(c));
             // "At the start of the villain turn, the non-hero target with the highest HP deals each hero target 3 sonic damage. Then, destroy this card."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DamageDestroyResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DamageDestroyResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf });
         }
 
         public IEnumerator DamageDestroyResponse(GameAction ga)
         {
             // "... the non-hero target with the highest HP deals each hero target 3 sonic damage."
             List<Card> highest = new List<Card>();
-            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => !c.IsHero, highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => !IsHeroTarget(c), highest, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);
@@ -42,7 +42,7 @@ namespace BartKFSentinels.TheShelledOne
             Card highestNonHero = highest.FirstOrDefault();
             if (highestNonHero != null)
             {
-                IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, highestNonHero, (Card c) => c.IsHero, 3, DamageType.Sonic, cardSource: GetCardSource());
+                IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, highestNonHero, (Card c) => IsHeroTarget(c), 3, DamageType.Sonic, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -62,7 +62,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
     }
 }

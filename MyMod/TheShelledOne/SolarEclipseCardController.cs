@@ -87,13 +87,12 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
         }
 
         public IEnumerator IncinerateResponse(GameAction ga)
         {
             // "... each Umpire deals the hero target with the highest HP {H + 2} fire damage."
-            IEnumerator damageCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.DoKeywordsContain("umpire"), "Umpires", false, false, "Umpire", "Umpires"), TargetType.HighestHP, 1, new LinqCardCriteria((Card c) => c.IsHero), H + 2, DamageType.Fire);
+            IEnumerator damageCoroutine = MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => c.DoKeywordsContain("umpire"), singular: "Umpire", plural: "Umpires"), TargetType.HighestHP, 1, new LinqCardCriteria((Card c) => IsHeroTarget(c)), H + 2, DamageType.Fire);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -102,7 +101,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
     }
 }

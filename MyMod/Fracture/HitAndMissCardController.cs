@@ -23,7 +23,7 @@ namespace BartKFSentinels.Fracture
         {
             base.AddTriggers();
             // "When a non-hero target would deal damage, you may destroy this card. If you do, reduce that damage to 1."
-            AddTrigger((DealDamageAction dda) => !base.IsBeingDestroyed && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsTarget && !dda.DamageSource.Card.IsHero, DestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.ReduceDamage }, TriggerTiming.Before);
+            AddTrigger((DealDamageAction dda) => !base.IsBeingDestroyed && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsTarget && !IsHeroTarget(dda.DamageSource.Card), DestructResponse, new TriggerType[] { TriggerType.DestroySelf, TriggerType.ReduceDamage }, TriggerTiming.Before);
         }
 
         public IEnumerator DestructResponse(DealDamageAction dda)

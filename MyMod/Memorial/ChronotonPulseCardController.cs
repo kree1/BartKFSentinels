@@ -29,7 +29,7 @@ namespace BartKFSentinels.Memorial
         public override IEnumerator Play()
         {
             // "When this card enters ... play, destroy {H - 1} hero Ongoing and/or Equipment cards."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), H - 1, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), H - 1, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -43,7 +43,7 @@ namespace BartKFSentinels.Memorial
         private IEnumerator DestroyCardsResponse(GameAction ga)
         {
             // "... destroy {H - 1} hero Ongoing and/or Equipment cards."
-            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), H - 1, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), H - 1, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);

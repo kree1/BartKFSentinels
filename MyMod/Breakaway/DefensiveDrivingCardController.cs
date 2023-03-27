@@ -23,7 +23,7 @@ namespace BartKFSentinels.Breakaway
             List<DealDamageAction> storedResultsDamage = new List<DealDamageAction>();
 
             // Find the hero character card with the lowest HP; save it to rammedHero...
-            LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => c.IsHeroCharacterCard && c.IsInPlayAndHasGameText && !c.IsFlipped));
+            LinqCardCriteria criteria = new LinqCardCriteria((Card card) => base.CanCardBeConsideredLowestHitPoints(card, (Card c) => IsHeroCharacterCard(c) && c.IsInPlayAndHasGameText && !c.IsFlipped));
             IEnumerator findCoroutine = base.GameController.SelectCardAndStoreResults(this.DecisionMaker, SelectionType.HeroCharacterCard, criteria, storedResultsHero, false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -73,8 +73,6 @@ namespace BartKFSentinels.Breakaway
                     this.GameController.ExhaustCoroutine(loseHPCoroutine);
                 }
             }
-
-            yield break;
         }
     }
 }

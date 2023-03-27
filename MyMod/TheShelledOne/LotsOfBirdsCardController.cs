@@ -14,8 +14,7 @@ namespace BartKFSentinels.TheShelledOne
         public LotsOfBirdsCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowHeroTargetWithHighestHP(ranking: 2);
-            SpecialStringMaker.ShowIfSpecificCardIsInPlay("GiantPeanutShell");
+            SpecialStringMaker.ShowHeroCharacterCardWithHighestHP(ranking: 2);
         }
 
         public override void AddTriggers()
@@ -30,7 +29,7 @@ namespace BartKFSentinels.TheShelledOne
             // "... the hero with the second highest HP may have the environment deal them {H + 1} projectile damage."
             List<Card> secondHighestChoice = new List<Card>();
             DealDamageAction sample = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, FindEnvironment().TurnTaker), null, H + 1, DamageType.Projectile);
-            IEnumerator findSecondHighestCoroutine = base.GameController.FindTargetWithHighestHitPoints(2, (Card c) => c.IsHeroCharacterCard, secondHighestChoice, gameAction: sample, dealDamageInfo: sample.ToEnumerable(), evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator findSecondHighestCoroutine = base.GameController.FindTargetWithHighestHitPoints(2, (Card c) => IsHeroCharacterCard(c), secondHighestChoice, gameAction: sample, dealDamageInfo: sample.ToEnumerable(), evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findSecondHighestCoroutine);
@@ -57,7 +56,7 @@ namespace BartKFSentinels.TheShelledOne
                 {
                     Card shell = base.TurnTaker.FindCard("GiantPeanutShell");
                     // "If that hero takes damage this way, destroy a villain Ongoing card..."
-                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && c.DoKeywordsContain("ongoing"), "villain Ongoing"), 1, requiredDecisions: 1, responsibleCard: base.Card, cardSource: GetCardSource());
+                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), 1, requiredDecisions: 1, responsibleCard: base.Card, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -89,7 +88,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
         }
     }
 }

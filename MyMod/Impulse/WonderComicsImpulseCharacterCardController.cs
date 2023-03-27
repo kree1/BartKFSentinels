@@ -163,7 +163,7 @@ namespace BartKFSentinels.Impulse
         private IEnumerator UseIncapOption3()
         {
             // "Each hero regains 1 HP."
-            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => c.IsHeroCharacterCard, 1, cardSource: GetCardSource());
+            IEnumerator healCoroutine = base.GameController.GainHP(base.HeroTurnTakerController, (Card c) => IsHeroCharacterCard(c), 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);

@@ -17,7 +17,7 @@ namespace BartKFSentinels.Breakaway
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => base.Card.Title + " has already reduced damage this turn.", () => base.Card.Title + " has not yet reduced damage this turn.");
             SpecialStringMaker.ShowSpecialString(BuildBlockedSpecialString);
             SpecialStringMaker.ShowSpecialString(BuildNotBlockedSpecialString);
-            SpecialStringMaker.ShowLowestHP(1, () => 2, new LinqCardCriteria((Card c) => c.IsHeroCharacterCard));
+            SpecialStringMaker.ShowLowestHP(1, () => 2, new LinqCardCriteria((Card c) => IsHeroCharacterCard(c), "", singular: "hero", plural: "heroes"));
         }
 
         public List<Card> blockedHeroes = new List<Card>();
@@ -48,7 +48,7 @@ namespace BartKFSentinels.Breakaway
         public string BuildBlockedSpecialString()
         {
             string blockedSpecial = "BLOCKED heroes: ";
-            var blockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && IsBlocked(c)));
+            var blockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && IsBlocked(c)));
             if (blockedHeroes.Any())
             {
                 blockedSpecial += blockedHeroes.FirstOrDefault().Title;
@@ -67,7 +67,7 @@ namespace BartKFSentinels.Breakaway
         public string BuildNotBlockedSpecialString()
         {
             string unblockedSpecial = "Non-BLOCKED heroes: ";
-            var unblockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsActive && !IsBlocked(c)));
+            var unblockedHeroes = FindCardsWhere(new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && !IsBlocked(c)));
             if (unblockedHeroes.Any())
             {
                 unblockedSpecial += unblockedHeroes.FirstOrDefault().Title;
@@ -95,17 +95,12 @@ namespace BartKFSentinels.Breakaway
             base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, AssignBlocked, TriggerType.Other);
         }
 
-        public override IEnumerator Play()
-        {
-            yield break;
-        }
-
         private IEnumerator AssignBlocked(PhaseChangeAction pca)
         {
             // "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn."
             // Find exactly 2 hero character cards with lowest HP
             List<Card> currentLowestHeroes = new List<Card>();
-            IEnumerator findLowestCoroutine = GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => c.IsHeroCharacterCard, currentLowestHeroes, cardSource: GetCardSource());
+            IEnumerator findLowestCoroutine = GameController.FindTargetsWithLowestHitPoints(1, 2, (Card c) => IsHeroCharacterCard(c), currentLowestHeroes, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(findLowestCoroutine);
@@ -126,7 +121,7 @@ namespace BartKFSentinels.Breakaway
             Log.Debug("Found 2 heroes with lowest HP: " + lowestNames);
 
             // All OTHER active hero characters become BLOCKED
-            LinqCardCriteria criteria = new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsActive && !currentLowestHeroes.Contains(c));
+            LinqCardCriteria criteria = new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && c.IsActive && !currentLowestHeroes.Contains(c));
             List<Card> toBlock = base.GameController.FindCardsWhere(criteria).ToList();
 
             foreach (Card hero in toBlock)
@@ -189,7 +184,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(messageCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator ClearBlocked(PhaseChangeAction pca)
@@ -211,7 +205,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(reduceCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator PreventDamage(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
@@ -229,13 +222,12 @@ namespace BartKFSentinels.Breakaway
                     this.GameController.ExhaustCoroutine(preventCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator RedirectDamage(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
         {
             // "Whenever a villain target would deal damage to a [b]BLOCKED[/b] hero, redirect it to a non-[b]BLOCKED[/b] hero."
-            IEnumerator redirectCoroutine = base.GameController.SelectTargetAndRedirectDamage(base.DecisionMaker, (Card c) => c.IsHeroCharacterCard && !IsBlocked(c), dda, cardSource: GetCardSource());
+            IEnumerator redirectCoroutine = base.GameController.SelectTargetAndRedirectDamage(base.DecisionMaker, (Card c) => IsHeroCharacterCard(c) && !IsBlocked(c), dda, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(redirectCoroutine);
@@ -244,7 +236,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(redirectCoroutine);
             }
-            yield break;
         }
     }
 }

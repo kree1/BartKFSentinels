@@ -27,7 +27,7 @@ namespace BartKFSentinels.TheEmpire
             // "This card is immune to damage dealt by non-hero cards."
             AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && (dda.DamageSource == null || !dda.DamageSource.IsHero));
             // "If a villain target was dealt damage this turn, reduce damage dealt to this card by 2."
-            AddReduceDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.TargetCard.IsVillain && ddje.Amount > 0).Count() > 0, (DealDamageAction dda) => 2);
+            AddReduceDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.TargetCard.IsVillainTarget && ddje.Amount > 0).Count() > 0, (DealDamageAction dda) => 2);
         }
 
         public IEnumerator EraseFromHistoryResponse(GameAction ga)

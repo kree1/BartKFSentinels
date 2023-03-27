@@ -46,7 +46,7 @@ namespace BartKFSentinels.TheGoalie
             // "If you do, {TheGoalieCharacter} deals each non-hero target 2 melee damage."
             if (destroyed.FirstOrDefault() != null && destroyed.FirstOrDefault().WasCardDestroyed)
             {
-                IEnumerator massCoroutine = DealDamage(base.CharacterCard, (Card c) => !c.IsHero, secondAmt, DamageType.Melee);
+                IEnumerator massCoroutine = DealDamage(base.CharacterCard, (Card c) => !IsHeroTarget(c), secondAmt, DamageType.Melee);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(massCoroutine);

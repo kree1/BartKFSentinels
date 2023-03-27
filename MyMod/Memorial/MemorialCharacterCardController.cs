@@ -138,7 +138,7 @@ namespace BartKFSentinels.Memorial
             // "... and the non-hero target with the highest HP deals the hero target with the highest HP {H - 1} projectile damage."
             List<Card> storedResultsHighest = new List<Card>();
             DealDamageAction shot = new DealDamageAction(GameController, null, null, H - 1, DamageType.Projectile, wasOptional: false);
-            IEnumerator findCoroutine = GameController.FindTargetWithHighestHitPoints(1, (Card c) => !c.IsHero, storedResultsHighest, shot, cardSource: GetCardSource());
+            IEnumerator findCoroutine = GameController.FindTargetWithHighestHitPoints(1, (Card c) => !IsHeroTarget(c), storedResultsHighest, shot, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);
@@ -150,7 +150,7 @@ namespace BartKFSentinels.Memorial
             Card shooter = storedResultsHighest.FirstOrDefault();
             if (shooter != null)
             {
-                IEnumerator damageCoroutine = DealDamageToHighestHP(shooter, 1, (Card c) => c.IsHero, (Card c) => H - 1, DamageType.Projectile, selectTargetEvenIfCannotDealDamage: true);
+                IEnumerator damageCoroutine = DealDamageToHighestHP(shooter, 1, (Card c) => IsHeroTarget(c), (Card c) => H - 1, DamageType.Projectile, selectTargetEvenIfCannotDealDamage: true);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -160,7 +160,6 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            yield break;
         }
 
         private IEnumerator RemoveResolvedIncidentResponse(MoveCardAction mca)
@@ -175,7 +174,6 @@ namespace BartKFSentinels.Memorial
             {
                 base.GameController.ExhaustCoroutine(moveCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator CheckAndFlipResponse(PhaseChangeAction pca)
@@ -193,7 +191,6 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(flipCoroutine);
                 }
             }
-            yield break;
         }
 
         public override IEnumerator ExtraRenownResponse(Card entering)
@@ -246,7 +243,6 @@ namespace BartKFSentinels.Memorial
                 }
             }
             //Log.Debug("MemorialCharacterCardController.ExtraRenownResponse(" + entering.Title + ") finished");
-            yield break;
         }
 
         private IEnumerator SaveGUIDResponse(DealDamageAction dda)
@@ -345,7 +341,7 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
                 // "4) Destroy a non-character hero card."
-                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && !c.IsCharacter && !AskIfCardIsIndestructible(c), "non-character hero"), false, responsibleCard: Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && !c.IsCharacter && !AskIfCardIsIndestructible(c), "non-character hero"), false, responsibleCard: Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -368,7 +364,7 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
                 // "5) Destroy a hero Ongoing or Equipment card."
-                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsHero && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: Card, cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsHero(c) && (IsOngoing(c) || IsEquipment(c)), "hero Ongoing or Equipment"), false, responsibleCard: Card, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -438,13 +434,12 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
             }
-            yield break;
         }
 
         private IEnumerator PewPewPewResponse(PhaseChangeAction pca)
         {
             // "... {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
-            IEnumerator damageCoroutine = DealDamageToHighestHP(Card, 1, (Card c) => c.IsHero, (Card c) => 3, DamageType.Projectile, numberOfTargets: () => H - 1);
+            IEnumerator damageCoroutine = DealDamageToHighestHP(Card, 1, (Card c) => IsHeroTarget(c), (Card c) => 3, DamageType.Projectile, numberOfTargets: () => H - 1);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);
@@ -453,7 +448,6 @@ namespace BartKFSentinels.Memorial
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator AfterFlipCardImmediateResponse()

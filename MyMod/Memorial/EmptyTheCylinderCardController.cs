@@ -29,7 +29,7 @@ namespace BartKFSentinels.Memorial
             }
             else
             {
-                findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsHero, storedResults, cardSource: GetCardSource());
+                findCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroTarget(c), storedResults, cardSource: GetCardSource());
             }
             if (base.UseUnityCoroutines)
             {
@@ -57,7 +57,6 @@ namespace BartKFSentinels.Memorial
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            yield break;
         }
     }
 }
