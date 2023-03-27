@@ -20,7 +20,7 @@ namespace BartKFSentinels.Impulse
         public override IEnumerator Play()
         {
             // "Up to 2 other players may each return a card from their trash to their hand."
-            SelectTurnTakersDecision selectPlayers = new SelectTurnTakersDecision(base.GameController, base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => tt != base.TurnTaker && tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && GameController.IsTurnTakerVisibleToCardSource(tt, GetCardSource())), SelectionType.MoveCardToHandFromTrash, 2, isOptional: false, numberOfCards: 1, cardSource: GetCardSource());
+            SelectTurnTakersDecision selectPlayers = new SelectTurnTakersDecision(base.GameController, base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => tt != base.TurnTaker && IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && GameController.IsTurnTakerVisibleToCardSource(tt, GetCardSource())), SelectionType.MoveCardToHandFromTrash, 2, isOptional: false, numberOfCards: 1, cardSource: GetCardSource());
             IEnumerator returnCoroutine = base.GameController.SelectTurnTakersAndDoAction(selectPlayers, (TurnTaker tt) => base.GameController.SelectCardFromLocationAndMoveIt(FindHeroTurnTakerController(tt.ToHero()), tt.Trash, new LinqCardCriteria((Card c) => true), new List<MoveCardDestination> { new MoveCardDestination(tt.ToHero().Hand) }, optional: true, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource()), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -45,7 +45,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
-            yield break;
         }
     }
 }

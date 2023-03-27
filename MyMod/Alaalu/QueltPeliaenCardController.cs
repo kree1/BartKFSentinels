@@ -50,7 +50,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(weakHealCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator DiscardToDestroyResponse(GameAction ga)
@@ -78,7 +77,6 @@ namespace BartKFSentinels.Alaalu
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator ProtectCharactersResponse(GameAction ga)
@@ -96,7 +94,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
-            yield break;
         }
     }
 }

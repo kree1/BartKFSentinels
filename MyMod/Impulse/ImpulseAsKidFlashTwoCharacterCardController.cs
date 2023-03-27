@@ -66,7 +66,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(redirectCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator RedirectDamageToMe(DealDamageAction dd, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
@@ -166,7 +165,7 @@ namespace BartKFSentinels.Impulse
         private IEnumerator UseIncapOption1()
         {
             // "One player may play a card now."
-            IEnumerator playCoroutine = SelectHeroToPlayCard(base.HeroTurnTakerController, heroCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && base.GameController.CanPlayCards(FindTurnTakerController(tt), GetCardSource())));
+            IEnumerator playCoroutine = SelectHeroToPlayCard(base.HeroTurnTakerController, heroCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && base.GameController.CanPlayCards(FindTurnTakerController(tt), GetCardSource())));
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);
@@ -175,14 +174,13 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption2()
         {
             // "One player draws 2 cards, then discards a card."
             List<SelectTurnTakerDecision> playerChoice = new List<SelectTurnTakerDecision>();
-            IEnumerator drawCoroutine = base.GameController.SelectHeroToDrawCards(base.HeroTurnTakerController, 2, optionalSelectHero: false, optionalDrawCards: false, 2, storedResults: playerChoice, additionalCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.ToHero().IsIncapacitatedOrOutOfGame, "active heroes"), cardSource: GetCardSource());
+            IEnumerator drawCoroutine = base.GameController.SelectHeroToDrawCards(base.HeroTurnTakerController, 2, optionalSelectHero: false, optionalDrawCards: false, 2, storedResults: playerChoice, additionalCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.ToHero().IsIncapacitatedOrOutOfGame, "active heroes"), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(drawCoroutine);
@@ -204,7 +202,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(discardCoroutine);
                 }
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption3()
@@ -219,7 +216,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
     }
 }

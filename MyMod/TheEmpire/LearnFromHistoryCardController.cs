@@ -64,7 +64,6 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
     }
 }

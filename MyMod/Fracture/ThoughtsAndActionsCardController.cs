@@ -40,7 +40,7 @@ namespace BartKFSentinels.Fracture
             if (DidDiscardCards(discards, 1))
             {
                 // "If you do, up to 3 players each draw a card."
-                IEnumerator drawCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && tt.IsHero), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), 3, optional: false, 0, null, allowAutoDecide: false, null, null, null, ignoreBattleZone: false, null, GetCardSource());
+                IEnumerator drawCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsHero(tt)), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), 3, optional: false, 0, null, allowAutoDecide: false, null, null, null, ignoreBattleZone: false, null, GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(drawCoroutine);
@@ -50,7 +50,6 @@ namespace BartKFSentinels.Fracture
                     base.GameController.ExhaustCoroutine(drawCoroutine);
                 }
             }
-            yield break;
         }
 
         public override IEnumerator UsePower(int index = 0)
@@ -65,7 +64,6 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(powerCoroutine);
             }
-            yield break;
         }
     }
 }

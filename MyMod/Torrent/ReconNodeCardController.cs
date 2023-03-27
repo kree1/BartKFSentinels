@@ -19,9 +19,9 @@ namespace BartKFSentinels.Torrent
 
         public override void AddTriggers()
         {
+            base.AddTriggers();
             // "When this card is destroyed, X players may each draw a card, where X = the number of targets destroyed this turn."
             AddWhenDestroyedTrigger(DrawCardsResponse, TriggerType.DrawCard);
-            base.AddTriggers();
         }
 
         public override IEnumerator Play()
@@ -39,14 +39,13 @@ namespace BartKFSentinels.Torrent
                     base.GameController.ExhaustCoroutine(playCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator DrawCardsResponse(DestroyCardAction dca)
         {
             // "... X players may each draw a card, where X = the number of targets destroyed this turn."
             int x = base.NumTargetsDestroyedThisTurn();
-            IEnumerator drawCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && tt.IsHero), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), x, requiredDecisions: 0, allowAutoDecide: x >= base.H, cardSource: GetCardSource());
+            IEnumerator drawCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsHero(tt)), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), x, requiredDecisions: 0, allowAutoDecide: x >= base.H, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(drawCoroutine);
@@ -55,7 +54,6 @@ namespace BartKFSentinels.Torrent
             {
                 base.GameController.ExhaustCoroutine(drawCoroutine);
             }
-            yield break;
         }
     }
 }

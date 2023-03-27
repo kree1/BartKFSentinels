@@ -21,7 +21,7 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "At the start of each player's turn, discard the top card of their deck. If a One-Shot is discarded this way, that player skips their power phase this turn and uses a power immediately."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame, DiscardReorderResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.UsePower, TriggerType.SkipPhase });
+            AddStartOfTurnTrigger((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame, DiscardReorderResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.UsePower, TriggerType.SkipPhase });
         }
 
         public IEnumerator DiscardReorderResponse(PhaseChangeAction pca)
@@ -40,7 +40,7 @@ namespace BartKFSentinels.TheShelledOne
             }
             // "If a One-Shot is discarded this way, that player skips their power phase this turn and uses a power immediately."
             MoveCardAction discard = discardResults.FirstOrDefault();
-            if (discard != null && discard.CardToMove != null && discard.WasCardMoved && discard.CardToMove.DoKeywordsContain("one-shot"))
+            if (discard != null && discard.CardToMove != null && discard.WasCardMoved && discard.CardToMove.IsOneShot)
             {
                 IEnumerator messageCoroutine = base.GameController.SendMessageAction("Reverberations are at high levels! " + currentPlayer.Name + " had their turn shuffled in the Reverb!", Priority.Medium, GetCardSource(), discard.CardToMove.ToEnumerable(), true);
                 if (base.UseUnityCoroutines)
@@ -74,12 +74,11 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(powerCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator SkipPowerPhaseResponse(PhaseChangeAction pca, OnPhaseChangeStatusEffect sourceEffect)
         {
-            Log.Debug("ReverbCardController.SkipPowerPhaseResponse activated");
+            //Log.Debug("ReverbCardController.SkipPowerPhaseResponse activated");
             IEnumerator skipCoroutine = base.GameController.PreventPhaseAction(pca.ToPhase, showMessage: false, GetCardSource());
             if (base.UseUnityCoroutines)
             {

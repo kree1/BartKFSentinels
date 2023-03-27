@@ -95,8 +95,6 @@ namespace BartKFSentinels.Breakaway
             {
                 this.GameController.ExhaustCoroutine(hpGainCoroutine);
             }
-
-            yield break;
         }
     }
 }

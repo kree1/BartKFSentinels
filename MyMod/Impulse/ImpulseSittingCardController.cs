@@ -20,7 +20,7 @@ namespace BartKFSentinels.Impulse
         public override IEnumerator Play()
         {
             // "One player, other than you, may play a card or use a power."
-            LinqTurnTakerCriteria otherPlayer = new LinqTurnTakerCriteria((TurnTaker tt) => tt != base.TurnTaker);
+            LinqTurnTakerCriteria otherPlayer = new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && tt != base.TurnTaker);
             List<Function> options = new List<Function>();
             options.Add(new Function(base.HeroTurnTakerController, "Another player may play a card", SelectionType.PlayCard, () => SelectHeroToPlayCard(base.HeroTurnTakerController, false, true, heroCriteria: otherPlayer)));
             options.Add(new Function(base.HeroTurnTakerController, "Another hero may use a power", SelectionType.UsePower, () => base.GameController.SelectHeroToUsePower(base.HeroTurnTakerController, additionalCriteria: otherPlayer, cardSource: GetCardSource())));
@@ -56,7 +56,7 @@ namespace BartKFSentinels.Impulse
                 }
             }
             // "If another hero used a power this turn, you may play an Ongoing card."
-            List<UsePowerJournalEntry> thisTurnPowers = base.GameController.Game.Journal.UsePowerEntriesThisTurn().Where((UsePowerJournalEntry upje) => upje.PowerUser != base.HeroTurnTaker).ToList();
+            List<UsePowerJournalEntry> thisTurnPowers = base.GameController.Game.Journal.UsePowerEntriesThisTurn().Where((UsePowerJournalEntry upje) => upje.PowerUser != null && upje.PowerUser != base.HeroTurnTaker).ToList();
             bool otherHasUsedPower = thisTurnPowers.Count > 0;
             if (otherHasUsedPower)
             {

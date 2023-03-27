@@ -20,7 +20,7 @@ namespace BartKFSentinels.Fracture
         public override IEnumerator Play()
         {
             // "Each player may name a keyword other than One-Shot. Each player who does reveals cards from the top of their deck until they reveal a card with the keyword they named, puts that card into play or into their hand, then shuffles the other revealed cards into their deck."
-            IEnumerator massChooseCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealCardsFromDeck, (TurnTaker tt) => NameSearchResponse(tt), requiredDecisions: 0, allowAutoDecide: true, cardSource: GetCardSource());
+            IEnumerator massChooseCoroutine = base.GameController.SelectTurnTakersAndDoAction(base.HeroTurnTakerController, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealCardsFromDeck, (TurnTaker tt) => NameSearchResponse(tt), requiredDecisions: 0, allowAutoDecide: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(massChooseCoroutine);
@@ -117,7 +117,6 @@ namespace BartKFSentinels.Fracture
                     base.GameController.ExhaustCoroutine(messageCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

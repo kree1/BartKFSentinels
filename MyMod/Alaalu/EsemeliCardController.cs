@@ -14,7 +14,7 @@ namespace BartKFSentinels.Alaalu
         public EsemeliCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowHeroTargetWithHighestHP();
         }
 
         public override void AddTriggers()
@@ -78,7 +78,6 @@ namespace BartKFSentinels.Alaalu
                     }
                 }
             }
-            yield break;
         }
 
         public IEnumerator RevealAttackResponse(GameAction ga)
@@ -103,7 +102,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
     }
 }

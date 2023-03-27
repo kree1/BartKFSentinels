@@ -75,7 +75,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            yield break;
         }
     }
 }

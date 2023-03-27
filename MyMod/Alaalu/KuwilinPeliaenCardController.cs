@@ -49,7 +49,7 @@ namespace BartKFSentinels.Alaalu
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
             // "Then, X players each put a card from their trash on the bottom of their deck."
-            IEnumerator massMoveCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero), SelectionType.MoveCard, MoveFromTrashToDeckResponse, numberOfTurnTakers: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, requiredDecisions: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, allowAutoDecide: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1 >= H, cardSource: GetCardSource());
+            IEnumerator massMoveCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt)), SelectionType.MoveCard, MoveFromTrashToDeckResponse, numberOfTurnTakers: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, requiredDecisions: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, allowAutoDecide: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1 >= base.GameController.AllHeroes.Count(), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(massMoveCoroutine);
@@ -58,7 +58,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(massMoveCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator MoveFromTrashToDeckResponse(TurnTaker tt)
@@ -73,7 +72,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(moveCoroutine);
             }
-            yield break;
         }
     }
 }

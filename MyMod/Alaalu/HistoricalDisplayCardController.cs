@@ -45,7 +45,6 @@ namespace BartKFSentinels.Alaalu
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator PlayEnvironmentCardResponse()
@@ -59,7 +58,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator Play()

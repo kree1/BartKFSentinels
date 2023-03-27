@@ -112,7 +112,6 @@ namespace BartKFSentinels.Fracture
                     }
                 }
             }
-            yield break;
         }
     }
 }

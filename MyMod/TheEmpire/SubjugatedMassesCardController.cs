@@ -19,7 +19,7 @@ namespace BartKFSentinels.TheEmpire
 
         public LinqCardCriteria ImperialTargetInPlay()
         {
-            return new LinqCardCriteria((Card c) => c.IsTarget && c.IsInPlayAndHasGameText && c.DoKeywordsContain(AuthorityKeyword), "Imperial targets", false, false, "Imperial target", "Imperial targets");
+            return new LinqCardCriteria((Card c) => c.IsTarget && c.IsInPlayAndHasGameText && c.DoKeywordsContain(AuthorityKeyword), singular: "Imperial target", plural: "Imperial targets");
         }
 
         public int NumberOfImperialTargetsInPlay()
@@ -42,7 +42,7 @@ namespace BartKFSentinels.TheEmpire
             // "... this card deals itself X + 2 psychic damage unless one player discards a card."
             DealDamageAction preview = new DealDamageAction(GetCardSource(), new DamageSource(base.GameController, base.Card), base.Card, NumberOfImperialTargetsInPlay() + 2, DamageType.Psychic);
             List<DiscardCardAction> discard = new List<DiscardCardAction>();
-            IEnumerator selectCoroutine = base.GameController.SelectHeroToDiscardCard(DecisionMaker, optionalSelectHero: true, optionalDiscardCard: true, additionalHeroCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().HasCardsInHand), storedResultsDiscard: discard, gameAction: preview, cardSource: GetCardSource());
+            IEnumerator selectCoroutine = base.GameController.SelectHeroToDiscardCard(DecisionMaker, optionalSelectHero: true, optionalDiscardCard: true, additionalHeroCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().HasCardsInHand), storedResultsDiscard: discard, gameAction: preview, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectCoroutine);
@@ -64,13 +64,12 @@ namespace BartKFSentinels.TheEmpire
                     base.GameController.ExhaustCoroutine(damageCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator PlayOngEqpResponse(GameAction ga)
         {
             // "... one player may play an Ongoing or Equipment card."
-            IEnumerable<TurnTaker> options = base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().Hand.Cards.Any((Card c) => c.DoKeywordsContain("ongoing") || c.DoKeywordsContain("equipment")));
+            IEnumerable<TurnTaker> options = base.GameController.FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().Hand.Cards.Any((Card c) => IsOngoing(c) || IsEquipment(c)));
             SelectTurnTakerDecision playerChoice = new SelectTurnTakerDecision(base.GameController, DecisionMaker, options, SelectionType.PlayCard, cardSource: GetCardSource());
             IEnumerator selectCoroutine = base.GameController.SelectTurnTakerAndDoAction(playerChoice, PlayOngEqp);
             if (base.UseUnityCoroutines)
@@ -81,15 +80,14 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(selectCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator PlayOngEqp(TurnTaker tt)
         {
-            if (tt.IsHero && !tt.IsIncapacitatedOrOutOfGame)
+            if (IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame)
             {
                 HeroTurnTakerController httc = FindHeroTurnTakerController(tt.ToHero());
-                IEnumerator playCoroutine = SelectAndPlayCardFromHand(httc, cardCriteria: new LinqCardCriteria((Card c) => c.DoKeywordsContain("ongoing") || c.DoKeywordsContain("equipment"), "ongoing or equipment"), associateCardSource: true);
+                IEnumerator playCoroutine = SelectAndPlayCardFromHand(httc, cardCriteria: new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c), "Ongoing or Equipment"), associateCardSource: true);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(playCoroutine);
@@ -99,7 +97,6 @@ namespace BartKFSentinels.TheEmpire
                     base.GameController.ExhaustCoroutine(playCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

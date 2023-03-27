@@ -22,7 +22,7 @@ namespace BartKFSentinels.Breakaway
             base.AddTriggers();
             // "At the end of each hero turn, if that player played a card and used a power this turn, {Momentum} regains 2 HP."
             base.AddTrigger<PlayCardAction>((PlayCardAction act) => act.WasCardPlayed && !act.IsPutIntoPlay && act.TurnTakerController.IsHero && act.TurnTakerController.IsActiveTurnTakerController, HeroPlayedResponse, TriggerType.FirstTrigger, TriggerTiming.After);
-            base.AddTrigger<UsePowerAction>((UsePowerAction act) => act.IsSuccessful && act.HeroUsingPower != null && act.HeroUsingPower == base.GameController.ActiveTurnTakerController, HeroUsedPowerResponse, TriggerType.FirstTrigger, TriggerTiming.After);
+            base.AddTrigger<UsePowerAction>((UsePowerAction act) => act.IsSuccessful && act.HeroUsingPower != null && act.HeroUsingPower.IsActiveTurnTakerController, HeroUsedPowerResponse, TriggerType.FirstTrigger, TriggerTiming.After);
             base.AddEndOfTurnTrigger((TurnTaker tt) => IsHero(tt) && HasBeenSetToTrueThisTurn(PlayedThisTurn) && HasBeenSetToTrueThisTurn(PowerThisTurn), (PhaseChangeAction action) => base.GameController.GainHP(base.TurnTaker.FindCard("MomentumCharacter"), 2, cardSource: GetCardSource()), TriggerType.GainHP);
             // "When {Momentum} flips, each player discards 1 card. Then, destroy this card."
             AddTrigger((FlipCardAction fca) => fca.CardToFlip.Card == base.TurnTaker.FindCard("MomentumCharacter"), SelfDestructResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.DestroySelf }, TriggerTiming.After);

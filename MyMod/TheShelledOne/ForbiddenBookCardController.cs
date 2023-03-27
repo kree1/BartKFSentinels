@@ -29,7 +29,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator DiscardAndCheckResponse(GameAction ga)
         {
             // "... each player may discard a card."
-            IEnumerator discardCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().HasCardsInHand), SelectionType.DiscardCard, (TurnTaker tt) => SelectAndDiscardCards(FindHeroTurnTakerController(tt.ToHero()), 1, optional: false, requiredDecisions: 0, responsibleTurnTaker: tt), requiredDecisions: 0, allowAutoDecide: true, cardSource: GetCardSource());
+            IEnumerator discardCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().HasCardsInHand), SelectionType.DiscardCard, (TurnTaker tt) => SelectAndDiscardCards(FindHeroTurnTakerController(tt.ToHero()), 1, optional: false, requiredDecisions: 0, responsibleTurnTaker: tt), requiredDecisions: 0, allowAutoDecide: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(discardCoroutine);
@@ -51,7 +51,6 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(tokenCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

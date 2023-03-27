@@ -46,7 +46,6 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator Play()
@@ -58,7 +57,7 @@ namespace BartKFSentinels.TheEmpire
                 new Function(httc, "Discard a card", SelectionType.DiscardCard, () => SelectAndDiscardCards(httc, 1, optional: false, responsibleTurnTaker: base.TurnTaker), onlyDisplayIfTrue: httc.HasCardsInHand),
                 new Function(httc, "Destroy one of your cards", SelectionType.DestroyCard, () => DestroyOneOfYourCards(httc), onlyDisplayIfTrue: httc.HasCardsWhere((Card c) => c.IsInPlay && !c.IsCharacter && !base.GameController.IsCardIndestructible(c)))
             };
-            IEnumerator selectCoroutine = EachPlayerSelectsFunction((HeroTurnTakerController httc) => httc.IsHero && !httc.IsIncapacitatedOrOutOfGame, options, requiredNumberOfHeroes: 0, storedResults: chosen, outputIfCannotChooseFunction: (HeroTurnTakerController httc) => httc.Name + " cannot discard or destroy a card for " + base.Card.Title + ".");
+            IEnumerator selectCoroutine = EachPlayerSelectsFunction((HeroTurnTakerController httc) => !httc.IsIncapacitatedOrOutOfGame, options, requiredNumberOfHeroes: 0, storedResults: chosen, outputIfCannotChooseFunction: (HeroTurnTakerController httc) => httc.Name + " cannot discard or destroy a card for " + base.Card.Title + ".");
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectCoroutine);
@@ -85,7 +84,6 @@ namespace BartKFSentinels.TheEmpire
                     base.GameController.ExhaustCoroutine(statusCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator DestroyOneOfYourCards(HeroTurnTakerController httc)
@@ -100,7 +98,6 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            yield break;
         }
     }
 }

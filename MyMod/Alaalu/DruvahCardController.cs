@@ -38,7 +38,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(revealCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator ShuffleOrDrawResponse(GameAction ga)
@@ -88,7 +87,6 @@ namespace BartKFSentinels.Alaalu
                     base.GameController.ExhaustCoroutine(drawCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

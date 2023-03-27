@@ -19,7 +19,7 @@ namespace BartKFSentinels.TheGoalie
 
         public override IEnumerator Play()
         {
-            IEnumerator chooseCoroutine = base.GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(base.GameController, base.HeroTurnTakerController, base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealCardsFromDeck, numberOfCards: 5, cardSource: GetCardSource()), RevealMovePlayResponse);
+            IEnumerator chooseCoroutine = base.GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(base.GameController, base.HeroTurnTakerController, base.GameController.FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealCardsFromDeck, numberOfCards: 5, cardSource: GetCardSource()), RevealMovePlayResponse);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(chooseCoroutine);
@@ -135,7 +135,6 @@ namespace BartKFSentinels.TheGoalie
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

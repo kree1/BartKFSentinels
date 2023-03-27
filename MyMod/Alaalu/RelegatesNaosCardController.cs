@@ -15,6 +15,7 @@ namespace BartKFSentinels.Alaalu
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowVillainTargetWithLowestHP(ranking: 1, numberOfTargets: 1);
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c.DoKeywordsContain("lone power"), "the Lone Power", useCardsSuffix: false));
             AllowFastCoroutinesDuringPretend = false;
             RunModifyDamageAmountSimulationForThisCard = false;
         }
@@ -72,7 +73,6 @@ namespace BartKFSentinels.Alaalu
             {
                 PerformReduceBy = null;
             }
-            yield break;
         }
 
         public IEnumerator MaybeReduceDamageTakenResponse(DealDamageAction dda)
@@ -107,7 +107,6 @@ namespace BartKFSentinels.Alaalu
             {
                 PerformReduceTo = null;
             }
-            yield break;
         }
 
         public IEnumerator DiscardToLeaveResponse(GameAction ga)
@@ -145,7 +144,6 @@ namespace BartKFSentinels.Alaalu
                     base.GameController.ExhaustCoroutine(destroyCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

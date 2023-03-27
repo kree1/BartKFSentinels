@@ -19,11 +19,11 @@ namespace BartKFSentinels.TheGigamorph
 
         public override void AddTriggers()
         {
+            base.AddTriggers();
             // "At the end of each turn, this card deals {H} melee damage to each target that dealt {H + 2} or more damage to targets other than itself this turn."
             base.AddEndOfTurnTrigger((TurnTaker tt) => true, SmackBelligerentTargetsResponse, TriggerType.DealDamage);
             // "At the start of the environment turn, each player may discard up to 3 cards. If {H + 2} or more cards are discarded this way, destroy this card."
             base.AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardToDestroyResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.DestroySelf });
-            base.AddTriggers();
         }
 
         public string DamageDealtList()
@@ -83,7 +83,6 @@ namespace BartKFSentinels.TheGigamorph
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator DiscardToDestroyResponse(PhaseChangeAction pca)
@@ -127,7 +126,6 @@ namespace BartKFSentinels.TheGigamorph
                     base.GameController.ExhaustCoroutine(showCoroutine);
                 }
             }
-            yield break;
         }
     }
 }

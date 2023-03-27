@@ -30,7 +30,7 @@ namespace BartKFSentinels.TheShelledOne
             List<MoveCardAction> removed = new List<MoveCardAction>();
             List<Card> showCards = new List<Card>();
             showCards.Add(base.Card);
-            IEnumerator teamChoiceCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealTopCardOfDeck, (TurnTaker tt) => DiscardOrRemoveChoice(tt, removed), allowAutoDecide: true, associatedCards: showCards, cardSource: GetCardSource());
+            IEnumerator teamChoiceCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame), SelectionType.RevealTopCardOfDeck, (TurnTaker tt) => DiscardOrRemoveChoice(tt, removed), allowAutoDecide: true, associatedCards: showCards, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(teamChoiceCoroutine);
@@ -65,7 +65,6 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(incrementCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator DiscardOrRemoveChoice(TurnTaker tt, List<MoveCardAction> moveResults)
@@ -110,7 +109,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(cleanCoroutine);
             }
-            yield break;
         }
     }
 }

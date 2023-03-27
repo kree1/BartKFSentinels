@@ -37,7 +37,7 @@ namespace BartKFSentinels.Breakaway
             {
                 Log.Debug("    " + hero.NameRespectingVariant);
             }
-            LinqTurnTakerCriteria isListedHero = new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && loadedHeroes.Contains(tt));
+            LinqTurnTakerCriteria isListedHero = new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && loadedHeroes.Contains(tt));
 
             // Ask each of them to destroy a card if they have at least 1 in play
             List<DestroyCardAction> destroyAttempts = new List<DestroyCardAction>();
@@ -90,7 +90,7 @@ namespace BartKFSentinels.Breakaway
             int reduction = 2 + destroySuccesses.Count();
 
             // Do ReduceNextDamage for EACH non-villain target in play
-            foreach(Card nvt in base.GameController.FindTargetsInPlay((Card c) => c.IsNonVillainTarget))
+            foreach(Card nvt in base.GameController.FindTargetsInPlay((Card c) => !IsVillainTarget(c)))
             {
                 IEnumerator reduceCoroutine = this.ReduceNextDamage(nvt, reduction);
                 if (base.UseUnityCoroutines)

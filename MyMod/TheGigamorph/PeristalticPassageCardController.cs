@@ -19,11 +19,11 @@ namespace BartKFSentinels.TheGigamorph
 
         public override void AddTriggers()
         {
+            base.AddTriggers();
             // "Targets can't deal damage to other targets."
             base.AddPreventDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsTarget && dda.DamageSource.Card != dda.Target, isPreventEffect: false);
             // "At the start of the environment turn, each player draws a card. Then, destroy this card."
             base.AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DrawAndDestroyResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.DestroySelf });
-            base.AddTriggers();
         }
 
         public override IEnumerator Play()

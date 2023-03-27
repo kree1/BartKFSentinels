@@ -68,7 +68,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(drawCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator UseIncapacitatedAbility(int index)
@@ -125,7 +124,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(powerCoroutine);
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption2()
@@ -157,7 +155,6 @@ namespace BartKFSentinels.Impulse
                     base.GameController.ExhaustCoroutine(protectCoroutine);
                 }
             }
-            yield break;
         }
 
         private IEnumerator UseIncapOption3()
@@ -172,7 +169,6 @@ namespace BartKFSentinels.Impulse
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
-            yield break;
         }
     }
 }

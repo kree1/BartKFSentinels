@@ -28,7 +28,7 @@ namespace BartKFSentinels.Alaalu
         {
             // "... the X players with the fewest cards in hand each draw a card, where X is the number of Alaalids in play."
             List<TurnTaker> fewestResults = new List<TurnTaker>();
-            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("alaalid"), "Alaalid"), visibleToCard: GetCardSource()).Count(), (TurnTaker tt) => tt.IsHero, (TurnTaker tt) => tt.ToHero().Hand.NumberOfCards, SelectionType.DrawCard, fewestResults, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("alaalid"), "Alaalid"), visibleToCard: GetCardSource()).Count(), (TurnTaker tt) => IsHero(tt), (TurnTaker tt) => tt.ToHero().Hand.NumberOfCards, SelectionType.DrawCard, fewestResults, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);
@@ -47,7 +47,7 @@ namespace BartKFSentinels.Alaalu
                 base.GameController.ExhaustCoroutine(drawCoroutine);
             }
             // "Then, each player with 4 or more non-character cards in play returns 1 of those cards to their hand."
-            IEnumerable<TurnTaker> overloadedPlayers = base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && base.GameController.FindCardsWhere((Card c) => c.IsInPlay && c.Owner == tt && !c.IsCharacter).Count() >= 4);
+            IEnumerable<TurnTaker> overloadedPlayers = base.GameController.FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && base.GameController.FindCardsWhere((Card c) => c.IsInPlay && c.Owner == tt && !c.IsCharacter).Count() >= 4);
             IEnumerator massReturnCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => overloadedPlayers.Contains(tt)), SelectionType.ReturnToHand, ReturnToHandResponse, allowAutoDecide: true, numberOfCards: 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -57,7 +57,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(massReturnCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator ReturnToHandResponse(TurnTaker tt)
@@ -72,7 +71,6 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(returnCoroutine);
             }
-            yield break;
         }
     }
 }

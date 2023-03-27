@@ -52,7 +52,6 @@ namespace BartKFSentinels.TheEmpire
                     base.GameController.ExhaustCoroutine(eraseCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator EraseFromHistoryResponse(GameAction ga)
@@ -86,8 +85,8 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(effectCoroutine);
             }
-            IEnumerable<TurnTaker> emptyHanded = FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && tt.ToHero().NumberOfCardsInHand <= 0);
-            IEnumerator drawCoroutine = base.GameController.DrawCards(new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().NumberOfCardsInHand <= 0), 2, cardSource: GetCardSource());
+            IEnumerable<TurnTaker> emptyHanded = FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && tt.ToHero().NumberOfCardsInHand <= 0);
+            IEnumerator drawCoroutine = base.GameController.DrawCards(new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt.ToHero().NumberOfCardsInHand <= 0), 2, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(drawCoroutine);
@@ -106,7 +105,6 @@ namespace BartKFSentinels.TheEmpire
             {
                 base.GameController.ExhaustCoroutine(moveCoroutine);
             }
-            yield break;
         }
     }
 }

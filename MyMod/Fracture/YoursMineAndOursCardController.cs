@@ -71,7 +71,7 @@ namespace BartKFSentinels.Fracture
         {
             if (dca.CardSource.Card == base.Card)
             {
-                IEnumerator chooseCoroutine = base.GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(base.GameController, base.HeroTurnTakerController, base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsHero && !tt.IsIncapacitatedOrOutOfGame && tt != base.TurnTaker, battleZone: base.TurnTaker.BattleZone), SelectionType.None, cardSource: GetCardSource()), ActNowResponse);
+                IEnumerator chooseCoroutine = base.GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(base.GameController, base.HeroTurnTakerController, base.GameController.FindTurnTakersWhere((TurnTaker tt) => IsHero(tt) && !tt.IsIncapacitatedOrOutOfGame && tt != base.TurnTaker, battleZone: base.TurnTaker.BattleZone), SelectionType.None, cardSource: GetCardSource()), ActNowResponse);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(chooseCoroutine);
@@ -163,7 +163,6 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(damageCoroutine);
             }
-            yield break;
         }
 
         public override IEnumerator UsePower(int index = 0)
@@ -188,7 +187,6 @@ namespace BartKFSentinels.Fracture
             {
                 base.GameController.ExhaustCoroutine(allyDrawCoroutine);
             }
-            yield break;
         }
     }
 }
