@@ -49,7 +49,7 @@ namespace BartKFSentinels.Breakaway
                 else
                 {
                     // "... 1 non-Terrain villain target with less than its maximum HP regains 2 HP."
-                    IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 2, additionalCriteria: (Card c) => c.IsVillainTarget && c.HitPoints < c.MaximumHitPoints && !c.DoKeywordsContain("terrain"), numberOfTargets: 1, cardSource: GetCardSource());
+                    IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 2, additionalCriteria: (Card c) => IsVillainTarget(c) && c.HitPoints < c.MaximumHitPoints && !c.DoKeywordsContain("terrain"), numberOfTargets: 1, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return this.GameController.StartCoroutine(healVillainCoroutine);

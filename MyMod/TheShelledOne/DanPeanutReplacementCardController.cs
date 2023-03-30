@@ -22,7 +22,7 @@ namespace BartKFSentinels.TheShelledOne
         {
             base.AddTriggers();
             // "Reduce damage dealt by that hero to villain targets by 1."
-            AddReduceDamageTrigger((DealDamageAction dda) => dda.Target.IsVillainTarget && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo(), (DealDamageAction dda) => 1);
+            AddReduceDamageTrigger((DealDamageAction dda) => IsVillainTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo(), (DealDamageAction dda) => 1);
             // "At the end of that hero's turn, if {TheShelledOne} is a target, discard cards from the villain deck until a Pod is discarded."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == GetCardThisCardIsNextTo().Owner && base.CharacterCard.IsTarget, DiscardBatterResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.PlayCard });
         }

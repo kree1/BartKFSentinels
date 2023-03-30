@@ -45,7 +45,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator HealResponse(DestroyCardAction dca)
         {
             // "... 1 villain target with less than its maximum HP regains 1 HP."
-            IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 1, additionalCriteria: (Card c) => c.IsVillainTarget && c.HitPoints < c.MaximumHitPoints, numberOfTargets: 1, cardSource: GetCardSource());
+            IEnumerator healVillainCoroutine = base.GameController.SelectAndGainHP(base.DecisionMaker, 1, additionalCriteria: (Card c) => IsVillainTarget(c) && c.HitPoints < c.MaximumHitPoints, numberOfTargets: 1, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return this.GameController.StartCoroutine(healVillainCoroutine);

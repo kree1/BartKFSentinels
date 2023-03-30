@@ -16,7 +16,7 @@ namespace BartKFSentinels.TheShelledOne
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             AddThisCardControllerToList(CardControllerListType.ModifiesKeywords);
             SpecialStringMaker.ShowTokenPool(base.Card.Identifier, StrikePoolIdentifier).Condition = () => !base.Card.IsFlipped;
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.IsVillainTarget && !c.IsCharacter, "non-character villain", singular: "target", plural: "targets")).Condition = () => base.Card.IsFlipped;
+            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => IsVillainTarget(c) && !c.IsCharacter, "non-character villain", singular: "target", plural: "targets")).Condition = () => base.Card.IsFlipped;
             SpecialStringMaker.ShowNumberOfCardsAtLocation(base.TurnTaker.Deck, new LinqCardCriteria((Card c) => c.DoKeywordsContain("weather effect"), "Weather Effect")).Condition = () => base.Card.IsFlipped;
         }
 
@@ -257,7 +257,6 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(shuffleCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator EnvironmentDamagePlayResponse(GameAction ga)
@@ -282,7 +281,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(playCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator FourStrikesResponse(GameAction ga)
@@ -306,7 +304,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(flipCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator RemoveStrikeResponse(AddTokensToPoolAction tpa)
@@ -341,7 +338,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(addCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator RemoveKeywordResponse(GameAction ga)
@@ -357,7 +353,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(removeCoroutine);
             }
-            yield break;
         }
 
         public IEnumerator CheckForDiscardedPodResponse(MoveCardAction mca)
@@ -425,7 +420,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
         }
 
         public IEnumerator CheckForBulkDiscardedPodResponse(BulkMoveCardsAction bmca)
@@ -493,7 +487,6 @@ namespace BartKFSentinels.TheShelledOne
                     }
                 }
             }
-            yield break;
         }
 
         public IEnumerator WeatherResponse(GameAction ga)
@@ -582,7 +575,7 @@ namespace BartKFSentinels.TheShelledOne
                 }
             }
             // "Then, {TheShelledOne} regains HP equal to the number of non-character villain targets in play."
-            IEnumerator healCoroutine = base.GameController.GainHP(base.Card, base.GameController.FindCardsWhere((Card c) => c.IsVillainTarget && c.IsInPlayAndHasGameText && !c.IsCharacter).Count(), cardSource: GetCardSource());
+            IEnumerator healCoroutine = base.GameController.GainHP(base.Card, base.GameController.FindCardsWhere((Card c) => IsVillainTarget(c) && c.IsInPlayAndHasGameText && !c.IsCharacter).Count(), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(healCoroutine);
@@ -591,7 +584,6 @@ namespace BartKFSentinels.TheShelledOne
             {
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
-            yield break;
         }
     }
 }

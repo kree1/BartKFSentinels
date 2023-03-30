@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "Reduce damage dealt to villain targets by 1."
-            AddReduceDamageTrigger((Card c) => c.IsVillainTarget, 1);
+            AddReduceDamageTrigger((Card c) => IsVillainTarget(c), 1);
             // "At the end of the villain turn, play the top card of the villain deck."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, PlayTheTopCardOfTheVillainDeckWithMessageResponse, TriggerType.PlayCard);
         }
