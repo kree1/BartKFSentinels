@@ -527,7 +527,6 @@ namespace BartKFSentinels.TheShelledOne
                     base.GameController.ExhaustCoroutine(shuffleCoroutine);
                 }
             }
-            yield break;
         }
 
         public IEnumerator HealPitchWeatherResponse(GameAction ga)
