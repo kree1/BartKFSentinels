@@ -64,7 +64,7 @@ namespace BartKFSentinels.TheShelledOne
             }
 
             // "Villain Ongoing cards and environment cards with no printed HP or a printed HP of less than 6 have a maximum HP of 6."
-            IEnumerable<Card> getsHP = base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => (base.CharacterCardController as TheShelledOneCharacterCardController).getsMaxHPSet(c)));
+            IEnumerable<Card> getsHP = base.GameController.FindCardsWhere(new LinqCardCriteria((base.CharacterCardController as TheShelledOneCharacterCardController).getsMaxHPSet()));
             IEnumerator targetCoroutine = base.GameController.MakeTargettable(base.FindDecisionMaker(), (Card c) => getsHP.Contains(c), (Card c) => 6, cardSource: base.GameController.FindCardController(base.TurnTaker.CharacterCard).GetCardSource());
             if (base.UseUnityCoroutines)
             {
