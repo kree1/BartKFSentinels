@@ -94,7 +94,7 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddStartOfTurnTrigger((TurnTaker tt) => true, CriminalCourierStartEachTurnResponse, TriggerType.CreateStatusEffect));
                 
                 // "Whenever a villain card would go anywhere except the villain trash, deck, or play area, first reveal that card. If {TheClient} is revealed this way, flip {Breakaway}."
-                base.AddSideTrigger(base.AddTrigger<MoveCardAction>((MoveCardAction mca) =>  mca.CardToMove.IsVillain && (!mca.Destination.IsVillain || !(mca.Destination.IsInPlay || mca.Destination.IsTrash || mca.Destination.IsDeck)), UnusualMoveResponse, TriggerType.RevealCard, TriggerTiming.Before));
+                base.AddSideTrigger(base.AddTrigger<MoveCardAction>((MoveCardAction mca) =>  IsVillain(mca.CardToMove) && (!mca.Destination.IsVillain || !(mca.Destination.IsInPlay || mca.Destination.IsTrash || mca.Destination.IsDeck)), UnusualMoveResponse, TriggerType.RevealCard, TriggerTiming.Before));
                 
                 // "Whenever a Terrain card enters play, destroy all other Terrain cards and all environment cards, then play the top card of the environment deck."
                 base.AddSideTrigger(base.AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay.DoKeywordsContain("terrain"), EnteringTerrainSequenceResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.PlayCard }, TriggerTiming.After));
@@ -252,7 +252,7 @@ namespace BartKFSentinels.Breakaway
                 {
                     // Show the card to the players (with a note on what happened to The Client in game terms)
                     string clientFate = this.Card.Title + " can't find " + revealedCard.Title + " anywhere!";
-                    if (mca.CardSource.Card.IsHero)
+                    if (IsHero(mca.CardSource.Card))
                     {
                         // One of the good guys scared the Client away or captured them
                         TurnTaker responsibleHero = mca.CardSource.TurnTakerController.TurnTaker;

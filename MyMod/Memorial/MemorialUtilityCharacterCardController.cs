@@ -33,7 +33,7 @@ namespace BartKFSentinels.Memorial
 
         public bool IsRenownedTarget(Card c)
         {
-            return c.IsInPlayAndHasGameText && IsHeroCharacterCard(c) && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
+            return c.IsInPlayAndHasGameText && IsHeroCharacterCard(c) && IsHero(c.Owner) && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
         }
 
         public virtual IEnumerator ExtraRenownResponse(Card entering)

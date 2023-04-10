@@ -220,7 +220,7 @@ namespace BartKFSentinels.TheShelledOne
 							{
 								base.GameController.ExhaustCoroutine(coroutine);
 							}
-							if (newCC.TurnTaker.IsHero && newCC.Card.HitPoints > newCC.Card.MaximumHitPoints)
+							if (IsHero(newCC.TurnTaker) && newCC.Card.HitPoints > newCC.Card.MaximumHitPoints)
 							{
 								newCC.Card.SetHitPoints(newCC.Card.MaximumHitPoints.Value);
 							}

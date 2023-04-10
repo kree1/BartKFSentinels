@@ -38,7 +38,7 @@ namespace BartKFSentinels.TheGigamorph
             {
                 base.GameController.ExhaustCoroutine(heroDestroyCoroutine);
             }
-            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator villainDestroyCoroutine = base.GameController.SelectAndDestroyCard(base.DecisionMaker, new LinqCardCriteria((Card c) => IsVillain(c) && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(villainDestroyCoroutine);

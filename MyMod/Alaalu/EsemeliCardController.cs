@@ -43,7 +43,7 @@ namespace BartKFSentinels.Alaalu
             if (success != null)
             {
                 Card damaged = success.Target;
-                if (damaged.Owner.IsHero)
+                if (IsHero(damaged.Owner))
                 {
                     HeroTurnTakerController owner = base.GameController.FindHeroTurnTakerController(damaged.Owner.ToHero());
                     IEnumerator drawCoroutine = base.GameController.DrawCard(owner.HeroTurnTaker, optional: true, cardSource: GetCardSource());

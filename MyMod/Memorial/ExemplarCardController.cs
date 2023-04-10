@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the start of this play area's turn, this hero may use a power."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard, (PhaseChangeAction pca) => SelectAndUsePower(FindCardController(GetCardThisCardIsNextTo())), TriggerType.UsePower);
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && IsHeroCharacterCard(GetCardThisCardIsNextTo()), (PhaseChangeAction pca) => SelectAndUsePower(FindCardController(GetCardThisCardIsNextTo())), TriggerType.UsePower);
         }
     }
 }

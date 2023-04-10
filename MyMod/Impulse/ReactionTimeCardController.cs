@@ -21,7 +21,7 @@ namespace BartKFSentinels.Impulse
         {
             base.AddTriggers();
             // "When a villain One-Shot or a non-target environment card would enter play, you may discard it instead. If you do, destroy this card and {ImpulseCharacter} deals himself 2 melee and 2 energy damage."
-            base.AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => (cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.IsOneShot) || (cepa.CardEnteringPlay.IsEnvironment && !cepa.CardEnteringPlay.IsTarget), EntersPlayResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.Before, isActionOptional: true);
+            base.AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => (IsVillain(cepa.CardEnteringPlay) && cepa.CardEnteringPlay.IsOneShot) || (cepa.CardEnteringPlay.IsEnvironment && !cepa.CardEnteringPlay.IsTarget), EntersPlayResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.Before, isActionOptional: true);
         }
 
         public override IEnumerator Play()

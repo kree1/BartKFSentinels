@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the start of this play area's turn, this hero's player may increase the next damage dealt by this hero by 2."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard && GetCardThisCardIsNextTo().IsTarget, OptionalIncreaseNextDamageResponse, TriggerType.CreateStatusEffect);
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && IsHeroCharacterCard(GetCardThisCardIsNextTo()) && GetCardThisCardIsNextTo().IsTarget, OptionalIncreaseNextDamageResponse, TriggerType.CreateStatusEffect);
         }
 
         private IEnumerator OptionalIncreaseNextDamageResponse(PhaseChangeAction pca)
@@ -59,7 +59,7 @@ namespace BartKFSentinels.Memorial
         {
             string turnTakerName = decision.DecisionMaker.Name;
             string heroName = decision.DecisionMaker.CharacterCard.Title;
-            if (GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard)
+            if (GetCardThisCardIsNextTo() != null && IsHeroCharacterCard(GetCardThisCardIsNextTo()))
             {
                 heroName = GetCardThisCardIsNextTo().Title;
             }

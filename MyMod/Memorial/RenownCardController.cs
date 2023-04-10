@@ -15,7 +15,7 @@ namespace BartKFSentinels.Memorial
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowSpecialString(() => "This card is " + base.Card.Location.GetFriendlyName() + ".").Condition = () => base.Card.IsInPlayAndHasGameText;
-            SpecialStringMaker.ShowSpecialString(() => "All hero characters in " + base.Card.Location.OwnerTurnTaker.Name + "'s play area are Renowned.", null, () => GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation), visibleToCard: GetCardSource())).Condition = () => base.Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowSpecialString(() => "All hero characters in " + base.Card.Location.OwnerTurnTaker.Name + "'s play area are Renowned.", null, () => GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation), visibleToCard: GetCardSource())).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         private bool _foundHero;

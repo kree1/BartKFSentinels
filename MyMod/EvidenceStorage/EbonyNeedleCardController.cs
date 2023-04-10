@@ -47,7 +47,7 @@ namespace BartKFSentinels.EvidenceStorage
                 // Destroy a non-character card from this play area's deck
                 TurnTaker host = base.Card.Location.OwnerTurnTaker;
                 HeroTurnTakerController boss = DecisionMaker;
-                if (host.IsHero)
+                if (IsHero(host))
                 {
                     boss = base.GameController.FindHeroTurnTakerController(host.ToHero());
                 }

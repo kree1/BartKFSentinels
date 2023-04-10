@@ -45,7 +45,7 @@ namespace BartKFSentinels.Alaalu
         {
             // "... play the top card of the villain deck with the fewest cards in its trash."
             List<TurnTaker> villainResult = new List<TurnTaker>();
-            IEnumerator selectVillainCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, 1, (TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && (tt.IsVillain || tt.IsVillainTeam), (TurnTaker tt) => tt.Trash.NumberOfCards, SelectionType.PlayTopCard, villainResult, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator selectVillainCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, 1, (TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsVillain(tt), (TurnTaker tt) => tt.Trash.NumberOfCards, SelectionType.PlayTopCard, villainResult, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(selectVillainCoroutine);

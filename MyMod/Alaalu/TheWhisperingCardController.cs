@@ -46,7 +46,7 @@ namespace BartKFSentinels.Alaalu
                 if (successful != null && successful.CardToPlay != null && successful.CardToPlay.DoKeywordsContain("one-shot"))
                 {
                     // "... deal the associated hero (H) minus 1 psychic damage..."
-                    if (successful.CardToPlay.IsHero)
+                    if (IsHero(successful.CardToPlay))
                     {
                         List<Card> targets = new List<Card>();
                         if (base.GameController.FindHeroTurnTakerController(successful.CardToPlay.Owner.ToHero()).HasMultipleCharacterCards)

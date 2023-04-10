@@ -25,7 +25,7 @@ namespace BartKFSentinels.TheEmpire
             // "When this card is destroyed, if it has 0 or fewer HP, move it under the Timeline card."
             AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card == base.Card && base.Card.HitPoints <= 0 && base.GameController.IsCardInPlayAndNotUnderCard(TimelineIdentifier), EraseFromHistoryResponse, TriggerType.MoveCard, TriggerTiming.Before);
             // "This card is immune to damage dealt by non-hero cards."
-            AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && (dda.DamageSource == null || !dda.DamageSource.IsHero));
+            AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && (dda.DamageSource == null || (dda.DamageSource.IsCard && !IsHero(dda.DamageSource.Card))));
             // "If a villain target was dealt damage this turn, reduce damage dealt to this card by 2."
             AddReduceDamageTrigger((DealDamageAction dda) => dda.Target == base.Card && Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => IsVillainTarget(ddje.TargetCard) && ddje.Amount > 0).Count() > 0, (DealDamageAction dda) => 2);
         }

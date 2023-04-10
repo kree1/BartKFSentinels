@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the start of this play area's turn, this hero may deal 1 target 2 melee damage."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard && GetCardThisCardIsNextTo().IsTarget, (PhaseChangeAction pca) => GameController.SelectTargetsAndDealDamage(GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), new DamageSource(GameController, GetCardThisCardIsNextTo()), 2, DamageType.Melee, 1, false, 0, cardSource: GetCardSource()), TriggerType.DealDamage);
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && IsHeroCharacterCard(GetCardThisCardIsNextTo()) && GetCardThisCardIsNextTo().IsTarget, (PhaseChangeAction pca) => GameController.SelectTargetsAndDealDamage(GameController.FindTurnTakerController(GetCardThisCardIsNextTo().Owner).ToHero(), new DamageSource(GameController, GetCardThisCardIsNextTo()), 2, DamageType.Melee, 1, false, 0, cardSource: GetCardSource()), TriggerType.DealDamage);
         }
     }
 }

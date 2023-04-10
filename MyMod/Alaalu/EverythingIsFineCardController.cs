@@ -40,7 +40,7 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(destroyHeroCoroutine);
             }
-            IEnumerator destroyVillainCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
+            IEnumerator destroyVillainCoroutine = base.GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsVillain(c) && IsOngoing(c), "villain Ongoing"), false, responsibleCard: base.Card, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyVillainCoroutine);

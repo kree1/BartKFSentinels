@@ -16,7 +16,7 @@ namespace BartKFSentinels.Memorial
             // Front side: who is the hero target with the highest HP?
             SpecialStringMaker.ShowHeroTargetWithHighestHP().Condition = () => !Card.IsFlipped;
             // Front side: what villain Incident(s) are in play?
-            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("incident") && c.IsVillain, "villain Incident"), () => true).Condition = () => !Card.IsFlipped;
+            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("incident") && IsVillain(c), "villain Incident"), () => true).Condition = () => !Card.IsFlipped;
             // Back side: who are the H - 1 hero targets with the highest HP?
             SpecialStringMaker.ShowHeroTargetWithHighestHP(1, H - 1).Condition = () => Card.IsFlipped;
             // Back side: which targets are Renowned?
@@ -58,9 +58,9 @@ namespace BartKFSentinels.Memorial
             {
                 // Front side:
                 // "When a non-Incident villain card would enter play, instead shuffle it into the villain deck and the non-hero target with the highest HP deals the hero target with the highest HP {H - 1} projectile damage."
-                SideTriggers.Add(AddTrigger<PlayCardAction>((PlayCardAction pca) => pca.CardToPlay.IsVillain && pca.CardToPlay != Card && !pca.CardToPlay.DoKeywordsContain("incident"), ShuffleAndShootResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DealDamage }, TriggerTiming.Before));
+                SideTriggers.Add(AddTrigger<PlayCardAction>((PlayCardAction pca) => IsVillain(pca.CardToPlay) && pca.CardToPlay != Card && !pca.CardToPlay.DoKeywordsContain("incident"), ShuffleAndShootResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DealDamage }, TriggerTiming.Before));
                 // "When a villain Incident leaves play, remove that Incident from the game."
-                SideTriggers.Add(AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove.IsVillain && mca.CardToMove.DoKeywordsContain("incident") && mca.Origin.IsInPlay && !mca.Destination.IsInPlay, RemoveResolvedIncidentResponse, new TriggerType[] { TriggerType.RemoveFromGame }, TriggerTiming.After));
+                SideTriggers.Add(AddTrigger<MoveCardAction>((MoveCardAction mca) => IsVillain(mca.CardToMove) && mca.CardToMove.DoKeywordsContain("incident") && mca.Origin.IsInPlay && !mca.Destination.IsInPlay, RemoveResolvedIncidentResponse, new TriggerType[] { TriggerType.RemoveFromGame }, TriggerTiming.After));
                 // "At the start of the villain turn, if there are no villain Incidents in play, flip {Memorial}."
                 SideTriggers.Add(AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, CheckAndFlipResponse, TriggerType.FlipCard));
 
@@ -77,7 +77,7 @@ namespace BartKFSentinels.Memorial
                 // [handled in RenownCardController]
 
                 // "If there are none, discard it and play the top card of the villain deck."
-                //SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && cepa.CardEnteringPlay.DoKeywordsContain(RenownKeyword) && !FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c)).Any(), ExtraRenownResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
+                //SideTriggers.Add(AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => IsVillain(cepa.CardEnteringPlay) && cepa.CardEnteringPlay.DoKeywordsContain(RenownKeyword) && !FindCardsWhere((Card c) => IsHeroCharacterCard(c) && c.IsTarget && !IsRenownedTarget(c)).Any(), ExtraRenownResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.Before));
 
                 // "Whenever a villain target deals 2 or more damage to a Renowned target, activate the first effect in this list that hasn't been activated this turn:"
                 // "1) {Memorial} regains {H - 1} HP."
@@ -101,6 +101,7 @@ namespace BartKFSentinels.Memorial
                 }
             }
             AddDefeatedIfDestroyedTriggers();
+            AddDefeatedIfMovedOutOfGameTriggers();
         }
 
         private IEnumerator ShuffleAndShootResponse(PlayCardAction pca)
@@ -179,7 +180,7 @@ namespace BartKFSentinels.Memorial
         private IEnumerator CheckAndFlipResponse(PhaseChangeAction pca)
         {
             // "... if there are no villain Incidents in play, flip {Memorial}."
-            if (!FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.IsVillain && c.DoKeywordsContain("incident"))).Any())
+            if (!FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsVillain(c) && c.DoKeywordsContain("incident"))).Any())
             {
                 IEnumerator flipCoroutine = GameController.FlipCard(this, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
@@ -388,7 +389,7 @@ namespace BartKFSentinels.Memorial
                 }
                 // "6) Destroy the non-character non-villain target with the lowest HP."
                 List<Card> storedResultsLowest = new List<Card>();
-                IEnumerator findCoroutine = GameController.FindTargetWithLowestHitPoints(1, (Card c) => !c.IsVillain && !c.IsCharacter, storedResultsLowest, cardSource: GetCardSource());
+                IEnumerator findCoroutine = GameController.FindTargetWithLowestHitPoints(1, (Card c) => !IsVillainTarget(c) && !c.IsCharacter, storedResultsLowest, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(findCoroutine);

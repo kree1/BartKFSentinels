@@ -24,7 +24,7 @@ namespace BartKFSentinels.Breakaway
 
         public bool IsBlocked(Card c)
         {
-            if (c.IsHero && c.IsCharacter)
+            if (IsHeroCharacterCard(c))
             {
                 var blockedEffects = GameController.StatusEffectManager.StatusEffectControllers.Where((StatusEffectController sec) => sec.StatusEffect is OnDealDamageStatusEffect odds && odds.CardSource.Title == this.Card.Title && odds.MethodToExecute == "RedirectDamage");
                 List<Card> hasBlockEffect = new List<Card>();
@@ -210,7 +210,7 @@ namespace BartKFSentinels.Breakaway
         public IEnumerator PreventDamage(DealDamageAction dda, TurnTaker hero, StatusEffect effect, int[] powerNumerals = null)
         {
             // "[b]BLOCKED[/b] heroes can't deal damage to non-Terrain villain targets."
-            if (dda != null && dda.Target != null && dda.Target.IsVillain && !dda.Target.DoKeywordsContain("terrain"))
+            if (dda != null && dda.Target != null && IsVillainTarget(dda.Target) && !dda.Target.DoKeywordsContain("terrain"))
             {
                 IEnumerator preventCoroutine = CancelAction(dda);
                 if (base.UseUnityCoroutines)

@@ -37,11 +37,11 @@ namespace BartKFSentinels.Memorial
         {
             /*Log.Debug("IsRenownedTarget(" + c.Title + ")");
             Log.Debug(c.Title + ".IsInPlayAndHasGameText: " + c.IsInPlayAndHasGameText.ToString());
-            Log.Debug(c.Title + ".IsHeroCharacterCard: " + c.IsHeroCharacterCard.ToString());
-            Log.Debug(c.Title + ".Owner.IsHero: " + c.Owner.IsHero.ToString());
+            Log.Debug("IsHeroCharacterCard(" + c.Title + "): " + IsHeroCharacterCard(c).ToString());
+            Log.Debug("IsHero(" + c.Title + ".Owner): " + IsHero(c.Owner).ToString());
             Log.Debug("!" + c.Title + ".Owner.ToHero().IsIncapacitatedOrOutOfGame: " + (!c.Owner.ToHero().IsIncapacitatedOrOutOfGame).ToString());
             Log.Debug(c.Title + ".IsTarget: " + c.IsTarget.ToString());*/
-            return c.IsInPlayAndHasGameText && c.IsHeroCharacterCard && c.Owner.IsHero && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
+            return c.IsInPlayAndHasGameText && IsHeroCharacterCard(c) && IsHero(c.Owner) && !c.Owner.ToHero().IsIncapacitatedOrOutOfGame && c.IsTarget && NumRenownsAt(c.Location.HighestRecursiveLocation) > 0;
         }
 
         public IEnumerable<Card> AllRenownedTargets()
@@ -51,12 +51,12 @@ namespace BartKFSentinels.Memorial
 
         public LinqCardCriteria IsNonRenownedHeroCharacterTarget()
         {
-            return new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c), "non-Renowned hero character targets", false, false, "non-Renowned hero character target", "non-Renowned hero caracter targets");
+            return new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && c.IsTarget && !IsRenownedTarget(c), "non-Renowned hero character", true, false, "target", "targets");
         }
 
         public IEnumerable<Card> NonRenownedHeroCharacterTargets()
         {
-            return GameController.FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsTarget && !IsRenownedTarget(c));
+            return GameController.FindCardsWhere((Card c) => IsHeroCharacterCard(c) && c.IsTarget && !IsRenownedTarget(c));
         }
     }
 }

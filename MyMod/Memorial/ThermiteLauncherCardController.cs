@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the end of the villain turn, {Memorial} deals each non-villain target 1 irreducible fire damage."
-            AddDealDamageAtEndOfTurnTrigger(base.TurnTaker, base.CharacterCard, (Card c) => !c.IsVillain, TargetType.All, 1, DamageType.Fire, isIrreducible: true);
+            AddDealDamageAtEndOfTurnTrigger(base.TurnTaker, base.CharacterCard, (Card c) => c.IsTarget && !IsVillainTarget(c), TargetType.All, 1, DamageType.Fire, isIrreducible: true);
         }
 
         public override IEnumerator Play()

@@ -42,7 +42,7 @@ namespace BartKFSentinels.TheGigamorph
         public IEnumerator MoveAttackDestroyResponse(PhaseChangeAction pca)
         {
             // "... move the Antibody with the highest HP next to the non-[b]tagged[/b] villain target with the highest HP."
-            List<Card> nonTaggedVillains = FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.IsVillain && !IsTagged(c)).ToList();
+            List<Card> nonTaggedVillains = FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsVillainTarget(c) && !IsTagged(c)).ToList();
             List<Card> activeAntibodies = FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("antibody")).ToList();
             int nonTaggedVillainCount = nonTaggedVillains.Count();
             int activeAntibodyCount = activeAntibodies.Count();
@@ -71,7 +71,7 @@ namespace BartKFSentinels.TheGigamorph
             {
                 // Find non-tagged villain target with highest HP
                 List<Card> villainChosen = new List<Card>();
-                IEnumerator findVillainCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => c.IsVillain && !IsTagged(c), villainChosen, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+                IEnumerator findVillainCoroutine = base.GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsVillainTarget(c) && !IsTagged(c), villainChosen, evenIfCannotDealDamage: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(findVillainCoroutine);

@@ -21,14 +21,14 @@ namespace BartKFSentinels.TheGoalie
         {
             base.AddTriggers();
             // "At the start of the villain turn, you may have a villain target deal {TheGoalieCharacter} 1 irreducible melee damage. If {TheGoalieCharacter} is dealt damage this way, you may play a Goalposts card from your trash."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt.IsVillain, PullAggroResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.PlayCard });
+            AddStartOfTurnTrigger((TurnTaker tt) => IsVillain(tt), PullAggroResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.PlayCard });
         }
 
         public IEnumerator PullAggroResponse(PhaseChangeAction pca)
         {
             // "...  you may have a villain target deal {TheGoalieCharacter} 1 irreducible melee damage."
             List<SelectCardDecision> targetResults = new List<SelectCardDecision>();
-            IEnumerator chooseCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.CardToDealDamage, new LinqCardCriteria((Card c) => c.IsVillain && c.IsTarget && c.IsInPlayAndHasGameText, "villain targets in play", false, false, "villain target in play", "villain targets in play"), targetResults, true, cardSource: GetCardSource());
+            IEnumerator chooseCoroutine = base.GameController.SelectCardAndStoreResults(base.HeroTurnTakerController, SelectionType.CardToDealDamage, new LinqCardCriteria((Card c) => IsVillainTarget(c) && c.IsInPlayAndHasGameText, "villain targets in play", false, false, "villain target in play", "villain targets in play"), targetResults, true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(chooseCoroutine);
@@ -71,7 +71,7 @@ namespace BartKFSentinels.TheGoalie
 
         public bool DamagedByOtherHeroesThisRound(Card c)
         {
-            return Journal.DealDamageEntriesThisRound().Any((DealDamageJournalEntry ddje) => ddje.SourceCard.IsHeroCharacterCard && ddje.SourceCard != base.CharacterCard && ddje.TargetCard == c);
+            return Journal.DealDamageEntriesThisRound().Any((DealDamageJournalEntry ddje) => IsHeroCharacterCard(ddje.SourceCard) && ddje.SourceCard != base.CharacterCard && ddje.TargetCard == c);
         }
 
         private string TargetsDamagedByOtherHeroesThisRound()

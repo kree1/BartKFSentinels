@@ -43,7 +43,7 @@ namespace BartKFSentinels.TheShelledOne
             // "X on this card = the number of tokens on this card."
 
             // "The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
-            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target.IsVillain && dda.DidDealDamage, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && IsVillainTarget(dda.Target) && dda.DidDealDamage, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
             // Cards out of play can't have tokens
             AddBeforeLeavesPlayAction(ResetPoolResponse, TriggerType.ModifyTokens);
         }

@@ -21,7 +21,7 @@ namespace BartKFSentinels.EvidenceStorage
         public override void AddTriggers()
         {
             // "At the end of the villain turn, the villain target with the highest HP deals each Officer 3 sonic damage. Then, that target deals the {H - 1} Storage cards with the highest HP 1 sonic damage each. Then, destroy this card."
-            base.AddEndOfTurnTrigger((TurnTaker tt) => tt.IsVillain, AlarmResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf });
+            base.AddEndOfTurnTrigger((TurnTaker tt) => IsVillain(tt), AlarmResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf });
             // "When this card is destroyed, shuffle all Storage cards from the environment trash into the environment deck."
             base.AddWhenDestroyedTrigger(ShuffleCrateResponse, TriggerType.MoveCard);
             base.AddTriggers();

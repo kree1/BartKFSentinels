@@ -56,7 +56,7 @@ namespace BartKFSentinels.TheShelledOne
                 {
                     Card shell = base.TurnTaker.FindCard("GiantPeanutShell");
                     // "If that hero takes damage this way, destroy a villain Ongoing card..."
-                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.IsVillain && IsOngoing(c), "villain Ongoing"), 1, requiredDecisions: 1, responsibleCard: base.Card, cardSource: GetCardSource());
+                    IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => IsVillain(c) && IsOngoing(c), "villain Ongoing"), 1, requiredDecisions: 1, responsibleCard: base.Card, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(destroyCoroutine);

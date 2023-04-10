@@ -90,7 +90,7 @@ namespace BartKFSentinels.Palmreader
         {
             if (action is DealDamageAction)
             {
-                return (action as DealDamageAction).Target.IsHero && !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn);
+                return IsHeroTarget((action as DealDamageAction).Target) && !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn);
             }
             else
             {

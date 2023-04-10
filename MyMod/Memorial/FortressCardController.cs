@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "At the start of this play area's turn, this hero may regain 2 HP."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && GetCardThisCardIsNextTo().IsHeroCharacterCard, OptionalHealResponse, TriggerType.GainHP);
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsTarget && IsHeroCharacterCard(GetCardThisCardIsNextTo()), OptionalHealResponse, TriggerType.GainHP);
         }
 
         private IEnumerator OptionalHealResponse(PhaseChangeAction pca)

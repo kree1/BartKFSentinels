@@ -88,7 +88,7 @@ namespace BartKFSentinels.TheGigamorph
         public IEnumerator DiscardToDestroyResponse(PhaseChangeAction pca)
         {
             // "... each player may discard up to 3 cards. If {H + 2} or more cards are discarded this way, destroy this card."
-            if (FindTurnTakersWhere((TurnTaker tt) => tt.IsHero).Any())
+            if (FindTurnTakersWhere((TurnTaker tt) => IsHero(tt)).Any())
             {
                 List<DiscardCardAction> discards = new List<DiscardCardAction>();
                 IEnumerator discardCoroutine = base.GameController.EachPlayerDiscardsCards(0, 3, discards, showCounter: true, cardSource: GetCardSource());

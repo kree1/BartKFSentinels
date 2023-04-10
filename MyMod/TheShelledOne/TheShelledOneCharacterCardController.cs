@@ -27,8 +27,16 @@ namespace BartKFSentinels.TheShelledOne
         protected const string FirstWeatherEffect = "FirstWeatherEffectThisTurn";
         protected const string SecondWeatherEffect = "SecondWeatherEffectThisTurn";
 
-        public Func<Card, bool> getsMaxHPSet = (Card c) => (c.IsVillain && c.DoKeywordsContain("ongoing")) || (c.IsEnvironment && (!c.IsTarget || c.MaximumHitPoints < MinimumMaxHP));
-        public Func<Card, bool> removeMaxHP = (Card c) => (c.IsVillain || c.IsEnvironment) && ((!c.IsCharacter && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && !c.IsFlipped && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && c.IsFlipped && !c.Definition.FlippedHitPoints.HasValue));
+        public Func<Card, bool> getsMaxHPSet()
+        {
+            return (Card c) => (IsVillain(c) && IsOngoing(c)) || (c.IsEnvironment && (!c.IsTarget || c.MaximumHitPoints < MinimumMaxHP));
+        }
+        
+        public Func<Card, bool> removeMaxHP()
+        {
+            return (Card c) => (IsVillain(c) || c.IsEnvironment) && ((!c.IsCharacter && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && !c.IsFlipped && !c.Definition.HitPoints.HasValue) || (c.IsCharacter && c.IsFlipped && !c.Definition.FlippedHitPoints.HasValue));
+        }
+
         public Func<Card, bool> resetMaxHP = (Card c) => c.IsEnvironment && c.Definition.HitPoints.HasValue && c.MaximumHitPoints.HasValue && c.MaximumHitPoints.Value == MinimumMaxHP && c.Definition.HitPoints.Value < c.MaximumHitPoints.Value;
 
         public override bool AskIfCardIsIndestructible(Card card)
@@ -58,7 +66,7 @@ namespace BartKFSentinels.TheShelledOne
             if (base.Card.IsFlipped)
             {
                 // "The hero next to [Giant Peanut Shell] gains the keyword Pod."
-                if (card.IsHeroCharacterCard && keyword == "pod" && card.NextToLocation.HasCard(base.TurnTaker.FindCard(GiantPeanutShellIdentifier)) && base.GameController.IsCardVisibleToCardSource(card, GetCardSource()) && base.GameController.IsCardVisibleToCardSource(base.TurnTaker.FindCard(GiantPeanutShellIdentifier), GetCardSource()))
+                if (IsHeroCharacterCard(card) && keyword == "pod" && card.NextToLocation.HasCard(base.TurnTaker.FindCard(GiantPeanutShellIdentifier)) && base.GameController.IsCardVisibleToCardSource(card, GetCardSource()) && base.GameController.IsCardVisibleToCardSource(base.TurnTaker.FindCard(GiantPeanutShellIdentifier), GetCardSource()))
                 {
                     return true;
                 }
@@ -71,7 +79,7 @@ namespace BartKFSentinels.TheShelledOne
             if (base.Card.IsFlipped)
             {
                 // "The hero next to [Giant Peanut Shell] gains the keyword Pod."
-                if (card.IsHeroCharacterCard && card.NextToLocation.HasCard(base.TurnTaker.FindCard(GiantPeanutShellIdentifier)) && base.GameController.IsCardVisibleToCardSource(card, GetCardSource()) && base.GameController.IsCardVisibleToCardSource(base.TurnTaker.FindCard(GiantPeanutShellIdentifier), GetCardSource()))
+                if (IsHeroCharacterCard(card) && card.NextToLocation.HasCard(base.TurnTaker.FindCard(GiantPeanutShellIdentifier)) && base.GameController.IsCardVisibleToCardSource(card, GetCardSource()) && base.GameController.IsCardVisibleToCardSource(base.TurnTaker.FindCard(GiantPeanutShellIdentifier), GetCardSource()))
                 {
                     return new string[] { "pod" };
                 }
@@ -88,7 +96,7 @@ namespace BartKFSentinels.TheShelledOne
                 // "Strikes are ... immune to damage."
                 base.AddSideTrigger(base.AddImmuneToDamageTrigger((DealDamageAction dda) => dda.Target.DoKeywordsContain("strike")));
                 // "Villain Ongoing cards and environment cards with no printed HP or a printed HP of less than 6 have a maximum HP of 6."
-                base.AddSideTriggers(base.AddMaintainTargetTriggers((Card c) => getsMaxHPSet(c), MinimumMaxHP, new List<string> { "ongoing" }));
+                base.AddSideTriggers(base.AddMaintainTargetTriggers(getsMaxHPSet(), MinimumMaxHP, new List<string> { "ongoing" }));
                 // "At the end of the villain turn, each environment target deals each hero target 1 psychic damage. Then, play the top card of the environment deck."
                 base.AddSideTrigger(base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, EnvironmentDamagePlayResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.PlayCard }));
                 // "When there are 4 tokens on this card, flip this card."
@@ -132,7 +140,7 @@ namespace BartKFSentinels.TheShelledOne
             if (base.Card.IsFlipped)
             {
                 // Cards that were only targets due to this side's effects stop being targets
-                IEnumerator removeTargetCoroutine = base.GameController.RemoveTargets((Card c) => removeMaxHP(c), cardSource: GetCardSource());
+                IEnumerator removeTargetCoroutine = base.GameController.RemoveTargets(removeMaxHP(), cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(removeTargetCoroutine);
@@ -328,7 +336,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator AddKeywordResponse(GameAction ga)
         {
             Card shell = base.TurnTaker.FindCard(GiantPeanutShellIdentifier);
-            List<Card> affectedCards = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && c.NextToLocation.HasCard(shell), "hero next to Giant Peanut Shell", false, false, "hero next to Giant Peanut Shell", "heroes next to Giant Peanut Shell"), visibleToCard: GetCardSource()).ToList();
+            List<Card> affectedCards = FindCardsWhere(new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && c.NextToLocation.HasCard(shell), "hero next to Giant Peanut Shell", false, false, "hero next to Giant Peanut Shell", "heroes next to Giant Peanut Shell"), visibleToCard: GetCardSource()).ToList();
             IEnumerator addCoroutine = base.GameController.ModifyKeywords("pod", true, affectedCards: affectedCards, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
@@ -343,7 +351,7 @@ namespace BartKFSentinels.TheShelledOne
         public IEnumerator RemoveKeywordResponse(GameAction ga)
         {
             Card shell = base.TurnTaker.FindCard(GiantPeanutShellIdentifier);
-            List<Card> unaffectedCards = FindCardsWhere(new LinqCardCriteria((Card c) => c.IsHeroCharacterCard && !c.NextToLocation.HasCard(shell), "hero not next to Giant Peanut Shell", false, false, "hero not next to Giant Peanut Shell", "heroes not next to Giant Peanut Shell")).ToList();
+            List<Card> unaffectedCards = FindCardsWhere(new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && !c.NextToLocation.HasCard(shell), "not next to Giant Peanut Shell", false, true, "hero", "heroes")).ToList();
             IEnumerator removeCoroutine = base.GameController.ModifyKeywords("pod", false, affectedCards: unaffectedCards, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {

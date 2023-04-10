@@ -71,7 +71,7 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(baseCoroutine);
             }
-            IEnumerator increaseCoroutine = IncreasePhaseActionCountIfInPhase((TurnTaker tt) => tt.IsHero, Phase.DrawCard, 1);
+            IEnumerator increaseCoroutine = IncreasePhaseActionCountIfInPhase((TurnTaker tt) => IsHero(tt), Phase.DrawCard, 1);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(increaseCoroutine);
@@ -84,7 +84,7 @@ namespace BartKFSentinels.Alaalu
 
         private bool ShouldIncreasePhaseActionCount(TurnTaker tt)
         {
-            if (tt.IsHero)
+            if (IsHero(tt))
             {
                 return tt.BattleZone == base.BattleZone;
             }

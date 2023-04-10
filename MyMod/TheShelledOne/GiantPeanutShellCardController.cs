@@ -62,7 +62,7 @@ namespace BartKFSentinels.TheShelledOne
 
         private bool DidHeroPlayCardDuringPlayPhaseThisTurn(TurnTaker tt)
         {
-            if (tt.IsHero)
+            if (IsHero(tt))
             {
                 return base.Journal.PlayCardEntriesThisTurn().Any((PlayCardJournalEntry p) => p.CardPlayed.Owner == tt && p.TurnPhase.TurnTaker == tt && p.TurnPhase.IsPlayCard);
             }
@@ -71,7 +71,7 @@ namespace BartKFSentinels.TheShelledOne
 
         private bool DidHeroUsePowerDuringPowerPhaseThisTurn(TurnTaker tt)
         {
-            if (tt.IsHero)
+            if (IsHero(tt))
             {
                 return base.Journal.UsePowerEntriesThisTurn().Any((UsePowerJournalEntry p) => p.PowerUser == tt && p.TurnPhase.TurnTaker == tt && p.TurnPhase.IsUsePower);
             }
@@ -99,7 +99,7 @@ namespace BartKFSentinels.TheShelledOne
             {
                 IEnumerable<HeroTurnTakerController> heroTurnOrder = base.GameController.FindHeroTurnTakerControllers();
                 HeroTurnTakerController previous;
-                if (GetCardThisCardIsNextTo().Owner.IsHero)
+                if (IsHero(GetCardThisCardIsNextTo().Owner))
                 {
                     previous = heroTurnOrder.ElementAt((heroTurnOrder.IndexOf(base.GameController.FindHeroTurnTakerController(GetCardThisCardIsNextTo().Owner.ToHero())).Value + H - 1) % H);
                 }
@@ -110,7 +110,7 @@ namespace BartKFSentinels.TheShelledOne
                     previous = heroTurnOrder.Last();
                 }
                 List<YesNoCardDecision> choice = new List<YesNoCardDecision>();
-                IEnumerator checkCoroutine = base.GameController.MakeYesNoCardDecision(DecisionMaker, SelectionType.MoveCard, base.Card, storedResults: choice, associatedCards: base.GameController.FindCardsWhere((Card c) => c.IsHeroCharacterCard && c.IsInPlayAndHasGameText && c.Owner == previous.TurnTaker), cardSource: GetCardSource());
+                IEnumerator checkCoroutine = base.GameController.MakeYesNoCardDecision(DecisionMaker, SelectionType.MoveCard, base.Card, storedResults: choice, associatedCards: base.GameController.FindCardsWhere((Card c) => IsHeroCharacterCard(c) && c.IsInPlayAndHasGameText && c.Owner == previous.TurnTaker), cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(checkCoroutine);

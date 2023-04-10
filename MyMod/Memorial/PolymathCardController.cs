@@ -14,15 +14,15 @@ namespace BartKFSentinels.Memorial
         public PolymathCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
-            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().Owner.IsHero;
+            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand).Condition = () => GetCardThisCardIsNextTo() != null && IsHero(GetCardThisCardIsNextTo().Owner);
+            //SpecialStringMaker.ShowNumberOfCardsAtLocation(GetCardThisCardIsNextTo().Owner.ToHero().Hand, new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c), "Ongoing and/or Equipment")).Condition = () => GetCardThisCardIsNextTo() != null && IsHero(GetCardThisCardIsNextTo().Owner);
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
             // "At the start of this play area's turn, this hero's player may discard a card to play an Ongoing or Equipment card."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && GetCardThisCardIsNextTo().IsHeroCharacterCard && GetCardThisCardIsNextTo().Owner.IsHero && GetCardThisCardIsNextTo().Owner.ToHero().Hand.HasCards, DiscardToPlayResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PlayCard });
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == Card.Location.HighestRecursiveLocation.OwnerTurnTaker && GetCardThisCardIsNextTo() != null && IsHeroCharacterCard(GetCardThisCardIsNextTo()) && IsHero(GetCardThisCardIsNextTo().Owner) && GetCardThisCardIsNextTo().Owner.ToHero().Hand.HasCards, DiscardToPlayResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PlayCard });
         }
 
         private IEnumerator DiscardToPlayResponse(PhaseChangeAction pca)
