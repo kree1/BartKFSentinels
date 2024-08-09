@@ -235,42 +235,65 @@
 			]
 		},
 		{
-			"identifier": "SunSun",
+			"identifier": "Alternate",
 			"count": 1,
-			"title": "Sun(Sun)",
+			"title": "Alternate",
 			"keywords": [
 				"modification",
-				"league",
-				"sun"
+				"team"
 			],
-			"hitpoints": 100,
 			"body": [
-				"At the start of the villain turn, this card regains {H + 1} HP.",
-				"When a hero character is dealt 4 or more fire damage, this card deals itself 3 infernal damage.",
-				"When another villain Sun card is played, this card deals itself 5 infernal damage."
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"When this card enters play, replace a hero character card in this play area with a variant of that hero, then destroy this card."
+			],
+			"icons": [
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "BlackHoleBlackHole",
+			"count": 1,
+			"title": "Black Hole(Black Hole)",
+			"keywords": [
+				"weather effect",
+				"collapse"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When 12 or more damage is dealt to non-hero targets by hero targets in one turn, destroy a non-target villain Modification, chosen at random, then {OwnershipCharacter} regains 12 HP."
 			],
 			"icons": [
 				"StartOfTurnAction",
-				"GainHP",
-				"DealDamageInfernal"
+				"DestroySelf",
+				"Destroy",
+				"GainHP"
 			],
-			"flavorText": "[b]Inflation will keep Us afloat{BR}As We get things Squared Away.[/b]",
-			"flavorReference": "Ownership, Season 19 Tidings"
+			"flavorText": "[b]SUPERNOVA COLLAPSES{BR}REALITY TEARS[/b]",
+			"flavorReference": "Season 24 Earlsiesta"
 		},
 		{
-			"identifier": "Fairgrounds",
+			"identifier": "ChorbySoulII",
 			"count": 1,
-			"title": "Fairgrounds",
+			"title": "Chorby Soul II",
 			"keywords": [
-				"modification",
-				"league"
+				"replica",
+				"batter"
 			],
+			"hitpoints": 7,
 			"body": [
-				"Whenever 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, discard the top card of that player's deck. If it's an Equipment card or a target, play it."
+				"Reduce damage dealt to this card by 1.",
+				"At the end of each hero turn, if no damage was dealt to non-hero targets by hero targets this turn, this card deals a hero character in this turn's play area 2 projectile damage.'"
 			],
 			"icons": [
-				"Discard",
-				"PlayCardNow"
+				"ReduceDamageTaken",
+				"EndOfTurnAction",
+				"DealDamageProjectile"
 			],
 			"flavorQuotes": [
 				{
@@ -324,18 +347,19 @@
 			"flavorReference": "Season 12, Day 72"
 		},
 		{
-			"identifier": "Alternate",
+			"identifier": "Fairgrounds",
 			"count": 1,
-			"title": "Alternate",
+			"title": "Fairgrounds",
 			"keywords": [
 				"modification",
-				"team"
+				"league"
 			],
 			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"When this card enters play, replace a hero character card in this play area with a variant of that hero, then destroy this card."
+				"Whenever 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, discard the top card of that player's deck. If it's an Equipment card or a target, play it."
 			],
 			"icons": [
+				"Discard",
+				"PlayCardNow"
 			],
 			"flavorQuotes": [
 				{
@@ -370,145 +394,6 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "Gaudy",
-			"count": 1,
-			"title": "Gaudy",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"Increase damage dealt by hero targets in this play area by X, where X = the number of Ballpark Modification cards in play."
-			],
-			"icons": [
-				"IncreaseDamageDealt"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "LightHanded",
-			"count": 1,
-			"title": "Light-Handed",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"At the end of this player's turn, remove X counters from their Stat card, where X = the number of non-character target and Equipment cards in this play area."
-			],
-			"icons": [
-				"EndOfTurnAction",
-				"RemoveTokens"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "PowerChaarge",
-			"count": 1,
-			"title": "Power Chaarge",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"Whenever a hero target in this play area deals a non-hero target exactly 2 damage, increase damage dealt by hero targets in this play area this turn by 1."
-			],
-			"icons": [
-				"IncreaseDamageDealt"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "Reload",
-			"count": 1,
-			"title": "Reload",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"When a hero target in this play area deals a non-hero target 5 or more damage, increase the next damage dealt by a hero target by 2."
-			],
-			"icons": [
-				"IncreaseDamageDealt"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "Underachiever",
-			"count": 1,
-			"title": "Underachiever",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"Whenever the Map card would add 2 tokens to this play area's Stat card, remove 2 tokens from that Stat card instead."
-			],
-			"icons": [
-				"RemoveTokens"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "Undersea",
-			"count": 1,
-			"title": "Undersea",
-			"keywords": [
-				"modification",
-				"team"
-			],
-			"body": [
-				"Play this card in the hero play area with the fewest Modification cards.",
-				"Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by that target this turn by 1."
-			],
-			"icons": [
-				"IncreaseDamageDealt"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
 			"identifier": "FloodBalloons",
 			"count": 1,
 			"title": "Flood Balloons",
@@ -523,6 +408,49 @@
 			"icons": [
 				"DestroySelf",
 				"RemoveTokens"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Flooding",
+			"count": 1,
+			"title": "Flooding",
+			"keywords": [
+				"weather effect"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When this card enters play during a player's turn, that player may destroy 1 of their Ongoing or Equipment cards. If they don't, {OwnershipCharacter} deals their hero 2 cold damage."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"DestroyHero",
+				"DealDamageCold"
+			],
+			"flavorText": "A surge of Immateria{BR}rushes up from Under!{BR}Baserunners are swept from play!",
+			"flavorReference": "Season 12, Day 76"
+		},
+		{
+			"identifier": "Gaudy",
+			"count": 1,
+			"title": "Gaudy",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Increase damage dealt by hero targets in this play area by X, where X = the number of Ballpark Modification cards in play."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
 			],
 			"flavorQuotes": [
 				{
@@ -581,46 +509,20 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "Smithy",
+			"identifier": "LightHanded",
 			"count": 1,
-			"title": "Smithy",
+			"title": "Light-Handed",
 			"keywords": [
 				"modification",
-				"ballpark"
+				"team"
 			],
 			"body": [
-				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
-				"At the end of the environment turn, one player may put an Ongoing or Equipment card from their trash on top of their deck."
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"At the end of this player's turn, remove X counters from their Stat card, where X = the number of non-character target and Equipment cards in this play area."
 			],
 			"icons": [
-				"DestroySelf",
-				"Manipulate"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "ChorbySoulII",
-			"count": 1,
-			"title": "Chorby Soul II",
-			"keywords": [
-				"replica",
-				"batter"
-			],
-			"hitpoints": 7,
-			"body": [
-				"Reduce damage dealt to this card by 1.",
-				"At the end of each hero turn, if no damage was dealt to non-hero targets by hero targets this turn, this card deals a hero character in this turn's play area 2 projectile damage.'"
-			],
-			"icons": [
-				"ReduceDamageTaken",
 				"EndOfTurnAction",
-				"DealDamageProjectile"
+				"RemoveTokens"
 			],
 			"flavorQuotes": [
 				{
@@ -650,26 +552,6 @@
 			],
 			"flavorText": "[b]For a Limited Time{BR}The ILB Gift Shop is offering{BR}Ancient Legends![/b]",
 			"flavorReference": "Ownership, Season 22 Earlsiesta"
-		},
-		{
-			"identifier": "Flooding",
-			"count": 1,
-			"title": "Flooding",
-			"keywords": [
-				"weather effect"
-			],
-			"body": [
-				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When this card enters play during a player's turn, that player may destroy 1 of their Ongoing or Equipment cards. If they don't, {OwnershipCharacter} deals their hero 2 cold damage."
-			],
-			"icons": [
-				"StartOfTurnAction",
-				"DestroySelf",
-				"DestroyHero",
-				"DealDamageCold"
-			],
-			"flavorText": "A surge of Immateria{BR}rushes up from Under!{BR}Baserunners are swept from play!",
-			"flavorReference": "Season 12, Day 76"
 		},
 		{
 			"identifier": "Night",
@@ -712,45 +594,98 @@
 			"flavorReference": "Season 19, Day 14"
 		},
 		{
-			"identifier": "SupernovaEclipse",
+			"identifier": "PowerChaarge",
 			"count": 1,
-			"title": "SupernovaEclipse",
+			"title": "Power Chaarge",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever a hero target in this play area deals a non-hero target exactly 2 damage, increase damage dealt by hero targets in this play area this turn by 1."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Reload",
+			"count": 1,
+			"title": "Reload",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"When a hero target in this play area deals a non-hero target 5 or more damage, increase the next damage dealt by a hero target by 2."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Smithy",
+			"count": 1,
+			"title": "Smithy",
+			"keywords": [
+				"modification",
+				"ballpark"
+			],
+			"body": [
+				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
+				"At the end of the environment turn, one player may put an Ongoing or Equipment card from their trash on top of their deck."
+			],
+			"icons": [
+				"DestroySelf",
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SumSun",
+			"count": 1,
+			"title": "Sum Sun",
 			"keywords": [
 				"weather effect"
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When this card enters play during a player's turn, {OwnershipCharacter} deals each hero target in that player's play area 2 fire damage. Increase damage dealt to character cards this way by 2."
+				"Whenever a target is dealt damage, increase damage dealt this phase by 1."
 			],
 			"icons": [
 				"StartOfTurnAction",
 				"DestroySelf",
-				"DealDamageFire",
-				"IncreaseDamageTaken"
+				"IncreaseDamageDealt"
 			],
-			"flavorText": "[b]Wow! Look at those colors!{BR}Yes, Sun(Sun) appears to have exploded.{BR}There is no reason to panic.[/b]",
-			"flavorReference": "Ownership, ILB Semi-Centennial"
-		},
-		{
-			"identifier": "BlackHoleBlackHole",
-			"count": 1,
-			"title": "Black Hole(Black Hole)",
-			"keywords": [
-				"weather effect",
-				"collapse"
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
 			],
-			"body": [
-				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When 12 or more damage is dealt to non-hero targets by hero targets in one turn, destroy a non-target villain Modification, chosen at random, then {OwnershipCharacter} regains 12 HP."
-			],
-			"icons": [
-				"StartOfTurnAction",
-				"DestroySelf",
-				"Destroy",
-				"GainHP"
-			],
-			"flavorText": "[b]SUPERNOVA COLLAPSES{BR}REALITY TEARS[/b]",
-			"flavorReference": "Season 24 Earlsiesta"
+			"flavorReference": ""
 		},
 		{
 			"identifier": "SunPointOne",
@@ -777,19 +712,84 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "SumSun",
+			"identifier": "SunSun",
 			"count": 1,
-			"title": "Sum Sun",
+			"title": "Sun(Sun)",
+			"keywords": [
+				"modification",
+				"league",
+				"sun"
+			],
+			"hitpoints": 100,
+			"body": [
+				"At the start of the villain turn, this card regains {H + 1} HP.",
+				"When a hero character is dealt 4 or more fire damage, this card deals itself 3 infernal damage.",
+				"When another villain Sun card is played, this card deals itself 5 infernal damage."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"GainHP",
+				"DealDamageInfernal"
+			],
+			"flavorText": "[b]Inflation will keep Us afloat{BR}As We get things Squared Away.[/b]",
+			"flavorReference": "Ownership, Season 19 Tidings"
+		},
+		{
+			"identifier": "SupernovaEclipse",
+			"count": 1,
+			"title": "SupernovaEclipse",
 			"keywords": [
 				"weather effect"
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"Whenever a target is dealt damage, increase damage dealt this phase by 1."
+				"When this card enters play during a player's turn, {OwnershipCharacter} deals each hero target in that player's play area 2 fire damage. Increase damage dealt to character cards this way by 2."
 			],
 			"icons": [
 				"StartOfTurnAction",
 				"DestroySelf",
+				"DealDamageFire",
+				"IncreaseDamageTaken"
+			],
+			"flavorText": "[b]Wow! Look at those colors!{BR}Yes, Sun(Sun) appears to have exploded.{BR}There is no reason to panic.[/b]",
+			"flavorReference": "Ownership, ILB Semi-Centennial"
+		},
+		{
+			"identifier": "Underachiever",
+			"count": 1,
+			"title": "Underachiever",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever the Map card would add 2 tokens to this play area's Stat card, remove 2 tokens from that Stat card instead."
+			],
+			"icons": [
+				"RemoveTokens"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Undersea",
+			"count": 1,
+			"title": "Undersea",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by that target this turn by 1."
+			],
+			"icons": [
 				"IncreaseDamageDealt"
 			],
 			"flavorQuotes": [
