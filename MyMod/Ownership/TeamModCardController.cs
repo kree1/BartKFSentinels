@@ -95,5 +95,28 @@ namespace BartKFSentinels.Ownership
                 storedResults?.Add(new MoveCardDestination(hero.PlayArea, showMessage: true));
             }
         }
+
+        public Card RelevantStatCard()
+        {
+            return base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.Identifier == StatCardIdentifier && !c.IsFlipped && c.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation)).FirstOrDefault();
+        }
+
+        public IEnumerator IncreaseDamageDealtByHeroTargetsInThisPlayAreaThisTurn(int amount)
+        {
+            IncreaseDamageStatusEffect buff = new IncreaseDamageStatusEffect(amount);
+            buff.SourceCriteria.IsAtLocation = base.Card.Location.HighestRecursiveLocation;
+            buff.SourceCriteria.IsHero = true;
+            buff.SourceCriteria.IsTarget = true;
+            buff.UntilThisTurnIsOver(base.Game);
+            IEnumerator statusCoroutine = AddStatusEffect(buff);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(statusCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(statusCoroutine);
+            }
+        }
     }
 }

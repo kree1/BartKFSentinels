@@ -787,7 +787,7 @@
 			],
 			"body": [
 				"Play this card in the hero play area with the fewest Modification cards.",
-				"Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by that target this turn by 1."
+				"Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by hero targets in this play area this turn by 1."
 			],
 			"icons": [
 				"IncreaseDamageDealt"

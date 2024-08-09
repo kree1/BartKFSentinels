@@ -12,6 +12,8 @@ namespace BartKFSentinels.Ownership
     {
         public StatCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
+            // Front side: Show token pool
+            SpecialStringMaker.ShowTokenPool(base.Card.FindTokenPool(WeightPoolIdentifier), this).Condition = () => base.Card.IsInPlayAndHasGameText && !base.Card.IsFlipped;
             // Both sides: Show location of this hero's marker
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(RelevantHeroIndex())).Condition = () => base.Card.Location.IsPlayArea && base.Card.Location.IsHero;
         }
