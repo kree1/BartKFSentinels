@@ -24,6 +24,7 @@ namespace BartKFSentinels.Ownership
         public readonly string SunSunIdentifier = "SunSun";
         public readonly string StatKeyword = "stat";
         public readonly string SunKeyword = "sun";
+        public readonly string ModificationKeyword = "modification";
 
         public int DamageDealtToNonHeroByHeroThisTurn()
         {

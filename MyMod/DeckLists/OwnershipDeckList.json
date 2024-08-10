@@ -288,7 +288,7 @@
 			"hitpoints": 7,
 			"body": [
 				"Reduce damage dealt to this card by 1.",
-				"At the end of each hero turn, if no damage was dealt to non-hero targets by hero targets this turn, this card deals a hero character in this turn's play area 2 projectile damage.'"
+				"At the end of each hero turn, if no damage was dealt to non-hero targets by hero targets this turn, this card deals a hero character in this turn's play area 2 projectile damage."
 			],
 			"icons": [
 				"ReduceDamageTaken",
@@ -562,7 +562,7 @@
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When this card enters play during a player's turn, discard the top card of that player's deck. If it's an Ongoing or Equipment card, they put 1 of their non-character cards in play on the bottom of their deck and play the discarded card.'"
+				"When this card enters play during a player's turn, discard the top card of that player's deck. If it's an Ongoing or Equipment card, they put 1 of their non-character cards in play on the bottom of their deck and play the discarded card."
 			],
 			"icons": [
 				"StartOfTurnAction",

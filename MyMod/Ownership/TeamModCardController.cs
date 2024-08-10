@@ -18,8 +18,6 @@ namespace BartKFSentinels.Ownership
             ShowTurnTakerWithMostOrFewestCards("Hero play area", "Hero play areas", false, false, true, (TurnTaker tt) => IsHero(tt), ModificationCriteria());
         }
 
-        public readonly string ModificationKeyword = "modification";
-
         public SpecialString ShowTurnTakerWithMostOrFewestCards(string singular, string plural, bool most, bool inHand, bool includeUnownedCards, Func<TurnTaker, bool> ttCriteria = null, LinqCardCriteria additionalCriteria = null, Func<bool> showInEffectsList = null)
         {
             if (ttCriteria == null)
