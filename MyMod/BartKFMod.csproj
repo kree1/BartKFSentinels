@@ -168,6 +168,7 @@
     <Compile Include="Ownership\NightCardController.cs" />
     <Compile Include="Ownership\OwnershipBaseCharacterCardController.cs" />
     <Compile Include="Ownership\OwnershipCharacterCardController.cs" />
+    <Compile Include="Ownership\OwnershipTurnTakerController.cs" />
     <Compile Include="Ownership\OwnershipUtilityCardController.cs" />
     <Compile Include="Ownership\PolarityCardController.cs" />
     <Compile Include="Ownership\PowerChaargeCardController.cs" />

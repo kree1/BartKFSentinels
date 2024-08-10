@@ -57,7 +57,7 @@
 			],
 			"difficulty": 2,
 			"openingLines": {
-				"default": "You're winners! We're all winners!"
+				"default": "[b]You're winners! We're all winners![/b]"
 			}
 		},
 		{
@@ -738,7 +738,7 @@
 		{
 			"identifier": "SupernovaEclipse",
 			"count": 1,
-			"title": "SupernovaEclipse",
+			"title": "Supernova Eclipse",
 			"keywords": [
 				"weather effect"
 			],
