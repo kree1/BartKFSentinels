@@ -669,7 +669,8 @@
 			"count": 1,
 			"title": "Sum Sun",
 			"keywords": [
-				"weather effect"
+				"weather effect",
+				"sun"
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
@@ -693,7 +694,8 @@
 			"count": 1,
 			"title": "Sun .1",
 			"keywords": [
-				"weather effect"
+				"weather effect",
+				"sun"
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
