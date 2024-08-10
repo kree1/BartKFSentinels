@@ -336,9 +336,10 @@
 			],
 			"body": [
 				"This card is indestructible. When this card enters play, choose a hero character card from the box and put it into play next to this card.",
-				"At the end of the villain turn, if the character next to this card is active, one player plays the top card of their deck and another player's hero may use the power on this character.'"
+				"At the end of the villain turn, if the character next to this card is active, one player plays the top card of their deck and another player's hero may use the power on this character."
 			],
 			"icons": [
+				"Indestructible",
 				"EndOfTurnAction",
 				"PlayCardNow",
 				"UsePowerNow"

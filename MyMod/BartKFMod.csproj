@@ -153,6 +153,7 @@
     <Compile Include="Ownership\BlackHoleBlackHoleCardController.cs" />
     <Compile Include="Ownership\ChorbySoulIICardController.cs" />
     <Compile Include="Ownership\EqualSunCardController.cs" />
+    <Compile Include="Ownership\ExpansionCardController.cs" />
     <Compile Include="Ownership\ExpansionWeatherCardController.cs" />
     <Compile Include="Ownership\FairgroundsCardController.cs" />
     <Compile Include="Ownership\FlippersCardController.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Ownership\ReloadCardController.cs" />
     <Compile Include="Ownership\SmithyCardController.cs" />
     <Compile Include="Ownership\StatCharacterCardController.cs" />
+    <Compile Include="Ownership\SumSunCardController.cs" />
     <Compile Include="Ownership\SunPointOneCardController.cs" />
     <Compile Include="Ownership\SunSunCardController.cs" />
     <Compile Include="Ownership\SupernovaEclipseCardController.cs" />

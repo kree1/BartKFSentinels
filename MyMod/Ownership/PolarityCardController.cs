@@ -14,7 +14,8 @@ namespace BartKFSentinels.Ownership
         public PolarityCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            // If in play: show whether this card is affecting token changes
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(NumbersGoDown), () => "This card will reverse the Map card's attempts to add 2 tokens to Stat cards this turn.", () => "This card is not affecting attempts to add 2 tokens to Stat cards this turn.", () => true).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         public readonly string NumbersGoDown = "NumbersGoDown";
