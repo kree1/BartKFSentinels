@@ -15,7 +15,7 @@ namespace BartKFSentinels.Ownership
             : base(card, turnTakerController)
         {
             // If in play: show number of Equipment and non-character target cards in this play area
-            SpecialStringMaker.ShowNumberOfCardsAtLocation(base.Card.Location.HighestRecursiveLocation, new LinqCardCriteria((Card c) => IsEquipment(c) || (!c.IsCharacter && c.IsTarget), "Equipment and non-character target"), recursive: true).Condition = () => base.Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(() => base.Card.Location.HighestRecursiveLocation, new LinqCardCriteria((Card c) => IsEquipment(c) || (!c.IsCharacter && c.IsTarget), "Equipment and non-character target"), recursive: true).Condition = () => base.Card.IsInPlayAndHasGameText;
         }
 
         public override void AddTriggers()
