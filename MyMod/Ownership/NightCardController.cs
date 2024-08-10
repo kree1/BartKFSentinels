@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Ownership
 {
-    public class NightCardController : CardController
+    public class NightCardController : ExpansionWeatherCardController
     {
         public NightCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
