@@ -126,7 +126,7 @@ namespace BartKFSentinels.Ownership
             // "Then, if there are 3 or more cards under this card, play 1 of them and discard the rest."
             if (base.Card.UnderLocation.NumberOfCards >= 3)
             {
-                IEnumerator announceCoroutine = base.GameController.SendMessageAction("You deserve a say./nIt's only Fair.", Priority.Medium, GetCardSource(), associatedCards: base.Card.UnderLocation.Cards, showCardSource: true);
+                IEnumerator announceCoroutine = base.GameController.SendMessageAction("[b]You deserve a say.\nIt's only Fair.[/b]", Priority.Medium, GetCardSource(), associatedCards: base.Card.UnderLocation.Cards, showCardSource: true);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(announceCoroutine);
@@ -197,7 +197,17 @@ namespace BartKFSentinels.Ownership
                 base.GameController.ExhaustCoroutine(envPlayCoroutine);
             }
             // "... and 1 Replica from the villain trash."
-            IEnumerator replicaCoroutine = base.GameController.SelectAndPlayCard(DecisionMaker, FindCardsWhere(new LinqCardCriteria((Card c) => base.GameController.GetAllKeywords(c).Contains(ReplicaKeyword) && c.Location.IsTrash && c.Location.IsVillain, "Replica", singular: "card in the villain trash", plural: "cards in the villain trash"), visibleToCard: GetCardSource()), cardSource: GetCardSource());
+            LinqCardCriteria replicaCriteria = new LinqCardCriteria((Card c) => base.GameController.GetAllKeywords(c).Contains(ReplicaKeyword) && c.Location.IsTrash && c.Location.IsVillain, "Replica", singular: "card in the villain trash", plural: "cards in the villain trash");
+            List<Card> availableReplicas = base.GameController.FindCardsWhere(replicaCriteria, visibleToCard: GetCardSource()).ToList();
+            IEnumerator replicaCoroutine;
+            if (availableReplicas.Any())
+            {
+                replicaCoroutine = base.GameController.SelectAndPlayCard(DecisionMaker, availableReplicas, cardSource: GetCardSource());
+            }
+            else
+            {
+                replicaCoroutine = base.GameController.SendMessageAction("[b]We are so sorry!\nThere are no Replicas in stock at the moment!\nPlease check back soon![/b]", Priority.Medium, GetCardSource(), showCardSource: true);
+            }
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(replicaCoroutine);

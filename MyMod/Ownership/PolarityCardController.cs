@@ -50,7 +50,7 @@ namespace BartKFSentinels.Ownership
                     if (discarded.IsOneShot)
                     {
                         SetCardProperty(NumbersGoDown, true);
-                        IEnumerator messageCoroutine = base.GameController.SendMessageAction("The " + base.Card.Title + " shifted!/nNumbers go down.", Priority.Medium, GetCardSource(), discarded.ToEnumerable(), true);
+                        IEnumerator messageCoroutine = base.GameController.SendMessageAction("The " + base.Card.Title + " shifted!\nNumbers go down.", Priority.Medium, GetCardSource(), discarded.ToEnumerable(), true);
                         if (base.UseUnityCoroutines)
                         {
                             yield return base.GameController.StartCoroutine(messageCoroutine);

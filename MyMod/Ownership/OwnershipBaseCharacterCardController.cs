@@ -205,7 +205,7 @@ namespace BartKFSentinels.Ownership
                 {
                     marker = hero + "' marker";
                 }
-                string dest = "row " + location[0].ToString() + ", " + location[1].ToString();
+                string dest = "row " + location[0].ToString() + ", column " + location[1].ToString();
                 string message = marker + " was moved to " + dest;
                 if (cardSource != null)
                 {
