@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -14,10 +15,15 @@ namespace BartKFSentinels.Ownership
         {
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             // Both sides: Show location of each hero marker
-            for (int i = 1; i <= 5; i++)
+            /*for (int i = 1; i <= 5; i++)
             {
                 SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(i), () => true).Condition = () => i <= H;
-            }
+            }*/
+            SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(1), () => true).Condition = () => 1 <= H;
+            SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(2), () => true).Condition = () => 2 <= H;
+            SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(3), () => true).Condition = () => 3 <= H;
+            SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(4), () => true).Condition = () => 4 <= H;
+            SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(5), () => true).Condition = () => 5 <= H;
             // Front side: show total damage dealt to non-hero targets by hero targets this turn
             SpecialStringMaker.ShowSpecialString(() => DamageDealtToNonHeroByHeroThisTurn() + " damage has been dealt to non-hero targets by hero targets this turn.", showInEffectsList: () => true).Condition = () => !base.Card.IsFlipped;
         }
@@ -34,9 +40,10 @@ namespace BartKFSentinels.Ownership
             return base.AskIfCardIsIndestructible(card);
         }
 
-        public override IEnumerator PerformEnteringGameResponse()
+        public IEnumerator AssignStatsResponse()
         {
             // Setup: "Each player puts a card from under this card in their play area “eDensity” side up and adds 30 tokens to it."
+            Log.Debug("MapCharacterCardController.AssignStatsResponse called");
             IEnumerator setupCoroutine = DoActionToEachTurnTakerInTurnOrder((TurnTakerController ttc) => ttc.IsHero, SetupeDensityResponse);
             if (base.UseUnityCoroutines)
             {
@@ -50,9 +57,10 @@ namespace BartKFSentinels.Ownership
 
         public IEnumerator SetupeDensityResponse(TurnTakerController ttc)
         {
+            Log.Debug("MapCharacterCardController.SetupeDensityResponse called for " + ttc.TurnTaker.Name);
             // "... puts a card from under this card in their play area “eDensity” side up..."
             Card toPlay = base.Card.UnderLocation.TopCard;
-            IEnumerator playCoroutine = base.GameController.MoveCard(base.TurnTakerController, toPlay, ttc.TurnTaker.PlayArea, isPutIntoPlay: true, responsibleTurnTaker: base.TurnTaker, evenIfIndestructible: true, cardSource: GetCardSource());
+            IEnumerator playCoroutine = base.GameController.PlayCard(base.TurnTakerController, toPlay, isPutIntoPlay: true, overridePlayLocation: ttc.TurnTaker.PlayArea, responsibleTurnTaker: base.TurnTaker, evenIfAlreadyInPlay: true, canBeCancelled: false, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(playCoroutine);

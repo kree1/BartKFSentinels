@@ -1,4 +1,5 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
@@ -51,6 +52,21 @@ namespace BartKFSentinels.Ownership
             else
             {
                 base.GameController.ExhaustCoroutine(shuffleCoroutine);
+            }
+            // Map card: "Each player puts a card from under this card in their play area “eDensity” side up and adds 30 tokens to it."
+            CardController mapController = base.GameController.FindCardController(map);
+            if (mapController is MapCharacterCardController)
+            {
+                MapCharacterCardController mapccAs = mapController as MapCharacterCardController;
+                IEnumerator assignCoroutine = mapccAs.AssignStatsResponse();
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(assignCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(assignCoroutine);
+                }
             }
         }
     }
