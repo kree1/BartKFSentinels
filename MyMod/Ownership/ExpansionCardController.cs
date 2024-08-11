@@ -14,6 +14,9 @@ namespace BartKFSentinels.Ownership
         public ExpansionCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
+            _expansionTeam = null;
+            _powerUser = null;
+            _cardSources = null;
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             AddThisCardControllerToList(CardControllerListType.ReplacesCards);
             AddThisCardControllerToList(CardControllerListType.ReplacesCardSource);
@@ -64,7 +67,8 @@ namespace BartKFSentinels.Ownership
                 Card modelCard = FindCardsWhere((Card c) => c.QualifiedPromoIdentifierOrIdentifier == selection.SelectedIdentifier && c.Location.IsInTheBox).FirstOrDefault();
                 if (modelCard == null)
                 {
-                    TurnTakerController turnTakerController = base.TurnTakerController;
+                    // Edited to use the environment TurnTakerController and avoid making the new hero a villain by association
+                    TurnTakerController turnTakerController = base.GameController.FindEnvironmentTurnTakerController();
                     DeckDefinition deckDefinition = DeckDefinitionCache.GetDeckDefinition(selection.SelectedTurnTakerIdentifier);
                     CardDefinition cardDefinition = (from cd in deckDefinition.CardDefinitions.Concat(deckDefinition.PromoCardDefinitions)
                                                      where cd.QualifiedPromoIdentifierOrIdentifier == selection.SelectedIdentifier
@@ -116,7 +120,6 @@ namespace BartKFSentinels.Ownership
                                 list2.Add(modelCard.ParentDeck.QualifiedIdentifier);
                                 list2.Add(card.QualifiedPromoIdentifierOrIdentifier);
                                 base.GameController.AddCardPropertyJournalEntry(card, "OverrideTurnTaker", list2);
-                                card.SetMaximumHP(10, alsoSetHP: true);
                             }
                         }
                     }
@@ -206,8 +209,10 @@ namespace BartKFSentinels.Ownership
                 if (selectCardDecision != null && selectCardDecision.SelectedCard != null)
                 {
                     _powerUser = selectCardDecision.SelectedCard;
+                    HeroCharacterCardController heroCharacterCardUsingPower = FindCardController(_powerUser) as HeroCharacterCardController;
                     HeroTurnTakerController heroController = FindHeroTurnTakerController(selectCardDecision.SelectedCard.Owner.ToHero());
-                    coroutine = base.GameController.SelectAndUsePower(heroController, optional: true, (Power power) => power.CardSource != null && power.CardSource.Card == _expansionTeam, 1, eliminateUsedPowers: false, null, showMessage: false, allowAnyHeroPower: true, allowReplacements: true, canBeCancelled: true, null, forceDecision: false, allowOutOfPlayPower: false, GetCardSource());
+                    Log.Debug("_expansionTeam.IsHeroCharacterCard: " + _expansionTeam.IsHeroCharacterCard.ToString());
+                    coroutine = base.GameController.SelectAndUsePowerEx(heroController, optional: true, (Power power) => power.CardSource != null && power.CardSource.Card == _expansionTeam, 1, eliminateUsedPowers: false, null, showMessage: false, allowAnyHeroPower: true, allowReplacements: true, canBeCancelled: true, null, forceDecision: false, allowOutOfPlayPower: false, GetCardSource(), heroCharacterCardUsingPower);
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(coroutine);
@@ -226,46 +231,57 @@ namespace BartKFSentinels.Ownership
         // All subsequent methods copied from Called to Judgement
         public override Card AskIfCardIsReplaced(Card card, CardSource cardSource)
         {
+            //Log.Debug("ExpansionCardController.AskIfCardIsReplaced called");
             if (_expansionTeam != null && _powerUser != null && card.IsHeroCharacterCard && cardSource.AllowReplacements)
             {
                 CardController value = FindCardController(_expansionTeam);
                 IEnumerable<CardController> source = cardSource.CardSourceChain.Select((CardSource cs) => cs.CardController);
                 if (source.Contains(value) && source.Contains(this) && _expansionTeam == cardSource.Card && card == cardSource.CardController.CardWithoutReplacements)
                 {
+                    //Log.Debug("ExpansionCardController.AskIfCardIsReplaced returning "  + _powerUser.Title);
                     return _powerUser;
                 }
             }
+            //Log.Debug("ExpansionCardController.AskIfCardIsReplaced returning null");
             return null;
         }
 
         public override TurnTakerController AskIfTurnTakerControllerIsReplaced(TurnTakerController ttc, CardSource cardSource)
         {
+            //Log.Debug("ExpansionCardController.AskIfTurnTakerControllerIsReplaced called");
             if (_expansionTeam != null && _powerUser != null && cardSource.AllowReplacements)
             {
                 TurnTakerController turnTakerControllerWithoutReplacements = FindCardController(_expansionTeam).TurnTakerControllerWithoutReplacements;
                 if (ttc == turnTakerControllerWithoutReplacements && (cardSource.CardController.CardWithoutReplacements == _expansionTeam || cardSource.CardSourceChain.Any((CardSource cs) => cs.CardController == this)))
                 {
+                    //Log.Debug("ExpansionCardController.AskIfTurnTakerControllerIsReplaced returning TurnTakerController for " + _powerUser.Owner.Name);
                     return FindTurnTakerController(_powerUser.Owner);
                 }
             }
+            //Log.Debug("ExpansionCardController.AskIfTurnTakerControllerIsReplaced returning null");
             return null;
         }
 
         public override CardSource AskIfCardSourceIsReplaced(CardSource cardSource, GameAction gameAction = null, ITrigger trigger = null)
         {
+            //Log.Debug("ExpansionCardController.AskIfCardSourceIsReplaced called");
             if (_expansionTeam != null && _powerUser != null && cardSource.AllowReplacements && FindCardController(_expansionTeam).CardWithoutReplacements == cardSource.CardController.CardWithoutReplacements)
             {
                 cardSource.AddAssociatedCardSource(GetCardSource());
+                //Log.Debug("ExpansionCardController.AskIfCardSourceIsReplaced returning modified cardSource");
                 return cardSource;
             }
+            //Log.Debug("ExpansionCardController.AskIfCardSourceIsReplaced returning null");
             return null;
         }
 
         public override void PrepareToUsePower(Power power)
         {
+            Log.Debug("ExpansionCardController.PrepareToUsePower called");
             base.PrepareToUsePower(power);
             if (ShouldAssociateThisCard(power))
             {
+                Log.Debug("ExpansionCardController.PrepareToUsePower modifying CardSources");
                 _cardSources.Add(power, GetCardSource());
                 power.CardController.AddAssociatedCardSource(_cardSources[power]);
             }
@@ -273,9 +289,11 @@ namespace BartKFSentinels.Ownership
 
         public override void FinishUsingPower(Power power)
         {
+            Log.Debug("ExpansionCardController.FinishUsingPower called");
             base.FinishUsingPower(power);
             if (ShouldAssociateThisCard(power))
             {
+                Log.Debug("ExpansionCardController.FinishUsingPower removing CardSource modifications");
                 power.CardController.RemoveAssociatedCardSource(_cardSources[power]);
                 _cardSources.Remove(power);
             }
@@ -283,10 +301,13 @@ namespace BartKFSentinels.Ownership
 
         private bool ShouldAssociateThisCard(Power power)
         {
+            Log.Debug("ExpansionCardController.ShouldAssociateThisCard called");
             if (FindCardController(_expansionTeam) == power.CardController)
             {
+                Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning " + (power.CardSource != null).ToString());
                 return power.CardSource != null;
             }
+            Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning false");
             return false;
         }
     }
