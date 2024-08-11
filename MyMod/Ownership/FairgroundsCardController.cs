@@ -28,7 +28,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "Whenever 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, discard the top card of that player's deck. If it's an Equipment card or a target, play it."
-            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(GameWonThisTurn) && DamageDealtToNonHeroByHeroThisTurn() >= 8 && !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DidDealDamage, AwardCrateResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(GameWonThisTurn) && base.GameController.Game.ActiveTurnTaker.IsPlayer && DamageDealtToNonHeroByHeroThisTurn() >= 8 && !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DidDealDamage, AwardCrateResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PlayCard }, TriggerTiming.After);
         }
 
         public IEnumerator AwardCrateResponse(DealDamageAction dda)
