@@ -211,7 +211,7 @@ namespace BartKFSentinels.Ownership
                     _powerUser = selectCardDecision.SelectedCard;
                     HeroCharacterCardController heroCharacterCardUsingPower = FindCardController(_powerUser) as HeroCharacterCardController;
                     HeroTurnTakerController heroController = FindHeroTurnTakerController(selectCardDecision.SelectedCard.Owner.ToHero());
-                    Log.Debug("_expansionTeam.IsHeroCharacterCard: " + _expansionTeam.IsHeroCharacterCard.ToString());
+                    //Log.Debug("_expansionTeam.IsHeroCharacterCard: " + _expansionTeam.IsHeroCharacterCard.ToString());
                     coroutine = base.GameController.SelectAndUsePowerEx(heroController, optional: true, (Power power) => power.CardSource != null && power.CardSource.Card == _expansionTeam, 1, eliminateUsedPowers: false, null, showMessage: false, allowAnyHeroPower: true, allowReplacements: true, canBeCancelled: true, null, forceDecision: false, allowOutOfPlayPower: false, GetCardSource(), heroCharacterCardUsingPower);
                     if (base.UseUnityCoroutines)
                     {
@@ -277,11 +277,11 @@ namespace BartKFSentinels.Ownership
 
         public override void PrepareToUsePower(Power power)
         {
-            Log.Debug("ExpansionCardController.PrepareToUsePower called");
+            //Log.Debug("ExpansionCardController.PrepareToUsePower called");
             base.PrepareToUsePower(power);
             if (ShouldAssociateThisCard(power))
             {
-                Log.Debug("ExpansionCardController.PrepareToUsePower modifying CardSources");
+                //Log.Debug("ExpansionCardController.PrepareToUsePower modifying CardSources");
                 _cardSources.Add(power, GetCardSource());
                 power.CardController.AddAssociatedCardSource(_cardSources[power]);
             }
@@ -289,11 +289,11 @@ namespace BartKFSentinels.Ownership
 
         public override void FinishUsingPower(Power power)
         {
-            Log.Debug("ExpansionCardController.FinishUsingPower called");
+            //Log.Debug("ExpansionCardController.FinishUsingPower called");
             base.FinishUsingPower(power);
             if (ShouldAssociateThisCard(power))
             {
-                Log.Debug("ExpansionCardController.FinishUsingPower removing CardSource modifications");
+                //Log.Debug("ExpansionCardController.FinishUsingPower removing CardSource modifications");
                 power.CardController.RemoveAssociatedCardSource(_cardSources[power]);
                 _cardSources.Remove(power);
             }
@@ -301,13 +301,13 @@ namespace BartKFSentinels.Ownership
 
         private bool ShouldAssociateThisCard(Power power)
         {
-            Log.Debug("ExpansionCardController.ShouldAssociateThisCard called");
+            //Log.Debug("ExpansionCardController.ShouldAssociateThisCard called");
             if (FindCardController(_expansionTeam) == power.CardController)
             {
-                Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning " + (power.CardSource != null).ToString());
+                //Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning " + (power.CardSource != null).ToString());
                 return power.CardSource != null;
             }
-            Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning false");
+            //Log.Debug("ExpansionCardController.ShouldAssociateThisCard returning false");
             return false;
         }
     }

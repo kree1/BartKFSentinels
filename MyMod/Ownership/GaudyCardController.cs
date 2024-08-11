@@ -18,7 +18,7 @@ namespace BartKFSentinels.Ownership
             SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => base.GameController.GetAllKeywords(c).Contains(ModificationKeyword) && base.GameController.GetAllKeywords(c).Contains(BallparkKeyword), "Ballpark Modification"));
         }
 
-        public readonly string BallparkKeyword = "BallparkKeyword";
+        public readonly string BallparkKeyword = "ballpark";
 
         public override void AddTriggers()
         {
