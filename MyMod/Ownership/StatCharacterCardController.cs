@@ -1,9 +1,11 @@
-﻿using Handelabra.Sentinels.Engine.Controller;
+﻿using Handelabra;
+using Handelabra.Sentinels.Engine.Controller;
 using Handelabra.Sentinels.Engine.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace BartKFSentinels.Ownership
@@ -45,11 +47,20 @@ namespace BartKFSentinels.Ownership
                 // "Increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 5."
                 AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation), (DealDamageAction dda) => 5));
                 // "If your marker is in row 1, 2, or 3 and in column 1, 2, or 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 20."
-                AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => HeroMarkerLocation(RelevantHeroIndex())[0] > 0 && HeroMarkerLocation(RelevantHeroIndex())[0] < 4 && HeroMarkerLocation(RelevantHeroIndex())[1] > 0 && HeroMarkerLocation(RelevantHeroIndex())[1] < 4 && dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation), (DealDamageAction dda) => 20));
+                AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && HeroMarkerLocation(RelevantHeroIndex())[0] > 0 && HeroMarkerLocation(RelevantHeroIndex())[0] < 4 && HeroMarkerLocation(RelevantHeroIndex())[1] > 0 && HeroMarkerLocation(RelevantHeroIndex())[1] < 4, (DealDamageAction dda) => 20));
                 // "If your marker is at row 2, column 2, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
-                AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => HeroMarkerLocation(RelevantHeroIndex())[0] == 2 && HeroMarkerLocation(RelevantHeroIndex())[1] == 2 && dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation), (DealDamageAction dda) => 100));
+                AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && HeroMarkerLocation(RelevantHeroIndex())[0] == 2 && HeroMarkerLocation(RelevantHeroIndex())[1] == 2, (DealDamageAction dda) => 100));
+                //AddSideTrigger(AddTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card), LogDamageResponse, TriggerType.Hidden, TriggerTiming.Before));
             }
         }
+
+        /*public IEnumerator LogDamageResponse(DealDamageAction dda)
+        {
+            Log.Debug("StatCharacterCardController.LogDamageResponse called from " + base.Card.Location.GetFriendlyName() + " for damage dealt to Ownership by " + dda.DamageSource.Card.Title);
+            Log.Debug("StatCharacterCardController.LogDamageResponse: marker at " + HeroMarkerLocation(RelevantHeroIndex()).ToString());
+            Log.Debug("StatCharacterCardController.LogDamageResponse: location match? " + (dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation)).ToString());
+            yield break;
+        }*/
 
         public IEnumerator SetupMarkerResponse(MoveCardAction mca)
         {
