@@ -51,7 +51,7 @@ namespace BartKFSentinels.Ownership
                 Card discarded = important.CardToMove;
                 if (IsEquipment(discarded) || discarded.IsTarget)
                 {
-                    IEnumerator messageCoroutine = base.GameController.SendMessageAction(base.Game.ActiveTurnTaker.Name + " received an item crate containing " + discarded.Title, Priority.Medium, GetCardSource(), discarded.ToEnumerable(), showCardSource: true);
+                    IEnumerator messageCoroutine = base.GameController.SendMessageAction(base.Game.ActiveTurnTaker.Name + " received an item crate containing " + discarded.Title + "!", Priority.Medium, GetCardSource(), discarded.ToEnumerable(), showCardSource: true);
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(messageCoroutine);
