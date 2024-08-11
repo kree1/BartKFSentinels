@@ -30,15 +30,5 @@ namespace BartKFSentinels.Ownership
             // "When an environment card leaves play, if there are no environment cards in play, destroy this card."
             AddTrigger((MoveCardAction mca) => mca.CardToMove.IsEnvironment && mca.Origin.IsInPlay && !mca.Destination.IsInPlay && mca.WasCardMoved && !base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsEnvironment && c.IsInPlay)).Any(), DestroyThisCardResponse, TriggerType.DestroySelf, TriggerTiming.After);
         }
-
-        public Card StatCardOf(HeroTurnTakerController hero)
-        {
-            return base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.Identifier == StatCardIdentifier && c.Location.IsPlayAreaOf(hero.TurnTaker)), visibleToCard: GetCardSource()).FirstOrDefault();
-        }
-
-        public Card StatCardOf(TurnTaker tt)
-        {
-            return StatCardOf(base.GameController.FindHeroTurnTakerController(tt.ToHero()));
-        }
     }
 }

@@ -47,5 +47,17 @@ namespace BartKFSentinels.Ownership
                 base.GameController.ExhaustCoroutine(statusCoroutine);
             }
         }
+
+        public Card StatCardOf(HeroTurnTakerController hero)
+        {
+            return base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.Identifier == StatCardIdentifier && c.Location.IsPlayAreaOf(hero.TurnTaker)), visibleToCard: GetCardSource()).FirstOrDefault();
+        }
+
+        public Card StatCardOf(TurnTaker tt)
+        {
+            if (!tt.IsPlayer)
+                return null;
+            return StatCardOf(base.GameController.FindHeroTurnTakerController(tt.ToHero()));
+        }
     }
 }
