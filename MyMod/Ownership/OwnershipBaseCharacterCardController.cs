@@ -74,6 +74,8 @@ namespace BartKFSentinels.Ownership
 
         public Card StatCardOf(TurnTaker tt)
         {
+            if (!tt.IsPlayer)
+                return null;
             return StatCardOf(base.GameController.FindHeroTurnTakerController(tt.ToHero()));
         }
 

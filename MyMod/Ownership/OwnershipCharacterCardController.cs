@@ -77,6 +77,15 @@ namespace BartKFSentinels.Ownership
 
         public override IEnumerator AfterFlipCardImmediateResponse()
         {
+            IEnumerator baseCoroutine = base.AfterFlipCardImmediateResponse();
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(baseCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(baseCoroutine);
+            }
             // "When this card flips to this side, discard each card under it."
             if (base.Card.IsFlipped)
             {
@@ -206,7 +215,7 @@ namespace BartKFSentinels.Ownership
             }
             else
             {
-                replicaCoroutine = base.GameController.SendMessageAction("[b]We are so sorry!\nThere are no Replicas in stock at the moment!\nPlease check back soon![/b]", Priority.Medium, GetCardSource(), showCardSource: true);
+                replicaCoroutine = base.GameController.SendMessageAction("[b]There are no Replicas in stock at the moment.\nPlease check back soon.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
             }
             if (base.UseUnityCoroutines)
             {

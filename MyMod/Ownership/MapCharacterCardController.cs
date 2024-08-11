@@ -14,18 +14,14 @@ namespace BartKFSentinels.Ownership
         public MapCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
             AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
+            // Front side: show total damage dealt to non-hero targets by hero targets this turn
+            SpecialStringMaker.ShowSpecialString(() => DamageDealtToNonHeroByHeroThisTurn() + " damage has been dealt to non-hero targets by hero targets this turn.", showInEffectsList: () => true).Condition = () => !base.Card.IsFlipped;
             // Both sides: Show location of each hero marker
-            /*for (int i = 1; i <= 5; i++)
-            {
-                SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(i), () => true).Condition = () => i <= H;
-            }*/
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(1), () => true).Condition = () => 1 <= H;
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(2), () => true).Condition = () => 2 <= H;
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(3), () => true).Condition = () => 3 <= H;
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(4), () => true).Condition = () => 4 <= H;
             SpecialStringMaker.ShowSpecialString(() => DisplayMarkerLocation(5), () => true).Condition = () => 5 <= H;
-            // Front side: show total damage dealt to non-hero targets by hero targets this turn
-            SpecialStringMaker.ShowSpecialString(() => DamageDealtToNonHeroByHeroThisTurn() + " damage has been dealt to non-hero targets by hero targets this turn.", showInEffectsList: () => true).Condition = () => !base.Card.IsFlipped;
         }
 
         public readonly string GameWonThisTurn = "GameWonThisTurn";
@@ -119,10 +115,19 @@ namespace BartKFSentinels.Ownership
 
         public override IEnumerator AfterFlipCardImmediateResponse()
         {
+            IEnumerator baseCoroutine = base.AfterFlipCardImmediateResponse();
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(baseCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(baseCoroutine);
+            }
             // Back side: "When this card flips to this side, put each villain Stat card under this card."
             if (base.Card.IsFlipped)
             {
-                IEnumerator moveCoroutine = base.GameController.MoveCards(base.TurnTakerController, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsVillain(c) && c.Identifier == StatCardIdentifier, "villain Stat"), visibleToCard: GetCardSource()), base.Card.UnderLocation, playIfMovingToPlayArea: false, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+                IEnumerator moveCoroutine = base.GameController.MoveCards(base.TurnTakerController, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsVillain(c) && c.Identifier == StatCardIdentifier && c.Location != base.Card.UnderLocation, "villain Stat"), visibleToCard: GetCardSource()), base.Card.UnderLocation, playIfMovingToPlayArea: false, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(moveCoroutine);
@@ -137,14 +142,17 @@ namespace BartKFSentinels.Ownership
         public IEnumerator RunScoredResponse(DealDamageAction dda)
         {
             // "... add 2 tokens to that player's Stat card..."
-            IEnumerator addCoroutine = base.GameController.AddTokensToPool(StatCardOf(dda.DamageSource.Card.Owner).FindTokenPool(WeightPoolIdentifier), 2, GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (StatCardOf(dda.DamageSource.Card.Owner) != null)
             {
-                yield return base.GameController.StartCoroutine(addCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(addCoroutine);
+                IEnumerator addCoroutine = base.GameController.AddTokensToPool(StatCardOf(dda.DamageSource.Card.Owner).FindTokenPool(WeightPoolIdentifier), 2, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(addCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(addCoroutine);
+                }
             }
             // "... and {SunSun} deals itself 1 infernal damage."
             Card sunsun = FindCard(SunSunIdentifier);
@@ -166,14 +174,17 @@ namespace BartKFSentinels.Ownership
         {
             SetCardProperty(GameWonThisTurn, true);
             // "... add 5 tokens to that player's Stat card..."
-            IEnumerator addCoroutine = base.GameController.AddTokensToPool(StatCardOf(base.Game.ActiveTurnTaker).FindTokenPool(WeightPoolIdentifier), 5, GetCardSource());
-            if (base.UseUnityCoroutines)
+            if (StatCardOf(base.Game.ActiveTurnTaker) != null)
             {
-                yield return base.GameController.StartCoroutine(addCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(addCoroutine);
+                IEnumerator addCoroutine = base.GameController.AddTokensToPool(StatCardOf(base.Game.ActiveTurnTaker).FindTokenPool(WeightPoolIdentifier), 5, GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(addCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(addCoroutine);
+                }
             }
             // "... and {SunSun} deals itself 3 infernal damage."
             Card sunsun = FindCard(SunSunIdentifier);
@@ -276,15 +287,23 @@ namespace BartKFSentinels.Ownership
             HeroTurnTakerController driving = DecisionMaker;
             if (ga is PlayCardAction)
             {
-                driving = (ga as PlayCardAction).TurnTakerController.ToHero();
+                PlayCardAction pca = (ga as PlayCardAction);
+                driving = pca.TurnTakerController.ToHero();
+                //Log.Debug("MapCharacterCardController called for " + driving.TurnTaker.Name + " playing " + pca.CardToPlay.Title);
             }
             else if (ga is UsePowerAction)
             {
-                driving = (ga as UsePowerAction).HeroUsingPower;
+                UsePowerAction upa = (ga as UsePowerAction);
+                driving = upa.HeroUsingPower;
+                //Log.Debug("MapCharacterCardController called for " + driving.TurnTaker.Name + " using the power on " + upa.Power.CardController.Card.Title);
+            }
+            else
+            {
+                //Log.Debug("MapCharacterCardController called with ga: " + ga.ToString());
             }
             // "... each player may discard a card."
             List<DiscardCardAction> discards = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = base.GameController.EachPlayerDiscardsCards(0, 1, discards, showCounter: true, cardSource: GetCardSource());
+            IEnumerator discardCoroutine = EachPlayerDiscardsCards(0, 1, discards, showCounter: true, sinceAction: ga, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(discardCoroutine);
@@ -307,6 +326,62 @@ namespace BartKFSentinels.Ownership
                     base.GameController.ExhaustCoroutine(moveCoroutine);
                 }
             }
+        }
+
+        public IEnumerator EachPlayerDiscardsCards(int minNumberOfCardsPerHero, int? maxNumberOfCardsPerHero, List<DiscardCardAction> storedResultsDiscard = null, bool allowAutoDecideHeroes = true, int? requiredNumberOfHeroes = null, bool showCounter = false, GameAction sinceAction = null, LinqCardCriteria cardCriteria = null, bool ignoreBattleZone = false, CardSource cardSource = null)
+        {
+            if (minNumberOfCardsPerHero == 0)
+            {
+                requiredNumberOfHeroes = 0;
+            }
+            if (cardCriteria == null)
+            {
+                cardCriteria = new LinqCardCriteria();
+            }
+            Func<string> counter = null;
+            if (showCounter && cardSource != null)
+            {
+                bool canCompare = false;
+                if (sinceAction != null)
+                {
+                    JournalEntry record = null;
+                    if (sinceAction is PlayCardAction pca)
+                    {
+                        record = base.GameController.Game.Journal.QueryJournalEntries((PlayCardJournalEntry pcje) => pcje.CardPlayed == pca.CardToPlay && pcje.TurnIndex == base.Game.TurnIndex).LastOrDefault();
+                    }
+                    else if (sinceAction is UsePowerAction upa)
+                    {
+                        record = base.GameController.Game.Journal.QueryJournalEntries((UsePowerJournalEntry upje) => upje.PowerUser == upa.HeroUsingPower.HeroTurnTaker && upje.CardWithPower == upa.Power.CardController.CardWithoutReplacements && upje.TurnIndex == base.Game.TurnIndex).LastOrDefault();
+                    }
+                    if (record != null && base.GameController.Game.Journal.GetEntryIndex(record).HasValue)
+                    {
+                        canCompare = true;
+                        counter = () => "Cards discarded so far: " + (from en in Game.Journal.DiscardCardEntriesThisTurn()
+                                                                      where en.Card.Owner.IsPlayer && en.CardSource == cardSource.Card && en.CardSourcePlayIndex == cardSource.Card.PlayIndex && base.GameController.Game.Journal.GetEntryIndex(en).HasValueGreaterThan(base.GameController.Game.Journal.GetEntryIndex(record).Value)
+                                                                      select en).Count();
+                    }
+                }
+                if (!canCompare)
+                {
+                    counter = () => "Cards discarded so far: " + (from en in Game.Journal.DiscardCardEntriesThisTurn()
+                                                                  where en.Card.Owner.IsPlayer && en.CardSource == cardSource.Card && en.CardSourcePlayIndex == cardSource.Card.PlayIndex
+                                                                  select en).Count();
+                }
+            }
+            int? num = null;
+            if (minNumberOfCardsPerHero == maxNumberOfCardsPerHero)
+            {
+                num = minNumberOfCardsPerHero;
+            }
+            LinqTurnTakerCriteria turnTakerCriteria = new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame && (tt as HeroTurnTaker).HasCardsInHand && (tt as HeroTurnTaker).Hand.Cards.Where(cardCriteria.Criteria).Count() > 0, $"heroes with {cardCriteria.GetDescription()} in hand");
+            Func<TurnTaker, IEnumerator> actionWithTurnTaker = (TurnTaker tt) => base.GameController.SelectAndDiscardCards(FindHeroTurnTakerController((HeroTurnTaker)tt), maxNumberOfCardsPerHero, optional: false, minNumberOfCardsPerHero, storedResultsDiscard, allowAutoDecide: false, null, null, counter, cardCriteria, SelectionType.DiscardCard, tt, cardSource);
+            int? requiredDecisions = requiredNumberOfHeroes;
+            bool allowAutoDecide = allowAutoDecideHeroes;
+            Func<string> extraInfo = counter;
+            bool ignoreBattleZone2 = ignoreBattleZone;
+            int? numberOfCards = num;
+            CardSource cardSource2 = cardSource;
+            return base.GameController.SelectTurnTakersAndDoAction(null, turnTakerCriteria, SelectionType.DiscardCard, actionWithTurnTaker, null, optional: false, requiredDecisions, null, allowAutoDecide, null, extraInfo, null, ignoreBattleZone2, numberOfCards, cardSource2);
         }
 
         public IEnumerator SelectDirectionAndMove(HeroTurnTakerController driving, TurnTaker moving)
