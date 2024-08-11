@@ -139,6 +139,7 @@ namespace BartKFSentinels.Ownership
 
         public IEnumerator MoveHeroMarker(int heroIndex, int up, int right, TurnTaker responsibleTurnTaker = null, bool showMessage = false, CardSource cardSource = null)
         {
+            //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker called with heroIndex " + heroIndex.ToString() + ", up " + up.ToString() + ", right " + right.ToString());
             if (heroIndex >= 1 && heroIndex <= 5 && !(up == 0 && right == 0))
             {
                 TokenPool rowPool = FindCard(MapCardIdentifier).FindTokenPool(LocationPoolIdentifier(heroIndex, false));
@@ -146,6 +147,7 @@ namespace BartKFSentinels.Ownership
                 // Move vertically first
                 if (up > 0)
                 {
+                    //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker adding " + up.ToString() + " tokens to " + rowPool.Name);
                     IEnumerator upCoroutine = base.GameController.AddTokensToPool(rowPool, up, GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
@@ -158,6 +160,7 @@ namespace BartKFSentinels.Ownership
                 }
                 else if (up < 0)
                 {
+                    //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker removing " + (-1 * up).ToString() + " tokens from " + rowPool.Name);
                     IEnumerator downCoroutine = base.GameController.RemoveTokensFromPool(rowPool, -1 * up, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
@@ -171,6 +174,7 @@ namespace BartKFSentinels.Ownership
                 // Move horizontally second
                 if (right > 0)
                 {
+                    //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker adding " + right.ToString() + " tokens to " + columnPool.Name);
                     IEnumerator rightCoroutine = base.GameController.AddTokensToPool(columnPool, right, GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
@@ -183,7 +187,8 @@ namespace BartKFSentinels.Ownership
                 }
                 else if (right < 0)
                 {
-                    IEnumerator leftCoroutine = base.GameController.AddTokensToPool(columnPool, -1 * right, GetCardSource());
+                    //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker removing " + (-1 * right).ToString() + " tokens from " + columnPool.Name);
+                    IEnumerator leftCoroutine = base.GameController.RemoveTokensFromPool(columnPool, -1 * right, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(leftCoroutine);
