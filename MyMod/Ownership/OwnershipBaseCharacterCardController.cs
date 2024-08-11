@@ -26,30 +26,8 @@ namespace BartKFSentinels.Ownership
                 markerName = httc.TurnTaker.Name + "' marker";
             }
             int[] location = HeroMarkerLocation(heroIndex);
-            string markerLocation = "row " + location[0] + ", column " + location[1];
-            string punctuation = ".";
-            if (base.Card.IsFlipped)
-            {
-                // Add extra detail to markerLocation describing it relative to important landmarks?
-                // ...
-            }
-            else
-            {
-                if (location[0] >= 2)
-                {
-                    markerLocation += ", above the yellow line";
-                }
-                else
-                {
-                    markerLocation += ", ";
-                    if (location[0] == 1)
-                    {
-                        markerLocation += "just ";
-                    }
-                    markerLocation += "below the yellow line";
-                }
-            }
-            output = markerName + " is at " + markerLocation + punctuation;
+            string markerLocation = MapLocationDescription(location, FindCard(MapCardIdentifier).IsFlipped);
+            output = markerName + " is at " + markerLocation + ".";
             return output;
         }
 
@@ -135,6 +113,154 @@ namespace BartKFSentinels.Ownership
             int row = FindCard(MapCardIdentifier).FindTokenPool(LocationPoolIdentifier(heroIndex, false)).CurrentValue;
             int col = FindCard(MapCardIdentifier).FindTokenPool(LocationPoolIdentifier(heroIndex, true)).CurrentValue;
             return new int[] { row, col };
+        }
+
+        public string MapLocationDescription(int[] markerLocation, bool endZones = false)
+        {
+            if (markerLocation.Length < 2 || !(markerLocation[0] >= 0 && markerLocation[0] <= 4 && markerLocation[1] >= 0 && markerLocation[1] <= 4))
+            {
+                return "Error: invalid location array";
+            }
+            string desc = "row " + markerLocation[0] + ", column " + markerLocation[1] + ", ";
+            if (endZones)
+            {
+                // Describe using the End Zones map
+                string horizon = "the Horizon (bottom left corner)";
+                string desert = "the Desert (bottom right corner)";
+                string coin = "Ownership's space (center)";
+                string vault = "the Vault (top left corner)";
+                string hall = "the Hall (top right corner)";
+                string inSpace = "in ";
+                string above = "just above ";
+                string below = "just below ";
+                string leftOf = "just left of ";
+                string rightOf = "just right of ";
+                string between = "diagonally between ";
+                string and = " and ";
+                switch (markerLocation[0])
+                {
+                    case 0:
+                        switch (markerLocation[1])
+                        {
+                            case 0:
+                                desc += inSpace + horizon;
+                                break;
+                            case 1:
+                                desc += rightOf + horizon;
+                                break;
+                            case 2:
+                                desc += "in the middle of the bottom row";
+                                break;
+                            case 3:
+                                desc += leftOf + desert;
+                                break;
+                            default:
+                                desc += inSpace + desert;
+                                break;
+                        }
+                        break;
+                    case 1:
+                        switch (markerLocation[1])
+                        {
+                            case 0:
+                                desc += above + horizon;
+                                break;
+                            case 1:
+                                desc += between + horizon + and + coin;
+                                break;
+                            case 2:
+                                desc += below + coin;
+                                break;
+                            case 3:
+                                desc += between + desert + and + coin;
+                                break;
+                            default:
+                                desc += above + desert;
+                                break;
+                        }
+                        break;
+                    case 2:
+                        switch (markerLocation[1])
+                        {
+                            case 0:
+                                desc += "in the middle of the leftmost column";
+                                break;
+                            case 1:
+                                desc += leftOf + coin;
+                                break;
+                            case 2:
+                                desc += inSpace + coin;
+                                break;
+                            case 3:
+                                desc += rightOf + coin;
+                                break;
+                            default:
+                                desc += "in the middle of the rightmost column";
+                                break;
+                        }
+                        break;
+                    case 3:
+                        switch (markerLocation[1])
+                        {
+                            case 0:
+                                desc += below + vault;
+                                break;
+                            case 1:
+                                desc += between + vault + and + coin;
+                                break;
+                            case 2:
+                                desc += above + coin;
+                                break;
+                            case 3:
+                                desc += between + hall + and + coin;
+                                break;
+                            default:
+                                desc += below + hall;
+                                break;
+                        }
+                        break;
+                    default:
+                        switch (markerLocation[1])
+                        {
+                            case 0:
+                                desc += inSpace + vault;
+                                break;
+                            case 1:
+                                desc += rightOf + vault;
+                                break;
+                            case 2:
+                                desc += "in the middle of the top row";
+                                break;
+                            case 3:
+                                desc += leftOf + hall;
+                                break;
+                            default:
+                                desc += inSpace + hall;
+                                break;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                // Describe using the Depth Chart
+                switch (markerLocation[0])
+                {
+                    case 0:
+                        desc += "at the bottom";
+                        break;
+                    case 1:
+                        desc += "just below the yellow line";
+                        break;
+                    case 2:
+                        desc += "just above the yellow line";
+                        break;
+                    default:
+                        desc += "above the yellow line";
+                        break;
+                }
+            }
+            return desc;
         }
 
         public IEnumerator MoveHeroMarker(int heroIndex, int up, int right, TurnTaker responsibleTurnTaker = null, bool showMessage = false, CardSource cardSource = null)
