@@ -42,8 +42,8 @@ namespace BartKFSentinels.Ownership
                 // Back side:
                 // "Hero targets in this play area are immune to fire damage."
                 AddSideTrigger(AddImmuneToDamageTrigger((DealDamageAction dda) => IsHeroTarget(dda.Target) && dda.Target.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && dda.DamageType == DamageType.Fire));
-                // "Increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 5."
-                AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation), (DealDamageAction dda) => 5));
+                // ~~"Increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 5."~~
+                //AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation), (DealDamageAction dda) => 5));
                 // "If your marker is in row 1, 2, or 3 and in column 1, 2, or 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 20."
                 AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && HeroMarkerLocation(RelevantHeroIndex())[0] > 0 && HeroMarkerLocation(RelevantHeroIndex())[0] < 4 && HeroMarkerLocation(RelevantHeroIndex())[1] > 0 && HeroMarkerLocation(RelevantHeroIndex())[1] < 4, (DealDamageAction dda) => 20));
                 // "If your marker is at row 2, column 2, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."

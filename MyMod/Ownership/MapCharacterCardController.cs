@@ -341,7 +341,7 @@ namespace BartKFSentinels.Ownership
             Func<string> counter = null;
             if (showCounter && cardSource != null)
             {
-                bool canCompare = false;
+                /*bool canCompare = false;
                 if (sinceAction != null)
                 {
                     JournalEntry record = null;
@@ -366,7 +366,8 @@ namespace BartKFSentinels.Ownership
                     counter = () => "Cards discarded so far: " + (from en in Game.Journal.DiscardCardEntriesThisTurn()
                                                                   where en.Card.Owner.IsPlayer && en.CardSource == cardSource.Card && en.CardSourcePlayIndex == cardSource.Card.PlayIndex
                                                                   select en).Count();
-                }
+                }*/
+                counter = () => "Cards discarded so far: " + GetNumberOfCardsDiscarded(storedResultsDiscard);
             }
             int? num = null;
             if (minNumberOfCardsPerHero == maxNumberOfCardsPerHero)
