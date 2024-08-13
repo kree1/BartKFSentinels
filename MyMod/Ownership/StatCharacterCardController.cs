@@ -83,6 +83,26 @@ namespace BartKFSentinels.Ownership
             }
         }
 
+        public override IEnumerator AfterFlipCardImmediateResponse()
+        {
+            if (base.Card.IsInPlayAndNotUnderCard)
+            {
+                IEnumerator flipCoroutine = base.AfterFlipCardImmediateResponse();
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(flipCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(flipCoroutine);
+                }
+            }
+            else
+            {
+                yield break;
+            }
+        }
+
         public IEnumerator UpdateMarkerResponse(GameAction ga)
         {
             // "... move your marker on the Map to row Y, where Y = 4 minus (the number of tokens on this card divided by 10, rounded down)."
