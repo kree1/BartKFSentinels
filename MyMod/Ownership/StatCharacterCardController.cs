@@ -48,7 +48,7 @@ namespace BartKFSentinels.Ownership
                 AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && HeroMarkerLocation(RelevantHeroIndex())[0] > 0 && HeroMarkerLocation(RelevantHeroIndex())[0] < 4 && HeroMarkerLocation(RelevantHeroIndex())[1] > 0 && HeroMarkerLocation(RelevantHeroIndex())[1] < 4, (DealDamageAction dda) => 20));
                 // "If your marker is at row 2, column 2, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
                 AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.IsAtLocationRecursive(base.Card.Location.HighestRecursiveLocation) && HeroMarkerLocation(RelevantHeroIndex())[0] == 2 && HeroMarkerLocation(RelevantHeroIndex())[1] == 2, (DealDamageAction dda) => 100));
-                AddSideTrigger(AddTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card), LogDamageResponse, TriggerType.Hidden, TriggerTiming.Before));
+                //AddSideTrigger(AddTrigger((DealDamageAction dda) => dda.Target == FindCard(OwnershipIdentifier) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card), LogDamageResponse, TriggerType.Hidden, TriggerTiming.Before));
             }
         }
 
