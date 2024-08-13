@@ -113,7 +113,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "00C800"
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero1Row",
@@ -121,7 +122,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "0084C8"
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero2Column",
@@ -129,7 +131,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "00C800"
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero2Row",
@@ -137,7 +140,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "0084C8"
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero3Column",
@@ -145,7 +149,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "00C800"
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero3Row",
@@ -153,7 +158,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "0084C8"
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero4Column",
@@ -161,7 +167,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "00C800"
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero4Row",
@@ -169,7 +176,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "0084C8"
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero5Column",
@@ -177,7 +185,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "00C800"
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero5Row",
@@ -185,7 +194,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "0084C8"
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
 				}
 			]
 		},
