@@ -22,7 +22,7 @@ namespace BartKFSentinels.Ownership
             base.AddTriggers();
             // "Whenever a power is used, a non-villain card is played, or a card is drawn, increase damage dealt this turn by 1."
             AddTrigger((UsePowerAction upa) => true, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
-            AddTrigger((PlayCardAction pca) => !IsVillain(pca.CardToPlay), IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
+            AddTrigger((CardEntersPlayAction cepa) => !IsVillain(cepa.CardEnteringPlay) && !cepa.IsPutIntoPlay, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
             AddTrigger((DrawCardAction dca) => true, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
 

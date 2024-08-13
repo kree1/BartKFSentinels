@@ -106,7 +106,7 @@ namespace BartKFSentinels.Ownership
                 // "When a player's marker moves to row 0, column 0, destroy each hero target in their play area."
                 AddSideTrigger(AddTrigger((RemoveTokensFromPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensToRemove > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == 0 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == 0, (RemoveTokensFromPoolAction tpa) => NullifyResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.DestroyCard, TriggerTiming.After));
                 // "After a player plays a card or uses a power, each player may discard a card. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right."
-                AddSideTrigger(AddTrigger((PlayCardAction pca) => pca.WasCardPlayed && pca.TurnTakerController.IsHero, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
+                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !cepa.IsPutIntoPlay && cepa.TurnTakerController != null && cepa.TurnTakerController.IsHero, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
                 AddSideTrigger(AddTrigger((UsePowerAction upa) => upa.IsSuccessful && upa.HeroUsingPower != null, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
                 // "At the end of the villain turn, move each player's marker to the space indicated by the red arrow starting from its current space."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, RotateMapResponse, TriggerType.AddTokensToPool));
@@ -285,11 +285,11 @@ namespace BartKFSentinels.Ownership
         public IEnumerator DiscardToMoveResponse(GameAction ga)
         {
             HeroTurnTakerController driving = DecisionMaker;
-            if (ga is PlayCardAction)
+            if (ga is CardEntersPlayAction)
             {
-                PlayCardAction pca = (ga as PlayCardAction);
-                driving = pca.TurnTakerController.ToHero();
-                //Log.Debug("MapCharacterCardController called for " + driving.TurnTaker.Name + " playing " + pca.CardToPlay.Title);
+                CardEntersPlayAction cepa = (ga as CardEntersPlayAction);
+                driving = cepa.TurnTakerController.ToHero();
+                //Log.Debug("MapCharacterCardController called for " + driving.TurnTaker.Name + " playing " + cepa.CardEnteringPlay.Title);
             }
             else if (ga is UsePowerAction)
             {
