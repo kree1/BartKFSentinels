@@ -24,6 +24,7 @@ namespace BartKFSentinels.Ownership
         public readonly string WeatherEffectKeyword = "weather effect";
         public readonly string ReplicaKeyword = "replica";
         public readonly string CollapseKeyword = "collapse";
+        public readonly string SunKeyword = "sun";
 
         public override bool AskIfCardIsIndestructible(Card card)
         {
@@ -60,6 +61,7 @@ namespace BartKFSentinels.Ownership
                 // Back side:
                 // "When a villain Modification is destroyed, remove it from the game."
                 AddSideTrigger(AddTrigger((DestroyCardAction dca) => dca.CardToDestroy.CanBeDestroyed && dca.WasCardDestroyed && IsVillain(dca.CardToDestroy.Card) && base.GameController.GetAllKeywords(dca.CardToDestroy.Card).Contains(ModificationKeyword) && dca.PostDestroyDestinationCanBeChanged, RemoveFromGameResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.ChangePostDestroyDestination }, TriggerTiming.After));
+                AddSideTrigger(AddTrigger((MoveCardAction mca) => mca.Destination.IsOutOfGame && IsVillain(mca.CardToMove) && base.GameController.GetAllKeywords(mca.CardToMove).Contains(SunKeyword) && base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => IsVillain(c) && base.GameController.GetAllKeywords(c).Contains(SunKeyword) && c.IsOutOfGame)).Count() >= 4, (MoveCardAction mca) => base.GameController.SendMessageAction("[b]What have you done to Our Suns?[/b]", Priority.Medium, GetCardSource(), showCardSource: true), TriggerType.ShowMessage, TriggerTiming.After));
                 // "At the start of each hero turn, discard the top card of the villain deck. If it's a Weather Effect, play it."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => IsHero(tt), FireSaleWeatherResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PlayCard }));
                 // "At the end of the villain turn, {OwnershipCharacter} deals each hero character 5 infernal damage."
@@ -85,6 +87,15 @@ namespace BartKFSentinels.Ownership
             else
             {
                 base.GameController.ExhaustCoroutine(baseCoroutine);
+            }
+            IEnumerator messageCoroutine = base.GameController.SendMessageAction("[b]This is Fine.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(messageCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(messageCoroutine);
             }
             // "When this card flips to this side, discard each card under it."
             if (base.Card.IsFlipped)

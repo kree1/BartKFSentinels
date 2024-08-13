@@ -17,7 +17,7 @@
 			"character": true,
 			"hitpoints": 999,
 			"nemesisIdentifiers": [
-				"BartKFMod.TheGoalie"
+				"BartKFSentinels.TheGoalie"
 			],
 			"setup": [
 				"Put this card and the Map card into play, “Stay Positive” side up. Put each Stat card under the Map card. Shuffle the villain deck."
@@ -57,7 +57,9 @@
 			],
 			"difficulty": 2,
 			"openingLines": {
-				"default": "[b]You're winners! We're all winners![/b]"
+				"default": "[b]You're winners! We're all winners![/b]",
+				"BartKFSentinels.TheGoalieCharacter": "[b]Given Our generosity - Given all We've done - Your Position is disappointing[/b]",
+				"TheGoalieOnIceCharacter": "[b]Together, we will forge new ways to Win. Victory is secured.[/b]"
 			}
 		},
 		{
@@ -69,7 +71,7 @@
 				"map"
 			],
 			"body": "Stay Positive",
-			"backgroundColor": "",
+			"backgroundColor": "75BCFA",
 			"character": true,
 			"setup": [
 				"Each player puts a card from under this card in their play area “eDensity” side up and adds 30 tokens to it."
@@ -110,7 +112,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "00C800"
 				},
 				{
 					"identifier": "Hero1Row",
@@ -118,7 +120,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "0084C8"
 				},
 				{
 					"identifier": "Hero2Column",
@@ -126,7 +128,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "00C800"
 				},
 				{
 					"identifier": "Hero2Row",
@@ -134,7 +136,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "0084C8"
 				},
 				{
 					"identifier": "Hero3Column",
@@ -142,7 +144,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "00C800"
 				},
 				{
 					"identifier": "Hero3Row",
@@ -150,7 +152,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "0084C8"
 				},
 				{
 					"identifier": "Hero4Column",
@@ -158,7 +160,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "00C800"
 				},
 				{
 					"identifier": "Hero4Row",
@@ -166,7 +168,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "0084C8"
 				},
 				{
 					"identifier": "Hero5Column",
@@ -174,7 +176,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "00C800"
 				},
 				{
 					"identifier": "Hero5Row",
@@ -182,7 +184,7 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 4,
-					"color": "000000"
+					"color": "0084C8"
 				}
 			]
 		},
@@ -195,7 +197,7 @@
 				"stat"
 			],
 			"body": "Stay Afloat",
-			"backgroundColor": "",
+			"backgroundColor": "E85637",
 			"character": true,
 			"setup": [
 				"Put your marker on the Map at row 1, column X, where X = your place in the hero turn order minus 1."
@@ -259,7 +261,7 @@
 		{
 			"identifier": "BlackHoleBlackHole",
 			"count": 1,
-			"title": "Black Hole(Black Hole)",
+			"title": "Black Hole[Black Hole]",
 			"keywords": [
 				"weather effect",
 				"collapse"
@@ -717,7 +719,7 @@
 		{
 			"identifier": "SunSun",
 			"count": 1,
-			"title": "Sun(Sun)",
+			"title": "Sun[Sun]",
 			"keywords": [
 				"modification",
 				"league",
