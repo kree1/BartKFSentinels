@@ -211,6 +211,15 @@ namespace BartKFSentinels.Ownership
 
         public IEnumerator DoubleFlipResponse(MoveCardAction mca)
         {
+            IEnumerator alertCoroutine = base.GameController.SendMessageAction("[i]EMERGENCY ALERT\nSUPERNOVA COLLAPSES\nREALITY TEARS\nSTRANDS BRIDGED\nENDS ZONED[/i]", Priority.High, GetCardSource(), mca.CardToMove.ToEnumerable());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(alertCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(alertCoroutine);
+            }
             // "... then flip {OwnershipCharacter} ..."
             IEnumerator flipCoroutine = base.GameController.FlipCard(base.GameController.FindCardController(OwnershipIdentifier), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)

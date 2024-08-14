@@ -90,7 +90,7 @@ namespace BartKFSentinels.Ownership
             {
                 base.GameController.ExhaustCoroutine(baseCoroutine);
             }
-            IEnumerator messageCoroutine = base.GameController.SendMessageAction("[b]This is Fine.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
+            IEnumerator messageCoroutine = base.GameController.SendMessageAction("[b]Okay no one panic\nThis is Fine.\nWe will handle this.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(messageCoroutine);
