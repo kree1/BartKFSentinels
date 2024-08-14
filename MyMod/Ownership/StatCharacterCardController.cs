@@ -34,7 +34,7 @@ namespace BartKFSentinels.Ownership
                 // "Whenever tokens are added to or removed from this card, move your marker on the Map to row Y, where Y = 4 minus (the number of tokens on this card divided by 10, rounded down)."
                 AddSideTrigger(AddTrigger((AddTokensToPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card, UpdateMarkerResponse, TriggerType.AddTokensToPool, TriggerTiming.After));
                 AddSideTrigger(AddTrigger((RemoveTokensFromPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card, UpdateMarkerResponse, TriggerType.AddTokensToPool, TriggerTiming.After));
-                // "At the end of your turn, if your marker is in row 0 or 1, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 4 melee damage."
+                // "At the end of your turn, if your marker is in row 0 or 1, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.Card.Location.OwnerTurnTaker && HeroMarkerLocation(RelevantHeroIndex())[0] < 2, ConsumersAttackResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.DealDamage }));
             }
             else
@@ -145,11 +145,11 @@ namespace BartKFSentinels.Ownership
             {
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 4 melee damage."
+            // "If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
             if (HeroMarkerLocation(RelevantHeroIndex())[0] < 2 && !DidDestroyCards(results))
             {
                 List<Card> choices = new List<Card>();
-                IEnumerator findCoroutine = FindCharacterCardToTakeDamage(base.Card.Location.OwnerTurnTaker, choices, FindCard(OwnershipIdentifier), 4, DamageType.Melee);
+                IEnumerator findCoroutine = FindCharacterCardToTakeDamage(base.Card.Location.OwnerTurnTaker, choices, FindCard(OwnershipIdentifier), 3, DamageType.Melee);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(findCoroutine);
@@ -161,7 +161,7 @@ namespace BartKFSentinels.Ownership
                 Card selected = choices.FirstOrDefault();
                 if (selected != null)
                 {
-                    IEnumerator meleeCoroutine = DealDamage(FindCard(OwnershipIdentifier), selected, 4, DamageType.Melee, cardSource: GetCardSource());
+                    IEnumerator meleeCoroutine = DealDamage(FindCard(OwnershipIdentifier), selected, 3, DamageType.Melee, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(meleeCoroutine);

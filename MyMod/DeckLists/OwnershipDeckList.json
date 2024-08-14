@@ -98,7 +98,7 @@
 				"When a player's marker moves to row 4, column 4, put a card from under this card in their play area “Rogue” side up.",
 				"When a player's marker moves to row 0, column 0, destroy each hero target in their play area.",
 				"After a player plays a card or uses a power, each player may discard a card. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right.",
-				"At the end of the villain turn, move each player's marker to the space indicated by the red arrow starting from its current space."
+				"At the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
 			],
 			"flippedIcons": [
 				"Indestructible",
@@ -216,7 +216,7 @@
 			"gameplay": [
 				"Whenever tokens are added to or removed from this card, move your marker on the Map to row Y, where Y = 4 minus (the number of tokens on this card divided by 10, rounded down).",
 				"This card can't have more than 49 tokens on it.",
-				"At the end of your turn, if your marker is in row 0 or 1, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 4 melee damage."
+				"At the end of your turn, if your marker is in row 0 or 1, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
 			],
 			"icons": [
 				"AddOrRemoveTokens",
@@ -242,7 +242,8 @@
 					"initialValue": 0,
 					"minimumValue": 0,
 					"maximumValue": 49,
-					"color": "262626"
+					"color": "FFFFFF",
+					"icon": "BartKFSentinels.WeightToken"
 				}
 			]
 		},
