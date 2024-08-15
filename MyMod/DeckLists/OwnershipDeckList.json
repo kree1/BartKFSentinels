@@ -47,7 +47,7 @@
 				"At the start of each hero turn, discard the top card of the villain deck. If it's a Weather Effect, play it.",
 				"At the end of the villain turn, {OwnershipCharacter} deals each hero character 5 infernal damage."
 			],
-			"flippedAdvanced": "At the end of the villain turn, move each marker in row 0 1 space left, then move each other marker 1 space down.",
+			"flippedAdvanced": "At the end of the villain turn, move each marker in row 1 1 space left, then move each other marker 1 space down.",
 			"flippedIcons": [
 				"StartAndEndOfTurnAction",
 				"Discard",
@@ -95,8 +95,8 @@
 			"flippedGameplay": [
 				"When this card flips to this side, put each villain Stat card under this card.",
 				"This card and villain Stat cards are indestructible.",
-				"When a player's marker moves to row 4, column 4, put a card from under this card in their play area “Rogue” side up.",
-				"When a player's marker moves to row 0, column 0, destroy each hero target in their play area.",
+				"When a player's marker moves to row 5, column 5, put a card from under this card in their play area “Rogue” side up.",
+				"When a player's marker moves to row 1, column 1, destroy each hero target in their play area.",
 				"After a player plays a card or uses a power, each player may discard a card. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right.",
 				"At the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
 			],
@@ -110,90 +110,90 @@
 				{
 					"identifier": "Hero1Column",
 					"name": "First Hero Column",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "00C800",
 					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero1Row",
 					"name": "First Hero Row",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "0084C8",
 					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero2Column",
 					"name": "Second Hero Column",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "00C800",
 					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero2Row",
 					"name": "Second Hero Row",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "0084C8",
 					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero3Column",
 					"name": "Third Hero Column",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "00C800",
 					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero3Row",
 					"name": "Third Hero Row",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "0084C8",
 					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero4Column",
 					"name": "Fourth Hero Column",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "00C800",
 					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero4Row",
 					"name": "Fourth Hero Row",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "0084C8",
 					"icon": "BartKFSentinels.RowToken"
 				},
 				{
 					"identifier": "Hero5Column",
 					"name": "Fifth Hero Column",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "00C800",
 					"icon": "BartKFSentinels.ColumnToken"
 				},
 				{
 					"identifier": "Hero5Row",
 					"name": "Fifth Hero Row",
-					"initialValue": 0,
-					"minimumValue": 0,
-					"maximumValue": 4,
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
 					"color": "0084C8",
 					"icon": "BartKFSentinels.RowToken"
 				}
@@ -211,12 +211,12 @@
 			"backgroundColor": "E85637",
 			"character": true,
 			"setup": [
-				"Put your marker on the Map at row 1, column X, where X = your place in the hero turn order minus 1."
+				"Put your marker on the Map at row 2, column X, where X = your place in the hero turn order."
 			],
 			"gameplay": [
-				"Whenever tokens are added to or removed from this card, move your marker on the Map to row Y, where Y = 4 minus (the number of tokens on this card divided by 10, rounded down).",
+				"Whenever tokens are added to or removed from this card, move your marker on the Map to row Y, where Y = 5 minus (the number of tokens on this card divided by 10, rounded down).",
 				"This card can't have more than 49 tokens on it.",
-				"At the end of your turn, if your marker is in row 0 or 1, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 0 or 1 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
+				"At the end of your turn, if your marker is in row 1 or 2, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 1 or 2 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
 			],
 			"icons": [
 				"AddOrRemoveTokens",
@@ -228,8 +228,8 @@
 			"flippedBody": "Charge the Mound",
 			"flippedGameplay": [
 				"Hero targets in this play area are immune to fire damage.",
-				"If your marker is in row 1, 2, or 3 and in column 1, 2, or 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 20.",
-				"If your marker is at row 2, column 2, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
+				"If your marker is in row 2, 3, or 4 and in column 2, 3, or 4, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 20.",
+				"If your marker is at row 3, column 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
 			],
 			"flippedIcons": [
 				"ImmuneToDamageFire",

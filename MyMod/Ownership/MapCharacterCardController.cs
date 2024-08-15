@@ -101,10 +101,10 @@ namespace BartKFSentinels.Ownership
             else
             {
                 // Back side:
-                // "When a player's marker moves to row 4, column 4, put a card from under this card in their play area “Rogue” side up."
-                AddSideTrigger(AddTrigger((AddTokensToPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensToAdd > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == 4 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == 4, (AddTokensToPoolAction tpa) => GoRogueResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.MoveCard, TriggerTiming.After));
-                // "When a player's marker moves to row 0, column 0, destroy each hero target in their play area."
-                AddSideTrigger(AddTrigger((RemoveTokensFromPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensToRemove > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == 0 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == 0, (RemoveTokensFromPoolAction tpa) => NullifyResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.DestroyCard, TriggerTiming.After));
+                // "When a player's marker moves to row 5, column 5, put a card from under this card in their play area “Rogue” side up."
+                AddSideTrigger(AddTrigger((AddTokensToPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensActuallyAdded > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == TopRow && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == LastCol, (AddTokensToPoolAction tpa) => GoRogueResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.MoveCard, TriggerTiming.After));
+                // "When a player's marker moves to row 1, column 1, destroy each hero target in their play area."
+                AddSideTrigger(AddTrigger((RemoveTokensFromPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensActuallyRemoved > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == BottomRow && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == FirstCol, (RemoveTokensFromPoolAction tpa) => NullifyResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.DestroyCard, TriggerTiming.After));
                 // "After a player plays a card or uses a power, each player may discard a card. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right."
                 AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !cepa.IsPutIntoPlay && cepa.TurnTakerController != null && cepa.TurnTakerController.IsHero, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
                 AddSideTrigger(AddTrigger((UsePowerAction upa) => upa.IsSuccessful && upa.HeroUsingPower != null, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
@@ -399,10 +399,10 @@ namespace BartKFSentinels.Ownership
             int heroIndex = IndexOfHero(base.GameController.FindHeroTurnTakerController(moving.ToHero()));
             int[] currentLocation = HeroMarkerLocation(heroIndex);
             List<Function> options = new List<Function>();
-            options.Add(new Function(driving, "Move " + moving.Name + " up to row " + (currentLocation[0] + 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] < 4));
-            options.Add(new Function(driving, "Move " + moving.Name + " down to row " + (currentLocation[0] - 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, -1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] > 0));
-            options.Add(new Function(driving, "Move " + moving.Name + " left to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] - 1).ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, 0, -1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] > 0));
-            options.Add(new Function(driving, "Move " + moving.Name + " right to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] + 1).ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 0, 1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] < 4));
+            options.Add(new Function(driving, "Move " + moving.Name + " up to row " + (currentLocation[0] + 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] < TopRow));
+            options.Add(new Function(driving, "Move " + moving.Name + " down to row " + (currentLocation[0] - 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, -1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] > BottomRow));
+            options.Add(new Function(driving, "Move " + moving.Name + " left to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] - 1).ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, 0, -1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] > FirstCol));
+            options.Add(new Function(driving, "Move " + moving.Name + " right to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] + 1).ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 0, 1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] < LastCol));
             SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, driving, options, false, associatedCards: moving.CharacterCards, cardSource: GetCardSource());
             IEnumerator chooseCoroutine = base.GameController.SelectAndPerformFunction(choice);
             if (base.UseUnityCoroutines)
@@ -436,7 +436,7 @@ namespace BartKFSentinels.Ownership
             int rowChange = 0;
             int colChange = 0;
             // Determine direction to move based on current location
-            if (currentLocation[0]==2 && currentLocation[1]==2)
+            if (currentLocation[0]==CenterRow && currentLocation[1]==CenterCol)
             {
                 // On the Coin's spot? Move toward Horizon
                 rowChange = -1;
@@ -444,23 +444,23 @@ namespace BartKFSentinels.Ownership
             }
             else
             {
-                if (currentLocation[0] < 4 && currentLocation[1] < 2)
+                if (currentLocation[0] < TopRow && currentLocation[1] < CenterCol)
                 {
                     // First two columns, not top row? Going up
                     rowChange = 1;
                 }
-                else if (currentLocation[0] > 0 && currentLocation[1] > 2)
+                else if (currentLocation[0] > BottomRow && currentLocation[1] > CenterCol)
                 {
                     // Last two columns, not bottom row? Going down
                     rowChange = -1;
                 }
 
-                if (currentLocation[0] > 2 && currentLocation[1] < 4)
+                if (currentLocation[0] > CenterRow && currentLocation[1] < LastCol)
                 {
                     // Top two rows, not last column? Going right
                     colChange = 1;
                 }
-                else if (currentLocation[0] < 2 && currentLocation[1] > 0)
+                else if (currentLocation[0] < CenterRow && currentLocation[1] > FirstCol)
                 {
                     // Bottom two rows, not first column? Going left
                     colChange = -1;

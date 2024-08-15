@@ -37,6 +37,12 @@ namespace BartKFSentinels.Ownership
         public readonly string WeightPoolIdentifier = "StatCardWeightPool";
         public readonly string SunSunIdentifier = "SunSun";
         public readonly string StatKeyword = "stat";
+        public const int BottomRow = 1;
+        public const int CenterRow = 3;
+        public const int TopRow = 5;
+        public const int FirstCol = 1;
+        public const int CenterCol = 3;
+        public const int LastCol = 5;
 
         public HeroTurnTakerController HTTCAtIndex(int heroIndex)
         {
@@ -119,7 +125,7 @@ namespace BartKFSentinels.Ownership
 
         public string MapLocationDescription(int[] markerLocation, bool endZones = false)
         {
-            if (markerLocation.Length < 2 || !(markerLocation[0] >= 0 && markerLocation[0] <= 4 && markerLocation[1] >= 0 && markerLocation[1] <= 4))
+            if (markerLocation.Length < 2 || !(markerLocation[0] >= BottomRow && markerLocation[0] <= TopRow && markerLocation[1] >= FirstCol && markerLocation[1] <= LastCol))
             {
                 return "Error: invalid location array";
             }
@@ -141,19 +147,19 @@ namespace BartKFSentinels.Ownership
                 string and = " and ";
                 switch (markerLocation[0])
                 {
-                    case 0:
+                    case BottomRow:
                         switch (markerLocation[1])
                         {
-                            case 0:
+                            case FirstCol:
                                 desc += inSpace + horizon;
                                 break;
-                            case 1:
+                            case FirstCol + 1:
                                 desc += rightOf + horizon;
                                 break;
-                            case 2:
+                            case CenterCol:
                                 desc += "in the middle of the bottom row";
                                 break;
-                            case 3:
+                            case CenterCol + 1:
                                 desc += leftOf + desert;
                                 break;
                             default:
@@ -161,19 +167,19 @@ namespace BartKFSentinels.Ownership
                                 break;
                         }
                         break;
-                    case 1:
+                    case BottomRow + 1:
                         switch (markerLocation[1])
                         {
-                            case 0:
+                            case FirstCol:
                                 desc += above + horizon;
                                 break;
-                            case 1:
+                            case FirstCol + 1:
                                 desc += between + horizon + and + coin;
                                 break;
-                            case 2:
+                            case CenterCol:
                                 desc += below + coin;
                                 break;
-                            case 3:
+                            case CenterCol + 1:
                                 desc += between + desert + and + coin;
                                 break;
                             default:
@@ -181,19 +187,19 @@ namespace BartKFSentinels.Ownership
                                 break;
                         }
                         break;
-                    case 2:
+                    case CenterRow:
                         switch (markerLocation[1])
                         {
-                            case 0:
+                            case FirstCol:
                                 desc += "in the middle of the leftmost column";
                                 break;
-                            case 1:
+                            case FirstCol + 1:
                                 desc += leftOf + coin;
                                 break;
-                            case 2:
+                            case CenterCol:
                                 desc += inSpace + coin;
                                 break;
-                            case 3:
+                            case CenterCol + 1:
                                 desc += rightOf + coin;
                                 break;
                             default:
@@ -201,19 +207,19 @@ namespace BartKFSentinels.Ownership
                                 break;
                         }
                         break;
-                    case 3:
+                    case CenterRow + 1:
                         switch (markerLocation[1])
                         {
-                            case 0:
+                            case FirstCol:
                                 desc += below + vault;
                                 break;
-                            case 1:
+                            case FirstCol + 1:
                                 desc += between + vault + and + coin;
                                 break;
-                            case 2:
+                            case CenterCol:
                                 desc += above + coin;
                                 break;
-                            case 3:
+                            case CenterCol + 1:
                                 desc += between + hall + and + coin;
                                 break;
                             default:
@@ -224,16 +230,16 @@ namespace BartKFSentinels.Ownership
                     default:
                         switch (markerLocation[1])
                         {
-                            case 0:
+                            case FirstCol:
                                 desc += inSpace + vault;
                                 break;
-                            case 1:
+                            case FirstCol + 1:
                                 desc += rightOf + vault;
                                 break;
-                            case 2:
+                            case CenterCol:
                                 desc += "in the middle of the top row";
                                 break;
-                            case 3:
+                            case CenterCol + 1:
                                 desc += leftOf + hall;
                                 break;
                             default:
@@ -248,13 +254,13 @@ namespace BartKFSentinels.Ownership
                 // Describe using the Depth Chart
                 switch (markerLocation[0])
                 {
-                    case 0:
+                    case BottomRow:
                         desc += "at the bottom";
                         break;
-                    case 1:
+                    case BottomRow + 1:
                         desc += "just below the yellow line";
                         break;
-                    case 2:
+                    case CenterRow:
                         desc += "just above the yellow line";
                         break;
                     default:
@@ -272,6 +278,8 @@ namespace BartKFSentinels.Ownership
             {
                 TokenPool rowPool = FindCard(MapCardIdentifier).FindTokenPool(LocationPoolIdentifier(heroIndex, false));
                 TokenPool columnPool = FindCard(MapCardIdentifier).FindTokenPool(LocationPoolIdentifier(heroIndex, true));
+                int startingRow = rowPool.CurrentValue;
+                int startingCol = columnPool.CurrentValue;
                 // Move vertically first
                 if (up > 0)
                 {
@@ -327,7 +335,7 @@ namespace BartKFSentinels.Ownership
                     }
                 }
                 // Finally, report the move
-                if (!showMessage)
+                if (!showMessage || (rowPool.CurrentValue == startingRow && columnPool.CurrentValue == startingCol))
                 {
                     yield break;
                 }
