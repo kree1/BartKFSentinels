@@ -105,9 +105,9 @@ namespace BartKFSentinels.Ownership
                 AddSideTrigger(AddTrigger((AddTokensToPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensActuallyAdded > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == TopRow && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == LastCol, (AddTokensToPoolAction tpa) => GoRogueResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.MoveCard, TriggerTiming.After));
                 // "When a player's marker moves to row 1, column 1, destroy each hero target in their play area."
                 AddSideTrigger(AddTrigger((RemoveTokensFromPoolAction tpa) => tpa.TokenPool.CardWithTokenPool == base.Card && tpa.NumberOfTokensActuallyRemoved > 0 && HeroIndexOfPool(tpa.TokenPool) != -1 && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[0] == BottomRow && HeroMarkerLocation(HeroIndexOfPool(tpa.TokenPool))[1] == FirstCol, (RemoveTokensFromPoolAction tpa) => NullifyResponse(HTTCAtIndex(HeroIndexOfPool(tpa.TokenPool))), TriggerType.DestroyCard, TriggerTiming.After));
-                // "After a player plays a card or uses a power, each player may discard a card. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right."
-                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !cepa.IsPutIntoPlay && cepa.TurnTakerController != null && cepa.TurnTakerController.IsHero, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
-                AddSideTrigger(AddTrigger((UsePowerAction upa) => upa.IsSuccessful && upa.HeroUsingPower != null, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
+                // "After a player plays a card or uses a power, each player may discard any number of cards. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right."
+                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !cepa.IsPutIntoPlay && cepa.TurnTakerController != null && cepa.TurnTakerController.IsPlayer, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
+                AddSideTrigger(AddTrigger((UsePowerAction upa) => upa.IsSuccessful && upa.HeroUsingPower != null && upa.HeroUsingPower != null && upa.HeroUsingPower.TurnTaker.IsPlayer, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
                 // "At the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt.IsPlayer, RotateMapResponse, TriggerType.AddTokensToPool));
             }
@@ -310,9 +310,9 @@ namespace BartKFSentinels.Ownership
             {
                 //Log.Debug("MapCharacterCardController called with ga: " + ga.ToString());
             }
-            // "... each player may discard a card."
+            // "... each player may discard any number of cards."
             List<DiscardCardAction> discards = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = EachPlayerDiscardsCards(0, 1, discards, showCounter: true, sinceAction: ga, cardSource: GetCardSource());
+            IEnumerator discardCoroutine = EachPlayerDiscardsCards(0, null, discards, showCounter: true, sinceAction: ga, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(discardCoroutine);
