@@ -25,7 +25,7 @@
 			"gameplay": [
 				"Whenever a villain Modification is revealed, put it under this card. Then, if there are 3 or more cards under this card, play 1 of them and discard the rest.",
 				"At the start of each hero turn, reveal cards from the villain deck until a Weather Effect is revealed. Put it into play and discard the other revealed cards. If no card entered play this way, shuffle the villain trash and each villain Weather Effect in play into the villain deck.",
-				"At the start of the villain turn, play the top card of the environment deck and 1 Replica from the villain trash."
+				"At the start of the villain turn, either play 1 Replica from the villain trash or the top card of the environment deck."
 			],
 			"advanced": "At the end of the villain turn, add 3 tokens to each player's Stat card.",
 			"icons": [

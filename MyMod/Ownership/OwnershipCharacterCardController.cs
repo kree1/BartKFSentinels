@@ -47,7 +47,7 @@ namespace BartKFSentinels.Ownership
                 AddSideTrigger(AddTrigger((RevealCardsAction rca) => rca.RevealedCards.Any((Card c) => IsVillain(c) && base.GameController.GetAllKeywords(c).Contains(ModificationKeyword)), CatchRevealedResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.PlayCard }, TriggerTiming.After));
                 // "At the start of each hero turn, reveal cards from the villain deck until a Weather Effect is revealed. Put it into play and discard the other revealed cards. If no card entered play this way, shuffle the villain trash and each villain Weather Effect in play into the villain deck."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => IsHero(tt), StayPositiveWeatherResponse, new TriggerType[] { TriggerType.RevealCard, TriggerType.PutIntoPlay, TriggerType.DiscardCard }));
-                // "At the start of the villain turn, play the top card of the environment deck and 1 Replica from the villain trash."
+                // "At the start of the villain turn, either play 1 Replica from the villain trash or the top card of the environment deck."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, OpposingLineupResponse, TriggerType.PlayCard));
                 if (base.IsGameAdvanced)
                 {
@@ -217,35 +217,22 @@ namespace BartKFSentinels.Ownership
 
         public IEnumerator OpposingLineupResponse(PhaseChangeAction pca)
         {
-            // "... play the top card of the environment deck..."
-            IEnumerator envPlayCoroutine = PlayTheTopCardOfTheEnvironmentDeckWithMessageResponse(null);
-            if (base.UseUnityCoroutines)
-            {
-                yield return base.GameController.StartCoroutine(envPlayCoroutine);
-            }
-            else
-            {
-                base.GameController.ExhaustCoroutine(envPlayCoroutine);
-            }
-            // "... and 1 Replica from the villain trash."
+            // "... either play 1 Replica from the villain trash or the top card of the environment deck."
+            List<Function> options = new List<Function>();
             LinqCardCriteria replicaCriteria = new LinqCardCriteria((Card c) => base.GameController.GetAllKeywords(c).Contains(ReplicaKeyword) && c.Location.IsTrash && c.Location.IsVillain, "Replica", singular: "card in the villain trash", plural: "cards in the villain trash");
             List<Card> availableReplicas = base.GameController.FindCardsWhere(replicaCriteria, visibleToCard: GetCardSource()).ToList();
-            IEnumerator replicaCoroutine;
-            if (availableReplicas.Any())
-            {
-                replicaCoroutine = base.GameController.SelectAndPlayCard(DecisionMaker, availableReplicas, cardSource: GetCardSource());
-            }
-            else
-            {
-                replicaCoroutine = base.GameController.SendMessageAction("[b]There are no Replicas in stock at the moment.\nPlease check back soon.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
-            }
+            TurnTakerController env = FindEnvironment();
+            options.Add(new Function(DecisionMaker, "Play 1 Replica from the villain trash", SelectionType.PlayCard, () => base.GameController.SelectAndPlayCard(DecisionMaker, availableReplicas, cardSource: GetCardSource()), onlyDisplayIfTrue: availableReplicas.Any(), repeatDecisionText: "play a Replica from the villain trash"));
+            options.Add(new Function(DecisionMaker, "Play the top card of the environment deck", SelectionType.PlayTopCardOfEnvironmentDeck, () => PlayTheTopCardOfTheEnvironmentDeckResponse(pca), onlyDisplayIfTrue: env.TurnTaker.Deck.HasCards || env.TurnTaker.Trash.HasCards, forcedActionMessage: "[b]We are so sorry\nThere are no Replicas in stock at the moment\nPlease enjoy this complimentary environment card[/b]", repeatDecisionText: "play the top card of the environment deck"));
+            SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, DecisionMaker, options, false, noSelectableFunctionMessage: "There are no cards in the environment deck or trash or Replicas in the villain trash.\n[b]In the meantime\nPlay must continue.[/b]", cardSource: GetCardSource());
+            IEnumerator choosePlayCoroutine = base.GameController.SelectAndPerformFunction(choice);
             if (base.UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(replicaCoroutine);
+                yield return base.GameController.StartCoroutine(choosePlayCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(replicaCoroutine);
+                base.GameController.ExhaustCoroutine(choosePlayCoroutine);
             }
         }
 
