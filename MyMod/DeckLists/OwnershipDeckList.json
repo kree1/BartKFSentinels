@@ -98,7 +98,7 @@
 				"When a player's marker moves to row 5, column 5, put a card from under this card in their play area “Rogue” side up.",
 				"When a player's marker moves to row 1, column 1, destroy each hero target in their play area.",
 				"After a player plays a card or uses a power, each player may discard any number of cards. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right.",
-				"At the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
+				"After the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
 			],
 			"flippedIcons": [
 				"Indestructible",

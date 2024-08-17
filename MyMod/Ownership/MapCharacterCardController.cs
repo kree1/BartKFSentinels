@@ -108,8 +108,8 @@ namespace BartKFSentinels.Ownership
                 // "After a player plays a card or uses a power, each player may discard any number of cards. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right."
                 AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => !cepa.IsPutIntoPlay && cepa.TurnTakerController != null && cepa.TurnTakerController.IsPlayer, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
                 AddSideTrigger(AddTrigger((UsePowerAction upa) => upa.IsSuccessful && upa.HeroUsingPower != null && upa.HeroUsingPower != null && upa.HeroUsingPower.TurnTaker.IsPlayer, DiscardToMoveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.AddTokensToPool }, TriggerTiming.After));
-                // "At the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
-                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt.IsPlayer, RotateMapResponse, TriggerType.AddTokensToPool));
+                // "After the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
+                AddSideTrigger(AddTrigger((PhaseChangeAction pca) => pca.FromPhase.Phase == Phase.End && pca.FromPhase.TurnTaker.IsPlayer, RotateMapResponse, TriggerType.AddTokensToPool, TriggerTiming.After));
             }
         }
 
@@ -418,7 +418,7 @@ namespace BartKFSentinels.Ownership
         public IEnumerator RotateMapResponse(PhaseChangeAction pca)
         {
             // "... move that player's marker to the space indicated by the red arrow starting from its current space."
-            IEnumerator rotateCoroutine = DoActionToEachTurnTakerInTurnOrder((TurnTakerController ttc) => ttc.TurnTaker == pca.ToPhase.TurnTaker, DragTokenResponse, responsibleTurnTaker: base.TurnTaker);
+            IEnumerator rotateCoroutine = DoActionToEachTurnTakerInTurnOrder((TurnTakerController ttc) => ttc.TurnTaker == pca.FromPhase.TurnTaker, DragTokenResponse, responsibleTurnTaker: base.TurnTaker);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(rotateCoroutine);
