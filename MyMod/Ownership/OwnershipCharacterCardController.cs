@@ -45,7 +45,7 @@ namespace BartKFSentinels.Ownership
                 // Front side:
                 // "Whenever a villain Modification is revealed, put it under this card. Then, if there are 3 or more cards under this card, play 1 of them and discard the rest."
                 AddSideTrigger(AddTrigger((RevealCardsAction rca) => rca.RevealedCards.Any((Card c) => IsVillain(c) && base.GameController.GetAllKeywords(c).Contains(ModificationKeyword)), CatchRevealedResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.PlayCard }, TriggerTiming.After));
-                // "At the start of each hero turn, reveal cards from the villain deck until a Weather Effect is revealed. Put it into play and discard the other revealed cards. If no card entered play this way, shuffle the villain trash into the villain deck."
+                // "At the start of each hero turn, reveal cards from the villain deck until a Weather Effect is revealed. Put it into play and discard the other revealed cards. If no card entered play this way, shuffle the villain trash and each villain Weather Effect in play into the villain deck."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => IsHero(tt), StayPositiveWeatherResponse, new TriggerType[] { TriggerType.RevealCard, TriggerType.PutIntoPlay, TriggerType.DiscardCard }));
                 // "At the start of the villain turn, play the top card of the environment deck and 1 Replica from the villain trash."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, OpposingLineupResponse, TriggerType.PlayCard));
@@ -191,7 +191,7 @@ namespace BartKFSentinels.Ownership
             {
                 base.GameController.ExhaustCoroutine(revealCoroutine);
             }
-            // "If no card entered play this way, shuffle the villain trash into the villain deck."
+            // "If no card entered play this way, shuffle the villain trash and each villain Weather Effect in play into the villain deck."
             if (!played.Any())
             {
                 IEnumerator shuffleCoroutine = base.GameController.ShuffleTrashIntoDeck(base.TurnTakerController, cardSource: GetCardSource());
@@ -202,6 +202,15 @@ namespace BartKFSentinels.Ownership
                 else
                 {
                     base.GameController.ExhaustCoroutine(shuffleCoroutine);
+                }
+                IEnumerator shuffleWeatherCoroutine = base.GameController.ShuffleCardsIntoLocation(DecisionMaker, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && IsVillain(c) && base.GameController.GetAllKeywords(c).Contains(WeatherEffectKeyword), "villain Weather Effect", singular: "card in play", plural: "cards in play"), visibleToCard: GetCardSource()), base.TurnTaker.Deck, cardSource: GetCardSource());
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(shuffleWeatherCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(shuffleWeatherCoroutine);
                 }
             }
         }
