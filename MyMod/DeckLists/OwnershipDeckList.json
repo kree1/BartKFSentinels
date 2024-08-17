@@ -532,7 +532,7 @@
 			],
 			"body": [
 				"Play this card in the hero play area with the fewest Modification cards.",
-				"At the end of this player's turn, remove X counters from their Stat card, where X = the number of non-character target and Equipment cards in this play area."
+				"At the end of this player's turn, remove X tokens from their Stat card, where X = the number of non-character target and Equipment cards in this play area."
 			],
 			"icons": [
 				"EndOfTurnAction",
