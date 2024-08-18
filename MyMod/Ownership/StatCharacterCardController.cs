@@ -111,7 +111,7 @@ namespace BartKFSentinels.Ownership
             int rowChange = targetRow - currentLocation[0];
             if (rowChange != 0)
             {
-                IEnumerator moveCoroutine = MoveHeroMarker(RelevantHeroIndex(), rowChange, 0, showMessage: true, cardSource: GetCardSource());
+                IEnumerator moveCoroutine = MoveHeroMarker(RelevantHeroIndex(), rowChange, 0, showMessage: true, noteDirection: true, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(moveCoroutine);

@@ -271,7 +271,7 @@ namespace BartKFSentinels.Ownership
             return desc;
         }
 
-        public IEnumerator MoveHeroMarker(int heroIndex, int up, int right, TurnTaker responsibleTurnTaker = null, bool showMessage = false, CardSource cardSource = null)
+        public IEnumerator MoveHeroMarker(int heroIndex, int up, int right, TurnTaker responsibleTurnTaker = null, bool showMessage = false, bool noteDirection = false, CardSource cardSource = null)
         {
             //Log.Debug("OwnershipBaseCharacterCardController.MoveHeroMarker called with heroIndex " + heroIndex.ToString() + ", up " + up.ToString() + ", right " + right.ToString());
             if (heroIndex >= 1 && heroIndex <= 5 && !(up == 0 && right == 0))
@@ -347,33 +347,69 @@ namespace BartKFSentinels.Ownership
                     marker = hero + "' marker";
                 }
                 string dest = "row " + location[0].ToString() + ", column " + location[1].ToString();
-                string message = marker + " was moved to " + dest;
+                string message = marker + " was moved";
                 if (cardSource != null)
                 {
                     if (cardSource.Card == FindCard(MapCardIdentifier))
                     {
                         if (responsibleTurnTaker != null)
                         {
-                            message = responsibleTurnTaker.Name + " moved " + marker + " to " + dest;
+                            message = responsibleTurnTaker.Name + " moved " + marker;
+                        }
+                        else
+                        {
+                            message = FindCard(MapCardIdentifier).Title + " moved " + marker;
                         }
                     }
                     else if (cardSource.Card.Identifier == StatCardIdentifier)
                     {
                         if (cardSource.Card.Location.OwnerTurnTaker.Name == hero)
                         {
-                            message = hero + "'s Stat card moved their marker to " + dest;
+                            message = hero + "'s Stat card moved their marker";
                         }
                         else
                         {
-                            message = cardSource.Card.Location.OwnerTurnTaker.Name + "'s Stat card moved " + marker + " to " + dest;
+                            message = cardSource.Card.Location.OwnerTurnTaker.Name + "'s Stat card moved " + marker;
                         }
                     }
                     else
                     {
-                        message = cardSource.Card.Title + " moved " + marker + " to " + dest;
+                        message = cardSource.Card.Title + " moved " + marker;
                     }
                 }
-                message += ".";
+                if (noteDirection)
+                {
+                    int rowChange = rowPool.CurrentValue - startingRow;
+                    int colChange = columnPool.CurrentValue - startingCol;
+                    if (rowChange == 0)
+                    {
+                        if (colChange > 0)
+                            message += " right";
+                        else
+                            message += " left";
+                    }
+                    else if (colChange == 0)
+                    {
+                        if (rowChange > 0)
+                            message += " up";
+                        else
+                            message += " down";
+                    }
+                    else
+                    {
+                        if (rowChange > 0)
+                            message += " up";
+                        else
+                            message += " down";
+                        message += " and ";
+                        if (colChange > 0)
+                            message += "right";
+                        else
+                            message += "left";
+                    }
+                }
+                message += " to " + dest + ".";
+                Log.Debug(message);
                 IEnumerator messageCoroutine = base.GameController.SendMessageAction(message, Priority.Medium, cardSource);
                 if (base.UseUnityCoroutines)
                 {

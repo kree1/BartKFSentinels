@@ -305,7 +305,7 @@ namespace BartKFSentinels.Ownership
                 int[] iLocation = HeroMarkerLocation(i);
                 if (iLocation[0] == BottomRow)
                 {
-                    IEnumerator leftCoroutine = MoveHeroMarker(i, 0, -1, base.TurnTaker, showMessage: true, cardSource: GetCardSource());
+                    IEnumerator leftCoroutine = MoveHeroMarker(i, 0, -1, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(leftCoroutine);
@@ -322,7 +322,7 @@ namespace BartKFSentinels.Ownership
                 int[] iLocation = HeroMarkerLocation(i);
                 if (iLocation[0] > BottomRow)
                 {
-                    IEnumerator downCoroutine = MoveHeroMarker(i, -1, 0, base.TurnTaker, showMessage: true, cardSource: GetCardSource());
+                    IEnumerator downCoroutine = MoveHeroMarker(i, -1, 0, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
                     if (base.UseUnityCoroutines)
                     {
                         yield return base.GameController.StartCoroutine(downCoroutine);

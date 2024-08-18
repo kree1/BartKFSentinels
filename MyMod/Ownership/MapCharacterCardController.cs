@@ -399,10 +399,10 @@ namespace BartKFSentinels.Ownership
             int heroIndex = IndexOfHero(base.GameController.FindHeroTurnTakerController(moving.ToHero()));
             int[] currentLocation = HeroMarkerLocation(heroIndex);
             List<Function> options = new List<Function>();
-            options.Add(new Function(driving, "Move up to row " + (currentLocation[0] + 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] < TopRow));
-            options.Add(new Function(driving, "Move down to row " + (currentLocation[0] - 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, -1, 0, driving.TurnTaker, false, GetCardSource()), currentLocation[0] > BottomRow));
-            options.Add(new Function(driving, "Move left to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] - 1).ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, 0, -1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] > FirstCol));
-            options.Add(new Function(driving, "Move right to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] + 1).ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 0, 1, driving.TurnTaker, false, GetCardSource()), currentLocation[1] < LastCol));
+            options.Add(new Function(driving, "Move up to row " + (currentLocation[0] + 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 1, 0, driving.TurnTaker, false, true, GetCardSource()), currentLocation[0] < TopRow));
+            options.Add(new Function(driving, "Move down to row " + (currentLocation[0] - 1).ToString() + ", column " + currentLocation[1].ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, -1, 0, driving.TurnTaker, false, true, GetCardSource()), currentLocation[0] > BottomRow));
+            options.Add(new Function(driving, "Move left to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] - 1).ToString(), SelectionType.RemoveTokens, () => MoveHeroMarker(heroIndex, 0, -1, driving.TurnTaker, false, true, GetCardSource()), currentLocation[1] > FirstCol));
+            options.Add(new Function(driving, "Move right to row " + currentLocation[0].ToString() + ", column " + (currentLocation[1] + 1).ToString(), SelectionType.AddTokens, () => MoveHeroMarker(heroIndex, 0, 1, driving.TurnTaker, false, true, GetCardSource()), currentLocation[1] < LastCol));
             SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, driving, options, false, associatedCards: moving.CharacterCards, cardSource: GetCardSource());
             IEnumerator chooseCoroutine = base.GameController.SelectAndPerformFunction(choice);
             if (base.UseUnityCoroutines)
@@ -466,7 +466,7 @@ namespace BartKFSentinels.Ownership
                     colChange = -1;
                 }
             }
-            IEnumerator dragCoroutine = MoveHeroMarker(heroIndex, rowChange, colChange, showMessage: true, cardSource: GetCardSource());
+            IEnumerator dragCoroutine = MoveHeroMarker(heroIndex, rowChange, colChange, showMessage: true, noteDirection: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(dragCoroutine);
