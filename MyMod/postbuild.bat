@@ -5,5 +5,6 @@ robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\DeckBro
 robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\Atlas" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\Atlas" /e
 robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\Cutouts" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\Cutouts" /e
 robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\Endings" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\Endings" /e
+robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\Fonts" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\Fonts" /e
 robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\LargeCardTextures" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\LargeCardTextures" /e
 exit 0
