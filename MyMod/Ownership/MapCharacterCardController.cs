@@ -444,25 +444,25 @@ namespace BartKFSentinels.Ownership
             }
             else
             {
-                if (currentLocation[0] < TopRow && currentLocation[1] < CenterCol)
+                if (currentLocation[0] > BottomRow && currentLocation[1] < CenterCol)
                 {
-                    // First two columns, not top row? Going up
-                    rowChange = 1;
-                }
-                else if (currentLocation[0] > BottomRow && currentLocation[1] > CenterCol)
-                {
-                    // Last two columns, not bottom row? Going down
+                    // First two columns, not bottom row? Going down
                     rowChange = -1;
                 }
-
-                if (currentLocation[0] > CenterRow && currentLocation[1] < LastCol)
+                else if (currentLocation[0] < TopRow && currentLocation[1] > CenterCol)
                 {
-                    // Top two rows, not last column? Going right
+                    // Last two columns, not top row? Going up
+                    rowChange = 1;
+                }
+
+                if (currentLocation[0] < CenterRow && currentLocation[1] < LastCol)
+                {
+                    // Bottom two rows, not last column? Going right
                     colChange = 1;
                 }
-                else if (currentLocation[0] < CenterRow && currentLocation[1] > FirstCol)
+                else if (currentLocation[0] > CenterRow && currentLocation[1] > FirstCol)
                 {
-                    // Bottom two rows, not first column? Going left
+                    // Top two rows, not first column? Going left
                     colChange = -1;
                 }
             }
