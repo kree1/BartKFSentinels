@@ -123,13 +123,25 @@ namespace BartKFSentinels.Ownership
             return new int[] { row, col };
         }
 
-        public string MapLocationDescription(int[] markerLocation, bool endZones = false)
+        public string MapLocationIcons(int row, int col)
+        {
+            if (row >= BottomRow && row <= TopRow && col >= FirstCol && col <= LastCol)
+                return "{Column" + col.ToString() + "} {Row" + row.ToString() + "}";
+            Log.Debug("OwnershipBaseCardController.MapLocationIcons received invalid input: row " + row.ToString() + ", column " + col.ToString());
+            return "invalid input";
+        }
+
+        public string MapLocationDescription(int[] markerLocation, bool endZones = false, bool useIcons = true)
         {
             if (markerLocation.Length < 2 || !(markerLocation[0] >= BottomRow && markerLocation[0] <= TopRow && markerLocation[1] >= FirstCol && markerLocation[1] <= LastCol))
             {
                 return "Error: invalid location array";
             }
             string desc = "row " + markerLocation[0] + ", column " + markerLocation[1] + ", ";
+            if (useIcons)
+            {
+                desc = MapLocationIcons(markerLocation[0], markerLocation[1]) + ", ";
+            }
             if (endZones)
             {
                 // Describe using the End Zones map
@@ -346,7 +358,8 @@ namespace BartKFSentinels.Ownership
                 {
                     marker = hero + "' marker";
                 }
-                string dest = "row " + location[0].ToString() + ", column " + location[1].ToString();
+                //string dest = "row " + location[0].ToString() + ", column " + location[1].ToString();
+                string dest = MapLocationIcons(location[0], location[1]);
                 string message = marker + " was moved";
                 if (cardSource != null)
                 {
