@@ -713,7 +713,7 @@
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"Whenever a power is used, a non-villain card is played, or a card is drawn, increase damage dealt this turn by 1."
+				"Whenever a phase ends, increase damage dealt this turn by 1."
 			],
 			"icons": [
 				"StartOfTurnAction",

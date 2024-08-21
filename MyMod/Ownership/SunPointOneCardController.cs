@@ -20,14 +20,16 @@ namespace BartKFSentinels.Ownership
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Whenever a power is used, a non-villain card is played, or a card is drawn, increase damage dealt this turn by 1."
-            AddTrigger((UsePowerAction upa) => true, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
-            AddTrigger((CardEntersPlayAction cepa) => !IsVillain(cepa.CardEnteringPlay) && !cepa.IsPutIntoPlay, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
-            AddTrigger((DrawCardAction dca) => true, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.After);
+            // "Whenever a phase ends, increase damage dealt this turn by 1."
+            AddTrigger((PhaseChangeAction pca) => !pca.IsPretend, IncreaseResponse, TriggerType.CreateStatusEffect, TriggerTiming.Before);
         }
 
         public IEnumerator IncreaseResponse(GameAction ga)
         {
+            if (ga is PhaseChangeAction pca)
+            {
+                Log.Debug("SunPointOneCardController.IncreaseResponse called with pca: " + pca.ToString());
+            }
             IncreaseDamageStatusEffect buff = new IncreaseDamageStatusEffect(1);
             buff.UntilThisTurnIsOver(base.Game);
             IEnumerator statusCoroutine = AddStatusEffect(buff);
