@@ -24,47 +24,41 @@ namespace BartKFSentinels.Ownership
 
         public override IEnumerator Play()
         {
-            // "When this card enters play during a player's turn, ..."
-            if (base.Game.ActiveTurnTaker.IsPlayer)
+            // "When this card enters play, either destroy a hero Ongoing or Equipment card in the current turn's play area or {OwnershipCharacter} deals a hero character in that play area 2 cold damage."
+            List<Function> options = new List<Function>();
+            TurnTaker current = GameController.ActiveTurnTaker;
+            string playAreaName = current.Name + "'s play area";
+            if (current.DeckDefinition.IsPlural)
+                playAreaName = current.Name + "' play area";
+            LinqCardCriteria destroyCriteria = new LinqCardCriteria((Card c) => ((IsOngoing(c) && IsHero(c)) || IsEquipment(c)) && c.IsInPlayAndHasGameText && c.Location.IsPlayAreaOf(current), "hero Ongoing or Equipment", singular: "card in " + playAreaName, plural: "cards in " + playAreaName);
+            LinqCardCriteria damageCriteria = new LinqCardCriteria((Card c) => IsHeroCharacterCard(c) && c.IsTarget && c.Location.IsPlayAreaOf(current), "active hero character", singular: "card in " + playAreaName, plural: "cards in " + playAreaName);
+
+            // Decide whether to give control to the group, or just one player who controls all the relevant cards
+            HeroTurnTakerController driving = DecisionMaker;
+            List<Card> allOptions = GameController.FindCardsWhere((Card c) => destroyCriteria.Criteria(c) || damageCriteria.Criteria(c), visibleToCard: GetCardSource()).ToList();
+            TurnTaker firstOwner = null;
+            if (allOptions.Count > 0)
             {
-                // "... that player may destroy 1 of their Ongoing or Equipment cards."
-                List<DestroyCardAction> results = new List<DestroyCardAction>();
-                IEnumerator destroyCoroutine = base.GameController.SelectAndDestroyCard(base.GameController.FindHeroTurnTakerController(base.Game.ActiveTurnTaker.ToHero()), new LinqCardCriteria((Card c) => (IsOngoing(c) || IsEquipment(c)) && c.Owner == base.Game.ActiveTurnTaker, "belonging to " + base.Game.ActiveTurnTaker.Name, useCardsSuffix: false, useCardsPrefix: true, singular: "Ongoing or Equipment card", plural: "Ongoing or Equipment cards"), true, results, responsibleCard: base.Card, cardSource: GetCardSource());
-                if (base.UseUnityCoroutines)
+                firstOwner = allOptions.First().Owner;
+                List<Card> ownedOptions = allOptions.Where((Card c) => c.Owner == firstOwner).ToList();
+                if (ownedOptions.Count == allOptions.Count)
                 {
-                    yield return base.GameController.StartCoroutine(destroyCoroutine);
+                    driving = GameController.FindHeroTurnTakerController(firstOwner.ToHero());
                 }
-                else
-                {
-                    base.GameController.ExhaustCoroutine(destroyCoroutine);
-                }
-                // "If they don't, {OwnershipCharacter} deals their hero 2 cold damage."
-                if (!DidDestroyCards(results))
-                {
-                    List<Card> choices = new List<Card>();
-                    IEnumerator findCoroutine = FindCharacterCardToTakeDamage(base.Game.ActiveTurnTaker, choices, FindCard(OwnershipIdentifier), 2, DamageType.Cold);
-                    if (base.UseUnityCoroutines)
-                    {
-                        yield return base.GameController.StartCoroutine(findCoroutine);
-                    }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(findCoroutine);
-                    }
-                    Card selected = choices.FirstOrDefault();
-                    if (selected != null)
-                    {
-                        IEnumerator meleeCoroutine = DealDamage(FindCard(OwnershipIdentifier), selected, 2, DamageType.Cold, cardSource: GetCardSource());
-                        if (base.UseUnityCoroutines)
-                        {
-                            yield return base.GameController.StartCoroutine(meleeCoroutine);
-                        }
-                        else
-                        {
-                            base.GameController.ExhaustCoroutine(meleeCoroutine);
-                        }
-                    }
-                }
+            }
+
+            Card ownCharacter = FindCard(OwnershipIdentifier);
+            options.Add(new Function(DecisionMaker, "Destroy a hero Ongoing or Equipment card in " + playAreaName, SelectionType.DestroyCard, () => GameController.SelectAndDestroyCard(DecisionMaker, destroyCriteria, false, responsibleCard: base.Card, cardSource: GetCardSource()), GameController.FindCardsWhere(destroyCriteria, visibleToCard: GetCardSource()).Any(), ownCharacter.Title + " cannot deal damage to any hero characters in " + playAreaName + ", so " + base.Card.Title + " must destroy a hero Ongoing or Equipment card."));
+            options.Add(new Function(DecisionMaker, "{Ownership} deals a hero character in " + playAreaName + " 2 cold damage", SelectionType.DealDamage, () => GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, ownCharacter), 2, DamageType.Cold, 1, false, 1, additionalCriteria: (Card c) => damageCriteria.Criteria(c), cardSource: GetCardSource()), GameController.FindCardsWhere(damageCriteria, visibleToCard: GetCardSource()).Any() && GameController.CanDealDamage(ownCharacter, cardSource: GetCardSource()) == null, "There are no hero Ongoing or Equipment cards in " + playAreaName + " that can be destroyed, so " + ownCharacter.Title + " must deal damage."));
+            SelectFunctionDecision choice = new SelectFunctionDecision(GameController, DecisionMaker, options, false, noSelectableFunctionMessage: ownCharacter.Title + " cannot deal damage to any hero characters in " + playAreaName + ", nor can any hero Ongoing or Equipment cards there be destroyed.", cardSource: GetCardSource());
+            IEnumerator chooseCoroutine = GameController.SelectAndPerformFunction(choice);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(chooseCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(chooseCoroutine);
             }
         }
     }

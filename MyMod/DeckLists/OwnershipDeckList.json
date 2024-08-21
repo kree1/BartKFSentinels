@@ -441,7 +441,7 @@
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When this card enters play during a player's turn, that player may destroy 1 of their Ongoing or Equipment cards. If they don't, {OwnershipCharacter} deals their hero 2 cold damage."
+				"When this card enters play, either destroy a hero Ongoing or Equipment card in the current turn's play area or {OwnershipCharacter} deals a hero character in that play area 2 cold damage."
 			],
 			"icons": [
 				"StartOfTurnAction",
@@ -760,7 +760,7 @@
 			],
 			"body": [
 				"At the start of each turn, destroy this card unless it entered play this turn.",
-				"When this card enters play during a player's turn, {OwnershipCharacter} deals each hero target in that player's play area 2 fire damage. Increase damage dealt to character cards this way by 2."
+				"When this card enters play, {OwnershipCharacter} deals each hero target in the current turn's play area 2 fire damage. Increase damage dealt to character cards this way by 2."
 			],
 			"icons": [
 				"StartOfTurnAction",
