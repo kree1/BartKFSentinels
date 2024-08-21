@@ -227,7 +227,7 @@ namespace BartKFSentinels.Ownership
             options.Add(new Function(DecisionMaker, "Play 1 Replica from the villain trash", SelectionType.PlayCard, () => base.GameController.SelectAndPlayCard(DecisionMaker, availableReplicas, cardSource: GetCardSource()), onlyDisplayIfTrue: availableReplicas.Any(), repeatDecisionText: "play a Replica from the villain trash"));
             options.Add(new Function(DecisionMaker, "Play the top card of the environment deck", SelectionType.PlayTopCardOfEnvironmentDeck, () => PlayTheTopCardOfTheEnvironmentDeckResponse(pca), onlyDisplayIfTrue: env.TurnTaker.Deck.HasCards || env.TurnTaker.Trash.HasCards, forcedActionMessage: "[b]We are so sorry\nThere are no Replicas in stock at the moment\nPlease enjoy this complimentary environment card[/b]", repeatDecisionText: "play the top card of the environment deck"));
             SelectFunctionDecision choice = new SelectFunctionDecision(base.GameController, DecisionMaker, options, false, noSelectableFunctionMessage: "There are no cards in the environment deck or trash or Replicas in the villain trash.\n[b]In the meantime\nPlay must continue.[/b]", cardSource: GetCardSource());
-            IEnumerator choosePlayCoroutine = base.GameController.SelectAndPerformFunction(choice);
+            IEnumerator choosePlayCoroutine = base.GameController.SelectAndPerformFunction(choice, associatedCards: availableReplicas);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(choosePlayCoroutine);
