@@ -47,7 +47,7 @@
 				"At the start of each hero turn, discard the top card of the villain deck. If it's a Weather Effect, play it.",
 				"At the end of the villain turn, {OwnershipCharacter} deals each hero character 5 infernal damage."
 			],
-			"flippedAdvanced": "At the end of the villain turn, move each marker in row 1 1 space left, then move each other marker 1 space down.",
+			"flippedAdvanced": "At the end of the villain turn, move the lowest active hero marker 1 space left, then move the leftmost active hero marker 1 space down.",
 			"flippedIcons": [
 				"StartAndEndOfTurnAction",
 				"Discard",
@@ -55,6 +55,7 @@
 				"DealDamageInfernal"
 			],
 			"flippedAdvancedIcons": [
+				"RemoveTokens"
 			],
 			"difficulty": 2,
 			"openingLines": {

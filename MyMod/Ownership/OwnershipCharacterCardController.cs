@@ -25,6 +25,8 @@ namespace BartKFSentinels.Ownership
         public readonly string ReplicaKeyword = "replica";
         public readonly string CollapseKeyword = "collapse";
         public readonly string SunKeyword = "sun";
+        private bool _vertical = false;
+        private bool _positive = false;
 
         public override bool AskIfCardIsIndestructible(Card card)
         {
@@ -71,7 +73,7 @@ namespace BartKFSentinels.Ownership
                 if (base.IsGameAdvanced)
                 {
                     // Back side, Advanced:
-                    // "At the end of the villain turn, move each marker in row 0 1 space left, then move each other marker 1 space down."
+                    // "At the end of the villain turn, move the lowest active hero marker 1 space left, then move the leftmost active hero marker 1 space down."
                     AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, HorizonPullResponse, TriggerType.AddTokensToPool));
                 }
             }
@@ -299,40 +301,167 @@ namespace BartKFSentinels.Ownership
 
         public IEnumerator HorizonPullResponse(PhaseChangeAction pca)
         {
-            // "... move each marker in row 0 1 space left, ..."
-            for (int i = 1; i <= H; i++)
+            // "... move the lowest active hero marker 1 space left, ..."
+            List<TurnTaker> lowestResults = new List<TurnTaker>();
+            IEnumerator findLowestCoroutine = GetFurthestActiveHero(true, false, lowestResults);
+            if (base.UseUnityCoroutines)
             {
-                int[] iLocation = HeroMarkerLocation(i);
-                if (iLocation[0] == BottomRow)
+                yield return base.GameController.StartCoroutine(findLowestCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(findLowestCoroutine);
+            }
+            TurnTaker lowest = lowestResults.FirstOrDefault();
+            if (lowest != null && IndexOfHero(GameController.FindHeroTurnTakerController(lowest.ToHero())) >= 0)
+            {
+                int lowestIndex = IndexOfHero(GameController.FindHeroTurnTakerController(lowest.ToHero()));
+                IEnumerator moveLeftCoroutine = MoveHeroMarker(lowestIndex, 0, -1, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
+                if (HeroMarkerLocation(lowestIndex)[0] == BottomRow)
                 {
-                    IEnumerator leftCoroutine = MoveHeroMarker(i, 0, -1, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
+                    string markerName = lowest.Name + "'s marker";
+                    if (lowest.DeckDefinition.IsPlural)
                     {
-                        yield return base.GameController.StartCoroutine(leftCoroutine);
+                        markerName = lowest.Name + "' marker";
                     }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(leftCoroutine);
-                    }
+                    moveLeftCoroutine = GameController.SendMessageAction(base.Card.Title + " cannot move " + markerName + " down because it is already in row " + HeroMarkerLocation(lowestIndex)[0] + ".", Priority.Medium, GetCardSource(), lowest.CharacterCards);
+                }
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(moveLeftCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(moveLeftCoroutine);
                 }
             }
-            // "... then move each other marker 1 space down."
-            for (int i = 1; i < H; i++)
+            // "... then move the leftmost active hero marker 1 space down."
+            List<TurnTaker> leftmostResults = new List<TurnTaker>();
+            IEnumerator findLeftmostCoroutine = GetFurthestActiveHero(false, false, leftmostResults);
+            if (base.UseUnityCoroutines)
             {
-                int[] iLocation = HeroMarkerLocation(i);
-                if (iLocation[0] > BottomRow)
+                yield return base.GameController.StartCoroutine(findLeftmostCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(findLeftmostCoroutine);
+            }
+            TurnTaker leftmost = leftmostResults.FirstOrDefault();
+            if (leftmost != null && IndexOfHero(GameController.FindHeroTurnTakerController(leftmost.ToHero())) >= 0)
+            {
+                int leftmostIndex = IndexOfHero(GameController.FindHeroTurnTakerController(leftmost.ToHero()));
+                IEnumerator moveDownCoroutine = MoveHeroMarker(IndexOfHero(GameController.FindHeroTurnTakerController(leftmost.ToHero())), -1, 0, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
+                if (HeroMarkerLocation(leftmostIndex)[1] == FirstCol)
                 {
-                    IEnumerator downCoroutine = MoveHeroMarker(i, -1, 0, base.TurnTaker, showMessage: true, noteDirection: true, cardSource: GetCardSource());
-                    if (base.UseUnityCoroutines)
+                    string markerName = leftmost.Name + "'s marker";
+                    if (leftmost.DeckDefinition.IsPlural)
                     {
-                        yield return base.GameController.StartCoroutine(downCoroutine);
+                        markerName = leftmost.Name + "' marker";
                     }
-                    else
-                    {
-                        base.GameController.ExhaustCoroutine(downCoroutine);
-                    }
+                    moveDownCoroutine = GameController.SendMessageAction(base.Card.Title + " cannot move " + markerName + " left because it is already in column " + HeroMarkerLocation(leftmostIndex)[1] + ".", Priority.Medium, GetCardSource(), leftmost.CharacterCards);
+                }
+                if (base.UseUnityCoroutines)
+                {
+                    yield return base.GameController.StartCoroutine(moveDownCoroutine);
+                }
+                else
+                {
+                    base.GameController.ExhaustCoroutine(moveDownCoroutine);
                 }
             }
+        }
+
+        public IEnumerator GetFurthestActiveHero(bool vertical, bool positive, List<TurnTaker> storedResults)
+        {
+            //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero called: vertical = " + vertical + ", positive = " + positive);
+            Func<TurnTaker, int> distance = (TurnTaker tt) => 0;
+            if (vertical)
+            {
+                if (positive)
+                {
+                    // Furthest up
+                    distance = (TurnTaker tt) => HeroMarkerLocation(IndexOfHero(base.GameController.FindHeroTurnTakerController(tt.ToHero())))[0];
+                }
+                else
+                {
+                    // Furthest down
+                    distance = (TurnTaker tt) => 5 - HeroMarkerLocation(IndexOfHero(base.GameController.FindHeroTurnTakerController(tt.ToHero())))[0];
+                }
+            }
+            else
+            {
+                if (positive)
+                {
+                    // Furthest right
+                    distance = (TurnTaker tt) => HeroMarkerLocation(IndexOfHero(base.GameController.FindHeroTurnTakerController(tt.ToHero())))[1];
+                }
+                else
+                {
+                    // Furthest left
+                    distance = (TurnTaker tt) => 5 - HeroMarkerLocation(IndexOfHero(base.GameController.FindHeroTurnTakerController(tt.ToHero())))[1];
+                }
+            }
+            IEnumerable<TurnTaker> orderedGroup = base.GameController.FindTurnTakersWhere((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame).OrderByDescending(distance);
+            TurnTaker leader = orderedGroup.First();
+            //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: leader: " + leader.Name + " with " + distance(leader));
+            int maxValue = distance(leader);
+            List<TurnTaker> options = orderedGroup.Where((TurnTaker tt) => distance(tt) == maxValue).ToList();
+            //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: options.Count: " + options.Count);
+            if (options.Count == 1)
+            {
+                //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: adding " + options.First().Name + " to storedResults and exiting");
+                storedResults.Add(options.First());
+                yield break;
+            }
+            // More than one marker in the relevant row/column? Players decide
+            //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: asking for player decision");
+            _vertical = vertical;
+            _positive = positive;
+            List<SelectTurnTakerDecision> decisions = new List<SelectTurnTakerDecision>();
+            IEnumerator selectCoroutine = base.GameController.SelectTurnTaker(DecisionMaker, SelectionType.Custom, decisions, additionalCriteria: (TurnTaker tt) => options.Contains(tt), cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(selectCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(selectCoroutine);
+            }
+            SelectTurnTakerDecision choice = decisions.FirstOrDefault();
+            if (choice != null && DidSelectTurnTaker(decisions))
+            {
+                //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: adding " + choice.SelectedTurnTaker.Name + " to storedResults and exiting");
+                storedResults.Add(choice.SelectedTurnTaker);
+            }
+        }
+
+        public override CustomDecisionText GetCustomDecisionText(IDecision decision)
+        {
+            // which hero is the furthest in [direction]?
+            string superlative = "";
+            if (_vertical)
+            {
+                if (_positive)
+                {
+                    superlative = "highest";
+                }
+                else
+                {
+                    superlative = "lowest";
+                }
+            }
+            else
+            {
+                if (_positive)
+                {
+                    superlative = "rightmost";
+                }
+                else
+                {
+                    superlative = "leftmost";
+                }
+            }
+            return new CustomDecisionText("Which hero's marker is considered to be the " + superlative + " on the map?", "deciding which hero's marker is considered the " + superlative + " on the map", "Vote for which hero's marker is considered the " + superlative + " on the map", superlative + " hero marker on the map");
         }
     }
 }
