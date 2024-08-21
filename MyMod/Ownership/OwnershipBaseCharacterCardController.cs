@@ -43,6 +43,11 @@ namespace BartKFSentinels.Ownership
         public const int FirstCol = 1;
         public const int CenterCol = 3;
         public const int LastCol = 5;
+        public readonly string CoinIcon = "{Coin}";
+        public readonly string DesertIcon = "{Desert}";
+        public readonly string HallIcon = "{Hall}";
+        public readonly string HorizonIcon = "{Horizon}";
+        public readonly string VaultIcon = "{Vault}";
 
         public HeroTurnTakerController HTTCAtIndex(int heroIndex)
         {
@@ -123,10 +128,41 @@ namespace BartKFSentinels.Ownership
             return new int[] { row, col };
         }
 
-        public string MapLocationIcons(int row, int col)
+        public string MapLocationIcons(int row, int col, bool descriptive = false)
         {
             if (row >= BottomRow && row <= TopRow && col >= FirstCol && col <= LastCol)
-                return "{Column" + col.ToString() + "} {Row" + row.ToString() + "}";
+            {
+                string icons = "{Column" + col.ToString() + "} {Row" + row.ToString() + "}";
+                if (descriptive)
+                {
+                    string landmark = "";
+                    if (row == BottomRow && col == FirstCol)
+                    {
+                        landmark = HorizonIcon;
+                    }
+                    else if (row == BottomRow && col == LastCol)
+                    {
+                        landmark = DesertIcon;
+                    }
+                    else if (row == CenterRow && col == CenterCol)
+                    {
+                        landmark = CoinIcon;
+                    }
+                    else if (row == TopRow && col == FirstCol)
+                    {
+                        landmark = VaultIcon;
+                    }
+                    else if (row == TopRow && col == LastCol)
+                    {
+                        landmark = HallIcon;
+                    }
+                    if (landmark != "")
+                    {
+                        icons = landmark + " (" + icons + ")";
+                    }
+                }
+                return icons;
+            }
             Log.Debug("OwnershipBaseCardController.MapLocationIcons received invalid input: row " + row.ToString() + ", column " + col.ToString());
             return "invalid input";
         }
@@ -145,11 +181,19 @@ namespace BartKFSentinels.Ownership
             if (endZones)
             {
                 // Describe using the End Zones map
-                string horizon = "the Horizon (bottom left corner)";
-                string desert = "the Desert (bottom right corner)";
+                string horizon = "the Horizon (bottom left)";
+                string desert = "the Desert (bottom right)";
                 string coin = "Ownership's space (center)";
-                string vault = "the Vault (top left corner)";
-                string hall = "the Hall (top right corner)";
+                string vault = "the Vault (top left)";
+                string hall = "the Hall (top right)";
+                if (useIcons)
+                {
+                    horizon = HorizonIcon + " (bottom left)";
+                    desert = DesertIcon + " (bottom right)";
+                    coin = CoinIcon + " (center)";
+                    vault = VaultIcon + " (top left)";
+                    hall = HallIcon + " (top right)";
+                }
                 string inSpace = "in ";
                 string above = "just above ";
                 string below = "just below ";
@@ -359,7 +403,7 @@ namespace BartKFSentinels.Ownership
                     marker = hero + "' marker";
                 }
                 //string dest = "row " + location[0].ToString() + ", column " + location[1].ToString();
-                string dest = MapLocationIcons(location[0], location[1]);
+                string dest = MapLocationIcons(location[0], location[1], FindCard(MapCardIdentifier).IsFlipped);
                 string message = marker + " was moved";
                 if (cardSource != null)
                 {
