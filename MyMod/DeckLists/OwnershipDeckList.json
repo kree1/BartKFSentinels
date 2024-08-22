@@ -43,7 +43,7 @@
 				"When this card flips to this side, discard each card under it.",
 				"Villain Collapses are indestructible.",
 				"When a villain Modification is destroyed, remove it from the game.",
-				"Increase damage dealt to this card by hero targets in play areas that have a villain Stat card by 5.",
+				"Increase damage dealt to this card by hero targets in play areas that have a villain Stat card by 50.",
 				"At the start of each hero turn, discard the top card of the villain deck. If it's a Weather Effect, play it.",
 				"At the end of the villain turn, {OwnershipCharacter} deals each hero character 5 infernal damage."
 			],
@@ -229,7 +229,7 @@
 			"flippedBody": "Charge the Mound",
 			"flippedGameplay": [
 				"Hero targets in this play area are immune to fire damage.",
-				"If your marker is in row 2, 3, or 4 and in column 2, 3, or 4, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 20.",
+				"If your marker is in row 2, 3, or 4 and in column 2, 3, or 4, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 50.",
 				"If your marker is at row 3, column 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
 			],
 			"flippedIcons": [
