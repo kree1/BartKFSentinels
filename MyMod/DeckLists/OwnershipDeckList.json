@@ -262,13 +262,8 @@
 			],
 			"icons": [
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Call in an Alternate{BR}for a Player on your Team.",
+			"flavorReference": "Season 12 Blessings"
 		},
 		{
 			"identifier": "BlackHoleBlackHole",
@@ -309,13 +304,8 @@
 				"EndOfTurnAction",
 				"DealDamageProjectile"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]It's Our pleasure to announce{BR}The ILB Gift Shop is open for business!{BR}Give the people what they want![/b]",
+			"flavorReference": "Ownership, Season 22 Earlsiesta"
 		},
 		{
 			"identifier": "EqualSun",
@@ -332,13 +322,8 @@
 			"icons": [
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]Following Postseason 23{BR}A Special Event{BR}To celebrate the Semi-Centennial[/b]",
+			"flavorReference": "Ownership, Season 22 Election"
 		},
 		{
 			"identifier": "Expansion",
@@ -358,8 +343,8 @@
 				"PlayCardNow",
 				"UsePowerNow"
 			],
-			"flavorText": "[b]EMERGENCY ALERT{br}BREACH DETECTED{br}FLOOD WARNING[/b]",
-			"flavorReference": "Season 12, Day 72"
+			"flavorText": "[b]Let's all extend a warm ILB{BR}welcome to our unexpected additions.{BR}Try to make them feel at home.[/b]",
+			"flavorReference": "Ownership, Season 12 Latesiesta"
 		},
 		{
 			"identifier": "Fairgrounds",
@@ -376,13 +361,8 @@
 				"Discard",
 				"PlayCardNow"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Prize Match!{BR}The Winner gets Hot Bat of Stamina",
+			"flavorReference": "Season 18, Day 7"
 		},
 		{
 			"identifier": "Flippers",
@@ -400,13 +380,8 @@
 				"CancelledDamageGreen",
 				"DealDamageProjectile"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Wyatt Quitter uses their Flippers{BR}to slingshot home! 1 Run scored!",
+			"flavorReference": "Season 13, Day 6"
 		},
 		{
 			"identifier": "FloodBalloons",
@@ -424,13 +399,8 @@
 				"DestroySelf",
 				"RemoveTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "A surge of Immateria{BR}rushes up from Under!{BR}Baserunners are swept from play!{BR}A Flood Balloon was filled!",
+			"flavorReference": "Season 21, Day 73"
 		},
 		{
 			"identifier": "Flooding",
@@ -449,8 +419,8 @@
 				"DestroyHero",
 				"DealDamageCold"
 			],
-			"flavorText": "A surge of Immateria{BR}rushes up from Under!{BR}Baserunners are swept from play!",
-			"flavorReference": "Season 12, Day 76"
+			"flavorText": "[b]EMERGENCY ALERT{br}BREACH DETECTED{br}FLOOD WARNING[/b]",
+			"flavorReference": "Season 12 Latesiesta"
 		},
 		{
 			"identifier": "Gaudy",
@@ -467,13 +437,8 @@
 			"icons": [
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]That's enough.{br}Repeal Turn Tables.{br}Play Ball.[/b]",
+			"flavorReference": "Ownership, Season 19 Earlsiesta"
 		},
 		{
 			"identifier": "HeatMagnet",
@@ -491,13 +456,8 @@
 				"DestroySelf",
 				"DealDamageLightning"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Rogue Umpire{BR}incinerated Goobie Ballson!{BR}5 Runs generated for the Tacos!",
+			"flavorReference": "Season 22, Day 9"
 		},
 		{
 			"identifier": "HotAirBalloons",
@@ -515,13 +475,8 @@
 				"DestroySelf",
 				"RemoveTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "The Tigers started inflating{BR}Hot Air Balloons in The Ampitheater.",
+			"flavorReference": "Season 23 Latesiesta"
 		},
 		{
 			"identifier": "LightHanded",
@@ -539,13 +494,8 @@
 				"EndOfTurnAction",
 				"RemoveTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]The Ratings are rising{BR}But some of you{BR}aren't pulling your weight.[/b]",
+			"flavorReference": "Ownership, Season 20 Election"
 		},
 		{
 			"identifier": "NewMeganItoIV",
@@ -605,8 +555,8 @@
 				"Discard",
 				"RemoveTokens"
 			],
-			"flavorText": "The Polarity shifted!{BR}Numbers go down.",
-			"flavorReference": "Season 19, Day 14"
+			"flavorText": "[b]Trust Fall{BR}[i]turn the tables. winning will be losing.{BR}trust me.[/i][/b]",
+			"flavorReference": "The Reader, Season 19 Decrees"
 		},
 		{
 			"identifier": "PowerChaarge",
@@ -623,13 +573,8 @@
 			"icons": [
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Chaarge!{BR}Give your Team AA Blood.",
+			"flavorReference": "Season 17 Blessings"
 		},
 		{
 			"identifier": "Reload",
@@ -646,13 +591,8 @@
 			"icons": [
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Leach Ingram Reloaded{BR}all of the Bases!",
+			"flavorReference": "Season 23, Day 18"
 		},
 		{
 			"identifier": "Smithy",
@@ -670,13 +610,8 @@
 				"DestroySelf",
 				"Manipulate"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Smithy beckons to Muse Scantron.{BR}Sunglasses is repaired!",
+			"flavorReference": "Season 18, Day 1"
 		},
 		{
 			"identifier": "SumSun",
@@ -695,13 +630,8 @@
 				"DestroySelf",
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]We have a message to those{BR}Who threaten Our League's stability[/b]",
+			"flavorReference": "Ownership, Season 21 Election"
 		},
 		{
 			"identifier": "SunPointOne",
@@ -720,13 +650,8 @@
 				"DestroySelf",
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "[b]We are going to Win{BR}Like it or not.[/b]",
+			"flavorReference": "Ownership, Season 21 Election"
 		},
 		{
 			"identifier": "SunSun",
@@ -749,7 +674,7 @@
 				"DealDamageInfernal"
 			],
 			"flavorText": "[b]Inflation will keep Us afloat{BR}As We get things Squared Away.[/b]",
-			"flavorReference": "Ownership, Season 19 Tidings"
+			"flavorReference": "Ownership, Season 19 Election"
 		},
 		{
 			"identifier": "SupernovaEclipse",
@@ -786,13 +711,8 @@
 			"icons": [
 				"RemoveTokens"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "Alston Cerveza hits{BR}a solo home run!{BR}1 Unruns scored!",
+			"flavorReference": "Season 20, Day 2"
 		},
 		{
 			"identifier": "Undersea",
@@ -809,13 +729,8 @@
 			"icons": [
 				"IncreaseDamageDealt"
 			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
+			"flavorText": "New Challenger:{BR}The Georgias have joined the ILB!{BR}They will play in the Wild High division.",
+			"flavorReference": "Season 12 Latesiesta"
 		}
 	]
 }
