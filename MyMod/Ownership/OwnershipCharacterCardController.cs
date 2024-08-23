@@ -27,6 +27,7 @@ namespace BartKFSentinels.Ownership
         public readonly string SunKeyword = "sun";
         private bool _vertical = false;
         private bool _positive = false;
+        private const string FirstDiscardThisTurn = "FirstDiscardThisTurn";
 
         public override bool AskIfCardIsIndestructible(Card card)
         {
@@ -37,6 +38,17 @@ namespace BartKFSentinels.Ownership
                 return base.GameController.GetAllKeywords(card).Contains(CollapseKeyword) && IsVillain(card);
             }
             return base.AskIfCardIsIndestructible(card);
+        }
+
+        public override void AddTriggers()
+        {
+            if (IsGameChallenge)
+            {
+                // "The first time a card is discarded each turn, {OwnershipCharacter} deals the hero character with the highest HP 2 melee damage."
+                AddTrigger((MoveCardAction mca) => !HasBeenSetToTrueThisTurn(FirstDiscardThisTurn) && mca.IsDiscard, ConsumersReportResponse, TriggerType.DealDamage, TriggerTiming.After);
+                AddTrigger((BulkMoveCardsAction bmca) => !HasBeenSetToTrueThisTurn(FirstDiscardThisTurn) && bmca.IsDiscard, ConsumersReportResponse, TriggerType.DealDamage, TriggerTiming.After);
+            }
+            base.AddTriggers();
         }
 
         public override void AddSideTriggers()
@@ -432,6 +444,21 @@ namespace BartKFSentinels.Ownership
             {
                 //Log.Debug("OwnershipCharacterCardController.GetFurthestActiveHero: adding " + choice.SelectedTurnTaker.Name + " to storedResults and exiting");
                 storedResults.Add(choice.SelectedTurnTaker);
+            }
+        }
+
+        public IEnumerator ConsumersReportResponse(GameAction ga)
+        {
+            SetCardProperty(FirstDiscardThisTurn, true);
+            // "... {OwnershipCharacter} deals the hero character with the highest HP 2 melee damage."
+            IEnumerator meleeCoroutine = DealDamageToHighestHP(base.Card, 1, (Card c) => IsHeroCharacterCard(c), (Card c) => 2, DamageType.Melee);
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(meleeCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(meleeCoroutine);
             }
         }
 

@@ -57,6 +57,11 @@
 			"flippedAdvancedIcons": [
 				"RemoveTokens"
 			],
+			"challengeTitle": "Consumer Reports",
+			"challengeText": "The first time a card is discarded each turn, {OwnershipCharacter} deals the hero character with the highest HP 2 melee damage.",
+			"challengeIcons": [
+				"DealDamageMelee"
+			],
 			"difficulty": 2,
 			"openingLines": {
 				"default": "[b]You're winners! We're all winners![/b]",
