@@ -1,0 +1,438 @@
+{
+	"name": "The Equalizer",
+	"sortName": "Equalizer",
+	"kind": "Villain",
+	"initialCardIdentifiers": [
+		"TheEqualizerCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "TheEqualizerCharacter",
+			"count": 1,
+			"title": "The Equalizer",
+			"keywords": [
+				"villain"
+			],
+			"body": "Locked On Target",
+			"backgroundColor": "",
+			"character": true,
+			"hitpoints": 80,
+			"nemesisIdentifiers": [
+			],
+			"setup": [
+				"Put {TheEqualizer} into play, “Locked On Target” side up. Put “Lucrative Contract” into play next to the hero character target with the second highest HP. Shuffle the villain deck and reveal cards until a Munition is revealed. Put that Munition into play. Shuffle the other revealed cards back into the villain deck."
+			],
+			"gameplay": [
+				"Whenever there are no Munitions in play, flip this card.",
+				"At the start of the villain turn, if there are no [b][i]Marked[/i][/b] hero targets in play, {TheEqualizer} has fulfilled her contract. Game Over.",
+				"At the end of the villain turn, activate each [u]Salvo[/u] text on each villain Munition in play."
+			],
+			"advanced": [
+				"Whenever {TheEqualizer} is dealt 4 or more damage at once, flip this card."
+			],
+			"icons": [
+				"FlipCard",
+				"StartAndEndOfTurnAction",
+				"LoseTheGame",
+				"Salvo"
+			],
+			"advancedIcons": [
+			],
+			"flippedBody": "Retreat and Resupply",
+			"flippedGameplay": [
+				"Reduce damage dealt to {TheEqualizer} by 2.",
+				"At the start of the villain turn, {TheEqualizer} regains {H} HP.",
+				"At the end of the villain turn, reveal cards from the villain deck until a Munition is revealed. Put it into play. Discard the other revealed cards. Then, if there are any villain Munitions in play, flip this card."
+			],
+			"flippedAdvanced": [
+				"When {TheEqualizer} flips to this side, destroy an environment card. If a card was destroyed this way, {TheEqualizer} deals the {H - 2} hero targets with the highest HP 2 fire damage each."
+			],
+			"flippedIcons": [
+				"ReduceDamageTaken",
+				"StartAndEndOfTurnAction",
+				"GainHP",
+				"Search",
+				"FlipCard"
+			],
+			"flippedAdvancedIcons": [
+				"DestroyEnvironment",
+				"DealDamageFire"
+			],
+			"difficulty": 2,
+			"openingLines": {
+				"default": "You brought friends? Good. That should make this interesting."
+			}
+		},
+		{
+			"identifier": "AutomaticRifle",
+			"count": 2,
+			"title": "Automatic Rifle",
+			"keywords": [
+				"device",
+				"munition"
+			],
+			"hitpoints": 6,
+			"body": [
+				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+			],
+			"activatableAbilities": [
+				{
+					"name": "Salvo",
+					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 3 projectile damage, then deals the {H - 1} non-[b][i]Marked[/i][/b] hero targets with the highest HP 3 projectile damage each. This card deals itself 2 projectile damage."
+				}
+			],
+			"icons": [
+				"Salvo",
+				"DestroySelf",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "Listen, Amy, whatever your name{BR}is- you're leaving early today. Do you{BR}want it to be a sick day or a funeral?"
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "BodyArmor",
+			"count": 2,
+			"title": "Body Armor",
+			"keywords": [
+				"device"
+			],
+			"hitpoints": 10,
+			"body": [
+				"Reduce damage dealt to {TheEqualizer} and this card by 1.",
+				"If {TheEqualizer} would be dealt 4 or more damage at once, prevent that damage and destroy this card."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"CancelledDamageRed",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Wraith",
+					"text": "No documented powers, just a{BR}long trail of dead superhumans.{BR}She knew how to counter every one."
+				}
+			],
+			"flavorReference": "The Wraith"
+		},
+		{
+			"identifier": "Bombardment",
+			"count": 3,
+			"title": "Bombardment",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{TheEqualizer} deals the hero with the most non-character cards in play {H - 1} sonic damage, then deals each hero target 2 fire damage.",
+				"Destroy {H} Equipment cards."
+			],
+			"icons": [
+				"DealDamageSonic",
+				"DealDamageFire",
+				"DestroyEquipment"
+			],
+			"flavorText": "[b]Legacy:[/b] [i]“Pete, no! Get out of-”[i]{BR}[b][i]*BOOM!*[/i][/b]",
+			"flavorReference": ""
+		},
+		{
+			"identifier": "CombatShotgun",
+			"count": 2,
+			"title": "Combat Shotgun",
+			"keywords": [
+				"device",
+				"munition"
+			],
+			"hitpoints": 6,
+			"body": [
+				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+			],
+			"activatableAbilities": [
+				{
+					"name": "Salvo",
+					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 4 projectile damage, then deals the {H - 2} non-[b][i]Marked[/i][/b] hero targets with the highest HP 2 projectile damage each. This card deals itself 2 projectile damage."
+				}
+			],
+			"icons": [
+				"Salvo",
+				"DestroySelf",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "Feel free to get up close and{BR}personal. Makes it easier to aim."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "ContractNegotiations",
+			"count": 1,
+			"title": "Contract Negotiations",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"The hero with the second highest HP may destroy all of their Ongoing and Equipment cards.",
+				"One player with no Ongoing or Equipment cards in play may move the Objective card next to one of their hero character targets.",
+				"{TheEqualizer} deals the [b][i]Marked[/i][/b] target 3 projectile damage."
+			],
+			"icons": [
+				"DestroyHero",
+				"Manipulate",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "I don't ditch paying jobs. I{BR}adjust rates. The blonde with the laser{BR}eyes calls for an adjustment."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "DeadeyeRifle",
+			"count": 1,
+			"title": "Deadeye Rifle",
+			"keywords": [
+				"device",
+				"munition"
+			],
+			"hitpoints": 6,
+			"body": [
+				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+			],
+			"activatableAbilities": [
+				{
+					"name": "Salvo",
+					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 5 irreducible projectile damage. This damage can't be redirected by non-villain cards. This card deals itself 2 projectile damage."
+				}
+			],
+			"icons": [
+				"Salvo",
+				"DestroySelf",
+				"DealDamageProjectile",
+				"MakeDamageUnredirectable"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Tachyon",
+					"text": "Wait, you're telling me she's{BR}been making all these shots without{BR}binocular vision?"
+				}
+			],
+			"flavorReference": "Tachyon"
+		},
+		{
+			"identifier": "DepletedUraniumRounds",
+			"count": 1,
+			"title": "Depleted Uranium Rounds",
+			"keywords": [
+				"ongoing",
+				"cartridge"
+			],
+			"body": [
+				"Projectile damage dealt by {TheEqualizer} is irreducible.",
+				"When {TheEqualizer} deals projectile damage to a target, she also deals that target 1 toxic damage.",
+				"When a villain Munition is reduced to 0 or fewer HP, destroy this card."
+			],
+			"icons": [
+				"MakeDamageIrreducible",
+				"DealDamageToxic",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "Bulletproof, huh?{BR}Sounds like someone's been{BR}using the wrong bullets."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "DualPistols",
+			"count": 1,
+			"title": "Dual Pistols",
+			"keywords": [
+				"device",
+				"munition"
+			],
+			"hitpoints": 10,
+			"body": [
+				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+			],
+			"activatableAbilities": [
+				{
+					"name": "Salvo",
+					"text": "{TheEqualizer} deals the [b][/i]Marked[/i][/b] target 3 projectile damage. Then, if this card has 6 or more HP, {TheEqualizer} deals the [b][/i]Marked[/i][/b] target 3 projectile damage. This card deals itself 2 projectile damage."
+				}
+			],
+			"icons": [
+				"Salvo",
+				"DestroySelf",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Setback",
+					"text": "Oh, wow. You're a lot prettier{BR}than I-- ow! [b]Ow!![/b]"
+				}
+			],
+			"flavorReference": "Setback"
+		},
+		{
+			"identifier": "HEIAPShells",
+			"count": 1,
+			"title": "HEIAP Shells",
+			"keywords": [
+				"ongoing",
+				"cartridge"
+			],
+			"body": [
+				"Increase projectile damage dealt by {TheEqualizer} by 1.",
+				"When {TheEqualizer} deals projectile damage to a target, that target deals itself 1 irreducible fire damage.",
+				"When a villain Munition is reduced to 0 or fewer HP, destroy this card."
+			],
+			"icons": [
+				"IncreaseDamageDealtProjectile",
+				"DealDamageFire",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Gunsmith",
+					"text": "Armor-piercing shell meets{BR}high-explosive payload. Match{BR}made in heaven."
+				}
+			],
+			"flavorReference": "The Gunsmith"
+		},
+		{
+			"identifier": "HerdTheTarget",
+			"count": 3,
+			"title": "Herd the Target",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{TheEqualizer} deals the non-[b][i]Marked[/i][/b] hero target with the highest HP {H + 1} projectile damage.",
+				"Destroy {H} hero Ongoing cards.",
+				"The next damage dealt to the [b][i]Marked[/i][/b] target is irreducible."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"DestroyOngoing",
+				"MakeDamageIrreducible"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "That's it - come and help your{BR}friend. Don't think too hard about your{BR}position. There's a good hero."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "LucrativeContract",
+			"count": 1,
+			"title": "Lucrative Contract",
+			"keywords": [
+				"objective"
+			],
+			"body": [
+				"This card is indestructible.",
+				"The target next to this card is [b][i]Marked[/i][/b]."
+			],
+			"icons": [
+				"Indestructible"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "He's an idiot, sure, but his{BR}friends aren't pushovers. You'd better{BR}have a plan for when I'm done."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "RightToolForTheJob",
+			"count": 3,
+			"title": "Right Tool for the Job",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal cards from the villain deck until a Cartridge and a Munition are revealed. Put the first revealed Cartridge into play. Put the first revealed Munition into play. Shuffle the other revealed cards into the villain deck.",
+				"If no [u]Salvo[/u] text has been activated this turn, {TheEqualizer} deals each non-villain target 1 irreducible projectile damage."
+			],
+			"icons": [
+				"Search",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Bunker",
+					"text": "How does she have one of{BR}those? They were all supposed to be{BR}decommissioned years ago!"
+				}
+			],
+			"flavorReference": "Bunker"
+		},
+		{
+			"identifier": "TacticalRepositioning",
+			"count": 2,
+			"title": "Tactical Repositioning",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"Reduce damage dealt to {TheEqualizer} by 1.",
+				"Damage dealt by {TheEqualizer} is irreducible.",
+				"At the end of the villain turn, destroy all environment cards, then play the top card of the environment deck.",
+				"At the start of the villain turn, destroy this card."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"MakeDamageIrreducible",
+				"StartAndEndOfTurnAction",
+				"DestroyEnvironment",
+				"PlayCardNow",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "The Equalizer",
+					"text": "Step one, rearrange battlefield.{BR}Step two, rearrange target's insides."
+				}
+			],
+			"flavorReference": "The Equalizer"
+		},
+		{
+			"identifier": "WalkingArsenal",
+			"count": 2,
+			"title": "Walking Arsenal",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"Redirect damage dealt by {TheEqualizer} to the hero target with the highest HP.",
+				"At the end of the villain turn, reveal all Munition cards from the villain trash. Shuffle those cards, put 2 of them into play at random, and discard the rest. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage.",
+				"At the end of the villain turn, destroy this card."
+			],
+			"icons": [
+				"RedirectDamage",
+				"EndOfTurnAction",
+				"Search",
+				"DestroySelf"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Absolute Zero",
+					"text": "I'll cover you, Doc. You get the{BR}civilians outta here before someone{BR}catches a bad ricochet."
+				}
+			],
+			"flavorReference": "Absolute Zero"
+		}
+	]
+}
