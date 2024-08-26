@@ -14,7 +14,7 @@
 				"villain"
 			],
 			"body": "Locked On Target",
-			"backgroundColor": "",
+			"backgroundColor": "0C9AD5",
 			"character": true,
 			"hitpoints": 80,
 			"nemesisIdentifiers": [
@@ -25,7 +25,7 @@
 			"gameplay": [
 				"Whenever there are no Munitions in play, flip this card.",
 				"At the start of the villain turn, if there are no [b][i]Marked[/i][/b] hero targets in play, {TheEqualizer} has fulfilled her contract. Game Over.",
-				"At the end of the villain turn, activate each [u]Salvo[/u] text on each villain Munition in play."
+				"At the end of the villain turn, activate each [u]salvo[/u] text on each villain Munition in play."
 			],
 			"advanced": [
 				"Whenever {TheEqualizer} is dealt 4 or more damage at once, flip this card."
@@ -58,6 +58,11 @@
 				"DestroyEnvironment",
 				"DealDamageFire"
 			],
+			"challengeTitle": "Rapid Fire",
+			"challengeText": "Munitions are indestructible during the villain turn. {TheEqualizer}'s max HP for this game is 60.",
+			"challengeIcons": [
+				"Indestructible"
+			],
 			"difficulty": 2,
 			"openingLines": {
 				"default": "You brought friends? Good. That should make this interesting."
@@ -73,11 +78,11 @@
 			],
 			"hitpoints": 6,
 			"body": [
-				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+				"When another villain Munition enters play, activate this card's [u]salvo[/u] text, then destroy this card."
 			],
 			"activatableAbilities": [
 				{
-					"name": "Salvo",
+					"name": "salvo",
 					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 3 projectile damage, then deals the {H - 1} non-[b][i]Marked[/i][/b] hero targets with the highest HP 3 projectile damage each. This card deals itself 2 projectile damage."
 				}
 			],
@@ -88,7 +93,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "Listen, Amy, whatever your name{BR}is- you're leaving early today. Do you{BR}want it to be a sick day or a funeral?"
 				}
 			],
@@ -113,7 +118,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Wraith",
+					"identifier": "TheWraith",
 					"text": "No documented powers, just a{BR}long trail of dead superhumans.{BR}She knew how to counter every one."
 				}
 			],
@@ -148,11 +153,11 @@
 			],
 			"hitpoints": 6,
 			"body": [
-				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+				"When another villain Munition enters play, activate this card's [u]salvo[/u] text, then destroy this card."
 			],
 			"activatableAbilities": [
 				{
-					"name": "Salvo",
+					"name": "salvo",
 					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 4 projectile damage, then deals the {H - 2} non-[b][i]Marked[/i][/b] hero targets with the highest HP 2 projectile damage each. This card deals itself 2 projectile damage."
 				}
 			],
@@ -163,7 +168,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "Feel free to get up close and{BR}personal. Makes it easier to aim."
 				}
 			],
@@ -188,7 +193,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "I don't ditch paying jobs. I{BR}adjust rates. The blonde with the laser{BR}eyes calls for an adjustment."
 				}
 			],
@@ -204,11 +209,11 @@
 			],
 			"hitpoints": 6,
 			"body": [
-				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+				"When another villain Munition enters play, activate this card's [u]salvo[/u] text, then destroy this card."
 			],
 			"activatableAbilities": [
 				{
-					"name": "Salvo",
+					"name": "salvo",
 					"text": "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 5 irreducible projectile damage. This damage can't be redirected by non-villain cards. This card deals itself 2 projectile damage."
 				}
 			],
@@ -246,7 +251,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "Bulletproof, huh?{BR}Sounds like someone's been{BR}using the wrong bullets."
 				}
 			],
@@ -262,11 +267,11 @@
 			],
 			"hitpoints": 10,
 			"body": [
-				"When another villain Munition enters play, activate this card's [u]Salvo[/u] text, then destroy this card."
+				"When another villain Munition enters play, activate this card's [u]salvo[/u] text, then destroy this card."
 			],
 			"activatableAbilities": [
 				{
-					"name": "Salvo",
+					"name": "salvo",
 					"text": "{TheEqualizer} deals the [b][/i]Marked[/i][/b] target 3 projectile damage. Then, if this card has 6 or more HP, {TheEqualizer} deals the [b][/i]Marked[/i][/b] target 3 projectile damage. This card deals itself 2 projectile damage."
 				}
 			],
@@ -303,7 +308,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Gunsmith",
+					"identifier": "TheGunsmith",
 					"text": "Armor-piercing shell meets{BR}high-explosive payload. Match{BR}made in heaven."
 				}
 			],
@@ -328,7 +333,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "That's it - come and help your{BR}friend. Don't think too hard about your{BR}position. There's a good hero."
 				}
 			],
@@ -350,7 +355,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "He's an idiot, sure, but his{BR}friends aren't pushovers. You'd better{BR}have a plan for when I'm done."
 				}
 			],
@@ -365,7 +370,7 @@
 			],
 			"body": [
 				"Reveal cards from the villain deck until a Cartridge and a Munition are revealed. Put the first revealed Cartridge into play. Put the first revealed Munition into play. Shuffle the other revealed cards into the villain deck.",
-				"If no [u]Salvo[/u] text has been activated this turn, {TheEqualizer} deals each non-villain target 1 irreducible projectile damage."
+				"If no [u]salvo[/u] text has been activated this turn, {TheEqualizer} deals each non-villain target 1 irreducible projectile damage."
 			],
 			"icons": [
 				"Search",
@@ -402,7 +407,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "The Equalizer",
+					"identifier": "TheEqualizer",
 					"text": "Step one, rearrange battlefield.{BR}Step two, rearrange target's insides."
 				}
 			],
@@ -428,7 +433,7 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "Absolute Zero",
+					"identifier": "AbsoluteZero",
 					"text": "I'll cover you, Doc. You get the{BR}civilians outta here before someone{BR}catches a bad ricochet."
 				}
 			],

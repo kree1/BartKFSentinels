@@ -164,6 +164,12 @@
     <Compile Include="TheEmpire\SurpriseRaidCardController.cs" />
     <Compile Include="TheEmpire\UnseenHandCardController.cs" />
     <Compile Include="TheEmpire\UprisingCardController.cs" />
+    <Compile Include="TheEqualizer\BodyArmorCardController.cs" />
+    <Compile Include="TheEqualizer\BombardmentCardController.cs" />
+    <Compile Include="TheEqualizer\EqualizerUtilityCardController.cs" />
+    <Compile Include="TheEqualizer\HerdTheTargetCardController.cs" />
+    <Compile Include="TheEqualizer\LucrativeContractCardController.cs" />
+    <Compile Include="TheEqualizer\TacticalRepositioningCardController.cs" />
     <Compile Include="TheGigamorph\AdhesiveAntibodyCardController.cs" />
     <Compile Include="TheGigamorph\AllergicReactionCardController.cs" />
     <Compile Include="TheGigamorph\CorrosiveChamberCardController.cs" />
