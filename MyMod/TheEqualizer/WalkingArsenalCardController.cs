@@ -23,7 +23,7 @@ namespace BartKFSentinels.TheEqualizer
             base.AddTriggers();
             // "Redirect damage dealt by {TheEqualizer} to the hero target with the highest HP."
             AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard), RedirectToHighestResponse, TriggerType.RedirectDamage, TriggerTiming.Before);
-            // "At the end of the villain turn, shuffle the villain trash and reveal cards until 2 Munitions are revealed. Put the revealed Munitions into play and the rest back into the trash. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage."
+            // "At the end of the villain turn, put 2 Munitions from the villain trash into play, chosen at random. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage."
             // "At the end of the villain turn, destroy this card."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PlayMunitionsDestructResponse, new TriggerType[] { TriggerType.PutIntoPlay, TriggerType.DealDamage, TriggerType.DestroySelf });
         }
@@ -57,7 +57,7 @@ namespace BartKFSentinels.TheEqualizer
 
         public IEnumerator PlayMunitionsDestructResponse(PhaseChangeAction pca)
         {
-            // "... shuffle the villain trash and reveal cards until 2 Munitions are revealed. Put the revealed Munitions into play and the rest back into the trash."
+            // "... put 2 Munitions from the villain trash into play, chosen at random."
             List<Card> played = new List<Card>();
             IEnumerator revealCoroutine = RevealCards_MoveMatching_ReturnNonMatchingCards(TurnTakerController, TurnTaker.Trash, false, true, false, new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MunitionKeyword), "Munition"), 2, shuffleBeforehand: true, storedPlayResults: played);
             if (base.UseUnityCoroutines)

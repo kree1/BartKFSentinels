@@ -31,7 +31,6 @@
 				"Whenever {TheEqualizer} is dealt 4 or more damage at once, flip this card."
 			],
 			"icons": [
-				"FlipCard",
 				"StartAndEndOfTurnAction",
 				"LoseTheGame",
 				"Salvo"
@@ -51,8 +50,7 @@
 				"ReduceDamageTaken",
 				"StartAndEndOfTurnAction",
 				"GainHP",
-				"Search",
-				"FlipCard"
+				"Search"
 			],
 			"flippedAdvancedIcons": [
 				"DestroyEnvironment",
@@ -422,7 +420,7 @@
 			],
 			"body": [
 				"Redirect damage dealt by {TheEqualizer} to the hero target with the highest HP.",
-				"At the end of the villain turn, shuffle the villain trash and reveal cards until 2 Munitions are revealed. Put the revealed Munitions into play and the rest back into the trash. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage.",
+				"At the end of the villain turn, put 2 Munitions from the villain trash into play, chosen at random. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage.",
 				"At the end of the villain turn, destroy this card."
 			],
 			"icons": [

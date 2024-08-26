@@ -169,6 +169,7 @@
     <Compile Include="TheEqualizer\BombardmentCardController.cs" />
     <Compile Include="TheEqualizer\CartridgeCardController.cs" />
     <Compile Include="TheEqualizer\CombatShotgunCardController.cs" />
+    <Compile Include="TheEqualizer\ContractNegotiationsCardController.cs" />
     <Compile Include="TheEqualizer\DeadeyeRifleCardController.cs" />
     <Compile Include="TheEqualizer\DepletedUraniumRoundsCardController.cs" />
     <Compile Include="TheEqualizer\DualPistolsCardController.cs" />
