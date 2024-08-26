@@ -16,6 +16,12 @@ namespace BartKFSentinels.TheEqualizer
             {
                 AddThisCardControllerToList(CardControllerListType.MakesIndestructible);
             }
+            // Both sides: show list of villain Munitions in play
+            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => IsVillain(c) && GameController.DoesCardContainKeyword(c, MunitionKeyword), "villain Munition"));
+            // Front side: show list of [b][i]Marked[/i][/b] hero targets in play
+            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => IsHeroTarget(c) && ettc.IsMarked(c), "[b][i]Marked[/i][/b]", singular: "hero target", plural: "hero targets")).Condition = () => !Card.IsFlipped;
+            // Retreat and Resupply: show list of Munition cards in villain deck
+            SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Trash, new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MunitionKeyword), "Munition")).Condition = () => Card.IsFlipped;
         }
 
         public const string MunitionKeyword = "munition";

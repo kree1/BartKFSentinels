@@ -177,9 +177,11 @@
     <Compile Include="TheEqualizer\HerdTheTargetCardController.cs" />
     <Compile Include="TheEqualizer\LucrativeContractCardController.cs" />
     <Compile Include="TheEqualizer\MunitionCardController.cs" />
+    <Compile Include="TheEqualizer\RightToolForTheJobCardController.cs" />
     <Compile Include="TheEqualizer\TacticalRepositioningCardController.cs" />
     <Compile Include="TheEqualizer\TheEqualizerCharacterCardController.cs" />
     <Compile Include="TheEqualizer\TheEqualizerTurnTakerController.cs" />
+    <Compile Include="TheEqualizer\WalkingArsenalCardController.cs" />
     <Compile Include="TheGigamorph\AdhesiveAntibodyCardController.cs" />
     <Compile Include="TheGigamorph\AllergicReactionCardController.cs" />
     <Compile Include="TheGigamorph\CorrosiveChamberCardController.cs" />

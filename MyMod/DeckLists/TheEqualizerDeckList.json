@@ -422,7 +422,7 @@
 			],
 			"body": [
 				"Redirect damage dealt by {TheEqualizer} to the hero target with the highest HP.",
-				"At the end of the villain turn, reveal all Munition cards from the villain trash. Shuffle those cards, put 2 of them into play at random, and discard the rest. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage.",
+				"At the end of the villain turn, shuffle the villain trash and reveal cards until 2 Munitions are revealed. Put the revealed Munitions into play and the rest back into the trash. If fewer than 2 cards entered play this way, {TheEqualizer} deals each hero target 2 projectile damage.",
 				"At the end of the villain turn, destroy this card."
 			],
 			"icons": [
