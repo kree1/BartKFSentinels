@@ -19,21 +19,8 @@ namespace BartKFSentinels.TheEqualizer
 
         public const string MunitionKeyword = "munition";
         public const string CartridgeKeyword = "cartridge";
-        public const string ObjectiveIdentifier = "LucrativeContract";
         public const string SalvoName = "salvo";
 
-        public bool IsMarked(Card c)
-        {
-            if (c.IsInPlayAndHasGameText)
-            {
-                return c.NextToLocation.Cards.Any((Card x) => x.Identifier == ObjectiveIdentifier);
-            }
-            return false;
-        }
-
-        public Card MarkedTarget(CardSource looking)
-        {
-            return GameController.FindCardsWhere((Card c) => IsMarked(c), visibleToCard: looking).FirstOrDefault();
-        }
+        public TheEqualizerTurnTakerController ettc => TurnTakerControllerWithoutReplacements as TheEqualizerTurnTakerController;
     }
 }

@@ -15,13 +15,13 @@ namespace BartKFSentinels.TheEqualizer
             : base(card, turnTakerController)
         {
             // Show non-Marked hero target with highest HP
-            SpecialStringMaker.ShowHighestHP(cardCriteria: new LinqCardCriteria((Card c) => IsHeroTarget(c) && !IsMarked(c), "non-Marked hero", singular: "target", plural: "targets"));
+            SpecialStringMaker.ShowHighestHP(cardCriteria: new LinqCardCriteria((Card c) => IsHeroTarget(c) && !ettc.IsMarked(c), "non-Marked hero", singular: "target", plural: "targets"));
         }
 
         public override IEnumerator Play()
         {
             // "{TheEqualizer} deals the non-[b][i]Marked[/i][/b] hero target with the highest HP {H + 1} projectile damage."
-            IEnumerator projectileCoroutine = DealDamageToHighestHP(CharacterCard, 1, (Card c) => IsHeroTarget(c) && !IsMarked(c), (Card c) => H + 1, DamageType.Projectile);
+            IEnumerator projectileCoroutine = DealDamageToHighestHP(CharacterCard, 1, (Card c) => IsHeroTarget(c) && !ettc.IsMarked(c), (Card c) => H + 1, DamageType.Projectile);
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(projectileCoroutine);
@@ -41,7 +41,7 @@ namespace BartKFSentinels.TheEqualizer
                 base.GameController.ExhaustCoroutine(destroyCoroutine);
             }
             // "The next damage dealt to the [b][i]Marked[/i][/b] target is irreducible."
-            Card marked = MarkedTarget(GetCardSource());
+            Card marked = ettc.MarkedTarget(GetCardSource());
             MakeDamageIrreducibleStatusEffect exposed = new MakeDamageIrreducibleStatusEffect();
             exposed.TargetCriteria.IsSpecificCard = marked;
             exposed.NumberOfUses = 1;

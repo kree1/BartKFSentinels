@@ -27,7 +27,7 @@ namespace BartKFSentinels.TheEqualizer
         public override IEnumerator SalvoAttack()
         {
             // "{TheEqualizer} deals the [b][i]Marked[/i][/b] target 5 irreducible projectile damage."
-            IEnumerator shootMarkedCoroutine = DealDamage(CharacterCard, MarkedTarget(GetCardSource()), 5, DamageType.Projectile, isIrreducible: true, cardSource: GetCardSource());
+            IEnumerator shootMarkedCoroutine = DealDamage(CharacterCard, ettc.MarkedTarget(GetCardSource()), 5, DamageType.Projectile, isIrreducible: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(shootMarkedCoroutine);

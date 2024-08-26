@@ -24,5 +24,25 @@ namespace BartKFSentinels.TheEqualizer
                 return true;
             return base.AskIfCardIsIndestructible(card);
         }
+
+        public override IEnumerator DeterminePlayLocation(List<MoveCardDestination> storedResults, bool isPutIntoPlay, List<IDecision> decisionSources, Location overridePlayArea = null, LinqTurnTakerCriteria additionalTurnTakerCriteria = null)
+        {
+            // "... next to the hero character target with the second highest HP."
+            List<Card> results = new List<Card>();
+            IEnumerator findCoroutine = GameController.FindTargetWithHighestHitPoints(2, (Card c) => IsHeroCharacterCard(c) && c.IsTarget, results, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(findCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(findCoroutine);
+            }
+            Card toMark = results.FirstOrDefault();
+            if (toMark != null)
+            {
+                storedResults?.Add(new MoveCardDestination(toMark.NextToLocation, showMessage: true));
+            }
+        }
     }
 }
