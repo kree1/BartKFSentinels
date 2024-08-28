@@ -32,7 +32,7 @@ namespace BartKFSentinels.TheEqualizer
         public override bool AskIfCardIsIndestructible(Card card)
         {
             // "Munitions are indestructible during the villain turn."
-            if (GameController.ActiveTurnTaker.IsVillain && GameController.DoesCardContainKeyword(card, MunitionKeyword))
+            if (GameController.ActiveTurnTaker != null && IsVillain(GameController.ActiveTurnTaker) && GameController.DoesCardContainKeyword(card, MunitionKeyword))
             {
                 return true;
             }
@@ -45,7 +45,7 @@ namespace BartKFSentinels.TheEqualizer
             if (IsGameChallenge)
             {
                 // "Munitions are indestructible during the villain turn."
-                AddTrigger((PhaseChangeAction pca) => IsVillain(pca.FromPhase.TurnTaker) && !IsVillain(pca.ToPhase.TurnTaker), (PhaseChangeAction pca) => GameController.DestroyAnyCardsThatShouldBeDestroyed(cardSource: GetCardSource()), TriggerType.DestroyCard, TriggerTiming.After);
+                AddTrigger((PhaseChangeAction pca) => pca.FromPhase != null && pca.FromPhase.TurnTaker != null && pca.ToPhase != null && pca.ToPhase.TurnTaker != null && IsVillain(pca.FromPhase.TurnTaker) && !IsVillain(pca.ToPhase.TurnTaker), (PhaseChangeAction pca) => GameController.DestroyAnyCardsThatShouldBeDestroyed(cardSource: GetCardSource()), TriggerType.DestroyCard, TriggerTiming.After);
             }
         }
 
@@ -78,10 +78,21 @@ namespace BartKFSentinels.TheEqualizer
                 // "At the end of the villain turn, reveal cards from the villain deck until a Munition is revealed. Put it into play. Discard the other revealed cards. Then, if there are any villain Munitions in play, flip this card."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, ResupplyResponse, new TriggerType[] { TriggerType.RevealCard, TriggerType.DiscardCard, TriggerType.PutIntoPlay, TriggerType.FlipCard }));
             }
+            AddDefeatedIfDestroyedTriggers();
+            AddDefeatedIfMovedOutOfGameTriggers();
         }
 
         public override IEnumerator AfterFlipCardImmediateResponse()
         {
+            IEnumerator flipCoroutine = base.AfterFlipCardImmediateResponse();
+            if (base.UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(flipCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(flipCoroutine);
+            }
             // Back side, Advanced:
             // "When {TheEqualizer} flips to this side, destroy an environment card. If a card was destroyed this way, {TheEqualizer} deals the {H - 2} hero targets with the highest HP 2 fire damage each."
             if (IsGameAdvanced && Card.IsFlipped)
