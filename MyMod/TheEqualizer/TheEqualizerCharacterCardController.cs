@@ -145,10 +145,15 @@ namespace BartKFSentinels.TheEqualizer
             }
         }
 
+        public int NumberOfMunitionsInPlay()
+        {
+            return GameController.FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && IsVillain(c) && GameController.DoesCardContainKeyword(c, MunitionKeyword)).Count();
+        }
+
         public IEnumerator AllSalvoResponse(PhaseChangeAction pca)
         {
             // "... activate each [u]salvo[/u] text on each villain Munition in play."
-            SelectCardsDecision choice = new SelectCardsDecision(GameController, DecisionMaker, (Card c) => c.IsInPlayAndHasGameText && c.IsVillain && GameController.DoesCardContainKeyword(c, MunitionKeyword), SelectionType.Custom, isOptional: false, eliminateOptions: true, allowAutoDecide: true, dynamicNumberOfCards: () => GameController.FindCardsWhere((Card c) => c.IsInPlayAndHasGameText && c.IsVillain && GameController.DoesCardContainKeyword(c, MunitionKeyword)).Count());
+            SelectCardsDecision choice = new SelectCardsDecision(GameController, DecisionMaker, (Card c) => c.IsInPlayAndHasGameText && IsVillain(c) && GameController.DoesCardContainKeyword(c, MunitionKeyword), SelectionType.Custom, numberOfCards: null, isOptional: false, eliminateOptions: true, allowAutoDecide: true, dynamicNumberOfCards: () => NumberOfMunitionsInPlay());
             IEnumerator activateCoroutine = GameController.SelectCardsAndDoAction(choice, (SelectCardDecision scd) => ActivateSalvo(scd.SelectedCard), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
