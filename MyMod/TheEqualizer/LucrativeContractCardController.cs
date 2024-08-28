@@ -22,7 +22,7 @@ namespace BartKFSentinels.TheEqualizer
             // "This card is indestructible."
             if (card == Card)
                 return true;
-            return base.AskIfCardIsIndestructible(card);
+            return false;
         }
 
         public override IEnumerator DeterminePlayLocation(List<MoveCardDestination> storedResults, bool isPutIntoPlay, List<IDecision> decisionSources, Location overridePlayArea = null, LinqTurnTakerCriteria additionalTurnTakerCriteria = null)
@@ -41,7 +41,7 @@ namespace BartKFSentinels.TheEqualizer
             Card toMark = results.FirstOrDefault();
             if (toMark != null)
             {
-                storedResults?.Add(new MoveCardDestination(toMark.NextToLocation, showMessage: true));
+                storedResults?.Add(new MoveCardDestination(toMark.NextToLocation));
             }
         }
     }
