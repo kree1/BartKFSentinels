@@ -23,7 +23,7 @@
 				"Put {TheEqualizer} into play, “Locked On Target” side up. Put “Lucrative Contract” into play next to the hero character target with the second highest HP. Shuffle the villain deck and reveal cards until a Munition is revealed. Put that Munition into play. Shuffle the other revealed cards back into the villain deck."
 			],
 			"gameplay": [
-				"Whenever there are no Munitions in play, flip this card.",
+				"Whenever a Munition leaves play, if there are no villain Munitions in play, flip this card.",
 				"At the start of the villain turn, if there are no [b][i]Marked[/i][/b] hero targets in play, {TheEqualizer} has fulfilled her contract. Game Over.",
 				"At the end of the villain turn, activate each [u]salvo[/u] text on each villain Munition in play."
 			],

@@ -21,7 +21,7 @@ namespace BartKFSentinels.TheEqualizer
         {
             base.AddTriggers();
             // "When another villain Munition enters play, activate this card's [u]salvo[/u] text, then destroy this card."
-            AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && GameController.DoesCardContainKeyword(cepa.CardEnteringPlay, MunitionKeyword), FireAndForgetResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.After);
+            AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && GameController.DoesCardContainKeyword(cepa.CardEnteringPlay, MunitionKeyword) && cepa.CardEnteringPlay != Card, FireAndForgetResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.After);
         }
 
         public abstract IEnumerator SalvoAttack();

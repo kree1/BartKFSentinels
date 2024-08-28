@@ -55,8 +55,8 @@ namespace BartKFSentinels.TheEqualizer
             if (!base.Card.IsFlipped)
             {
                 // Front side:
-                // "Whenever there are no Munitions in play, flip this card."
-                AddSideTrigger(AddTrigger((GameAction ga) => !GameController.FindCardsWhere((Card c) => GameController.DoesCardContainKeyword(c, MunitionKeyword) && c.IsInPlayAndHasGameText).Any(), FlipThisCharacterCardResponse, TriggerType.FlipCard, TriggerTiming.After));
+                // "Whenever a Munition leaves play, if there are no villain Munitions in play, flip this card."
+                AddSideTrigger(AddTrigger((MoveCardAction mca) => GameController.DoesCardContainKeyword(mca.CardToMove, MunitionKeyword) && mca.Origin.IsInPlay && !mca.Destination.IsInPlay && mca.WasCardMoved && !GameController.FindCardsWhere((Card c) => IsVillain(c) && GameController.DoesCardContainKeyword(c, MunitionKeyword) && c.IsInPlayAndHasGameText).Any(), FlipThisCharacterCardResponse, TriggerType.FlipCard, TriggerTiming.After));
                 // "At the start of the villain turn, if there are no [b][i]Marked[/i][/b] hero targets in play, {TheEqualizer} has fulfilled her contract. Game Over."
                 AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker && !GameController.FindCardsWhere((Card c) => IsHeroTarget(c) && ettc.IsMarked(c), visibleToCard: GetCardSource()).Any(), LoseTheGameResponse, TriggerType.GameOver));
                 // "At the end of the villain turn, activate each [u]salvo[/u] text on each villain Munition in play."
@@ -65,16 +65,16 @@ namespace BartKFSentinels.TheEqualizer
                 {
                     // Front side, Advanced:
                     // "Whenever {TheEqualizer} is dealt 4 or more damage at once, flip this card."
-                    AddSideTrigger(AddTrigger((DealDamageAction dda) => dda.Target == Card && dda.DidDealDamage && dda.Amount >= 4, FlipThisCharacterCardResponse, TriggerType.FlipCard, TriggerTiming.After));
+                    AddSideTrigger(AddTrigger((DealDamageAction dda) => dda.Target == base.Card && dda.DidDealDamage && dda.Amount >= 4, FlipThisCharacterCardResponse, TriggerType.FlipCard, TriggerTiming.After));
                 }
             }
             else
             {
                 // Back side:
                 // "Reduce damage dealt to {TheEqualizer} by 2."
-                AddSideTrigger(AddReduceDamageTrigger((Card c) => c == Card, 2));
+                AddSideTrigger(AddReduceDamageTrigger((Card c) => c == base.Card, 2));
                 // "At the start of the villain turn, {TheEqualizer} regains {H} HP."
-                AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, (PhaseChangeAction pca) => GameController.GainHP(Card, H, cardSource: GetCardSource()), TriggerType.GainHP));
+                AddSideTrigger(AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, (PhaseChangeAction pca) => GameController.GainHP(base.Card, H, cardSource: GetCardSource()), TriggerType.GainHP));
                 // "At the end of the villain turn, reveal cards from the villain deck until a Munition is revealed. Put it into play. Discard the other revealed cards. Then, if there are any villain Munitions in play, flip this card."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, ResupplyResponse, new TriggerType[] { TriggerType.RevealCard, TriggerType.DiscardCard, TriggerType.PutIntoPlay, TriggerType.FlipCard }));
             }
