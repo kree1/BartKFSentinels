@@ -107,5 +107,10 @@ namespace BartKFSentinels.TheEqualizer
                 GameController.ExhaustCoroutine(shootMarkedCoroutine);
             }
         }
+
+        public override CustomDecisionText GetCustomDecisionText(IDecision decision)
+        {
+            return new CustomDecisionText("Do you want to destroy all of your Ongoing and Equipment cards?", "deciding whether to destroy all of their Ongoing and Equipment cards", "Vote for whether to destroy all of " + decision.HeroTurnTakerController.TurnTaker.Name + "'s Ongoing and Equipment cards", "whether to destroy all of their Ongoing and Equipment cards");
+        }
     }
 }
