@@ -31,7 +31,7 @@ namespace BartKFSentinels.TheEqualizer
         public IEnumerator RedirectToHighestResponse(DealDamageAction dda)
         {
             List<Card> results = new List<Card>();
-            IEnumerator findCoroutine = GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroTarget(c), results, cardSource: GetCardSource());
+            IEnumerator findCoroutine = GameController.FindTargetWithHighestHitPoints(1, (Card c) => IsHeroTarget(c), results, dealDamageInfo: dda.ToEnumerable(), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(findCoroutine);
