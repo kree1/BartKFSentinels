@@ -21,7 +21,7 @@ namespace BartKFSentinels.TheEqualizer
         {
             base.AddTriggers();
             // "This damage can't be redirected by non-villain cards."
-            AddTrigger((RedirectDamageAction rda) => rda.DealDamageAction.CardSource != null && rda.DealDamageAction.CardSource.Card == Card && rda.DealDamageAction.OriginalAmount == 5, CancelResponse, TriggerType.CancelAction, TriggerTiming.Before);
+            AddTrigger((RedirectDamageAction rda) => rda.DealDamageAction.CardSource != null && rda.DealDamageAction.CardSource.Card == Card && rda.DealDamageAction.OriginalAmount == 5 && rda.CardSource != null && !IsVillain(rda.CardSource.Card), CancelResponse, TriggerType.CancelAction, TriggerTiming.Before);
         }
 
         public override IEnumerator SalvoAttack()
