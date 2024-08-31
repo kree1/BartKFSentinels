@@ -135,7 +135,7 @@ namespace BartKFSentinels.TheShelledOne
 								{
 									overrideNamespace = $"{cardDefinition.Namespace}.{parentDeck.Identifier}";
 								}
-								newCC = CardControllerFactory.CreateInstance(modelCard, base.TurnTakerController, overrideNamespace);
+								newCC = CardControllerFactory.CreateInstance(modelCard, FindTurnTakerController(selection.SelectedCard.Owner), overrideNamespace);
 								base.TurnTakerController.AddCardController(newCC);
 								List<string> list2 = new List<string>();
 								list2.Add(selection.SelectedTurnTakerIdentifier);
@@ -158,7 +158,7 @@ namespace BartKFSentinels.TheShelledOne
 									{
 										Card card = new Card(item3, base.TurnTaker, 0);
 										base.TurnTaker.OffToTheSide.AddCard(card);
-										CardController card2 = CardControllerFactory.CreateInstance(card, base.TurnTakerController, overrideNamespace);
+										CardController card2 = CardControllerFactory.CreateInstance(card, FindTurnTakerController(selection.SelectedCard.Owner), overrideNamespace);
 										base.TurnTakerController.AddCardController(card2);
 										List<string> list3 = new List<string>();
 										list3.Add(modelCard.ParentDeck.QualifiedIdentifier);
