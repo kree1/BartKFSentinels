@@ -363,7 +363,7 @@ namespace BartKFSentinels.Breakaway
             {
                 // "When {Breakaway} flips to this side..."
                 // "... remove {TheClient} from the game."
-                Card theClient = base.TurnTaker.FindCard("The Client");
+                Card theClient = base.TurnTaker.FindCard("TheClient");
                 IEnumerator removeCoroutine = base.GameController.MoveCard(this.DecisionMaker, theClient, base.TurnTaker.OutOfGame, showMessage: true, responsibleTurnTaker: this.TurnTaker, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
