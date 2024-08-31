@@ -50,7 +50,7 @@ namespace BartKFSentinels.TheEmpire
 
         public override IEnumerator Play()
         {
-            // "When this card enters play, each player may discard a card or destroy one of their cards in play. If they do, reduce damage dealt to their targets by this card by 2."
+            // "When this card enters play, each player may discard a card or destroy one of their cards in play. If they do, reduce damage dealt to targets from their deck by this card by 2."
             List<SelectFunctionDecision> chosen = new List<SelectFunctionDecision>();
             Func<HeroTurnTakerController, IEnumerable<Function>> options = (HeroTurnTakerController httc) => new Function[]
             {
@@ -69,12 +69,15 @@ namespace BartKFSentinels.TheEmpire
             IEnumerable<HeroTurnTakerController> complied = (from d in chosen where d.SelectedFunction != null select d.HeroTurnTakerController);
             foreach(HeroTurnTakerController httc in complied)
             {
+                Log.Debug("SurpriseRaidCardController.Play: creating protective status effect for " + httc.TurnTaker.Name);
                 ReduceDamageStatusEffect protection = new ReduceDamageStatusEffect(2);
-                protection.TargetCriteria.OwnedBy = httc.TurnTaker;
+                protection.TargetCriteria.NativeDeck = httc.TurnTaker.Deck;
+                protection.TargetCriteria.OutputString = "targets from " + httc.TurnTaker.Name + (httc.TurnTaker.DeckDefinition.IsPlural ? "' deck" : "'s deck");
                 protection.SourceCriteria.IsSpecificCard = base.Card;
                 protection.CardDestroyedExpiryCriteria.Card = base.Card;
 
-                IEnumerator statusCoroutine = base.GameController.AddStatusEffect(protection, true, GetCardSource());
+                Log.Debug("SurpriseRaidCardController.Play: protection: " + protection.ToString());
+                IEnumerator statusCoroutine = AddStatusEffect(protection);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(statusCoroutine);

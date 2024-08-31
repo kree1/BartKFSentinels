@@ -310,7 +310,7 @@
 				"imperial"
 			],
 			"body": [
-				"When this card enters play, each player may discard a card or destroy one of their cards in play. If they do, reduce damage dealt to their targets by this card by 2.",
+				"When this card enters play, each player may discard a card or destroy one of their cards in play. If they do, reduce damage dealt to targets from their deck by this card by 2.",
 				"At the end of the environment turn, this card deals each non-Imperial target 2 melee damage. Then, destroy this card."
 			],
 			"icons": [
