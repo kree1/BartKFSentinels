@@ -1,0 +1,741 @@
+{
+	"name": "Ownership",
+	"kind": "Villain",
+	"initialCardIdentifiers": [
+		"OwnershipCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "OwnershipCharacter",
+			"count": 1,
+			"title": "Ownership",
+			"keywords": [
+				"villain"
+			],
+			"body": "Stay Positive",
+			"backgroundColor": "FFBE00",
+			"character": true,
+			"hitpoints": 999,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.TheGoalie"
+			],
+			"setup": [
+				"Put this card and the Map card into play, “Stay Positive” side up. Put each Stat card under the Map card. Shuffle the villain deck."
+			],
+			"gameplay": [
+				"Whenever a villain Modification is revealed, put it under this card. Then, if there are 3 or more cards under this card, play 1 of them and discard the rest.",
+				"At the start of each hero turn, reveal cards from the villain deck until a Weather Effect is revealed. Put it into play and discard the other revealed cards. If no card entered play this way, shuffle the villain trash and each villain Weather Effect in play into the villain deck.",
+				"At the start of the villain turn, either play 1 Replica from the villain trash or the top card of the environment deck."
+			],
+			"advanced": "At the end of the villain turn, add 3 tokens to each player's Stat card.",
+			"icons": [
+				"Manipulate",
+				"StartOfTurnAction",
+				"Search",
+				"PlayCardNow"
+			],
+			"advancedIcons": [
+				"EndOfTurnAction",
+				"AddTokens"
+			],
+			"flippedBody": "Fire Sale",
+			"flippedGameplay": [
+				"When this card flips to this side, discard each card under it.",
+				"Villain Collapses are indestructible.",
+				"When a villain Modification is destroyed, remove it from the game.",
+				"Increase damage dealt to this card by hero targets in play areas that have a villain Stat card by 50.",
+				"At the start of each hero turn, discard the top card of the villain deck. If it's a Weather Effect, play it.",
+				"At the end of the villain turn, {OwnershipCharacter} deals each hero character 5 infernal damage."
+			],
+			"flippedAdvanced": "At the end of the villain turn, move the lowest active hero marker 1 space left, then move the leftmost active hero marker 1 space down.",
+			"flippedIcons": [
+				"StartAndEndOfTurnAction",
+				"Discard",
+				"PlayCardNow",
+				"DealDamageInfernal"
+			],
+			"flippedAdvancedIcons": [
+				"RemoveTokens"
+			],
+			"challengeTitle": "Consumer Reports",
+			"challengeText": "The first time a card is discarded each turn, {OwnershipCharacter} deals the hero character with the highest HP 2 melee damage.",
+			"challengeIcons": [
+				"DealDamageMelee"
+			],
+			"difficulty": 2,
+			"openingLines": {
+				"default": "[b]You're winners! We're all winners![/b]",
+				"BartKFSentinels.TheGoalieCharacter": "[b]Given Our generosity - Given all We've done - Your Position is disappointing[/b]",
+				"TheGoalieOnIceCharacter": "[b]Together, we will forge new ways to Win. Victory is secured.[/b]"
+			}
+		},
+		{
+			"identifier": "MapCharacter",
+			"count": 1,
+			"title": "Levels",
+			"keywords": [
+				"villain",
+				"map"
+			],
+			"body": "Stay Positive",
+			"backgroundColor": "75BCFA",
+			"character": true,
+			"setup": [
+				"Each player puts a card from under this card in their play area “eDensity” side up and adds 30 tokens to it."
+			],
+			"gameplay": [
+				"This card and villain Stat cards are indestructible.",
+				"When a hero target deals a non-hero target 3 or more damage, add 2 tokens to that player's Stat card and {SunSun} deals itself 1 infernal damage.",
+				"When 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, add 5 tokens to their Stat card and {SunSun} deals itself 3 infernal damage.",
+				"When a hero is dealt melee damage by a villain target, remove 3 tokens from their Stat card.",
+				"When {SunSun} is destroyed, remove it from the game, then flip {OwnershipCharacter} and this card, leaving all markers in place."
+			],
+			"icons": [
+				"Indestructible",
+				"AddTokens",
+				"DealDamageInfernal",
+				"RemoveTokens"
+			],
+			"flippedTitle": "End Zones",
+			"flippedBody": "Fire Sale",
+			"flippedGameplay": [
+				"When this card flips to this side, put each villain Stat card under this card.",
+				"This card and villain Stat cards are indestructible.",
+				"When a player's marker moves to row 5, column 5, put a card from under this card in their play area “Rogue” side up.",
+				"When a player's marker moves to row 1, column 1, destroy each hero target in their play area.",
+				"After a player plays a card or uses a power, each player may discard any number of cards. If {H - 2} cards are discarded this way, move another player's marker 1 space up, down, left, or right.",
+				"After the end of each hero turn, move that player's marker to the space indicated by the red arrow starting from its current space."
+			],
+			"flippedIcons": [
+				"Indestructible",
+				"Discard",
+				"AddOrRemoveTokens",
+				"EndOfTurnAction"
+			],
+			"tokenPools": [
+				{
+					"identifier": "Hero1Column",
+					"name": "First Hero Column",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
+				},
+				{
+					"identifier": "Hero1Row",
+					"name": "First Hero Row",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
+				},
+				{
+					"identifier": "Hero2Column",
+					"name": "Second Hero Column",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
+				},
+				{
+					"identifier": "Hero2Row",
+					"name": "Second Hero Row",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
+				},
+				{
+					"identifier": "Hero3Column",
+					"name": "Third Hero Column",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
+				},
+				{
+					"identifier": "Hero3Row",
+					"name": "Third Hero Row",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
+				},
+				{
+					"identifier": "Hero4Column",
+					"name": "Fourth Hero Column",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
+				},
+				{
+					"identifier": "Hero4Row",
+					"name": "Fourth Hero Row",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
+				},
+				{
+					"identifier": "Hero5Column",
+					"name": "Fifth Hero Column",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "00C800",
+					"icon": "BartKFSentinels.ColumnToken"
+				},
+				{
+					"identifier": "Hero5Row",
+					"name": "Fifth Hero Row",
+					"initialValue": 1,
+					"minimumValue": 1,
+					"maximumValue": 5,
+					"color": "0084C8",
+					"icon": "BartKFSentinels.RowToken"
+				}
+			]
+		},
+		{
+			"identifier": "StatCharacter",
+			"count": 5,
+			"title": "eDensity",
+			"keywords": [
+				"villain",
+				"stat"
+			],
+			"body": "Stay Afloat",
+			"backgroundColor": "E85637",
+			"character": true,
+			"setup": [
+				"Put your marker on the Map at row 2, column X, where X = your place in the hero turn order."
+			],
+			"gameplay": [
+				"Whenever tokens are added to or removed from this card, move your marker on the Map to row Y, where Y = 5 minus (the number of tokens on this card divided by 10, rounded down).",
+				"This card can't have more than 49 tokens on it.",
+				"At the end of your turn, if your marker is in row 1 or 2, you may destroy 1 of your Ongoing or Equipment cards. If your marker is in row 1 or 2 and no card was destroyed this way, {OwnershipCharacter} deals your hero 3 melee damage."
+			],
+			"icons": [
+				"AddOrRemoveTokens",
+				"EndOfTurnAction",
+				"DestroyHero",
+				"DealDamageMelee"
+			],
+			"flippedTitle": "Rogue",
+			"flippedBody": "Charge the Mound",
+			"flippedGameplay": [
+				"Hero targets in this play area are immune to fire damage.",
+				"If your marker is in row 2, 3, or 4 and in column 2, 3, or 4, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by 50.",
+				"If your marker is at row 3, column 3, increase damage dealt by hero targets in this play area to {OwnershipCharacter} by an additional 100."
+			],
+			"flippedIcons": [
+				"ImmuneToDamageFire",
+				"IncreaseDamageDealt"
+			],
+			"tokenPools": [
+				{
+					"identifier": "StatCardWeightPool",
+					"name": "Stat Card's Weight Pool",
+					"initialValue": 0,
+					"minimumValue": 0,
+					"maximumValue": 49,
+					"color": "FFFFFF",
+					"icon": "BartKFSentinels.WeightToken"
+				}
+			]
+		},
+		{
+			"identifier": "Alternate",
+			"count": 1,
+			"title": "Alternate",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"When this card enters play, replace a hero character card in this play area with a variant of that hero, then destroy this card."
+			],
+			"icons": [
+			],
+			"flavorText": "Call in an Alternate{BR}for a Player on your Team.",
+			"flavorReference": "Season 12 Blessings"
+		},
+		{
+			"identifier": "BlackHoleBlackHole",
+			"count": 1,
+			"title": "Black Hole[Black Hole]",
+			"keywords": [
+				"weather effect",
+				"collapse"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When 12 or more damage is dealt to non-hero targets by hero targets in one turn, destroy a non-target villain Modification, chosen at random, then {OwnershipCharacter} regains 12 HP."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"Destroy",
+				"GainHP"
+			],
+			"flavorText": "[b]SUPERNOVA COLLAPSES{BR}REALITY TEARS[/b]",
+			"flavorReference": "Season 24 Earlsiesta"
+		},
+		{
+			"identifier": "ChorbySoulII",
+			"count": 1,
+			"title": "Chorby Soul II",
+			"keywords": [
+				"replica",
+				"batter"
+			],
+			"hitpoints": 7,
+			"body": [
+				"Reduce damage dealt to this card by 1.",
+				"At the end of each hero turn, if no damage was dealt to non-hero targets by hero targets this turn, this card deals a hero character in this turn's play area 2 projectile damage."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"EndOfTurnAction",
+				"DealDamageProjectile"
+			],
+			"flavorText": "[b]It's Our pleasure to announce{BR}The ILB Gift Shop is open for business!{BR}Give the people what they want![/b]",
+			"flavorReference": "Ownership, Season 22 Earlsiesta"
+		},
+		{
+			"identifier": "EqualSun",
+			"count": 1,
+			"title": "Equal Sun",
+			"keywords": [
+				"modification",
+				"league",
+				"sun"
+			],
+			"body": [
+				"At the start of each turn, if exactly 7 damage was dealt to non-hero targets by hero targets last turn, increase the next damage dealt by a hero target by 7."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "[b]Following Postseason 23{BR}A Special Event{BR}To celebrate the Semi-Centennial[/b]",
+			"flavorReference": "Ownership, Season 22 Election"
+		},
+		{
+			"identifier": "Expansion",
+			"count": 1,
+			"title": "Expansion",
+			"keywords": [
+				"modification",
+				"league"
+			],
+			"body": [
+				"This card is indestructible. When this card enters play, choose a hero character card from the box and put it into play next to this card.",
+				"At the end of the villain turn, if the character next to this card is active, one player plays the top card of their deck and another player's hero may use the power on this character."
+			],
+			"icons": [
+				"Indestructible",
+				"EndOfTurnAction",
+				"PlayCardNow",
+				"UsePowerNow"
+			],
+			"flavorText": "[b]Let's all extend a warm ILB{BR}welcome to our unexpected additions.{BR}Try to make them feel at home.[/b]",
+			"flavorReference": "Ownership, Season 12 Latesiesta"
+		},
+		{
+			"identifier": "Fairgrounds",
+			"count": 1,
+			"title": "Fairgrounds",
+			"keywords": [
+				"modification",
+				"league"
+			],
+			"body": [
+				"Whenever 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, discard the top card of that player's deck. If it's an Equipment card or a target, play it."
+			],
+			"icons": [
+				"Discard",
+				"PlayCardNow"
+			],
+			"flavorText": "Prize Match!{BR}The Winner gets Hot Bat of Stamina",
+			"flavorReference": "Season 18, Day 7"
+		},
+		{
+			"identifier": "Flippers",
+			"count": 1,
+			"title": "Flippers",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"When a hero in this play area would be dealt cold damage by a villain target, prevent that damage and that hero deals 1 target 3 projectile damage."
+			],
+			"icons": [
+				"CancelledDamageGreen",
+				"DealDamageProjectile"
+			],
+			"flavorText": "Wyatt Quitter uses their Flippers{BR}to slingshot home! 1 Run scored!",
+			"flavorReference": "Season 13, Day 6"
+		},
+		{
+			"identifier": "FloodBalloons",
+			"count": 1,
+			"title": "Flood Balloons",
+			"keywords": [
+				"modification",
+				"ballpark"
+			],
+			"body": [
+				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
+				"When a hero character is dealt 2 or more cold damage, remove 4 tokens from their Stat card."
+			],
+			"icons": [
+				"DestroySelf",
+				"RemoveTokens"
+			],
+			"flavorText": "A surge of Immateria{BR}rushes up from Under!{BR}Baserunners are swept from play!{BR}A Flood Balloon was filled!",
+			"flavorReference": "Season 21, Day 73"
+		},
+		{
+			"identifier": "Flooding",
+			"count": 1,
+			"title": "Flooding",
+			"keywords": [
+				"weather effect"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When this card enters play, either destroy a hero Ongoing or Equipment card in the current turn's play area or {OwnershipCharacter} deals a hero character in that play area 2 cold damage."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"DestroyHero",
+				"DealDamageCold"
+			],
+			"flavorText": "[b]EMERGENCY ALERT{br}BREACH DETECTED{br}FLOOD WARNING[/b]",
+			"flavorReference": "Season 12 Latesiesta"
+		},
+		{
+			"identifier": "Gaudy",
+			"count": 1,
+			"title": "Gaudy",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Increase damage dealt by hero targets in this play area by X, where X = the number of Ballpark Modification cards in play."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "[b]That's enough.{br}Repeal Turn Tables.{br}Play Ball.[/b]",
+			"flavorReference": "Ownership, Season 19 Earlsiesta"
+		},
+		{
+			"identifier": "HeatMagnet",
+			"count": 1,
+			"title": "Heat Magnet",
+			"keywords": [
+				"modification",
+				"ballpark"
+			],
+			"body": [
+				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
+				"When a hero character is dealt 4 or more fire damage, that hero character deals 1 target 3 lightning damage 3 times."
+			],
+			"icons": [
+				"DestroySelf",
+				"DealDamageLightning"
+			],
+			"flavorText": "Rogue Umpire{BR}incinerated Goobie Ballson!{BR}5 Runs generated for the Tacos!",
+			"flavorReference": "Season 22, Day 9"
+		},
+		{
+			"identifier": "HotAirBalloons",
+			"count": 1,
+			"title": "Hot Air Balloons",
+			"keywords": [
+				"modification",
+				"ballpark"
+			],
+			"body": [
+				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
+				"When a hero character is dealt 4 or more fire damage, remove 6 tokens from their Stat card."
+			],
+			"icons": [
+				"DestroySelf",
+				"RemoveTokens"
+			],
+			"flavorText": "The Tigers started inflating{BR}Hot Air Balloons in The Ampitheater.",
+			"flavorReference": "Season 23 Latesiesta"
+		},
+		{
+			"identifier": "LightHanded",
+			"count": 1,
+			"title": "Light-Handed",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"At the end of this player's turn, remove X tokens from their Stat card, where X = the number of non-character target and Equipment cards in this play area."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"RemoveTokens"
+			],
+			"flavorText": "[b]The Ratings are rising{BR}But some of you{BR}aren't pulling your weight.[/b]",
+			"flavorReference": "Ownership, Season 20 Election"
+		},
+		{
+			"identifier": "NewMeganItoIV",
+			"count": 1,
+			"title": "New Megan Ito IV",
+			"keywords": [
+				"replica",
+				"pitcher"
+			],
+			"hitpoints": 10,
+			"body": [
+				"At the start of each hero turn, discard the top card of that player's deck. If the discarded card is a One-Shot, play it. Otherwise, this card deals a hero character in that play area 2 projectile damage."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"Discard",
+				"PlayCardNow",
+				"DealDamageProjectile"
+			],
+			"flavorText": "[b]For a Limited Time{BR}The ILB Gift Shop is offering{BR}Ancient Legends![/b]",
+			"flavorReference": "Ownership, Season 22 Earlsiesta"
+		},
+		{
+			"identifier": "Night",
+			"count": 1,
+			"title": "Night",
+			"keywords": [
+				"weather effect"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When this card enters play during a player's turn, discard the top card of that player's deck. If it's an Ongoing or Equipment card, they put 1 of their non-character cards in play on the bottom of their deck and play the discarded card."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"Manipulate",
+				"PlayCardNow"
+			],
+			"flavorText": "Night Shift.{BR}Deep Darkness took Bevan Wise.{BR}Kirkland Sobremesa clocked in.",
+			"flavorReference": "Season 23, Day 104"
+		},
+		{
+			"identifier": "Polarity",
+			"count": 1,
+			"title": "Polarity",
+			"keywords": [
+				"weather effect"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When this card enters play during a player's turn, discard the top card of that player's deck. If it's a One-Shot card, whenever the Map card would add 2 tokens to a Stat card this turn, remove 2 tokens from that Stat card instead."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"Discard",
+				"RemoveTokens"
+			],
+			"flavorText": "[b]Trust Fall{BR}[i]turn the tables. winning will be losing.{BR}trust me.[/i][/b]",
+			"flavorReference": "The Reader, Season 19 Decrees"
+		},
+		{
+			"identifier": "PowerChaarge",
+			"count": 1,
+			"title": "Power Chaarge",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever a hero target in this play area deals a non-hero target exactly 2 damage, increase damage dealt by hero targets in this play area this turn by 1."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "Chaarge!{BR}Give your Team AA Blood.",
+			"flavorReference": "Season 17 Blessings"
+		},
+		{
+			"identifier": "Reload",
+			"count": 1,
+			"title": "Reload",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"When a hero target in this play area deals a non-hero target 5 or more damage, increase the next damage dealt by a hero target by 2."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "Leach Ingram Reloaded{BR}all of the Bases!",
+			"flavorReference": "Season 23, Day 18"
+		},
+		{
+			"identifier": "Smithy",
+			"count": 1,
+			"title": "Smithy",
+			"keywords": [
+				"modification",
+				"ballpark"
+			],
+			"body": [
+				"Play this card in the environment play area. When an environment card leaves play, if there are no environment cards in play, destroy this card.",
+				"At the end of the environment turn, one player may put an Ongoing or Equipment card from their trash on top of their deck."
+			],
+			"icons": [
+				"DestroySelf",
+				"Manipulate"
+			],
+			"flavorText": "Smithy beckons to Muse Scantron.{BR}Sunglasses is repaired!",
+			"flavorReference": "Season 18, Day 1"
+		},
+		{
+			"identifier": "SumSun",
+			"count": 1,
+			"title": "Sum Sun",
+			"keywords": [
+				"weather effect",
+				"sun"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"Whenever a target is dealt damage, increase damage dealt this phase by 1."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "[b]We have a message to those{BR}Who threaten Our League's stability[/b]",
+			"flavorReference": "Ownership, Season 21 Election"
+		},
+		{
+			"identifier": "SunPointOne",
+			"count": 1,
+			"title": "Sun .1",
+			"keywords": [
+				"weather effect",
+				"sun"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"Whenever a phase ends, increase damage dealt this turn by 1."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "[b]We are going to Win{BR}Like it or not.[/b]",
+			"flavorReference": "Ownership, Season 21 Election"
+		},
+		{
+			"identifier": "SunSun",
+			"count": 1,
+			"title": "Sun[Sun]",
+			"keywords": [
+				"modification",
+				"league",
+				"sun"
+			],
+			"hitpoints": 100,
+			"body": [
+				"At the start of the villain turn, this card regains {H + 1} HP.",
+				"When a hero character is dealt 4 or more fire damage, this card deals itself 3 infernal damage.",
+				"When another villain Sun card is played, this card deals itself 5 infernal damage."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"GainHP",
+				"DealDamageInfernal"
+			],
+			"flavorText": "[b]Inflation will keep Us afloat{BR}As We get things Squared Away.[/b]",
+			"flavorReference": "Ownership, Season 19 Election"
+		},
+		{
+			"identifier": "SupernovaEclipse",
+			"count": 1,
+			"title": "Supernova Eclipse",
+			"keywords": [
+				"weather effect"
+			],
+			"body": [
+				"At the start of each turn, destroy this card unless it entered play this turn.",
+				"When this card enters play, {OwnershipCharacter} deals each hero target in the current turn's play area 2 fire damage. Increase damage dealt to character cards this way by 2."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroySelf",
+				"DealDamageFire",
+				"IncreaseDamageTaken"
+			],
+			"flavorText": "[b]Wow! Look at those colors!{BR}Yes, Sun(Sun) appears to have exploded.{BR}There is no reason to panic.[/b]",
+			"flavorReference": "Ownership, ILB Semi-Centennial"
+		},
+		{
+			"identifier": "Underachiever",
+			"count": 1,
+			"title": "Underachiever",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever the Map card would add 2 tokens to this play area's Stat card, remove 2 tokens from that Stat card instead."
+			],
+			"icons": [
+				"RemoveTokens"
+			],
+			"flavorText": "Alston Cerveza hits{BR}a solo home run!{BR}1 Unruns scored!",
+			"flavorReference": "Season 20, Day 2"
+		},
+		{
+			"identifier": "Undersea",
+			"count": 1,
+			"title": "Undersea",
+			"keywords": [
+				"modification",
+				"team"
+			],
+			"body": [
+				"Play this card in the hero play area with the fewest Modification cards.",
+				"Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by hero targets in this play area this turn by 1."
+			],
+			"icons": [
+				"IncreaseDamageDealt"
+			],
+			"flavorText": "New Challenger:{BR}The Georgias have joined the ILB!{BR}They will play in the Wild High division.",
+			"flavorReference": "Season 12 Latesiesta"
+		}
+	]
+}

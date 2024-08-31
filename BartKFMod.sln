@@ -1,13 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.808.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BartKFMod", "MyMod\BartKFMod.csproj", "{44F8C838-553C-482C-B389-2B375B8590C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BartKFModTest", "MyModTest\BartKFModTest.csproj", "{AFE958F0-3C90-4493-A425-48A660B58E76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BartKFModConsole", "MyModConsole\BartKFModConsole.csproj", "{79F7ED14-FC8A-4625-A297-2CC51C5D803D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{44F8C838-553C-482C-B389-2B375B8590C9} = {44F8C838-553C-482C-B389-2B375B8590C9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

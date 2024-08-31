@@ -36,10 +36,11 @@
 				"Manipulate"
 			],
 			"complexity":2,
-			"openingLines":{
+			"openingLines": {
 				"default": "Don't worry, team. They're not getting past me.",
 				"OblivAeonFrontPageCharacter": "You're over the line.",
-				"Menagerie.UnmuteCharacter": "My field is wherever people need help. Looks like I'm in the right spot."
+				"Menagerie.UnmuteCharacter": "My field is wherever people need help. Looks like I'm in the right spot.",
+				"BartKFSentinels.OwnershipCharacter": "Let me guess- you and the rest of the big money interests are here to put players like me in our place?"
 			}
 		},
 		{
@@ -471,10 +472,11 @@
 				"IncreaseDamageDealtMelee"
 			],
 			"complexity": 2,
-			"openingLines":{
+			"openingLines": {
 				"default": "Ready to think outside the box?",
 				"OblivAeonFrontPageCharacter": "I'd watch the five-hole if I were you.",
-				"Menagerie.UnmuteCharacter": "Thanks! You're gonna wish you brought some."
+				"Menagerie.UnmuteCharacter": "Thanks! You're gonna wish you brought some.",
+				"BartKFSentinels.OwnershipCharacter": "Stop pretending to be in our corner. All you really care about is your bottom line."
 			}
 		}
 	]
