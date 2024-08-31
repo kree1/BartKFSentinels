@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class TheDayAfterForeverCardController : CardController
+    public class TheDayAfterForeverCardController : AlaaluUtilityCardController
     {
         public TheDayAfterForeverCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -24,8 +24,8 @@ namespace BartKFSentinels.Alaalu
             AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, ArriveResponse, TriggerType.PutIntoPlay);
             // "All damage is irreducible."
             AddMakeDamageIrreducibleTrigger((DealDamageAction dda) => true);
-            // "When a Location is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Location from the game."
-            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.DoKeywordsContain("location") && dca.CardSource != null && dca.CardSource.Card != null && dca.CardSource.Card.IsEnvironmentTarget, MoveOnResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.RemoveFromGame }, TriggerTiming.After);
+            // "When a Landmark is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Landmark from the game."
+            AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.DoKeywordsContain(LandmarkKeyword) && dca.CardSource != null && dca.CardSource.Card != null && dca.CardSource.Card.IsEnvironmentTarget, MoveOnResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.RemoveFromGame }, TriggerTiming.After);
         }
 
         public IEnumerator ArriveResponse(GameAction ga)
@@ -64,7 +64,7 @@ namespace BartKFSentinels.Alaalu
             {
                 base.GameController.ExhaustCoroutine(restoreCoroutine);
             }
-            // "Then, remove this card and that Location from the game."
+            // "Then, remove this card and that Landmark from the game."
             IEnumerator removeCoroutine = base.GameController.MoveCards(base.TurnTakerController, new Card[] { dca.CardToDestroy.Card, base.Card }, (Card c) => new MoveCardDestination(c.Owner.OutOfGame), responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {

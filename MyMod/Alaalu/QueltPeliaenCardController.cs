@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class QueltPeliaenCardController : CardController
+    public class QueltPeliaenCardController : AlaaluUtilityCardController
     {
         public QueltPeliaenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowListOfCardsInPlay(MythCriteria());
         }
 
         public override void AddTriggers()
@@ -67,7 +67,7 @@ namespace BartKFSentinels.Alaalu
             }
             if (DidDiscardCards(discarded))
             {
-                IEnumerator destroyCoroutine = base.GameController.DestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.DoKeywordsContain("myth"), "Myth", false, false, "Myth", "Myths"), cardSource: GetCardSource());
+                IEnumerator destroyCoroutine = base.GameController.DestroyCards(DecisionMaker, MythCriteria(), cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(destroyCoroutine);

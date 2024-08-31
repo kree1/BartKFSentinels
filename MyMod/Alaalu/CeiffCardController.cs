@@ -9,13 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class CeiffCardController : CardController
+    public class CeiffCardController : AlaaluUtilityCardController
     {
         public CeiffCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowNonEnvironmentTargetWithLowestHP(ranking: 1, numberOfTargets: 1);
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("livestock"), "livestock", false));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(LivestockCriteria());
         }
 
         public override void AddTriggers()
@@ -43,8 +43,7 @@ namespace BartKFSentinels.Alaalu
             {
                 Card lowestCard = lowest.FirstOrDefault();
                 //Log.Debug("lowestCard: " + lowestCard.Title);
-                //Log.Debug("Livestock in play: " + base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "livestock", false)).Count().ToString());
-                IEnumerator healCoroutine = base.GameController.GainHP(lowestCard, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "livestock", false)).Count() + 1, cardSource: GetCardSource());
+                IEnumerator healCoroutine = base.GameController.GainHP(lowestCard, base.GameController.FindCardsWhere(LivestockInPlayCriteria()).Count() + 1, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(healCoroutine);

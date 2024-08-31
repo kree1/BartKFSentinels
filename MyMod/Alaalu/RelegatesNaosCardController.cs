@@ -15,10 +15,12 @@ namespace BartKFSentinels.Alaalu
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowVillainTargetWithLowestHP(ranking: 1, numberOfTargets: 1);
-            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c.DoKeywordsContain("lone power"), "the Lone Power", useCardsSuffix: false));
+            SpecialStringMaker.ShowLocationOfCards(new LinqCardCriteria((Card c) => c.DoKeywordsContain(LonePowerKeyword), "the Lone Power", useCardsSuffix: false));
             AllowFastCoroutinesDuringPretend = false;
             RunModifyDamageAmountSimulationForThisCard = false;
         }
+
+        public readonly string LonePowerKeyword = "lone power";
 
         private ITrigger reduceDamageToLowest;
         private ITrigger reduceDamageByLowest;
@@ -35,8 +37,8 @@ namespace BartKFSentinels.Alaalu
             reduceDamageToLowest = AddTrigger((DealDamageAction dda) => CanCardBeConsideredLowestHitPoints(dda.Target, (Card c) => IsVillainTarget(c)), MaybeReduceDamageTakenResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
             reduceDamageByLowest = AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && CanCardBeConsideredLowestHitPoints(dda.DamageSource.Card, (Card c) => IsVillainTarget(c)), MaybeReduceDamageDealtResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
             // "Reduce damage dealt to and by the [i]Lone Power[/i] by 2."
-            reduceDamageToLoneOne = AddReduceDamageTrigger((Card c) => c.DoKeywordsContain("lone power"), 2);
-            reduceDamageByLoneOne = AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.DoKeywordsContain("lone power"), (DealDamageAction dda) => 2);
+            reduceDamageToLoneOne = AddReduceDamageTrigger((Card c) => c.DoKeywordsContain(LonePowerKeyword), 2);
+            reduceDamageByLoneOne = AddReduceDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.DoKeywordsContain(LonePowerKeyword), (DealDamageAction dda) => 2);
             // "At the start of the environment turn, 1 player may discard 2 cards. If they do, put the [i]Lone Power[/i] from the environment trash into play and destroy this card."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DiscardToLeaveResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.PutIntoPlay, TriggerType.DestroySelf });
         }
@@ -125,7 +127,7 @@ namespace BartKFSentinels.Alaalu
             if (DidDiscardCards(discarded, numberExpected: 2, orMore: true))
             {
                 // "If they do, put the [i]Lone Power[/i] from the environment trash into play and destroy this card."
-                IEnumerator freeCoroutine = PlayCardsFromLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain("lone power"), "Lone Power"), numberOfCards: 1);
+                IEnumerator freeCoroutine = PlayCardsFromLocation(base.TurnTaker.Trash, new LinqCardCriteria((Card c) => c.DoKeywordsContain(LonePowerKeyword), "Lone Power"), numberOfCards: 1);
                 if (base.UseUnityCoroutines)
                 {
                     yield return base.GameController.StartCoroutine(freeCoroutine);

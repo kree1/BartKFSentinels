@@ -41,6 +41,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alaalu\AlaaluUtilityCardController.cs" />
     <Compile Include="Alaalu\CeiffCardController.cs" />
     <Compile Include="Alaalu\DemairPeliaenCardController.cs" />
     <Compile Include="Alaalu\DruvahCardController.cs" />

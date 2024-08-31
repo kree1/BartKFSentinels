@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class DemairPeliaenCardController : CardController
+    public class DemairPeliaenCardController : AlaaluUtilityCardController
     {
         public DemairPeliaenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("alaalid"), "Alaalid"));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(AlaalidCriteria());
         }
 
         public override void AddTriggers()
@@ -28,7 +28,7 @@ namespace BartKFSentinels.Alaalu
         {
             // "... the X players with the fewest cards in hand each draw a card, where X is the number of Alaalids in play."
             List<TurnTaker> fewestResults = new List<TurnTaker>();
-            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("alaalid"), "Alaalid"), visibleToCard: GetCardSource()).Count(), (TurnTaker tt) => IsHero(tt), (TurnTaker tt) => tt.ToHero().Hand.NumberOfCards, SelectionType.DrawCard, fewestResults, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.DetermineTurnTakersWithMostOrFewest(false, 1, base.GameController.FindCardsWhere(AlaalidInPlayCriteria(), visibleToCard: GetCardSource()).Count(), (TurnTaker tt) => IsHero(tt), (TurnTaker tt) => tt.ToHero().Hand.NumberOfCards, SelectionType.DrawCard, fewestResults, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);

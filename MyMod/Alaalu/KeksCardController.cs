@@ -9,27 +9,27 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class KeksCardController : CardController
+    public class KeksCardController : AlaaluUtilityCardController
     {
         public KeksCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("alaalid"), "Alaalid"));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(AlaalidCriteria());
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of the environment turn, destroy all non-Myth Locations."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyRealLocationsResponse, TriggerType.DestroyCard);
+            // "At the end of the environment turn, destroy all non-Myth Landmarks."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, DestroyRealLandmarksResponse, TriggerType.DestroyCard);
             // "At the start of the environment turn, play the top card of the villain deck with the fewest cards in its trash. Then, play the top card of the hero deck with the fewest cards in its trash. Then, if an Alaalid is in play, shuffle this card and the environment trash into the environment deck."
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, BuildThenLeaveResponse, new TriggerType[] { TriggerType.PlayCard, TriggerType.ShuffleTrashIntoDeck, TriggerType.ShuffleCardIntoDeck });
         }
 
-        public IEnumerator DestroyRealLocationsResponse(GameAction ga)
+        public IEnumerator DestroyRealLandmarksResponse(GameAction ga)
         {
-            // "... destroy all non-Myth Locations."
-            IEnumerator destroyCoroutine = base.GameController.DestroyCards(DecisionMaker, new LinqCardCriteria((Card c) => c.DoKeywordsContain("location") && !c.DoKeywordsContain("myth"), "non-Myth Location"), cardSource: GetCardSource());
+            // "... destroy all non-Myth Landmarks."
+            IEnumerator destroyCoroutine = base.GameController.DestroyCards(DecisionMaker, NonMythLandmarkCriteria(), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(destroyCoroutine);
@@ -84,7 +84,7 @@ namespace BartKFSentinels.Alaalu
                 base.GameController.ExhaustCoroutine(heroPlayCoroutine);
             }
             // "Then, if an Alaalid is in play, shuffle this card and the environment trash into the environment deck."
-            IEnumerable<Card> alaalids = base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("alaalid"), "Alaalid"), visibleToCard: GetCardSource());
+            IEnumerable<Card> alaalids = base.GameController.FindCardsWhere(AlaalidInPlayCriteria(), visibleToCard: GetCardSource());
             if (alaalids.Count() > 0)
             {
                 IEnumerator messageCoroutine = base.GameController.SendMessageAction("It looks like the " + base.Card.Title + " are done building for today.", Priority.Medium, GetCardSource(), associatedCards: alaalids);

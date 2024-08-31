@@ -9,13 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class KuwilinPeliaenCardController : CardController
+    public class KuwilinPeliaenCardController : AlaaluUtilityCardController
     {
         public KuwilinPeliaenCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowNumberOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain("livestock"), "Livestock"));
-            SpecialStringMaker.ShowLowestHP(1, () => FindCardsWhere(new LinqCardCriteria((Card c) => c.DoKeywordsContain("livestock") && c.IsInPlayAndHasGameText, "Livestock"), visibleToCard: GetCardSource()).Count() + 1, new LinqCardCriteria((Card c) => IsHeroTarget(c), "hero", singular: "target", plural: "targets"));
+            SpecialStringMaker.ShowNumberOfCardsInPlay(LivestockCriteria());
+            SpecialStringMaker.ShowLowestHP(1, () => FindCardsWhere(LivestockInPlayCriteria(), visibleToCard: GetCardSource()).Count() + 1, new LinqCardCriteria((Card c) => IsHeroTarget(c), "hero", singular: "target", plural: "targets"));
         }
 
         public override void AddTriggers()
@@ -30,7 +30,7 @@ namespace BartKFSentinels.Alaalu
             // "... the X hero targets with the lowest HP regain 2 HP each, where X is 1 plus the number of Livestock in play."
             List<Card> lowestHeroes = new List<Card>();
             GainHPAction gameAction = new GainHPAction(GetCardSource(), null, 2, null);
-            IEnumerator findCoroutine = base.GameController.FindTargetsWithLowestHitPoints(1, base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, (Card c) => IsHeroTarget(c), lowestHeroes, gameAction: gameAction, evenIfCannotDealDamage: true, cardSource: GetCardSource());
+            IEnumerator findCoroutine = base.GameController.FindTargetsWithLowestHitPoints(1, base.GameController.FindCardsWhere(LivestockInPlayCriteria(), visibleToCard: GetCardSource()).Count() + 1, (Card c) => IsHeroTarget(c), lowestHeroes, gameAction: gameAction, evenIfCannotDealDamage: true, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(findCoroutine);
@@ -49,7 +49,7 @@ namespace BartKFSentinels.Alaalu
                 base.GameController.ExhaustCoroutine(healCoroutine);
             }
             // "Then, X players each put a card from their trash on the bottom of their deck."
-            IEnumerator massMoveCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt)), SelectionType.MoveCard, MoveFromTrashToDeckResponse, numberOfTurnTakers: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, requiredDecisions: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1, allowAutoDecide: base.GameController.FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.DoKeywordsContain("livestock"), "Livestock")).Count() + 1 >= base.GameController.AllHeroes.Count(), cardSource: GetCardSource());
+            IEnumerator massMoveCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => IsHero(tt)), SelectionType.MoveCard, MoveFromTrashToDeckResponse, numberOfTurnTakers: base.GameController.FindCardsWhere(LivestockInPlayCriteria(), visibleToCard: GetCardSource()).Count() + 1, requiredDecisions: base.GameController.FindCardsWhere(LivestockInPlayCriteria(), visibleToCard: GetCardSource()).Count() + 1, allowAutoDecide: base.GameController.FindCardsWhere(LivestockInPlayCriteria(), visibleToCard: GetCardSource()).Count() + 1 >= base.GameController.AllHeroes.Count(), cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(massMoveCoroutine);

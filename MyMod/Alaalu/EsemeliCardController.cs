@@ -9,12 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class EsemeliCardController : CardController
+    public class EsemeliCardController : AlaaluUtilityCardController
     {
         public EsemeliCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             SpecialStringMaker.ShowHeroTargetWithHighestHP();
+            SpecialStringMaker.ShowListOfCardsInPlay(new LinqCardCriteria((Card c) => c.DoKeywordsContain(WizardKeyword), WizardKeyword));
         }
 
         public override void AddTriggers()
@@ -93,7 +94,7 @@ namespace BartKFSentinels.Alaalu
                 base.GameController.ExhaustCoroutine(revealCoroutine);
             }
             // "... Then, this card deals each Wizard 2 psychic damage."
-            IEnumerator damageCoroutine = base.GameController.DealDamage(base.DecisionMaker, base.Card, (Card c) => c.DoKeywordsContain("wizard"), 2, DamageType.Psychic, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.DealDamage(base.DecisionMaker, base.Card, (Card c) => c.DoKeywordsContain(WizardKeyword), 2, DamageType.Psychic, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

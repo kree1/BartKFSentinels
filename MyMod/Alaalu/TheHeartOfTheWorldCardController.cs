@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Alaalu
 {
-    public class TheHeartOfTheWorldCardController : CardController
+    public class TheHeartOfTheWorldCardController : AlaaluUtilityCardController
     {
         public TheHeartOfTheWorldCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -125,7 +125,7 @@ namespace BartKFSentinels.Alaalu
         public IEnumerator DamageResponse(GameAction ga)
         {
             // "... deal each Alaalid 3 psychic damage."
-            IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, base.Card, (Card c) => c.DoKeywordsContain("alaalid"), 3, DamageType.Psychic, cardSource: GetCardSource());
+            IEnumerator damageCoroutine = base.GameController.DealDamage(DecisionMaker, base.Card, (Card c) => c.DoKeywordsContain(AlaalidKeyword), 3, DamageType.Psychic, cardSource: GetCardSource());
             if (base.UseUnityCoroutines)
             {
                 yield return base.GameController.StartCoroutine(damageCoroutine);

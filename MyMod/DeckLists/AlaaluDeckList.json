@@ -66,8 +66,8 @@
 			],
 			"hitpoints": 4,
 			"body": [
-				"At the end of the environment turn, reveal the top card of the environment deck. If it's a Location or a Choice, put it into play. If not, discard it.",
-				"At the start of the environment turn, if a non-Myth Location is in play, shuffle this card into the environment deck. If not, each player draws a card."
+				"At the end of the environment turn, reveal the top card of the environment deck. If it's a Landmark or a Choice, put it into play. If not, discard it.",
+				"At the start of the environment turn, if a non-Myth Landmark is in play, shuffle this card into the environment deck. If not, each player draws a card."
 			],
 			"icons": [
 				"StartAndEndOfTurnAction",
@@ -142,7 +142,7 @@
 			"count": 1,
 			"title": "Historical Display",
 			"keywords": [
-				"location",
+				"landmark",
 				"choice"
 			],
 			"body": [
@@ -172,7 +172,7 @@
 				"inheritors"
 			],
 			"body": [
-				"At the end of the environment turn, destroy all non-Myth Locations.",
+				"At the end of the environment turn, destroy all non-Myth Landmarks.",
 				"At the start of the environment turn, play the top card of the villain deck with the fewest cards in its trash. Then, play the top card of the hero deck with the fewest cards in its trash. Then, if an Alaalid is in play, shuffle this card and the environment trash into the environment deck."
 			],
 			"icons": [
@@ -256,7 +256,7 @@
 			"count": 1,
 			"title": "Relegate's Naos",
 			"keywords": [
-				"location",
+				"landmark",
 				"sanctuary"
 			],
 			"body": [
@@ -291,7 +291,7 @@
 			"body": [
 				"At the end of the environment turn, search the environment deck and trash for [i]The Heart of the World[/i] and put it into play. If you searched the environment deck, shuffle it.",
 				"All damage is irreducible.",
-				"When a Location is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Location from the game."
+				"When a Landmark is destroyed by an environment target, restore all character card targets to their maximum HP. Then, remove this card and that Landmark from the game."
 			],
 			"icons": [
 				"EndOfTurnAction",
@@ -317,7 +317,7 @@
 			"count": 1,
 			"title": "The Heart of the World",
 			"keywords": [
-				"location",
+				"landmark",
 				"myth"
 			],
 			"body": [
