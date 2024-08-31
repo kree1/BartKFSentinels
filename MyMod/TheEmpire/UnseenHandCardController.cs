@@ -14,7 +14,7 @@ namespace BartKFSentinels.TheEmpire
         public UnseenHandCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            SpecialStringMaker.ShowHighestHP(2, cardCriteria: new LinqCardCriteria((Card c) => !c.DoKeywordsContain(AuthorityKeyword), "non-Imperial", singular: "target", plural: "targets"));
         }
 
         public override void AddTriggers()

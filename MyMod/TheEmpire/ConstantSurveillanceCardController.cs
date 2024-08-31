@@ -14,7 +14,7 @@ namespace BartKFSentinels.TheEmpire
         public ConstantSurveillanceCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            LinqCardCriteria otherImperialTargetInPlay = new LinqCardCriteria((Card c) => c != base.Card && c.IsTarget && c.DoKeywordsContain(AuthorityKeyword) && c.IsInPlayAndHasGameText, "other Imperial targets in play", false, false, "other Imperial target in play", "other Imperial targets in play");
+            LinqCardCriteria otherImperialTargetInPlay = new LinqCardCriteria((Card c) => c != base.Card && c.IsTarget && c.DoKeywordsContain(AuthorityKeyword) && c.IsInPlayAndHasGameText, "other Imperial targets", false, false, "other Imperial target", "other Imperial targets");
             SpecialStringMaker.ShowListOfCardsInPlay(otherImperialTargetInPlay);
         }
 

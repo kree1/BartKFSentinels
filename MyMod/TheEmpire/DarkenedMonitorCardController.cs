@@ -14,7 +14,7 @@ namespace BartKFSentinels.TheEmpire
         public DarkenedMonitorCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            SpecialStringMaker.ShowHighestHP(ranking: 1, numberOfTargets: () => H - 1, cardCriteria: new LinqCardCriteria((Card c) => !c.DoKeywordsContain(AuthorityKeyword)));
+            SpecialStringMaker.ShowHighestHP(ranking: 1, numberOfTargets: () => H - 1, cardCriteria: new LinqCardCriteria((Card c) => !c.DoKeywordsContain(AuthorityKeyword), "non-Imperial", singular: "target", plural: "targets"));
         }
 
         public override void AddTriggers()
