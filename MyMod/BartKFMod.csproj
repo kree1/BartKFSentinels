@@ -319,6 +319,7 @@
     <EmbeddedResource Include="DeckLists\TheGoalieDeckList.json" />
     <EmbeddedResource Include="DeckLists\MemorialDeckList.json" />
     <EmbeddedResource Include="DeckLists\OwnershipDeckList.json" />
+    <EmbeddedResource Include="DeckLists\PlanetfallDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
