@@ -20,6 +20,7 @@ namespace BartKFSentinels.Planetfall
         public readonly string HugeKeyword = "huge";
         public readonly string TinyKeyword = "tiny";
         public readonly string ChipKeyword = "chip";
+        public readonly string AmplifierIdentifier = "HiggsFieldAmplifier";
 
         public LinqCardCriteria ChipCriteria()
         {

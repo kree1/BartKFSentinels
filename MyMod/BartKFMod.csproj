@@ -195,6 +195,7 @@
     <Compile Include="Planetfall\PlanetfallCharacterCardController.cs" />
     <Compile Include="Planetfall\PlanetfallTurnTakerController.cs" />
     <Compile Include="Planetfall\PlanetfallUtilityCardController.cs" />
+    <Compile Include="Planetfall\RemoteActivationCardController.cs" />
     <Compile Include="Planetfall\RemoteDetonationCardController.cs" />
     <Compile Include="Planetfall\ShatterSanctuaryCardController.cs" />
     <Compile Include="Planetfall\TanglewebNettingCardController.cs" />
