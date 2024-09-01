@@ -183,6 +183,13 @@
     <Compile Include="Ownership\TeamModCardController.cs" />
     <Compile Include="Ownership\UnderachieverCardController.cs" />
     <Compile Include="Ownership\UnderseaCardController.cs" />
+    <Compile Include="Planetfall\BioInfiltrationCardController.cs" />
+    <Compile Include="Planetfall\CrackFoundationsCardController.cs" />
+    <Compile Include="Planetfall\HiggsFieldAmplifierCardController.cs" />
+    <Compile Include="Planetfall\PlanetfallUtilityCardController.cs" />
+    <Compile Include="Planetfall\RemoteDetonationCardController.cs" />
+    <Compile Include="Planetfall\ShatterSanctuaryCardController.cs" />
+    <Compile Include="Planetfall\TechnoInfiltrationCardController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TheEmpire\CampaignOfTerrorCardController.cs" />
     <Compile Include="TheEmpire\ConstantSurveillanceCardController.cs" />
