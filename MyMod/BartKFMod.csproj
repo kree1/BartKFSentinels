@@ -192,6 +192,8 @@
     <Compile Include="Planetfall\HiggsFieldAmplifierCardController.cs" />
     <Compile Include="Planetfall\KineticEnclosureCardController.cs" />
     <Compile Include="Planetfall\NeuralDisruptorCardController.cs" />
+    <Compile Include="Planetfall\PlanetfallCharacterCardController.cs" />
+    <Compile Include="Planetfall\PlanetfallTurnTakerController.cs" />
     <Compile Include="Planetfall\PlanetfallUtilityCardController.cs" />
     <Compile Include="Planetfall\RemoteDetonationCardController.cs" />
     <Compile Include="Planetfall\ShatterSanctuaryCardController.cs" />
