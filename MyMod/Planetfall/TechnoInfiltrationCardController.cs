@@ -20,7 +20,8 @@ namespace BartKFSentinels.Planetfall
         public override IEnumerator Play()
         {
             // "{Planetfall} deals each hero target X lightning damage, where X = the number of Equipment and/or Device cards from that target's deck in play plus 2."
-            IEnumerator lightningCoroutine = DealDamage(CharacterCard, (Card c) => IsHeroTarget(c), (Card c) => 2 + GameController.FindCardsWhere((Card e) => e.NativeDeck == c.NativeDeck && (IsEquipment(e) || e.IsDevice)).Count(), DamageType.Lightning);
+            Func<Card, int?> xVal = (Card c) => c != null ? new int?(2 + GameController.FindCardsWhere((Card e) => e.IsInPlayAndHasGameText && e.NativeDeck == c.NativeDeck && (IsEquipment(e) || e.IsDevice)).Count()) : null;
+            IEnumerator lightningCoroutine = DealDamage(CharacterCard, (Card c) => IsHeroTarget(c), xVal, DamageType.Lightning);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(lightningCoroutine);
