@@ -50,9 +50,23 @@ namespace BartKFSentinels.Planetfall
         public IEnumerator PutOnDeckResponse(DestroyCardAction dca)
         {
             // "... put it on top of the villain deck."
+            Log.Debug("KineticEnclosureCardController.PutOnDeckResponse activated");
             if (dca.PostDestroyDestinationCanBeChanged)
             {
-                dca.SetPostDestroyDestination(TurnTaker.Deck, showMessage: true, cardSource: GetCardSource());
+                Log.Debug("KineticEnclosureCardController.PutOnDeckResponse: PostDestroyDestinationCanBeChanged returned true");
+                AddInhibitorException((GameAction ga) => ga is MessageAction || ga is MoveCardAction);
+                IEnumerator announceCoroutine = GameController.SendMessageAction(Card.Title + " moves itself to the top of the villain deck.", Priority.Medium, GetCardSource(), showCardSource: true);
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(announceCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(announceCoroutine);
+                }
+                dca.SetPostDestroyDestination(TurnTaker.Deck);
+                dca.PostDestroyDestinationCanBeChanged = false;
+                RemoveInhibitorException();
             }
             yield break;
         }
