@@ -93,6 +93,8 @@ namespace BartKFSentinels.Planetfall
                     // ...
                 }
             }
+            AddDefeatedIfDestroyedTriggers();
+            AddDefeatedIfMovedOutOfGameTriggers();
         }
 
         public IEnumerator HealPlayResponse(CardEntersPlayAction cepa)
