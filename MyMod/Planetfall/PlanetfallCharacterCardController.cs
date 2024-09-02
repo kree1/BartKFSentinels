@@ -98,7 +98,7 @@ namespace BartKFSentinels.Planetfall
         public IEnumerator HealPlayResponse(CardEntersPlayAction cepa)
         {
             // "... {Planetfall} regains 2 HP, ..."
-            IEnumerator healCoroutine = GameController.GainHP(Card, 2, cardSource: GetCardSource());
+            IEnumerator healCoroutine = GameController.GainHP(CharacterCard, 2, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(healCoroutine);
