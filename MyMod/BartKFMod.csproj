@@ -186,6 +186,7 @@
     <Compile Include="Planetfall\AdhesiveGrenadeCardController.cs" />
     <Compile Include="Planetfall\AggressionBoosterCardController.cs" />
     <Compile Include="Planetfall\BioInfiltrationCardController.cs" />
+    <Compile Include="Planetfall\ChipCardController.cs" />
     <Compile Include="Planetfall\CrackFoundationsCardController.cs" />
     <Compile Include="Planetfall\DestructiveChipCardController.cs" />
     <Compile Include="Planetfall\DisassemblerCardController.cs" />

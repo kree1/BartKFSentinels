@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Planetfall
 {
-    public class TanglewebNettingCardController : CardController
+    public class TanglewebNettingCardController : ChipCardController
     {
         public TanglewebNettingCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

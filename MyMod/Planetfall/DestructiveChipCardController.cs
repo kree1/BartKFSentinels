@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Planetfall
 {
-    public class DestructiveChipCardController : CardController
+    public class DestructiveChipCardController : ChipCardController
     {
         public DestructiveChipCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
