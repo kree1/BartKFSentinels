@@ -30,7 +30,7 @@ namespace BartKFSentinels.Planetfall
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
             // "{Planetfall} deals each Chip and each non-villain target X projectile damage, where X = 3 plus the number of non-target cards destroyed this turn."
-            IEnumerator chipDamageCoroutine = DealDamage(CharacterCard, (Card c) => GameController.DoesCardContainKeyword(c, ChipKeyword), (Card c) => Game.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => !dcje.WasTargetWhenDestroyed).Count(), DamageType.Projectile);
+            IEnumerator chipDamageCoroutine = DealDamage(CharacterCard, (Card c) => GameController.DoesCardContainKeyword(c, ChipKeyword), (Card c) => 3 + Game.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => !dcje.WasTargetWhenDestroyed).Count(), DamageType.Projectile);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(chipDamageCoroutine);
@@ -39,7 +39,7 @@ namespace BartKFSentinels.Planetfall
             {
                 GameController.ExhaustCoroutine(chipDamageCoroutine);
             }
-            IEnumerator nonVillainDamageCoroutine = DealDamage(CharacterCard, (Card c) => !IsVillainTarget(c), (Card c) => Game.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => !dcje.WasTargetWhenDestroyed).Count(), DamageType.Projectile);
+            IEnumerator nonVillainDamageCoroutine = DealDamage(CharacterCard, (Card c) => !IsVillainTarget(c), (Card c) => 3 + Game.Journal.DestroyCardEntriesThisTurn().Where((DestroyCardJournalEntry dcje) => !dcje.WasTargetWhenDestroyed).Count(), DamageType.Projectile);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(nonVillainDamageCoroutine);
