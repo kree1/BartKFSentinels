@@ -1,0 +1,140 @@
+{"frames": {
+
+"button-labels.png":
+{
+	"frame": {"x":0,"y":189,"w":678,"h":649},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":678,"h":649},
+	"sourceSize": {"w":678,"h":649}
+},
+"Coin.png":
+{
+	"frame": {"x":0,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+},
+"Column1.png":
+{
+	"frame": {"x":0,"y":93,"w":118,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":93},
+	"sourceSize": {"w":118,"h":93}
+},
+"Column2.png":
+{
+	"frame": {"x":121,"y":93,"w":118,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":93},
+	"sourceSize": {"w":118,"h":93}
+},
+"Column3.png":
+{
+	"frame": {"x":242,"y":93,"w":118,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":93},
+	"sourceSize": {"w":118,"h":93}
+},
+"Column4.png":
+{
+	"frame": {"x":363,"y":93,"w":118,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":93},
+	"sourceSize": {"w":118,"h":93}
+},
+"Column5.png":
+{
+	"frame": {"x":484,"y":93,"w":118,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":93},
+	"sourceSize": {"w":118,"h":93}
+},
+"Desert.png":
+{
+	"frame": {"x":93,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+},
+"Hall.png":
+{
+	"frame": {"x":186,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+},
+"Horizon.png":
+{
+	"frame": {"x":279,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+},
+"Row1.png":
+{
+	"frame": {"x":465,"y":0,"w":98,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":88},
+	"sourceSize": {"w":98,"h":88}
+},
+"Row2.png":
+{
+	"frame": {"x":566,"y":0,"w":101,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":101,"h":88},
+	"sourceSize": {"w":101,"h":88}
+},
+"Row3.png":
+{
+	"frame": {"x":774,"y":0,"w":103,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":88},
+	"sourceSize": {"w":103,"h":88}
+},
+"Row4.png":
+{
+	"frame": {"x":880,"y":0,"w":105,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":88},
+	"sourceSize": {"w":105,"h":88}
+},
+"Row5.png":
+{
+	"frame": {"x":670,"y":0,"w":101,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":101,"h":88},
+	"sourceSize": {"w":101,"h":88}
+},
+"Vault.png":
+{
+	"frame": {"x":372,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ButtonGeneral.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:483c300efdfe8a0bc442c7678ac0ebbc:89895e1a9255f42fdbba147ea4e36680:a18e781645faf149cbba388043440a07$"
+}
+}
