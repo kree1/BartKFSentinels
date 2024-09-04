@@ -42,7 +42,7 @@
 },
 "OwnershipCharacter.png":
 {
-	"frame": {"x":0,"y":259,"w":178,"h":256},
+	"frame": {"x":905,"y":0,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -50,7 +50,15 @@
 },
 "PalmreaderCharacter.png":
 {
-	"frame": {"x":181,"y":259,"w":178,"h":256},
+	"frame": {"x":1086,"y":0,"w":178,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
+	"sourceSize": {"w":178,"h":256}
+},
+"PlanetfallCharacter.png":
+{
+	"frame": {"x":1267,"y":0,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -58,7 +66,7 @@
 },
 "ProBonoFractureCharacter.png":
 {
-	"frame": {"x":362,"y":259,"w":178,"h":256},
+	"frame": {"x":1448,"y":0,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -66,7 +74,7 @@
 },
 "TheEmpireDeckBack.png":
 {
-	"frame": {"x":543,"y":259,"w":178,"h":256},
+	"frame": {"x":1629,"y":0,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -74,7 +82,7 @@
 },
 "TheGigamorphDeckBack.png":
 {
-	"frame": {"x":724,"y":259,"w":178,"h":256},
+	"frame": {"x":1810,"y":0,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -82,7 +90,7 @@
 },
 "TheGoalieCharacter.jpg":
 {
-	"frame": {"x":0,"y":518,"w":178,"h":256},
+	"frame": {"x":0,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -90,7 +98,7 @@
 },
 "TheGoalieOnIceCharacter.png":
 {
-	"frame": {"x":181,"y":518,"w":178,"h":256},
+	"frame": {"x":181,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -98,7 +106,7 @@
 },
 "TheShelledOneCharacter.png":
 {
-	"frame": {"x":362,"y":518,"w":178,"h":256},
+	"frame": {"x":362,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -106,7 +114,7 @@
 },
 "TorrentCharacter.png":
 {
-	"frame": {"x":543,"y":518,"w":178,"h":256},
+	"frame": {"x":543,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -114,7 +122,7 @@
 },
 "TorrentDenialOfServiceCharacter.png":
 {
-	"frame": {"x":724,"y":518,"w":178,"h":256},
+	"frame": {"x":724,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -125,8 +133,8 @@
 	"version": "1.0",
 	"image": "SetupGame0.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":1024},
+	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2d1654d2c32fc557e24b1e3213ae17ee:394373ae7cb4fe79f5052f9950cd7e70:4ee285c32a91b7652e02ac049f918b2a$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a3e210e53f4c9de2dd27bd7b9ea92524:8fcddc177a34166cbc2c3e7210d48584:4ee285c32a91b7652e02ac049f918b2a$"
 }
 }
