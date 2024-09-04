@@ -66,7 +66,7 @@ namespace BartKFSentinels.Planetfall
             // "At the start of that hero's turn, this card deals itself or that hero 2 [ToDeal] damage."
             AddStartOfTurnTrigger((TurnTaker tt) => GetCardThisCardIsNextTo() != null && tt == GetCardThisCardIsNextTo().Owner, (PhaseChangeAction pca) => GameController.SelectTargetsAndDealDamage(GameController.FindHeroTurnTakerController(GetCardThisCardIsNextTo().Owner.ToHero()), new DamageSource(GameController, Card), 2, ToDeal, 1, false, 1, additionalCriteria: (Card c) => c == Card || c == GetCardThisCardIsNextTo(), cardSource: GetCardSource()), TriggerType.DealDamage);
             // "When this card is destroyed, destroy 2 [ToDestroy] cards."
-            AddWhenDestroyedTrigger((DestroyCardAction dca) => GameController.SelectAndDestroyCards(DecisionMaker, ToDestroy(), 2, requiredDecisions: 2, responsibleCard: Card, cardSource: GetCardSource()), new TriggerType[] { TriggerType.DestroyCard });
+            AddWhenDestroyedTrigger((DestroyCardAction dca) => GameController.SelectAndDestroyCards(null, ToDestroy(), 2, requiredDecisions: 2, responsibleCard: Card, cardSource: GetCardSource()), new TriggerType[] { TriggerType.DestroyCard });
         }
     }
 }
