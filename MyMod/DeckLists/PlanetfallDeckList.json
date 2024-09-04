@@ -121,7 +121,7 @@
 		},
 		{
 			"identifier": "BioInfiltration",
-			"count": 2,
+			"count": 3,
 			"title": "Bio-Infiltration",
 			"keywords": [
 				"one-shot",
@@ -271,7 +271,7 @@
 		},
 		{
 			"identifier": "RemoteActivation",
-			"count": 3,
+			"count": 2,
 			"title": "Remote Activation",
 			"keywords": [
 				"one-shot",
@@ -296,7 +296,7 @@
 		},
 		{
 			"identifier": "RemoteDetonation",
-			"count": 3,
+			"count": 2,
 			"title": "Remote Detonation",
 			"keywords": [
 				"one-shot",
@@ -345,7 +345,7 @@
 		},
 		{
 			"identifier": "TanglewebNetting",
-			"count": 1,
+			"count": 2,
 			"title": "Tangleweb Netting",
 			"keywords": [
 				"device",
