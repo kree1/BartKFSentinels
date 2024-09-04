@@ -70,11 +70,6 @@ namespace BartKFSentinels.Planetfall
                 AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && GameController.DoesCardContainKeyword(cepa.CardEnteringPlay, MegaKeyword), (CardEntersPlayAction cepa) => FlipThisCharacterCardResponse(cepa), TriggerType.FlipCard, TriggerTiming.After));
                 // "At the end of the villain turn, {Planetfall} deals the hero character with the lowest HP {H - 2} toxic damage."
                 AddSideTrigger(AddDealDamageAtEndOfTurnTrigger(TurnTaker, Card, (Card c) => IsHeroCharacterCard(c), TargetType.LowestHP, H - 2, DamageType.Toxic));
-                if (base.IsGameAdvanced)
-                {
-                    // Front side, Advanced:
-                    // ...
-                }
             }
             else
             {
@@ -87,14 +82,45 @@ namespace BartKFSentinels.Planetfall
                 AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsVillain && GameController.DoesCardContainKeyword(cepa.CardEnteringPlay, MicroKeyword), (CardEntersPlayAction cepa) => FlipThisCharacterCardResponse(cepa), TriggerType.FlipCard, TriggerTiming.After));
                 // "At the end of the villain turn, {Planetfall} deals the {H - 1} hero targets with the highest HP 2 sonic damage each."
                 AddSideTrigger(AddDealDamageAtEndOfTurnTrigger(TurnTaker, Card, (Card c) => IsHeroTarget(c), TargetType.HighestHP, 2, DamageType.Sonic, numberOfTargets: H - 1));
-                if (base.IsGameAdvanced)
-                {
-                    // Back side, Advanced:
-                    // ...
-                }
             }
             AddDefeatedIfDestroyedTriggers();
             AddDefeatedIfMovedOutOfGameTriggers();
+        }
+
+        public override IEnumerator AfterFlipCardImmediateResponse()
+        {
+            IEnumerator inheritedCoroutine = base.AfterFlipCardImmediateResponse();
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(inheritedCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(inheritedCoroutine);
+            }
+            if (IsGameAdvanced)
+            {
+                // Advanced: "When {Planetfall} flips to this side, ..."
+                IEnumerator respondCoroutine = DoNothing();
+                if (Card.IsFlipped)
+                {
+                    // "... she deals each non-villain target 1 melee damage."
+                    respondCoroutine = DealDamage(CharacterCard, (Card c) => !IsVillainTarget(c), 1, DamageType.Melee);
+                }
+                else
+                {
+                    // "... {H - 2} players each discard 1 card."
+                    respondCoroutine = GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame && (tt as HeroTurnTaker).HasCardsInHand, "heroes with cards in hand"), SelectionType.DiscardCard, (TurnTaker tt) => GameController.SelectAndDiscardCards(GameController.FindHeroTurnTakerController((HeroTurnTaker)tt), 1, false, 0, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource()), H - 2, false, H - 2, cardSource: GetCardSource());
+                }
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(respondCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(respondCoroutine);
+                }
+            }
         }
 
         public IEnumerator HealPlayResponse(CardEntersPlayAction cepa)

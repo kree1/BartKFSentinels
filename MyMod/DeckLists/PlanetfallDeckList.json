@@ -29,9 +29,7 @@
 				"When a villain Mega card enters play, flip {Planetfall}.",
 				"At the end of the villain turn, {Planetfall} deals the hero character with the lowest HP {H - 2} toxic damage."
 			],
-			"advanced": [
-				""
-			],
+			"advanced": "When {Planetfall} flips to this side, {H - 2} players each discard 1 card.",
 			"icons": [
 				"ReduceDamageTaken",
 				"GainHP",
@@ -39,7 +37,7 @@
 				"DealDamageToxic"
 			],
 			"advancedIcons": [
-				""
+				"Discard"
 			],
 			"flippedBody": "Devastation",
 			"flippedKeywords": [
@@ -52,9 +50,7 @@
 				"When a villain Micro card enters play, flip {Planetfall}.",
 				"At the end of the villain turn, {Planetfall} deals the {H - 1} hero targets with the highest HP 2 sonic damage each."
 			],
-			"flippedAdvanced": [
-				""
-			],
+			"flippedAdvanced": "When {Planetfall} flips to this side, she deals each non-villain target 1 melee damage.",
 			"flippedIcons": [
 				"ReduceDamageTaken",
 				"DealDamageProjectile",
@@ -62,6 +58,11 @@
 				"DealDamageSonic"
 			],
 			"flippedAdvancedIcons": [
+				"DealDamageMelee"
+			],
+			"challengeTitle": "",
+			"challengeText": "",
+			"challengeIcons": [
 				""
 			],
 			"difficulty": 2,
