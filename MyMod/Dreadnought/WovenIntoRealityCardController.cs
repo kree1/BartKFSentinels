@@ -40,7 +40,7 @@ namespace BartKFSentinels.Dreadnought
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
             // "Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
-            IEnumerator stressCoroutine = StressResponse(cardsInstructed, cardsRequired, damageAmt);
+            IEnumerator stressCoroutine = PayStress(cardsInstructed, cardsRequired, damageAmt);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(stressCoroutine);

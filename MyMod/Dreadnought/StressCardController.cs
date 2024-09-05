@@ -18,12 +18,12 @@ namespace BartKFSentinels.Dreadnought
             SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Trash);
         }
 
-        public IEnumerator StressResponse(int numCards)
+        public IEnumerator PayStress(int numCards)
         {
-            yield return StressResponse(numCards, numCards, numCards + 1);
+            yield return PayStress(numCards, numCards, numCards + 1);
         }
 
-        public IEnumerator StressResponse(int cardsInstructed, int cardsRequired, int damageAmt)
+        public IEnumerator PayStress(int cardsInstructed, int cardsRequired, int damageAmt)
         {
             // "Put the bottom [cardsInstructed] cards of your trash on the bottom of your deck."
             List<MoveCardAction> moved = new List<MoveCardAction>();
@@ -43,6 +43,15 @@ namespace BartKFSentinels.Dreadnought
             }
             // "If you moved fewer than [cardsRequired] cards this way, {Dreadnought} deals herself [damageAmt] irreducible psychic damage."
             IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
+            IEnumerator announceCoroutine = GameController.SendMessageAction(Card.Title + " moved " + wasMoved.Count().ToString() + " " + wasMoved.Count().ToString_CardOrCards() + " from " + TurnTaker.Name + "'s trash to the bottom of " + TurnTaker.Name + "'s deck.", Priority.Low, GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(announceCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(announceCoroutine);
+            }
             if (wasMoved.Count() < cardsRequired)
             {
                 IEnumerator psychicCoroutine = DealDamage(CharacterCard, CharacterCard, damageAmt, DamageType.Psychic, isIrreducible: true);

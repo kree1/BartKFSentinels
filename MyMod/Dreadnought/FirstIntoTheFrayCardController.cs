@@ -21,7 +21,7 @@ namespace BartKFSentinels.Dreadnought
         {
             base.AddTriggers();
             // "Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
-            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && (pca.FromPhase.Phase == Phase.PlayCard || pca.FromPhase.Phase == Phase.UsePower) && pca.FromPhase.WasSkipped, Stress1WithMessageResponse, new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.After);
+            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && (pca.FromPhase.Phase == Phase.PlayCard || pca.FromPhase.Phase == Phase.UsePower) && pca.FromPhase.WasSkipped, (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
         }
 
         public override IEnumerator UsePower(int index = 0)
@@ -48,40 +48,6 @@ namespace BartKFSentinels.Dreadnought
             else
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
-            }
-        }
-
-        public IEnumerator Stress1WithMessageResponse(PhaseChangeAction pca)
-        {
-            string message = "";
-            if (pca.FromPhase.Phase == Phase.PlayCard)
-            {
-                message = TurnTaker.Name + " skipped their play phase...";
-            }
-            else if (pca.FromPhase.Phase == Phase.UsePower)
-            {
-                message = TurnTaker.Name + " skipped their power phase...";
-            }
-            if (message != "")
-            {
-                IEnumerator messageCoroutine = GameController.SendMessageAction(message, Priority.Medium, GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(messageCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(messageCoroutine);
-                }
-            }
-            IEnumerator stressCoroutine = StressResponse(1);
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(stressCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(stressCoroutine);
             }
         }
     }

@@ -18,6 +18,7 @@
 	"dll": "BartKFMod.dll",
 	"decks": {
 		"heroes": [
+			"Dreadnought",
 			"Fracture",
 			"Palmreader",
 			"Impulse",
@@ -28,7 +29,6 @@
 			"Breakaway",
 			"Memorial",
 			"Ownership",
-			"Planetfall",
 			"TheShelledOne"
 		],
 		"environments": [

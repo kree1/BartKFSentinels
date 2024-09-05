@@ -32,7 +32,7 @@ namespace BartKFSentinels.Dreadnought
         public override IEnumerator Play()
         {
             // "Put the bottom 3 cards of your trash on the bottom of your deck. If you moved fewer than 3 cards this way, {Dreadnought} deals herself 4 irreducible psychic damage."
-            IEnumerator stressCoroutine = StressResponse(3);
+            IEnumerator stressCoroutine = PayStress(3);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(stressCoroutine);
