@@ -140,7 +140,7 @@
 				"DealDamageProjectile",
 				"Discard"
 			],
-			"flavorText": "A vortex of shredded{BR}paperwork is sucked up in my wake,{BR}and I explode out the side of the building{BR}in a cloud of shattered glass.",
+			"flavorText": "A vortex of shredded{BR}paperwork is sucked up in my wake,{BR}and I explode out the side of the{BR}building in a cloud of shattered glass.",
 			"flavorReference": "[i]Dreadnought[/i], p. 253"
 		},
 		{
@@ -263,11 +263,11 @@
 			"flavorQuotes": [
 				{
 					"identifier": "Dreadnought",
-					"text": "Point those guns somewhere else, kid."
+					"text": "Point those{BR}guns somewhere else, kid."
 				},
 				{
 					"identifier": "Princess Panzer",
-					"text": "How did you see them through the glare?"
+					"text": "How did you see them{BR}through the glare?"
 				}
 			],
 			"flavorReference": "[i]Sovereign[/i], p. 209"
