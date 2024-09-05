@@ -78,8 +78,14 @@
     <Compile Include="Dreadnought\GoThroughCardController.cs" />
     <Compile Include="Dreadnought\GrabAndTwistCardController.cs" />
     <Compile Include="Dreadnought\ItsNiceHavingAFriendCardController.cs" />
+    <Compile Include="Dreadnought\OpenUpToSomeoneCardController.cs" />
+    <Compile Include="Dreadnought\RepairTheLatticeCardController.cs" />
     <Compile Include="Dreadnought\ShowVulnerabilityCardController.cs" />
+    <Compile Include="Dreadnought\StressCardController.cs" />
     <Compile Include="Dreadnought\StrongerThanATankCannonCardController.cs" />
+    <Compile Include="Dreadnought\TougherThanABattlecruiserCardController.cs" />
+    <Compile Include="Dreadnought\WovenIntoRealityCardController.cs" />
+    <Compile Include="Dreadnought\YankTheThreadsCardController.cs" />
     <Compile Include="EvidenceStorage\AlienEscapePodCardController.cs" />
     <Compile Include="EvidenceStorage\CryoRegulatorCardController.cs" />
     <Compile Include="EvidenceStorage\CustodyOfficerCardController.cs" />
