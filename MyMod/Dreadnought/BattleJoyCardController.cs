@@ -21,7 +21,7 @@ namespace BartKFSentinels.Dreadnought
         {
             base.AddTriggers();
             // "Whenever {Dreadnought} deals non-psychic damage to another target, {Dreadnought} regains 1 HP."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.DidDealDamage && dda.DamageType != DamageType.Psychic, (DealDamageAction dda) => GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource()), TriggerType.GainHP, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.Target != CharacterCard && dda.DidDealDamage && dda.DamageType != DamageType.Psychic, (DealDamageAction dda) => GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource()), TriggerType.GainHP, TriggerTiming.After);
             // "Whenever another of your Ongoing cards leaves play, you may draw a card."
             AddTrigger((MoveCardAction mca) => mca.Origin.IsInPlay && !mca.Destination.IsInPlay && mca.CardToMove.Owner == TurnTaker && IsOngoing(mca.CardToMove) && mca.CardToMove != Card, (MoveCardAction mca) => DrawCard(TurnTaker.ToHero(), optional: true), TriggerType.DrawCard, TriggerTiming.After);
         }
