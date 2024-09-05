@@ -117,7 +117,7 @@ namespace BartKFSentinels.Dreadnought
             }
             // "{Dreadnought} may deal 1 target 2 irreducible melee damage."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
-            IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 2, DamageType.Melee, 1, false, 0, storedResultsDamage: damageResults, cardSource: GetCardSource());
+            IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 2, DamageType.Melee, 1, false, 0, isIrreducible: true, storedResultsDamage: damageResults, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(meleeCoroutine);
