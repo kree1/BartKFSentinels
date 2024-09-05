@@ -109,7 +109,7 @@
 				"mantle"
 			],
 			"body": [
-				"Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage.'"
+				"Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
 			],
 			"powers": [
 				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top 2 cards of your deck."
@@ -120,7 +120,7 @@
 				"DealDamageMelee",
 				"Discard"
 			],
-			"flavorText": "No space for thought,{BR}no room for plans, only instinct and{BR}rage. I love it. I am alive down to my{BR}toenails, and I can't stop smiling.'",
+			"flavorText": "No space for thought,{BR}no room for plans, only instinct and{BR}rage. I love it. I am alive down to my{BR}toenails, and I can't stop smiling.",
 			"flavorReference": "[i]Sovereign[/i], p. 272"
 		},
 		{
