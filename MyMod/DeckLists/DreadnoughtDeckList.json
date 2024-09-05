@@ -1,0 +1,380 @@
+{
+	"name": "Dreadnought",
+	"kind": "Hero",
+	"initialCardIdentifiers": [
+		"DreadnoughtCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "DreadnoughtCharacter",
+			"count": 1,
+			"title": "Dreadnought",
+			"body": "Nothing to Hide",
+			"backgroundColor": "00F7F2",
+			"character": true,
+			"powers": [
+				"{Dreadnought} regains 1 HP. Reveal the top 2 cards of your deck. Put 1 into your hand and the rest into your trash."
+			],
+			"icons": [
+				"HasPower",
+				"GainHP",
+				"Manipulate"
+			],
+			"hitpoints": 30,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Dreadnought"
+			],
+			"incapacitatedAbilities": [
+				"One hero may use a power now.",
+				"One player may draw 2 cards. If they do, they discard a card.",
+				"Select a target. Reduce the next damage dealt to that target by 2."
+			],
+			"flippedIcons": [
+				"UsePowerNow",
+				"DrawCardNow",
+				"Discard",
+				"ReduceDamageTaken"
+			],
+			"complexity": 2,
+			"openingLines": {
+				"default": "Shut up and stand down. This is the only warning you get."
+			}
+		},
+		{
+			"identifier": "AtomicPiledriver",
+			"count": 3,
+			"title": "Atomic Piledriver",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Dreadnought} deals 1 target 3 melee damage.",
+				"Discard the top card of your deck."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"Discard"
+			],
+			"flavorText": "Man, he's ugly right now. Do not{BR}ever reenter the atmosphere face-first.{BR}It's super bad for you.",
+			"flavorReference": "[i]Sovereign[/i], p. 234"
+		},
+		{
+			"identifier": "BattleJoy",
+			"count": 3,
+			"title": "Battle Joy",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"Whenever {Dreadnought} deals non-psychic damage to another target, {Dreadnought} regains 1 HP.",
+				"Whenever another of your Ongoing cards leaves play, you may draw a card."
+			],
+			"icons": [
+				"GainHP",
+				"DrawCardNow"
+			],
+			"flavorText": "It's the best feeling in the world.{BR}It is [b][i]right.[/i][/b] It is [b][i]necessary.[/i][/b] When I'm{BR}fighting, everything is perfect.",
+			"flavorReference": "[i]Sovereign[/i], p. 44"
+		},
+		{
+			"identifier": "FasterThanAJet",
+			"count": 2,
+			"title": "Faster than a Jet",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your turn, you may play a card or use a power. Then, if {Dreadnought} dealt 10 or more damage this turn, destroy an environment card and play the top card of the environment deck.",
+				"The first time {Dreadnought} is dealt damage by any non-hero target each turn, she may deal that target 1 melee damage."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"PlayCardNow",
+				"UsePowerNow",
+				"DealCounterDamage"
+			],
+			"flavorText": "Falling to Earth at{BR}Mach 25 in a bathtub of fire, I begin{BR}to laugh. Other girls my age worry{BR}about midterms and prom dates.",
+			"flavorReference": "[i]Sovereign[/i], p. 45"
+		},
+		{
+			"identifier": "FirstIntoTheFray",
+			"count": 2,
+			"title": "First into the Fray",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage.'"
+			],
+			"powers": [
+				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top 2 cards of your deck."
+			],
+			"icons": [
+				"Stress",
+				"HasPower",
+				"DealDamageMelee",
+				"Discard"
+			],
+			"flavorText": "No space for thought,{BR}no room for plans, only instinct and{BR}rage. I love it. I am alive down to my{BR}toenails, and I can't stop smiling.'",
+			"flavorReference": "[i]Sovereign[/i], p. 272"
+		},
+		{
+			"identifier": "GoThrough",
+			"count": 3,
+			"title": "Go Through",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Dreadnought} deals 1 target 4 melee damage.",
+				"{Dreadnought} deals each target other than herself 1 projectile damage.",
+				"Discard the top 2 cards of your deck."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"DealDamageProjectile",
+				"Discard"
+			],
+			"flavorText": "A vortex of shredded{BR}paperwork is sucked up in my wake,{BR}and I explode out the side of the building{BR}in a cloud of shattered glass.",
+			"flavorReference": "[i]Dreadnought[/i], p. 253"
+		},
+		{
+			"identifier": "GrabAndTwist",
+			"count": 2,
+			"title": "Grab and Twist",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Dreadnought} deals 1 target 2 melee damage. Until the start of your turn, reduce damage dealt by that target by 1.",
+				"Discard the top card of your deck."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"ReduceDamageDealt",
+				"Discard"
+			],
+			"flavorText": "With a sharp tug, I{BR}rip the weapon straight out of her{BR}chest. A tangle of tubes and wires{BR}comes with it, wet and snapping.",
+			"flavorReference": "[i]Dreadnought[/i], p. 272"
+		},
+		{
+			"identifier": "ItsNiceHavingAFriend",
+			"count": 2,
+			"title": "It's Nice Having a Friend",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"At the end of your turn, you may discard a card."
+			],
+			"powers": [
+				"{Dreadnought} and up to 1 other target each regain 2 HP. If 2 heroes regained HP this way, discard the top 2 cards of your deck."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Discard",
+				"HasPower",
+				"GainHP"
+			],
+			"flavorText": "My throat is a little{BR}tight, and when I hug her there's an{BR}instant of tension in her shoulders{BR}before she relaxes and hugs me back.",
+			"flavorReference": "[i]Dreadnought[/i], p. 93"
+		},
+		{
+			"identifier": "OpenUpToSomeone",
+			"count": 3,
+			"title": "Open Up to Someone",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards and {Dreadnought} regains 2 HP."
+			],
+			"powers": [
+				"Put the bottom 2 cards of your trash on the bottom of your deck. If you moved 2 cards this way, one player draws 3 cards."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroyOngoing",
+				"DrawCardNow",
+				"HasPower"
+			],
+			"flavorText": "Now's the time, I{BR}know it is. If I chicken out now,{BR}I'll be putting this off for months.{BR}But holy crap, this is scary.",
+			"flavorReference": "[i]Sovereign[/i], p. 311"
+		},
+		{
+			"identifier": "OrbitalGuidance",
+			"count": 4,
+			"title": "Orbital Guidance",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Search your deck and/or trash for up to 2 Mantle cards. Put 1 into play and the rest into your hand. If you searched your deck, shuffle your deck.",
+				"{Dreadnought} may deal 1 target 2 irreducible melee damage. If she dealt damage this way, discard the top card of your deck. If not, return this card to your hand."
+			],
+			"icons": [
+				"Search",
+				"DealDamageMelee",
+				"Discard",
+				"Manipulate"
+			],
+			"flavorText": "The navigational gates{BR}are turning amber now, and in the{BR}distance they fade toward red, my signal{BR}to begin slowing down for reentry.",
+			"flavorReference": "[i]Sovereign[/i], p. 43"
+		},
+		{
+			"identifier": "RepairTheLattice",
+			"count": 2,
+			"title": "Repair the Lattice",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Put the bottom 3 cards of your trash on the bottom of your deck. If you moved fewer than 3 cards this way, {Dreadnought} deals herself 4 irreducible psychic damage.",
+				"One hero target regains 5 HP. If {Dreadnought} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
+			],
+			"icons": [
+				"Stress",
+				"GainHP",
+				"UsePowerNow"
+			],
+			"flavorText": "Nausea flushes{BR}through me, but the thread holds. And{BR}now, one of those holes in my pattern{BR}has a bright white line crossing it.",
+			"flavorReference": "[i]Dreadnought[/i], p. 270"
+		},
+		{
+			"identifier": "SeeTheUnderpinnings",
+			"count": 2,
+			"title": "See the Underpinnings",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck.",
+				"Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
+			],
+			"icons": [
+				"Manipulate",
+				"Stress"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Dreadnought",
+					"text": "Point those guns somewhere else, kid."
+				},
+				{
+					"identifier": "Princess Panzer",
+					"text": "How did you see them through the glare?"
+				}
+			],
+			"flavorReference": "[i]Sovereign[/i], p. 209"
+		},
+		{
+			"identifier": "ShowVulnerability",
+			"count": 3,
+			"title": "Show Vulnerability",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"You may put any number of your Mantle cards from play into your hand.",
+				"Search your deck or trash for an Ongoing card and put it into play or into your hand.",
+				"Shuffle your trash into your deck."
+			],
+			"icons": [
+				"Manipulate",
+				"Search"
+			],
+			"flavorText": "They'll make a man{BR}of me. Show me how to be a man.{BR}Teach me to man up by beating me down.{BR}[b][i]They never ask if I want to be a man.[/i][/b]",
+			"flavorReference": "[i]Dreadnought[/i], p. 68"
+		},
+		{
+			"identifier": "StrongerThanATankCannon",
+			"count": 3,
+			"title": "Stronger than a Tank Cannon",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Increase damage dealt by {Dreadnought} by 1.",
+				"At the start of your turn, if {Dreadnought} has dealt no damage this turn, she deals each other character card target 0 psychic damage."
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"StartOfTurnAction",
+				"DealDamagePsychic"
+			],
+			"flavorText": "They came after{BR}me because I'm the one who scares{BR}them. Because they knew I was the most{BR}dangerous. Well, they were right.",
+			"flavorReference": "[i]Sovereign[/i], p. 255"
+		},
+		{
+			"identifier": "TougherThanABattlecruiser",
+			"count": 2,
+			"title": "Tougher than a Battlecruiser",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Reduce non-lightning damage dealt to {Dreadnought} by 1.",
+				"Whenever a target is reduced from 1 to 0 or fewer HP or an environment card is destroyed, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage.'"
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"Stress"
+			],
+			"flavorText": "My name is Danielle Tozer.{BR}I am a girl. No one is strong enough{BR}to take that from me anymore.",
+			"flavorReference": "[i]Dreadnought[/i], p. 69"
+		},
+		{
+			"identifier": "WovenIntoReality",
+			"count": 2,
+			"title": "Woven into Reality",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your turn, you may draw a card."
+			],
+			"powers": [
+				"Destroy an Ongoing or non-target environment card. Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
+			],
+			"icons": [
+				"DrawCardNow",
+				"HasPower",
+				"DestroyOngoing",
+				"Stress"
+			],
+			"flavorText": "I can see the structure{BR}behind reality. Okay, not [b][i]see[/i][/b], precisely,{BR}but it's there. An infinite lattice of matter{BR}and energy, of thought and form.",
+			"flavorReference": "[i]Dreadnought[/i], p. 34"
+		},
+		{
+			"identifier": "YankTheThreads",
+			"count": 2,
+			"title": "Yank the Threads",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Dreadnought} deals 1 target X irreducible projectile damage, where X = the number of cards in your trash plus 2.",
+				"You may shuffle your trash into your deck. If you do, discard the top card of your deck. Otherwise, {Dreadnought} deals herself X / 3 irreducible toxic damage, rounded up."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"Manipulate",
+				"Discard",
+				"DealDamageToxic"
+			],
+			"flavorText": "Red Steel encounters the Hubble{BR}Space Telescope the way a baseball{BR}encounters a home run derby.",
+			"flavorReference": "[i]Sovereign[/i], p. 220"
+		}
+	],
+	"promoCards": [
+	]
+}
