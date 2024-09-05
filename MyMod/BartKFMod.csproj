@@ -73,6 +73,7 @@
     <Compile Include="Breakaway\UphillBattleCardController.cs" />
     <Compile Include="Dreadnought\AtomicPiledriverCardController.cs" />
     <Compile Include="Dreadnought\BattleJoyCardController.cs" />
+    <Compile Include="Dreadnought\DreadnoughtCharacterCardController.cs" />
     <Compile Include="Dreadnought\DreadnoughtUtilityCardController.cs" />
     <Compile Include="Dreadnought\FasterThanAJetCardController.cs" />
     <Compile Include="Dreadnought\FirstIntoTheFrayCardController.cs" />
