@@ -321,7 +321,7 @@
 			],
 			"body": [
 				"Reduce non-lightning damage dealt to {Dreadnought} by 1.",
-				"Whenever a target is reduced from 1 to 0 or fewer HP or an environment card is destroyed, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage.'"
+				"Whenever a target is reduced from 1 or more to 0 or fewer HP or an environment card is destroyed, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
 			],
 			"icons": [
 				"ReduceDamageTaken",
