@@ -71,6 +71,15 @@
     <Compile Include="Breakaway\TheClientCardController.cs" />
     <Compile Include="Breakaway\TripwireCardController.cs" />
     <Compile Include="Breakaway\UphillBattleCardController.cs" />
+    <Compile Include="Dreadnought\AtomicPiledriverCardController.cs" />
+    <Compile Include="Dreadnought\BattleJoyCardController.cs" />
+    <Compile Include="Dreadnought\DreadnoughtUtilityCardController.cs" />
+    <Compile Include="Dreadnought\FasterThanAJetCardController.cs" />
+    <Compile Include="Dreadnought\GoThroughCardController.cs" />
+    <Compile Include="Dreadnought\GrabAndTwistCardController.cs" />
+    <Compile Include="Dreadnought\ItsNiceHavingAFriendCardController.cs" />
+    <Compile Include="Dreadnought\ShowVulnerabilityCardController.cs" />
+    <Compile Include="Dreadnought\StrongerThanATankCannonCardController.cs" />
     <Compile Include="EvidenceStorage\AlienEscapePodCardController.cs" />
     <Compile Include="EvidenceStorage\CryoRegulatorCardController.cs" />
     <Compile Include="EvidenceStorage\CustodyOfficerCardController.cs" />
@@ -319,6 +328,7 @@
     <EmbeddedResource Include="DeckLists\TheGoalieDeckList.json" />
     <EmbeddedResource Include="DeckLists\MemorialDeckList.json" />
     <EmbeddedResource Include="DeckLists\OwnershipDeckList.json" />
+    <EmbeddedResource Include="DeckLists\DreadnoughtDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
