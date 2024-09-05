@@ -75,11 +75,14 @@
     <Compile Include="Dreadnought\BattleJoyCardController.cs" />
     <Compile Include="Dreadnought\DreadnoughtUtilityCardController.cs" />
     <Compile Include="Dreadnought\FasterThanAJetCardController.cs" />
+    <Compile Include="Dreadnought\FirstIntoTheFrayCardController.cs" />
     <Compile Include="Dreadnought\GoThroughCardController.cs" />
     <Compile Include="Dreadnought\GrabAndTwistCardController.cs" />
     <Compile Include="Dreadnought\ItsNiceHavingAFriendCardController.cs" />
     <Compile Include="Dreadnought\OpenUpToSomeoneCardController.cs" />
+    <Compile Include="Dreadnought\OrbitalGuidanceCardController.cs" />
     <Compile Include="Dreadnought\RepairTheLatticeCardController.cs" />
+    <Compile Include="Dreadnought\SeeTheUnderpinningsCardController.cs" />
     <Compile Include="Dreadnought\ShowVulnerabilityCardController.cs" />
     <Compile Include="Dreadnought\StressCardController.cs" />
     <Compile Include="Dreadnought\StrongerThanATankCannonCardController.cs" />
