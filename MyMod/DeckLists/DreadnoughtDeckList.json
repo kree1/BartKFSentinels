@@ -9,11 +9,11 @@
 			"identifier": "DreadnoughtCharacter",
 			"count": 1,
 			"title": "Dreadnought",
-			"body": "Nothing to Hide",
+			"body": "In Your Face",
 			"backgroundColor": "00F7F2",
 			"character": true,
 			"powers": [
-				"{Dreadnought} regains 1 HP. Reveal the top 2 cards of your deck. Put 1 into your hand and the rest into your trash."
+				"{Dreadnought} deals 1 target 2 melee damage. Draw a card. Discard a card."
 			],
 			"icons": [
 				"HasPower",
@@ -67,11 +67,11 @@
 				"limited"
 			],
 			"body": [
-				"Whenever {Dreadnought} deals non-psychic damage to another target, {Dreadnought} regains 1 HP.",
+				"Whenever {Dreadnought} is dealt damage by a non-hero target, discard the top card of your deck.",
 				"Whenever another of your Ongoing cards leaves play, you may draw a card."
 			],
 			"icons": [
-				"GainHP",
+				"Discard",
 				"DrawCardNow"
 			],
 			"flavorText": "It's the best feeling in the world.{BR}It is [b][i]right.[/i][/b] It is [b][i]necessary.[/i][/b] When I'm{BR}fighting, everything is perfect.",
@@ -87,7 +87,7 @@
 				"mantle"
 			],
 			"body": [
-				"At the end of your turn, you may play a card or use a power. Then, if {Dreadnought} dealt 10 or more damage this turn, destroy an environment card and play the top card of the environment deck.",
+				"At the end of your turn, you may play a card or use a power. If you do, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck.",
 				"The first time {Dreadnought} is dealt damage by any non-hero target each turn, she may deal that target 1 melee damage."
 			],
 			"icons": [
@@ -109,10 +109,10 @@
 				"mantle"
 			],
 			"body": [
-				"Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
+				"At the end of your play phase or power phase, if {Dreadnought} dealt no damage this phase, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"powers": [
-				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top 2 cards of your deck."
+				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top card of your deck."
 			],
 			"icons": [
 				"Stress",
@@ -173,7 +173,7 @@
 				"At the end of your turn, you may discard a card."
 			],
 			"powers": [
-				"{Dreadnought} and up to 1 other target each regain 2 HP. If 2 heroes regained HP this way, discard the top 2 cards of your deck."
+				"{Dreadnought} regains 2 HP. Discard 2 cards. If you discarded 2 cards this way, another hero target regains 2 HP."
 			],
 			"icons": [
 				"EndOfTurnAction",
@@ -235,8 +235,9 @@
 				"one-shot"
 			],
 			"body": [
-				"Put the bottom 3 cards of your trash on the bottom of your deck. If you moved fewer than 3 cards this way, {Dreadnought} deals herself 4 irreducible psychic damage.",
-				"One hero target regains 5 HP. If {Dreadnought} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
+				"{Dreadnought} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck.",
+				"One hero target regains 5 HP.",
+				"If {Dreadnought} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
 			],
 			"icons": [
 				"Stress",
@@ -255,7 +256,7 @@
 			],
 			"body": [
 				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck.",
-				"Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
+				"{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
 			],
 			"icons": [
 				"Manipulate",
@@ -302,12 +303,13 @@
 			],
 			"body": [
 				"Increase damage dealt by {Dreadnought} by 1.",
-				"At the start of your turn, if {Dreadnought} has dealt no damage this turn, she deals each other character card target 0 psychic damage."
+				"At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"icons": [
 				"IncreaseDamageDealt",
-				"StartOfTurnAction",
-				"DealDamagePsychic"
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"Stress"
 			],
 			"flavorText": "They came after{BR}me because I'm the one who scares{BR}them. Because they knew I was the most{BR}dangerous. Well, they were right.",
 			"flavorReference": "[i]Sovereign[/i], p. 255"
@@ -322,7 +324,7 @@
 			],
 			"body": [
 				"Reduce non-lightning damage dealt to {Dreadnought} by 1.",
-				"Whenever a target is reduced from 1 or more to 0 or fewer HP or an environment card is destroyed, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
+				"Whenever a target is reduced from 1 or more to 0 or fewer HP or an environment card is destroyed, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"icons": [
 				"ReduceDamageTaken",
@@ -344,7 +346,7 @@
 				"At the end of your turn, you may draw a card."
 			],
 			"powers": [
-				"Destroy an Ongoing or non-target environment card. Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
+				"Destroy an Ongoing or non-target environment card. {Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
 			],
 			"icons": [
 				"DrawCardNow",
@@ -363,14 +365,15 @@
 				"one-shot"
 			],
 			"body": [
-				"{Dreadnought} deals 1 target X irreducible projectile damage, where X = the number of cards in your trash plus 2.",
-				"You may shuffle your trash into your deck. If you do, discard the top card of your deck. Otherwise, {Dreadnought} deals herself X / 3 irreducible toxic damage, rounded up."
+				"{Dreadnought} deals 1 target 7 irreducible projectile damage.",
+				"Either shuffle your trash into your deck or {Dreadnought} deals herself 3 irreducible toxic damage.",
+				"Discard the top card of your deck."
 			],
 			"icons": [
 				"DealDamageProjectile",
 				"Manipulate",
-				"Discard",
-				"DealDamageToxic"
+				"DealDamageToxic",
+				"Discard"
 			],
 			"flavorText": "Red Steel encounters the Hubble{BR}Space Telescope the way a baseball{BR}encounters a home run derby.",
 			"flavorReference": "[i]Sovereign[/i], p. 220"
