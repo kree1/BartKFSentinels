@@ -24,7 +24,7 @@ namespace BartKFSentinels.Dreadnought
             // "Increase damage dealt by {Dreadnought} by 1."
             AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard), 1);
             // "At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-            // ...
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PsychicStressResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.MoveCard });
         }
 
         public bool DealtDamageToOtherHeroTargetThisTurn()
@@ -54,8 +54,7 @@ namespace BartKFSentinels.Dreadnought
                 {
                     // Player chooses whether to move cards, with preview of what will happen if they don't
                     DealDamageAction preview = new DealDamageAction(GameController, new DamageSource(GameController, CharacterCard), null, 0, DamageType.Psychic);
-                    SelectionType tag = SelectionType.MoveCardOnBottomOfDeck;
-                    YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, tag, gameAction: preview, cardSource: GetCardSource());
+                    YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, SelectionType.Custom, gameAction: preview, cardSource: GetCardSource());
                     IEnumerator chooseCoroutine = GameController.MakeDecisionAction(choice);
                     if (UseUnityCoroutines)
                     {
@@ -66,6 +65,8 @@ namespace BartKFSentinels.Dreadnought
                         GameController.ExhaustCoroutine(chooseCoroutine);
                     }
                     // If they said yes, cards are moved
+                if (DidPlayerAnswerYes(choice))
+                {
                     IEnumerable<Card> toMove = TurnTaker.Trash.Cards.Take(1);
                     IEnumerator moveCoroutine = GameController.MoveCards(TurnTakerController, toMove, TurnTaker.Deck, toBottom: true, responsibleTurnTaker: TurnTaker, storedResultsAction: moved, cardSource: GetCardSource());
                     if (UseUnityCoroutines)
@@ -76,6 +77,7 @@ namespace BartKFSentinels.Dreadnought
                     {
                         GameController.ExhaustCoroutine(moveCoroutine);
                     }
+                }
                 }
                 // If not enough cards were moved, Dreadnought deals another hero character target 0 psychic damage
                 IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
@@ -92,6 +94,11 @@ namespace BartKFSentinels.Dreadnought
                     }
                 }
             }
+        }
+
+        public override CustomDecisionText GetCustomDecisionText(IDecision decision)
+        {
+            return new CustomDecisionText("Do you want to move the bottom card of your trash to the bottom of your deck?", "deciding whether to move the bottom card of their trash to the bottom of their deck", "Vote for whether to move the bottom card of " + TurnTaker.Name + "'s trash to the bottom of their deck", "move bottom card of trash to bottom of deck");
         }
     }
 }
