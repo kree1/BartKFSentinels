@@ -43,14 +43,17 @@ namespace BartKFSentinels.Dreadnought
             }
             // "If you moved fewer than [cardsRequired] cards this way, {Dreadnought} deals herself [damageAmt] irreducible psychic damage."
             IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
-            IEnumerator announceCoroutine = GameController.SendMessageAction(Card.Title + " moved " + wasMoved.Count().ToString() + " " + wasMoved.Count().ToString_CardOrCards() + " from " + TurnTaker.Name + "'s trash to the bottom of " + TurnTaker.Name + "'s deck.", Priority.Low, GetCardSource());
-            if (UseUnityCoroutines)
+            if (wasMoved.Any())
             {
-                yield return GameController.StartCoroutine(announceCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(announceCoroutine);
+                IEnumerator announceCoroutine = GameController.SendMessageAction(Card.Title + " moved " + wasMoved.Count().ToString() + " " + wasMoved.Count().ToString_CardOrCards() + " from " + TurnTaker.Name + "'s trash to the bottom of " + TurnTaker.Name + "'s deck.", Priority.Low, GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(announceCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(announceCoroutine);
+                }
             }
             if (wasMoved.Count() < cardsRequired)
             {
