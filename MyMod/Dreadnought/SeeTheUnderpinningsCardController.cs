@@ -75,7 +75,7 @@ namespace BartKFSentinels.Dreadnought
                     }
                 }
             }
-            // "Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
+            // "{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
             IEnumerator stressCoroutine = PayStress(2);
             if (UseUnityCoroutines)
             {

@@ -26,9 +26,8 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator UsePower(int index = 0)
         {
-            int cardsInstructed = GetPowerNumeral(0, 2);
+            int damageAmt = GetPowerNumeral(0, 3);
             int cardsRequired = GetPowerNumeral(1, 2);
-            int damageAmt = GetPowerNumeral(2, 3);
             // "Destroy an Ongoing or non-target environment card."
             IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsOngoing(c) || (c.IsEnvironment && !c.IsTarget), "Ongoing or non-target environment"), false, responsibleCard: Card, cardSource: GetCardSource());
             if (UseUnityCoroutines)
@@ -39,8 +38,8 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "Put the bottom 2 cards of your trash on the bottom of your deck. If you moved fewer than 2 cards this way, {Dreadnought} deals herself 3 irreducible psychic damage."
-            IEnumerator stressCoroutine = PayStress(cardsInstructed, cardsRequired, damageAmt);
+            // "{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
+            IEnumerator stressCoroutine = PayStress(cardsRequired, damageAmt);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(stressCoroutine);

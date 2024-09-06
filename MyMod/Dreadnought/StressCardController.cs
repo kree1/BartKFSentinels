@@ -20,41 +20,47 @@ namespace BartKFSentinels.Dreadnought
 
         public IEnumerator PayStress(int numCards)
         {
-            yield return PayStress(numCards, numCards, numCards + 1);
+            yield return PayStress(numCards, numCards + 1);
         }
 
-        public IEnumerator PayStress(int cardsInstructed, int cardsRequired, int damageAmt)
+        public IEnumerator PayStress(int cardsRequired, int damageAmt)
         {
-            // "Put the bottom [cardsInstructed] cards of your trash on the bottom of your deck."
+            // "{Dreadnought} deals herself [damageAmt] irreducible psychic damage unless you put the bottom [cardsRequired] cards on the bottom of your deck."
             List<MoveCardAction> moved = new List<MoveCardAction>();
-            IEnumerable<Card> toMove = TurnTaker.Trash.Cards.Take(cardsInstructed);
-            IEnumerator moveCoroutine = GameController.SendMessageAction("There are no cards in " + TurnTaker.Name + "'s trash for " + Card.Title + " to move.", Priority.Medium, GetCardSource());
-            if (toMove.Any())
+            // If there are any cards to move:
+            if (TurnTaker.Trash.Cards.Any())
             {
-                moveCoroutine = GameController.MoveCards(TurnTakerController, toMove, TurnTaker.Deck, toBottom: true, responsibleTurnTaker: TurnTaker, storedResultsAction: moved, cardSource: GetCardSource());
-            }
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(moveCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(moveCoroutine);
-            }
-            // "If you moved fewer than [cardsRequired] cards this way, {Dreadnought} deals herself [damageAmt] irreducible psychic damage."
-            IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
-            if (wasMoved.Any())
-            {
-                IEnumerator announceCoroutine = GameController.SendMessageAction(Card.Title + " moved " + wasMoved.Count().ToString() + " " + wasMoved.Count().ToString_CardOrCards() + " from " + TurnTaker.Name + "'s trash to the bottom of " + TurnTaker.Name + "'s deck.", Priority.Low, GetCardSource());
+                // Player chooses whether to move cards, with preview of what will happen if they don't
+                DealDamageAction preview = new DealDamageAction(GetCardSource(), new DamageSource(GameController, CharacterCard), CharacterCard, damageAmt, DamageType.Psychic, isIrreducible: true);
+                SelectionType tag = SelectionType.MoveCardOnBottomOfDeck;
+                if (TurnTaker.Trash.Cards.Count() < cardsRequired)
+                {
+                    tag = SelectionType.MoveCardOnBottomOfDeckNoEffect;
+                }
+                YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, tag, gameAction: preview, cardSource: GetCardSource());
+                IEnumerator chooseCoroutine = GameController.MakeDecisionAction(choice);
                 if (UseUnityCoroutines)
                 {
-                    yield return GameController.StartCoroutine(announceCoroutine);
+                    yield return GameController.StartCoroutine(chooseCoroutine);
                 }
                 else
                 {
-                    GameController.ExhaustCoroutine(announceCoroutine);
+                    GameController.ExhaustCoroutine(chooseCoroutine);
+                }
+                // If they said yes, cards are moved
+                IEnumerable<Card> toMove = TurnTaker.Trash.Cards.Take(cardsRequired);
+                IEnumerator moveCoroutine = GameController.MoveCards(TurnTakerController, toMove, TurnTaker.Deck, toBottom: true, responsibleTurnTaker: TurnTaker, storedResultsAction: moved, cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(moveCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(moveCoroutine);
                 }
             }
+            // If not enough cards were moved, Dreadnought deals herself damage
+            IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
             if (wasMoved.Count() < cardsRequired)
             {
                 IEnumerator psychicCoroutine = DealDamage(CharacterCard, CharacterCard, damageAmt, DamageType.Psychic, isIrreducible: true);
