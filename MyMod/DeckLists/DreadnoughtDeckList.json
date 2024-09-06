@@ -214,13 +214,14 @@
 				"one-shot"
 			],
 			"body": [
-				"Search your deck and/or trash for up to 2 Mantle cards. Put 1 into play and the rest into your hand. If you searched your deck, shuffle your deck.",
-				"{Dreadnought} may deal 1 target 2 irreducible melee damage. If she dealt damage this way, discard the top card of your deck. If not, return this card to your hand."
+				"Search your deck and/or trash for up to 2 Mantle cards and put them into your hand. If you searched your deck, shuffle your deck.",
+				"You may play a Mantle card.",
+				"{Dreadnought} may deal 1 target 2 irreducible melee damage. If she dealt no damage this way, return this card to your hand."
 			],
 			"icons": [
 				"Search",
+				"PlayCardNow",
 				"DealDamageMelee",
-				"Discard",
 				"Manipulate"
 			],
 			"flavorText": "The navigational gates{BR}are turning amber now, and in the{BR}distance they fade toward red, my signal{BR}to begin slowing down for reentry.",

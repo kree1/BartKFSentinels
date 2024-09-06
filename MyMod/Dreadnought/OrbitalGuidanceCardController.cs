@@ -35,7 +35,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
-            // "Search your deck and/or trash for up to 2 Mantle cards. Put 1 into play and the rest into your hand. If you searched your deck, shuffle your deck."
+            // "Search your deck and/or trash for up to 2 Mantle cards and put them into your hand. If you searched your deck, shuffle your deck."
             List<Card> selected = new List<Card>();
             bool searchedDeck = false;
             for (int i = 0; i < 2; i++)
@@ -55,12 +55,12 @@ namespace BartKFSentinels.Dreadnought
                 {
                     break;
                 }
-                // Choose a Mantle card from that location, reveal it, and add it to selected
+                // Choose a Mantle card from that location and put it into your hand
                 Location chosen = GetSelectedLocation(decisions);
                 if (chosen == TurnTaker.Deck)
                     searchedDeck = true;
                 List<SelectCardDecision> cardDecisions = new List<SelectCardDecision>();
-                IEnumerator searchCoroutine = GameController.SelectAndMoveCard(DecisionMaker, (Card c) => GameController.DoesCardContainKeyword(c, MantleKeyword) && c.Location == chosen, TurnTaker.Revealed, optional: true, storedResults: cardDecisions, cardSource: GetCardSource());
+                IEnumerator searchCoroutine = GameController.SelectAndMoveCard(DecisionMaker, (Card c) => GameController.DoesCardContainKeyword(c, MantleKeyword) && c.Location == chosen, HeroTurnTaker.Hand, optional: true, storedResults: cardDecisions, cardSource: GetCardSource());
                 if (UseUnityCoroutines)
                 {
                     yield return GameController.StartCoroutine(searchCoroutine);
@@ -68,38 +68,6 @@ namespace BartKFSentinels.Dreadnought
                 else
                 {
                     GameController.ExhaustCoroutine(searchCoroutine);
-                }
-                if (DidSelectCard(cardDecisions))
-                {
-                    selected.Add(GetSelectedCard(cardDecisions));
-                }
-            }
-            if (selected.Any())
-            {
-                // Choose a card from selected and put it into play
-                List<SelectCardDecision> toMove = new List<SelectCardDecision>();
-                IEnumerator moveCoroutine = GameController.SelectAndMoveCard(DecisionMaker, (Card c) => selected.Contains(c), TurnTaker.PlayArea, isPutIntoPlay: true, storedResults: toMove, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(moveCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(moveCoroutine);
-                }
-                if (DidSelectCard(toMove))
-                {
-                    selected.Remove(GetSelectedCard(toMove));
-                }
-                // Put the rest of selected into hand
-                IEnumerator restCoroutine = GameController.MoveCards(DecisionMaker, selected, HeroTurnTaker.Hand, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(restCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(restCoroutine);
                 }
             }
             // If the deck was chosen at any point, shuffle it
@@ -115,6 +83,16 @@ namespace BartKFSentinels.Dreadnought
                     GameController.ExhaustCoroutine(shuffleCoroutine);
                 }
             }
+            // "You may play a Mantle card."
+            IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MantleKeyword), "Mantle"), cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(playCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(playCoroutine);
+            }
             // "{Dreadnought} may deal 1 target 2 irreducible melee damage."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 2, DamageType.Melee, 1, false, 0, isIrreducible: true, storedResultsDamage: damageResults, cardSource: GetCardSource());
@@ -126,22 +104,9 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            if (DidDealDamage(damageResults))
+            if (!DidDealDamage(damageResults))
             {
-                // "If she dealt damage this way, discard the top card of your deck."
-                IEnumerator discardCoroutine = GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(discardCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(discardCoroutine);
-                }
-            }
-            else
-            {
-                // "If not, return this card to your hand."
+                // "If she dealt no damage this way, return this card to your hand."
                 IEnumerator returnCoroutine = GameController.MoveCard(DecisionMaker, Card, HeroTurnTaker.Hand, showMessage: true, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
                 if (UseUnityCoroutines)
                 {
