@@ -19,28 +19,35 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator UsePower(int index = 0)
         {
-            int hpAmt = GetPowerNumeral(0, 1);
-            int toReveal = GetPowerNumeral(1, 2);
-            int toHand = GetPowerNumeral(2, 1);
-            // "{Dreadnought} regains 1 HP."
-            IEnumerator healCoroutine = GameController.GainHP(CharacterCard, hpAmt, cardSource: GetCardSource());
+            // "{Dreadnought} deals 1 target 2 melee damage. Discard a card. Draw a card."
+            int numTargets = GetPowerNumeral(0, 1);
+            int meleeAmt = GetPowerNumeral(1, 2);
+            IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), meleeAmt, DamageType.Melee, numTargets, false, numTargets, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
-                yield return GameController.StartCoroutine(healCoroutine);
+                yield return GameController.StartCoroutine(meleeCoroutine);
             }
             else
             {
-                GameController.ExhaustCoroutine(healCoroutine);
+                GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            // "Reveal the top 2 cards of your deck. Put 1 into your hand and the rest into your trash."
-            IEnumerator revealCoroutine = RevealCardsFromTopOfDeck_DetermineTheirLocationEx(DecisionMaker, DecisionMaker, TurnTaker.Deck, new MoveCardDestination(HeroTurnTaker.Hand), new MoveCardDestination(TurnTaker.Trash), numberOfReveals: toReveal, numberToSelect: toHand, responsibleTurnTaker: TurnTaker);
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
-                yield return GameController.StartCoroutine(revealCoroutine);
+                yield return GameController.StartCoroutine(discardCoroutine);
             }
             else
             {
-                GameController.ExhaustCoroutine(revealCoroutine);
+                GameController.ExhaustCoroutine(discardCoroutine);
+            }
+            IEnumerator drawCoroutine = DrawCard();
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(drawCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(drawCoroutine);
             }
         }
 
