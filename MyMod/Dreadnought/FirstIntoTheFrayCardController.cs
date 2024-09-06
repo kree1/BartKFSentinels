@@ -20,15 +20,14 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Whenever you skip your play phase or power phase, put the bottom card of your trash on the bottom of your deck. If you can't, {Dreadnought} deals herself 2 irreducible psychic damage."
-            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && (pca.FromPhase.Phase == Phase.PlayCard || pca.FromPhase.Phase == Phase.UsePower) && pca.FromPhase.WasSkipped, (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
+            // "At the end of your play phase or power phase, if {Dreadnought} dealt no damage this phase, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && (pca.FromPhase.Phase == Phase.PlayCard || pca.FromPhase.Phase == Phase.UsePower) && !Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.SourceCard == CharacterCard && ddje.Amount > 0 && ddje.TurnPhase.Phase == pca.FromPhase.Phase).Any(), (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
         }
 
         public override IEnumerator UsePower(int index = 0)
         {
             int numTargets = GetPowerNumeral(0, 2);
             int meleeAmt = GetPowerNumeral(1, 2);
-            int numCards = GetPowerNumeral(2, 2);
             // "{Dreadnought} deals up to 2 targets 2 melee damage each."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), meleeAmt, DamageType.Melee, numTargets, false, 0, cardSource: GetCardSource());
             if (UseUnityCoroutines)
@@ -39,8 +38,8 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            // "Discard the top 2 cards of your deck."
-            IEnumerator discardCoroutine = GameController.DiscardTopCards(DecisionMaker, TurnTaker.Deck, numCards, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
+            // "Discard the top card of your deck."
+            IEnumerator discardCoroutine = GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(discardCoroutine);

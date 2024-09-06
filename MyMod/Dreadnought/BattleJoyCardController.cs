@@ -20,8 +20,8 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Whenever {Dreadnought} deals non-psychic damage to another target, {Dreadnought} regains 1 HP."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.Target != CharacterCard && dda.DidDealDamage && dda.DamageType != DamageType.Psychic, (DealDamageAction dda) => GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource()), TriggerType.GainHP, TriggerTiming.After);
+            // "Whenever {Dreadnought} is dealt damage by a non-hero target, discard the top card of your deck."
+            AddTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DidDealDamage && dda.DamageSource != null && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), (DealDamageAction dda) => GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource()), TriggerType.DiscardCard, TriggerTiming.After);
             // "Whenever another of your Ongoing cards leaves play, you may draw a card."
             AddTrigger((MoveCardAction mca) => mca.Origin.IsInPlay && !mca.Destination.IsInPlay && mca.CardToMove.Owner == TurnTaker && IsOngoing(mca.CardToMove) && mca.CardToMove != Card, (MoveCardAction mca) => DrawCard(TurnTaker.ToHero(), optional: true), TriggerType.DrawCard, TriggerTiming.After);
         }

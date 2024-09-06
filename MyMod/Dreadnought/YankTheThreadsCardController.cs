@@ -19,9 +19,8 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
-            // "{Dreadnought} deals 1 target X irreducible projectile damage, where X = the number of cards in your trash plus 2."
-            int x = TurnTaker.Trash.NumberOfCards + 2;
-            IEnumerator yeetCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), x, DamageType.Projectile, 1, false, 1, isIrreducible: true, cardSource: GetCardSource());
+            // "{Dreadnought} deals 1 target 7 irreducible projectile damage."
+            IEnumerator yeetCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 7, DamageType.Projectile, 1, false, 1, isIrreducible: true, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(yeetCoroutine);
@@ -30,9 +29,12 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(yeetCoroutine);
             }
-            // "You may shuffle your trash into your deck. If you do, discard the top card of your deck."
-            YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, SelectionType.ShuffleTrashIntoDeck, cardSource: GetCardSource());
-            IEnumerator chooseCoroutine = GameController.MakeDecisionAction(choice);
+            // "Either shuffle your trash into your deck or {Dreadnought} deals herself 3 irreducible toxic damage."
+            List<Function> options = new List<Function>();
+            options.Add(new Function(DecisionMaker, "Shuffle your trash into your deck", SelectionType.ShuffleTrashIntoDeck, () => GameController.ShuffleTrashIntoDeck(TurnTakerController, cardSource: GetCardSource()), repeatDecisionText: "shuffle trash into deck"));
+            options.Add(new Function(DecisionMaker, "{Dreadnought} deals herself 3 irreducible toxic damage", SelectionType.DealDamage, () => DealDamage(CharacterCard, CharacterCard, 3, DamageType.Toxic, isIrreducible: true, cardSource: GetCardSource()), repeatDecisionText: "Dreadnought deals herself 3 irreducible toxic damage"));
+            SelectFunctionDecision choice = new SelectFunctionDecision(GameController, DecisionMaker, options, false, cardSource: GetCardSource());
+            IEnumerator chooseCoroutine = GameController.SelectAndPerformFunction(choice);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(chooseCoroutine);
@@ -41,41 +43,15 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(chooseCoroutine);
             }
-            if (DidPlayerAnswerYes(choice))
+            // "Discard the top card of your deck."
+            IEnumerator discardCoroutine = GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
             {
-                IEnumerator shuffleCoroutine = GameController.ShuffleTrashIntoDeck(TurnTakerController, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(shuffleCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(shuffleCoroutine);
-                }
-                IEnumerator discardCoroutine = GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(discardCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(discardCoroutine);
-                }
+                yield return GameController.StartCoroutine(discardCoroutine);
             }
             else
             {
-                // "Otherwise, {Dreadnought} deals herself X / 3 irreducible toxic damage, rounded up."
-                double quotient = (double)x / (double)3;
-                int rounded = (int)Math.Ceiling(quotient);
-                IEnumerator toxicCoroutine = DealDamage(CharacterCard, CharacterCard, rounded, DamageType.Toxic, isIrreducible: true, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(toxicCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(toxicCoroutine);
-                }
+                GameController.ExhaustCoroutine(discardCoroutine);
             }
         }
     }
