@@ -29,8 +29,8 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            // "{Dreadnought} deals each target other than herself 1 projectile damage."
-            IEnumerator projectileCoroutine = DealDamage(CharacterCard, (Card c) => c != CharacterCard, (Card c) => 1, DamageType.Projectile);
+            // "{Dreadnought} deals each non-hero target 1 projectile damage."
+            IEnumerator projectileCoroutine = DealDamage(CharacterCard, (Card c) => !IsHeroTarget(c), (Card c) => 1, DamageType.Projectile);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(projectileCoroutine);

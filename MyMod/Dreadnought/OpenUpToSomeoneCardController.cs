@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class OpenUpToSomeoneCardController : StressCardController
+    public class OpenUpToSomeoneCardController : CardController
     {
         public OpenUpToSomeoneCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -20,43 +20,74 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your turn, you may discard a card."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.SelectAndDiscardCard(DecisionMaker, optional: true, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource()), TriggerType.DiscardCard);
+            // "At the end of your turn, discard up to 2 cards. If you discard 2 cards this way, {Dreadnought} regains 1 HP."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DiscardHealResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.GainHP });
         }
 
         public override IEnumerator UsePower(int index = 0)
         {
-            int cardsInstructed = GetPowerNumeral(0, 2);
-            int cardsRequired = GetPowerNumeral(1, 2);
-            int cardsToDraw = GetPowerNumeral(2, 3);
-            // "Put the bottom 2 cards of your trash on the bottom of your deck."
-            List<MoveCardAction> moves = new List<MoveCardAction>();
-            IEnumerable<Card> toMove = TurnTaker.Trash.Cards.Take(cardsInstructed);
-            IEnumerator moveCoroutine = GameController.SendMessageAction("There are no cards in " + TurnTaker.Name + "'s trash for " + Card.Title + " to move.", Priority.Medium, GetCardSource());
-            if (toMove.Any())
-            {
-                moveCoroutine = GameController.MoveCards(TurnTakerController, toMove, TurnTaker.Deck, toBottom: true, responsibleTurnTaker: TurnTaker, storedResultsAction: moves, cardSource: GetCardSource());
-            }
+            int upTo = GetPowerNumeral(0, 3);
+            // "Draw a card."
+            IEnumerator drawCoroutine = DrawCard(HeroTurnTaker);
             if (UseUnityCoroutines)
             {
-                yield return GameController.StartCoroutine(moveCoroutine);
+                yield return GameController.StartCoroutine(drawCoroutine);
             }
             else
             {
-                GameController.ExhaustCoroutine(moveCoroutine);
+                GameController.ExhaustCoroutine(drawCoroutine);
             }
-            IEnumerable<Card> wasMoved = (from MoveCardAction mca in moves where mca.WasCardMoved select mca.CardToMove).Distinct();
-            // "If you moved 2 cards this way, one player draws 3 cards."
-            if (wasMoved.Count() >= cardsRequired)
+            // "Discard up to 3 cards."
+            List<DiscardCardAction> discards = new List<DiscardCardAction>();
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, upTo, false, 0, storedResults: discards, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
             {
-                IEnumerator drawCoroutine = GameController.SelectHeroToDrawCards(DecisionMaker, cardsToDraw, optionalDrawCards: false, cardSource: GetCardSource());
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
+            }
+            // "X heroes each draw a card, where X = the number of cards discarded this way."
+            if (DidDiscardCards(discards))
+            {
+                int x = GetNumberOfCardsDiscarded(discards);
+                IEnumerator massDrawCoroutine = GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero()), x, requiredDecisions: 0, cardSource: GetCardSource());
                 if (UseUnityCoroutines)
                 {
-                    yield return GameController.StartCoroutine(drawCoroutine);
+                    yield return GameController.StartCoroutine(massDrawCoroutine);
                 }
                 else
                 {
-                    GameController.ExhaustCoroutine(drawCoroutine);
+                    GameController.ExhaustCoroutine(massDrawCoroutine);
+                }
+            }
+        }
+
+        IEnumerator DiscardHealResponse(PhaseChangeAction pca)
+        {
+            // "... discard up to 2 cards."
+            List<DiscardCardAction> discards = new List<DiscardCardAction>();
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, 2, false, 0, storedResults: discards, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
+            }
+            // "If you discard 2 cards this way, {Dreadnought} regains 1 HP."
+            if (DidDiscardCards(discards, 2))
+            {
+                IEnumerator healCoroutine = GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(healCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(healCoroutine);
                 }
             }
         }

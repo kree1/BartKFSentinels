@@ -20,27 +20,16 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards and {Dreadnought} regains 2 HP."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DestroyDrawHealResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.DrawCard, TriggerType.GainHP });
+            // "At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards."
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DestroyDrawResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.DrawCard, TriggerType.GainHP });
         }
 
         public override IEnumerator UsePower(int index = 0)
         {
-            int numHP = GetPowerNumeral(0, 2);
-            int numCards = GetPowerNumeral(1, 2);
-            int numRequired = GetPowerNumeral(2, 2);
-            int secondHP = GetPowerNumeral(3, 2);
-            // "{Dreadnought} regains 2 HP. Discard 2 cards. If you discarded 2 cards this way, another hero target regains 2 HP."
-            // Dreadnought regains HP
-            IEnumerator healSelfCoroutine = GameController.GainHP(CharacterCard, numHP);
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(healSelfCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(healSelfCoroutine);
-            }
+            int numCards = GetPowerNumeral(0, 2);
+            int numRequired = GetPowerNumeral(1, 2);
+            int numHP = GetPowerNumeral(2, 2);
+            // "Discard 2 cards. If you discarded 2 cards this way, {Dreadnought} and another hero target each regain 2 HP."
             // Dreadnought discards cards
             List<DiscardCardAction> results = new List<DiscardCardAction>();
             IEnumerator discardCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, numCards, false, numCards, storedResults: results, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
@@ -54,6 +43,16 @@ namespace BartKFSentinels.Dreadnought
             }
             if (DidDiscardCards(results, numRequired))
             {
+                // Dreadnought regains HP
+                IEnumerator healSelfCoroutine = GameController.GainHP(CharacterCard, numHP);
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(healSelfCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(healSelfCoroutine);
+                }
                 // Other target regains HP
                 IEnumerator healOthersCoroutine = GameController.SelectAndGainHP(DecisionMaker, numHP, additionalCriteria: (Card c) => IsHeroTarget(c) && c != CharacterCard, requiredDecisions: 1, cardSource: GetCardSource());
                 if (UseUnityCoroutines)
@@ -67,7 +66,7 @@ namespace BartKFSentinels.Dreadnought
             }
         }
 
-        IEnumerator DestroyDrawHealResponse(PhaseChangeAction pca)
+        IEnumerator DestroyDrawResponse(PhaseChangeAction pca)
         {
             // "... you may destroy one of your Ongoing cards."
             List<DestroyCardAction> results = new List<DestroyCardAction>();
@@ -80,7 +79,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "If you do, draw 2 cards and {Dreadnought} regains 2 HP."
+            // "If you do, draw 2 cards."
             if (DidDestroyCard(results))
             {
                 IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
@@ -91,15 +90,6 @@ namespace BartKFSentinels.Dreadnought
                 else
                 {
                     GameController.ExhaustCoroutine(drawCoroutine);
-                }
-                IEnumerator healCoroutine = GameController.GainHPEx(CharacterCard, 2, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(healCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(healCoroutine);
                 }
             }
         }

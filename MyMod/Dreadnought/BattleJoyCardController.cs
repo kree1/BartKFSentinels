@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class BattleJoyCardController : CardController
+    public class BattleJoyCardController : StressCardController
     {
         public BattleJoyCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -22,8 +22,8 @@ namespace BartKFSentinels.Dreadnought
             base.AddTriggers();
             // "Whenever {Dreadnought} is dealt damage by a non-hero target, discard the top card of your deck."
             AddTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DidDealDamage && dda.DamageSource != null && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), (DealDamageAction dda) => GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource()), TriggerType.DiscardCard, TriggerTiming.After);
-            // "Whenever another of your Ongoing cards leaves play, you may draw a card."
-            AddTrigger((MoveCardAction mca) => mca.Origin.IsInPlay && !mca.Destination.IsInPlay && mca.CardToMove.Owner == TurnTaker && IsOngoing(mca.CardToMove) && mca.CardToMove != Card, (MoveCardAction mca) => DrawCard(TurnTaker.ToHero(), optional: true), TriggerType.DrawCard, TriggerTiming.After);
+            // "At the start of your turn, if you have 3 or more cards in your trash, draw a card."
+            AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => DrawCard(HeroTurnTaker), TriggerType.DrawCard, additionalCriteria: (PhaseChangeAction pca) => TurnTaker.Trash.NumberOfCards >= 3);
         }
     }
 }
