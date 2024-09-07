@@ -16,10 +16,12 @@ namespace BartKFSentinels.Dreadnought
         {
             // Show number of cards in Dreadnought's trash
             SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Trash);
+            IsShuffle = false;
             NoEffect = false;
             CardsToMove = 1;
         }
 
+        public bool IsShuffle { get; set; }
         public bool NoEffect { get; set; }
         public int CardsToMove { get; set; }
 
@@ -39,6 +41,7 @@ namespace BartKFSentinels.Dreadnought
                 DealDamageAction preview = new DealDamageAction(GetCardSource(), new DamageSource(GameController, CharacterCard), CharacterCard, damageAmt, DamageType.Psychic, isIrreducible: true);
                 CardsToMove = cardsRequired;
                 NoEffect = TurnTaker.Trash.Cards.Count() < cardsRequired;
+                IsShuffle = false;
                 YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, SelectionType.Custom, gameAction: preview, cardSource: GetCardSource());
                 IEnumerator chooseCoroutine = GameController.MakeDecisionAction(choice);
                 if (UseUnityCoroutines)
@@ -84,6 +87,10 @@ namespace BartKFSentinels.Dreadnought
         {
             if (NoEffect)
             {
+                if (IsShuffle)
+                {
+                    return new CustomDecisionText("Your trash does not have more than " + CardsToMove.ToString() + " " + CardsToMove.ToString_CardOrCards() + ". Do you want to shuffle your trash into your deck to no effect?", "deciding whether to shuffle their trash into their deck to no effect", "Vote for whether to shuffle " + TurnTaker.Name + "'s trash into their deck to no effect", "shuffle trash into deck to no effect");
+                }
                 return new CustomDecisionText("Your trash does not have " + CardsToMove.ToString() + " " + CardsToMove.ToString_CardOrCards() + ". Do you want to move your trash to the bottom of your deck to no effect?", "deciding whether to move their trash to the bottom of their deck to no effect", "Vote for whether to move " + TurnTaker.Name + "'s trash to the bottom of their deck to no effect", "move trash to bottom of deck to no effect");
             }
             if (CardsToMove == 1)

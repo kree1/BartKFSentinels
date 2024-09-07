@@ -367,7 +367,7 @@
 			],
 			"body": [
 				"{Dreadnought} deals 1 target 7 irreducible projectile damage.",
-				"Either shuffle your trash into your deck or {Dreadnought} deals herself 3 irreducible toxic damage.",
+				"You may shuffle your trash into your deck. If you moved 2 or fewer cards to your deck this way, {Dreadnought} deals herself 3 irreducible toxic damage.",
 				"Discard the top card of your deck."
 			],
 			"icons": [

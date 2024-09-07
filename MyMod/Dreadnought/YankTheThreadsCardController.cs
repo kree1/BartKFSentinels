@@ -29,20 +29,59 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(yeetCoroutine);
             }
-            // "Either shuffle your trash into your deck or {Dreadnought} deals herself 3 irreducible toxic damage."
-            List<Function> options = new List<Function>();
-            options.Add(new Function(DecisionMaker, "Shuffle your trash into your deck", SelectionType.ShuffleTrashIntoDeck, () => GameController.ShuffleTrashIntoDeck(TurnTakerController, cardSource: GetCardSource()), repeatDecisionText: "shuffle trash into deck"));
-            options.Add(new Function(DecisionMaker, "{Dreadnought} deals herself 3 irreducible toxic damage", SelectionType.DealDamage, () => DealDamage(CharacterCard, CharacterCard, 3, DamageType.Toxic, isIrreducible: true, cardSource: GetCardSource()), repeatDecisionText: "Dreadnought deals herself 3 irreducible toxic damage"));
-            SelectFunctionDecision choice = new SelectFunctionDecision(GameController, DecisionMaker, options, false, cardSource: GetCardSource());
-            IEnumerator chooseCoroutine = GameController.SelectAndPerformFunction(choice);
-            if (UseUnityCoroutines)
+            // "You may shuffle your trash into your deck."
+            int cardsMoved = 0;
+            DealDamageAction preview = new DealDamageAction(GetCardSource(), new DamageSource(GameController, CharacterCard), CharacterCard, 3, DamageType.Toxic, isIrreducible: true);
+            if (TurnTaker.Trash.HasCards)
             {
-                yield return GameController.StartCoroutine(chooseCoroutine);
+                // Ask whether to shuffle trash into deck
+                SelectionType tag = SelectionType.ShuffleTrashIntoDeck;
+                if (TurnTaker.Trash.NumberOfCards <= 2)
+                {
+                    CardsToMove = 2;
+                    IsShuffle = true;
+                    NoEffect = true;
+                    tag = SelectionType.Custom;
+                }
+                YesNoDecision choice = new YesNoDecision(GameController, DecisionMaker, tag, gameAction: preview, cardSource: GetCardSource());
+                IEnumerator decideCoroutine = GameController.MakeDecisionAction(choice);
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(decideCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(decideCoroutine);
+                }
+                if (DidPlayerAnswerYes(choice))
+                {
+                    // Count cards in trash, then shuffle them into deck
+                    cardsMoved = TurnTaker.Trash.NumberOfCards;
+                    IEnumerator shuffleCoroutine = GameController.ShuffleTrashIntoDeck(TurnTakerController, cardSource: GetCardSource());
+                    if (UseUnityCoroutines)
+                    {
+                        yield return GameController.StartCoroutine(shuffleCoroutine);
+                    }
+                    else
+                    {
+                        GameController.ExhaustCoroutine(shuffleCoroutine);
+                    }
+                }
             }
-            else
+            // "If you moved 2 or fewer cards to your deck this way, {Dreadnought} deals herself 3 irreducible toxic damage."
+            if (cardsMoved <= 2)
             {
-                GameController.ExhaustCoroutine(chooseCoroutine);
+                IEnumerator toxicCoroutine = DealDamage(CharacterCard, CharacterCard, 3, DamageType.Toxic, isIrreducible: true, cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(toxicCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(toxicCoroutine);
+                }
             }
+
             // "Discard the top card of your deck."
             IEnumerator discardCoroutine = GameController.DiscardTopCard(TurnTaker.Deck, null, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
             if (UseUnityCoroutines)
