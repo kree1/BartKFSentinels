@@ -171,14 +171,14 @@
 				"ongoing"
 			],
 			"body": [
-				"At the end of your turn, you may discard a card."
+				"At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards and {Dreadnought} regains 2 HP."
 			],
 			"powers": [
 				"{Dreadnought} regains 2 HP. Discard 2 cards. If you discarded 2 cards this way, another hero target regains 2 HP."
 			],
 			"icons": [
-				"EndOfTurnAction",
-				"Discard",
+				"StartOfTurnAction",
+				"DestroyOngoing",
 				"HasPower",
 				"GainHP"
 			],
@@ -193,14 +193,14 @@
 				"ongoing"
 			],
 			"body": [
-				"At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards and {Dreadnought} regains 2 HP."
+				"At the end of your turn, you may discard a card."
 			],
 			"powers": [
 				"Put the bottom 2 cards of your trash on the bottom of your deck. If you moved 2 cards this way, one player draws 3 cards."
 			],
 			"icons": [
-				"StartOfTurnAction",
-				"DestroyOngoing",
+				"EndOfTurnAction",
+				"Discard",
 				"DrawCardNow",
 				"HasPower"
 			],

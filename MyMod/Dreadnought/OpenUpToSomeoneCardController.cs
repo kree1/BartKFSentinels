@@ -20,8 +20,8 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards and {Dreadnought} regains 2 HP."
-            AddStartOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DestroyDrawHealResponse, new TriggerType[] { TriggerType.DestroyCard, TriggerType.DrawCard, TriggerType.GainHP });
+            // "At the end of your turn, you may discard a card."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.SelectAndDiscardCard(DecisionMaker, optional: true, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource()), TriggerType.DiscardCard);
         }
 
         public override IEnumerator UsePower(int index = 0)
@@ -29,7 +29,7 @@ namespace BartKFSentinels.Dreadnought
             int cardsInstructed = GetPowerNumeral(0, 2);
             int cardsRequired = GetPowerNumeral(1, 2);
             int cardsToDraw = GetPowerNumeral(2, 3);
-            // "Put the bottom 2 cards of your trash on the bottom of your deck."// "If you moved 2 cards this way, one player draws 3 cards."
+            // "Put the bottom 2 cards of your trash on the bottom of your deck."
             List<MoveCardAction> moves = new List<MoveCardAction>();
             IEnumerable<Card> toMove = TurnTaker.Trash.Cards.Take(cardsInstructed);
             IEnumerator moveCoroutine = GameController.SendMessageAction("There are no cards in " + TurnTaker.Name + "'s trash for " + Card.Title + " to move.", Priority.Medium, GetCardSource());
@@ -57,43 +57,6 @@ namespace BartKFSentinels.Dreadnought
                 else
                 {
                     GameController.ExhaustCoroutine(drawCoroutine);
-                }
-            }
-        }
-
-        IEnumerator DestroyDrawHealResponse(PhaseChangeAction pca)
-        {
-            // "... you may destroy one of your Ongoing cards."
-            List<DestroyCardAction> results = new List<DestroyCardAction>();
-            IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsOngoing(c) && c.Owner == TurnTaker && c.IsInPlayAndHasGameText, "belonging to " + TurnTaker.Name + " in play", useCardsPrefix: true, useCardsSuffix: false, singular: "Ongoing card", plural: "Ongoing cards"), true, results, responsibleCard: Card, cardSource: GetCardSource());
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(destroyCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(destroyCoroutine);
-            }
-            // "If you do, draw 2 cards and {Dreadnought} regains 2 HP."
-            if (DidDestroyCard(results))
-            {
-                IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(drawCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(drawCoroutine);
-                }
-                IEnumerator healCoroutine = GameController.GainHPEx(CharacterCard, 2, cardSource: GetCardSource());
-                if (UseUnityCoroutines)
-                {
-                    yield return GameController.StartCoroutine(healCoroutine);
-                }
-                else
-                {
-                    GameController.ExhaustCoroutine(healCoroutine);
                 }
             }
         }
