@@ -303,7 +303,7 @@
 				"mantle"
 			],
 			"body": [
-				"Increase damage dealt by {Dreadnought} by 1.",
+				"Increase damage dealt by {Dreadnought} to other targets by 1.",
 				"At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"icons": [

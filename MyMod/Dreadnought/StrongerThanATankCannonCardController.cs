@@ -21,8 +21,8 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Increase damage dealt by {Dreadnought} by 1."
-            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard), 1);
+            // "Increase damage dealt by {Dreadnought} to other targets by 1."
+            AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.Target != CharacterCard, 1);
             // "At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PsychicStressResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.MoveCard });
         }
