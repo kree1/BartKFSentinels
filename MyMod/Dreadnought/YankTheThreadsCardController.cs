@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class YankTheThreadsCardController : CardController
+    public class YankTheThreadsCardController : StressCardController
     {
         public YankTheThreadsCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

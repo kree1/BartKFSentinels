@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class StrongerThanATankCannonCardController : DreadnoughtUtilityCardController
+    public class StrongerThanATankCannonCardController : StressCardController
     {
         public StrongerThanATankCannonCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -24,7 +24,7 @@ namespace BartKFSentinels.Dreadnought
             // "Increase damage dealt by {Dreadnought} to other targets by 1."
             AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.Target != CharacterCard, 1);
             // "At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PsychicStressResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.MoveCard });
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, IntimidateResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.MoveCard });
         }
 
         public bool DealtDamageToOtherHeroTargetThisTurn()
@@ -32,7 +32,7 @@ namespace BartKFSentinels.Dreadnought
             return Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.SourceCard == CharacterCard && ddje.Amount > 0 && IsHeroTarget(ddje.TargetCard) && ddje.TargetCard != CharacterCard).Any();
         }
 
-        public IEnumerator PsychicStressResponse(PhaseChangeAction pca)
+        public IEnumerator IntimidateResponse(PhaseChangeAction pca)
         {
             // "... {Dreadnought} deals 1 villain target 0 psychic damage."
             IEnumerator villainCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 0, DamageType.Psychic, 1, false, 1, additionalCriteria: (Card c) => IsVillainTarget(c), cardSource: GetCardSource());
