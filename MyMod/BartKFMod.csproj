@@ -75,6 +75,7 @@
     <Compile Include="Dreadnought\BattleJoyCardController.cs" />
     <Compile Include="Dreadnought\DreadnoughtCharacterCardController.cs" />
     <Compile Include="Dreadnought\DreadnoughtUtilityCardController.cs" />
+    <Compile Include="Dreadnought\EmeraldCharacterCardController.cs" />
     <Compile Include="Dreadnought\FasterThanAJetCardController.cs" />
     <Compile Include="Dreadnought\FirstIntoTheFrayCardController.cs" />
     <Compile Include="Dreadnought\GoThroughCardController.cs" />

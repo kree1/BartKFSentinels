@@ -382,5 +382,42 @@
 		}
 	],
 	"promoCards": [
+		{
+			"identifier": "DreadnoughtCharacter",
+			"promoIdentifier": "EmeraldCharacter",
+			"count": 1,
+			"title": "Emerald",
+			"promoTitle": "Emerald",
+			"shortPromoTitle": "Emerald",
+			"backgroundColor": "50C878",
+			"body": "Throwaway Colors",
+			"character": true,
+			"powers": [
+				"Discard the top 3 cards of your deck. You may play an Ongoing card discarded this way."
+			],
+			"icons": [
+				"HasPower",
+				"Discard",
+				"PlayCardNow"
+			],
+			"hitpoints": 28,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Dreadnought"
+			],
+			"incapacitatedAbilities": [
+				"One player may draw a card now.",
+				"Destroy an environment card.",
+				"One target regains 2 HP."
+			],
+			"flippedIcons": [
+				"DrawCardNow",
+				"DestroyEnvironment",
+				"GainHP"
+			],
+			"complexity": 2,
+			"openingLines": {
+				"default": "Look, I don't want to fight, but I really can't let you do... whatever this is, so..."
+			}
+		}
 	]
 }
