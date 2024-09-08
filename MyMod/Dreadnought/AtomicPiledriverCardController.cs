@@ -19,6 +19,16 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
+            // "You may play an Ongoing card."
+            IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => IsOngoing(c), "Ongoing"), cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(playCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(playCoroutine);
+            }
             // "{Dreadnought} deals 1 target 3 melee damage."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 3, DamageType.Melee, 1, false, 1, cardSource: GetCardSource());
             if (UseUnityCoroutines)

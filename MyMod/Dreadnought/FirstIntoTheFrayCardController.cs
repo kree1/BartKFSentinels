@@ -20,8 +20,8 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your play phase or power phase, if {Dreadnought} dealt no damage this phase, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && (pca.FromPhase.Phase == Phase.PlayCard || pca.FromPhase.Phase == Phase.UsePower) && !Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.SourceCard == CharacterCard && ddje.Amount > 0 && ddje.TurnPhase.Phase == pca.FromPhase.Phase).Any(), (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
+            // "At the end of your power phase, if {Dreadnought} dealt no damage this turn, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && pca.FromPhase.Phase == Phase.UsePower && !Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.SourceCard == CharacterCard && ddje.Amount > 0).Any(), (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
         }
 
         public override IEnumerator UsePower(int index = 0)

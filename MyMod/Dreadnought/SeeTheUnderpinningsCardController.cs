@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class SeeTheUnderpinningsCardController : StressCardController
+    public class SeeTheUnderpinningsCardController : CardController
     {
         public SeeTheUnderpinningsCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -74,16 +74,6 @@ namespace BartKFSentinels.Dreadnought
                         GameController.ExhaustCoroutine(moveCoroutine);
                     }
                 }
-            }
-            // "{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
-            IEnumerator stressCoroutine = PayStress(2);
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(stressCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(stressCoroutine);
             }
         }
     }

@@ -49,10 +49,12 @@
 				"one-shot"
 			],
 			"body": [
+				"You may play an Ongoing card.",
 				"{Dreadnought} deals 1 target 3 melee damage.",
 				"Discard the top card of your deck."
 			],
 			"icons": [
+				"PlayCardNow",
 				"DealDamageMelee",
 				"Discard"
 			],
@@ -111,7 +113,7 @@
 				"mantle"
 			],
 			"body": [
-				"At the end of your play phase or power phase, if {Dreadnought} dealt no damage this phase, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+				"At the end of your power phase, if {Dreadnought} dealt no damage this turn, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"powers": [
 				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top card of your deck."
@@ -297,12 +299,10 @@
 				"one-shot"
 			],
 			"body": [
-				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck.",
-				"{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
+				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck."
 			],
 			"icons": [
-				"Manipulate",
-				"Stress"
+				"Manipulate"
 			],
 			"flavorQuotes": [
 				{
