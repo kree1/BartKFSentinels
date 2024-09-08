@@ -165,6 +165,25 @@
 			"flavorReference": "[i]Dreadnought[/i], p. 272"
 		},
 		{
+			"identifier": "HarderThanDiamond",
+			"count": 2,
+			"title": "Harder than Diamond",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Reduce non-lightning damage dealt to {Dreadnought} by 1.",
+				"Whenever a target is reduced from 1 or more to 0 or fewer HP or a non-target environment card is destroyed, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"Stress"
+			],
+			"flavorText": "My name is Danielle Tozer.{BR}I am a girl. No one is strong enough{BR}to take that from me anymore.",
+			"flavorReference": "[i]Dreadnought[/i], p. 69"
+		},
+		{
 			"identifier": "ItsNiceHavingAFriend",
 			"count": 2,
 			"title": "It's Nice Having a Friend",
@@ -185,6 +204,27 @@
 			],
 			"flavorText": "My throat is a little{BR}tight, and when I hug her there's an{BR}instant of tension in her shoulders{BR}before she relaxes and hugs me back.",
 			"flavorReference": "[i]Dreadnought[/i], p. 93"
+		},
+		{
+			"identifier": "MightierThanABattleship",
+			"count": 3,
+			"title": "Mightier than a Battleship",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Increase damage dealt by {Dreadnought} to other targets by 1.",
+				"At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"Stress"
+			],
+			"flavorText": "They came after{BR}me because I'm the one who scares{BR}them. Because they knew I was the most{BR}dangerous. Well, they were right.",
+			"flavorReference": "[i]Sovereign[/i], p. 255"
 		},
 		{
 			"identifier": "OpenUpToSomeone",
@@ -294,46 +334,6 @@
 			],
 			"flavorText": "They'll make a man{BR}of me. Show me how to be a man.{BR}Teach me to man up by beating me down.{BR}[b][i]They never ask if I want to be a man.[/i][/b]",
 			"flavorReference": "[i]Dreadnought[/i], p. 68"
-		},
-		{
-			"identifier": "StrongerThanATankCannon",
-			"count": 3,
-			"title": "Stronger than a Tank Cannon",
-			"keywords": [
-				"ongoing",
-				"mantle"
-			],
-			"body": [
-				"Increase damage dealt by {Dreadnought} to other targets by 1.",
-				"At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-			],
-			"icons": [
-				"IncreaseDamageDealt",
-				"EndOfTurnAction",
-				"DealDamagePsychic",
-				"Stress"
-			],
-			"flavorText": "They came after{BR}me because I'm the one who scares{BR}them. Because they knew I was the most{BR}dangerous. Well, they were right.",
-			"flavorReference": "[i]Sovereign[/i], p. 255"
-		},
-		{
-			"identifier": "TougherThanABattlecruiser",
-			"count": 2,
-			"title": "Tougher than a Battlecruiser",
-			"keywords": [
-				"ongoing",
-				"mantle"
-			],
-			"body": [
-				"Reduce non-lightning damage dealt to {Dreadnought} by 1.",
-				"Whenever a target is reduced from 1 or more to 0 or fewer HP or a non-target environment card is destroyed, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-			],
-			"icons": [
-				"ReduceDamageTaken",
-				"Stress"
-			],
-			"flavorText": "My name is Danielle Tozer.{BR}I am a girl. No one is strong enough{BR}to take that from me anymore.",
-			"flavorReference": "[i]Dreadnought[/i], p. 69"
 		},
 		{
 			"identifier": "WovenIntoReality",

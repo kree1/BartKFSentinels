@@ -86,8 +86,8 @@
     <Compile Include="Dreadnought\SeeTheUnderpinningsCardController.cs" />
     <Compile Include="Dreadnought\ShowVulnerabilityCardController.cs" />
     <Compile Include="Dreadnought\StressCardController.cs" />
-    <Compile Include="Dreadnought\StrongerThanATankCannonCardController.cs" />
-    <Compile Include="Dreadnought\TougherThanABattlecruiserCardController.cs" />
+    <Compile Include="Dreadnought\MightierThanABattleshipCardController.cs" />
+    <Compile Include="Dreadnought\HarderThanDiamondCardController.cs" />
     <Compile Include="Dreadnought\WovenIntoRealityCardController.cs" />
     <Compile Include="Dreadnought\YankTheThreadsCardController.cs" />
     <Compile Include="EvidenceStorage\AlienEscapePodCardController.cs" />

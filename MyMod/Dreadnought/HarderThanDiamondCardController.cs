@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class TougherThanABattlecruiserCardController : StressCardController
+    public class HarderThanDiamondCardController : StressCardController
     {
-        public TougherThanABattlecruiserCardController(Card card, TurnTakerController turnTakerController)
+        public HarderThanDiamondCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 

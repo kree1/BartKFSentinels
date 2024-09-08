@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Dreadnought
 {
-    public class StrongerThanATankCannonCardController : StressCardController
+    public class MightierThanABattleshipCardController : StressCardController
     {
-        public StrongerThanATankCannonCardController(Card card, TurnTakerController turnTakerController)
+        public MightierThanABattleshipCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show whether Dreadnought has dealt damage to another hero target this turn
