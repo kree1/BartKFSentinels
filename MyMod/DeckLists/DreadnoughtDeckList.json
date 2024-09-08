@@ -13,7 +13,7 @@
 			"backgroundColor": "00F7F2",
 			"character": true,
 			"powers": [
-				"{Dreadnought} deals 1 target 2 melee damage. Discard a card. Draw a card."
+				"{Dreadnought} deals 1 target 2 melee damage. You may discard a card. If you do, draw a card."
 			],
 			"icons": [
 				"HasPower",

@@ -19,7 +19,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "{Dreadnought} deals 1 target 2 melee damage. Discard a card. Draw a card."
+            // "{Dreadnought} deals 1 target 2 melee damage. You may discard a card. If you do, draw a card."
             int numTargets = GetPowerNumeral(0, 1);
             int meleeAmt = GetPowerNumeral(1, 2);
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), meleeAmt, DamageType.Melee, numTargets, false, numTargets, cardSource: GetCardSource());
@@ -31,7 +31,8 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
+            List<DiscardCardAction> discards = new List<DiscardCardAction>();
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, optional: true, storedResults: discards, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(discardCoroutine);
@@ -40,14 +41,17 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
             }
-            IEnumerator drawCoroutine = DrawCard();
-            if (UseUnityCoroutines)
+            if (DidDiscardCards(discards))
             {
-                yield return GameController.StartCoroutine(drawCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(drawCoroutine);
+                IEnumerator drawCoroutine = DrawCard();
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(drawCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(drawCoroutine);
+                }
             }
         }
 
