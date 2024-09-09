@@ -393,12 +393,14 @@
 			"body": "Throwaway Colors",
 			"character": true,
 			"powers": [
-				"Discard the top 3 cards of your deck. You may play an Ongoing card discarded this way."
+				"Discard the top 3 cards of your deck.",
+				"Play an Ongoing card from your trash. [i]Emerald[/i] deals herself 4 irreducible psychic damage unless you shuffle the bottom 3 cards of your trash into your deck."
 			],
 			"icons": [
 				"HasPower",
 				"Discard",
-				"PlayCardNow"
+				"PlayCardNow",
+				"BartKFSentinels.Stress"
 			],
 			"hitpoints": 28,
 			"nemesisIdentifiers": [
