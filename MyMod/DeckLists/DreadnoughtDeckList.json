@@ -119,7 +119,7 @@
 				"{Dreadnought} deals up to 2 targets 2 melee damage each. Discard the top card of your deck."
 			],
 			"icons": [
-				"Stress",
+				"BartKFSentinels.Stress",
 				"HasPower",
 				"DealDamageMelee",
 				"Discard"
@@ -180,7 +180,7 @@
 			],
 			"icons": [
 				"ReduceDamageTaken",
-				"Stress"
+				"BartKFSentinels.Stress"
 			],
 			"flavorText": "My name is Danielle Tozer.{BR}I am a girl. No one is strong enough{BR}to take that from me anymore.",
 			"flavorReference": "[i]Dreadnought[/i], p. 69"
@@ -223,7 +223,7 @@
 				"IncreaseDamageDealt",
 				"EndOfTurnAction",
 				"DealDamagePsychic",
-				"Stress"
+				"BartKFSentinels.Stress"
 			],
 			"flavorText": "They came after{BR}me because I'm the one who scares{BR}them. Because they knew I was the most{BR}dangerous. Well, they were right.",
 			"flavorReference": "[i]Sovereign[/i], p. 255"
@@ -284,7 +284,7 @@
 				"If {Dreadnought} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
 			],
 			"icons": [
-				"Stress",
+				"BartKFSentinels.Stress",
 				"GainHP",
 				"UsePowerNow"
 			],
@@ -354,7 +354,7 @@
 				"DrawCardNow",
 				"HasPower",
 				"DestroyOngoing",
-				"Stress"
+				"BartKFSentinels.Stress"
 			],
 			"flavorText": "I can see the structure{BR}behind reality. Okay, not [b][i]see[/i][/b], precisely,{BR}but it's there. An infinite lattice of matter{BR}and energy, of thought and form.",
 			"flavorReference": "[i]Dreadnought[/i], p. 34"

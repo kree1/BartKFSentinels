@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"FractureIcon.png":
+"DreadnoughtIcon.png":
 {
 	"frame": {"x":131,"y":0,"w":128,"h":128},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"ImpulseIcon.png":
+"FractureIcon.png":
 {
 	"frame": {"x":262,"y":0,"w":128,"h":128},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"PalmreaderIcon.png":
+"ImpulseIcon.png":
 {
 	"frame": {"x":0,"y":131,"w":128,"h":128},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"RowToken.png":
+"PalmreaderIcon.png":
 {
 	"frame": {"x":131,"y":131,"w":128,"h":128},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"TheGoalieIcon.png":
+"RowToken.png":
 {
 	"frame": {"x":262,"y":131,"w":128,"h":128},
 	"rotated": false,
@@ -48,7 +48,15 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"TorrentIcon.png":
+"Stress.png":
+{
+	"frame": {"x":393,"y":131,"w":59,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":55},
+	"sourceSize": {"w":59,"h":55}
+},
+"TheGoalieIcon.png":
 {
 	"frame": {"x":0,"y":262,"w":128,"h":128},
 	"rotated": false,
@@ -56,9 +64,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"WeightToken.png":
+"TorrentIcon.png":
 {
 	"frame": {"x":131,"y":262,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"WeightToken.png":
+{
+	"frame": {"x":262,"y":262,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -71,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2a1bead000fcc19957825dd4d487a537:364dc4700260c55cc33f208dc65416cc:c680398f21d101d0a1ae6d7fc2a23608$"
+	"smartupdate": "$TexturePacker:SmartUpdate:52c1b12b385069036276f2953277e3d4:95edca97b42fd3b598d7a58729e518f3:c680398f21d101d0a1ae6d7fc2a23608$"
 }
 }
