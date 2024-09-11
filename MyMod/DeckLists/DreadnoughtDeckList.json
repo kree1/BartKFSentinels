@@ -98,7 +98,7 @@
 			],
 			"body": [
 				"At the end of your turn, you may play a card or use a power. If you do, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck.",
-				"The first time {Dreadnought} is dealt damage by any non-hero target each turn, she may deal that target 1 melee damage."
+				"Once per turn, when {Dreadnought} is dealt damage by a non-hero target, she may deal that target 1 melee damage."
 			],
 			"icons": [
 				"EndOfTurnAction",

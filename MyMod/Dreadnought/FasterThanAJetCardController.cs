@@ -15,19 +15,19 @@ namespace BartKFSentinels.Dreadnought
             : base(card, turnTakerController)
         {
             // If in play: show whether this card has reacted this turn
-            SpecialStringMaker.ShowHasBeenUsedThisTurn(FirstDamageThisTurn, Card.Title + " has already reacted to damage this turn.", Card.Title + " has not reacted to damage this turn.").Condition = () => Card.IsInPlayAndHasGameText;
+            SpecialStringMaker.ShowHasBeenUsedThisTurn(RespondedThisTurn, Card.Title + " has already reacted to damage this turn.", Card.Title + " has not reacted to damage this turn.").Condition = () => Card.IsInPlayAndHasGameText;
         }
 
-        private readonly string FirstDamageThisTurn = "FirstDamageThisTurn";
+        private readonly string RespondedThisTurn = "RespondedThisTurn";
 
         public override void AddTriggers()
         {
             base.AddTriggers();
             // "At the end of your turn, you may play a card or use a power. If you do, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, BonusActionResponse, new TriggerType[] { TriggerType.PlayCard, TriggerType.UsePower, TriggerType.DestroyCard });
-            // "The first time {Dreadnought} is dealt damage by any non-hero target each turn, she may deal that target 1 melee damage."
-            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamageThisTurn) && dda.Target == CharacterCard && dda.DidDealDamage && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), HitBackResponse, TriggerType.DealDamage, TriggerTiming.After);
-            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(FirstDamageThisTurn), TriggerType.Hidden);
+            // "Once per turn, when {Dreadnought} is dealt damage by a non-hero target, she may deal that target 1 melee damage."
+            AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(RespondedThisTurn) && dda.Target == CharacterCard && dda.DidDealDamage && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), HitBackResponse, TriggerType.DealDamage, TriggerTiming.After);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(RespondedThisTurn), TriggerType.Hidden);
         }
 
         public IEnumerator BonusActionResponse(PhaseChangeAction pca)
@@ -66,9 +66,9 @@ namespace BartKFSentinels.Dreadnought
 
         public IEnumerator HitBackResponse(DealDamageAction dda)
         {
-            SetCardPropertyToTrueIfRealAction(FirstDamageThisTurn);
             // "... she may deal that target 1 melee damage."
-            IEnumerator meleeCoroutine = DealDamage(CharacterCard, dda.DamageSource.Card, 1, DamageType.Melee, optional: true, isCounterDamage: true, cardSource: GetCardSource());
+            List<DealDamageAction> results = new List<DealDamageAction>();
+            IEnumerator meleeCoroutine = DealDamage(CharacterCard, dda.DamageSource.Card, 1, DamageType.Melee, optional: true, isCounterDamage: true, storedResults: results, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(meleeCoroutine);
@@ -76,6 +76,10 @@ namespace BartKFSentinels.Dreadnought
             else
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
+            }
+            if (DidDealDamage(results, fromDamageSource: CharacterCard))
+            {
+                SetCardPropertyToTrueIfRealAction(RespondedThisTurn);
             }
         }
     }
