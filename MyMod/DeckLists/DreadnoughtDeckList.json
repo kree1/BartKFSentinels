@@ -36,9 +36,15 @@
 				"Discard",
 				"ReduceDamageTaken"
 			],
-			"complexity": 2,
+			"complexity": 3,
 			"openingLines": {
-				"default": "Shut up and stand down. This is the only warning you get."
+				"default": "Shut up and stand down. This is the only warning you get.",
+				"TheChairmanCharacter": "[i]I'm[/i] out of [i]my[/i]... haha. Hahahahaha. Okay then.",
+				"TheDreamerCharacter": "Jesus, kid, I'm sorry. We're gonna get you out of there.",
+				"IronLegacyCharacter": "You're not God, dude. You're a first responder. We provide security, not justice.",
+				"KaargraWarfangCharacter": "Oh, kick ass. What kind of commission do I get?",
+				"Cauldron.GrayCharacter": "I've seen shittier solutions, but not many.",
+				"OblivAeonFrontPageCharacter": "I've seen bigger. Try me."
 			}
 		},
 		{
@@ -416,9 +422,10 @@
 				"DestroyEnvironment",
 				"GainHP"
 			],
-			"complexity": 2,
+			"complexity": 3,
 			"openingLines": {
-				"default": "Look, I don't want to fight, but I really can't let you do... whatever this is, so..."
+				"default": "Hey, I'm really not supposed to... ah, crap. Back me up, guys!",
+				"OblivAeonFrontPageCharacter": "Help."
 			}
 		}
 	]
