@@ -41,9 +41,10 @@
 				"default": "Shut up and stand down. This is the only warning you get.",
 				"TheChairmanCharacter": "[i]I'm[/i] out of [i]my[/i]... haha. Hahahahaha. Okay then.",
 				"TheDreamerCharacter": "Jesus, kid, I'm sorry. We're gonna get you out of there.",
-				"IronLegacyCharacter": "You're not God, dude. You're a first responder. We provide security, not justice.",
-				"KaargraWarfangCharacter": "Oh, kick ass. What kind of commission do I get?",
-				"Cauldron.GrayCharacter": "I've seen shittier solutions, but not many.",
+				"IronLegacyCharacter": "Uh-huh. Yeah. We're gonna start with this big blond guy who's been punching holes in people, if that's cool.",
+				"KaargraWarfangCharacter": "Kick ass! What kind of commission do I get?",
+				"ProgenyCharacter": "Turn around. Now.",
+				"Cauldron.GrayCharacter": "Wow. I've seen shittier solutions, but not many.",
 				"OblivAeonFrontPageCharacter": "I've seen bigger. Try me."
 			}
 		},
@@ -424,7 +425,7 @@
 			],
 			"complexity": 3,
 			"openingLines": {
-				"default": "Hey, I'm really not supposed to... ah, crap. Back me up, guys!",
+				"default": "Hey, uh... You need to stop. Right, guys?",
 				"OblivAeonFrontPageCharacter": "Help."
 			}
 		}
