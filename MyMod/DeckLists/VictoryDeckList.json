@@ -40,7 +40,7 @@
 			"openingLines": {
 				"default": "Stand down before anyone gets hurt. This is your one warning.",
 				"TheDreamerCharacter": "We're gonna get you out of there, okay? Just hang on.",
-				"OblivAeonFrontPageCharacter": "Sorry, they didn't name me “Surrender.”"
+				"OblivAeonFrontPageCharacter": "Sorry, nobody wanted a hero named “Surrender.”"
 			}
 		},
 		{
@@ -62,11 +62,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "FrightTrain",
+					"text": "You lost, little girl? I think this is{BR}the wrong side of the- [b]OOF![/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Fright Train"
 		},
 		{
 			"identifier": "ClarityOfPurpose",
@@ -87,11 +87,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Victory",
+					"text": "Life is so, so, [b]so[/b] complicated.{BR}Sometimes I need a good fight, just to{BR}have one simple thing that day."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Victory"
 		},
 		{
 			"identifier": "EyesLikeTelescopes",
@@ -116,11 +116,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "MisterHideous",
+					"text": "You may pack a solid punch,{BR}do-gooder, but you'll never find the{BR}hostages in time!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Mister Hideous"
 		},
 		{
 			"identifier": "FasterThanLightning",
@@ -143,11 +143,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Victory",
+					"text": "[b]Excuse[/b] you. Wait your turn. There's{BR}plenty of beating to go around."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Victory"
 		},
 		{
 			"identifier": "FistsLikeCannonballs",
@@ -172,8 +172,12 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Victory",
+					"text": "Let go of me!{BR}I almost had him!"
+				},
+				{
+					"identifier": "The Goalie",
+					"text": "What do you mean, 'him'?"
 				}
 			],
 			"flavorReference": ""
@@ -198,11 +202,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "ProfessorKaiju",
+					"text": "Entering final approach now. Thirty{BR}seconds to target."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Professor Kaiju"
 		},
 		{
 			"identifier": "GoThrough",
@@ -223,8 +227,16 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Victory",
+					"text": "How's Columbia Center?"
+				},
+				{
+					"identifier": "Professor Kaiju",
+					"text": "Completely evacuated."
+				},
+				{
+					"identifier": "Victory",
+					"text": "Perfect."
 				}
 			],
 			"flavorReference": ""
@@ -247,11 +259,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "And I'm like, that is a machine gun. If{BR}you wired it up so you feel pain when I{BR}break it? I think that's on you."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		},
 		{
 			"identifier": "ImpromptuSurgery",
@@ -272,11 +284,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "Stay with me, okay? I can see it. I'm{BR}gonna get it out. Just [b]hang on.[/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		},
 		{
 			"identifier": "MonologueBait",
@@ -293,11 +305,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Victory",
+					"text": "Okay, where did you get the money{BR}for all this? It can't just be donations{BR}from Twitch chat, right?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Victory"
 		},
 		{
 			"identifier": "MusclesLikeIron",
@@ -319,11 +331,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "No. Victory's a trans woman now, and{BR}the world can deal with it. I'm not gonna{BR}let anyone think I'm ashamed."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		},
 		{
 			"identifier": "QuietMomentTogether",
@@ -346,8 +358,12 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "I can never seem to put{BR}this stuff on right..."
+				},
+				{
+					"identifier": "Megan",
+					"text": "No problem! I'm an expert."
 				}
 			],
 			"flavorReference": ""
@@ -373,11 +389,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "I was so excited for{BR}everyone to finally see the real me.{BR}But when I put on the cape... are they{BR}looking at me, or at Victory?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		},
 		{
 			"identifier": "ShowVulnerability",
@@ -397,11 +413,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "ProfessorKaiju",
+					"text": "You say the world needs Victory{BR}again. But you're allowed to need{BR}things, too."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Professor Kaiju"
 		},
 		{
 			"identifier": "TitanicImpact",
@@ -423,11 +439,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "Tell them Victory's got it covered."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		},
 		{
 			"identifier": "TougherThanDiamond",
@@ -447,11 +463,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Stephanie",
+					"text": "I'm not scared to look in the{BR}mirror anymore. I don't have to be{BR}scared of anything."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Stephanie"
 		}
 	],
 	"promoCards": [
@@ -491,7 +507,7 @@
 			],
 			"complexity": 3,
 			"openingLines": {
-				"default": "Hey, uh... You need to stop. Right, guys?",
+				"default": "Hey, uh... You need to stop. Right? These guys think you need to stop.",
 				"OblivAeonFrontPageCharacter": "Help."
 			}
 		}
