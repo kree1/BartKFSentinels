@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
-    public class OrbitalGuidanceCardController : DreadnoughtUtilityCardController
+    public class OrbitalGuidanceCardController : VictoryUtilityCardController
     {
         public OrbitalGuidanceCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -93,7 +93,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(playCoroutine);
             }
-            // "{Dreadnought} may deal 1 target 2 irreducible melee damage."
+            // "{Victory} may deal 1 target 2 irreducible melee damage."
             List<DealDamageAction> damageResults = new List<DealDamageAction>();
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 2, DamageType.Melee, 1, false, 0, isIrreducible: true, storedResultsDamage: damageResults, cardSource: GetCardSource());
             if (UseUnityCoroutines)

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class WovenIntoRealityCardController : StressCardController
     {
@@ -38,7 +38,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "{Dreadnought} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
+            // "{Victory} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
             IEnumerator stressCoroutine = PayStress(cardsRequired, damageAmt);
             if (UseUnityCoroutines)
             {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class GoThroughCardController : CardController
     {
@@ -19,7 +19,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
-            // "{Dreadnought} deals 1 target 4 melee damage."
+            // "{Victory} deals 1 target 4 melee damage."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 4, DamageType.Melee, 1, false, 1, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
@@ -29,7 +29,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(meleeCoroutine);
             }
-            // "{Dreadnought} deals each non-hero target 1 projectile damage."
+            // "{Victory} deals each non-hero target 1 projectile damage."
             IEnumerator projectileCoroutine = DealDamage(CharacterCard, (Card c) => !IsHeroTarget(c), (Card c) => 1, DamageType.Projectile);
             if (UseUnityCoroutines)
             {

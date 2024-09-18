@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
-    public class DreadnoughtUtilityCardController : CardController
+    public class VictoryUtilityCardController : CardController
     {
-        public DreadnoughtUtilityCardController(Card card, TurnTakerController turnTakerController)
+        public VictoryUtilityCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -19,7 +19,7 @@ namespace BartKFSentinels.Dreadnought
 
         public readonly string MantleKeyword = "mantle";
 
-        public int DamageDealtByDreadnoughtThisTurn()
+        public int DamageDealtByVictoryThisTurn()
         {
             List<int> amounts = (from DealDamageJournalEntry ddje in Journal.DealDamageEntriesThisTurn() where ddje.SourceCard == CharacterCard && ddje.Amount > 0 select ddje.Amount).ToList();
             int result = 0;

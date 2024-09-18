@@ -18,12 +18,12 @@
 	"dll": "BartKFMod.dll",
 	"decks": {
 		"heroes": [
-			"Dreadnought",
 			"Fracture",
 			"Palmreader",
 			"Impulse",
 			"TheGoalie",
-			"Torrent"
+			"Torrent",
+			"Victory"
 		],
 		"villains": [
 			"Breakaway",

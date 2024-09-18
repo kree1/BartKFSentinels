@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class FirstIntoTheFrayCardController : StressCardController
     {
@@ -20,7 +20,7 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your power phase, if {Dreadnought} dealt no damage this turn, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+            // "At the end of your power phase, if {Victory} dealt no damage this turn, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
             AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && pca.FromPhase.Phase == Phase.UsePower && !Journal.DealDamageEntriesThisTurn().Where((DealDamageJournalEntry ddje) => ddje.SourceCard == CharacterCard && ddje.Amount > 0).Any(), (PhaseChangeAction pca) => PayStress(1), new TriggerType[] { TriggerType.MoveCard, TriggerType.DealDamage }, TriggerTiming.Before);
         }
 
@@ -28,7 +28,7 @@ namespace BartKFSentinels.Dreadnought
         {
             int numTargets = GetPowerNumeral(0, 2);
             int meleeAmt = GetPowerNumeral(1, 2);
-            // "{Dreadnought} deals up to 2 targets 2 melee damage each."
+            // "{Victory} deals up to 2 targets 2 melee damage each."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), meleeAmt, DamageType.Melee, numTargets, false, 0, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {

@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
-    public class DreadnoughtCharacterCardController : HeroCharacterCardController
+    public class VictoryCharacterCardController : HeroCharacterCardController
     {
-        public DreadnoughtCharacterCardController(Card card, TurnTakerController turnTakerController)
+        public VictoryCharacterCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
@@ -19,7 +19,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "{Dreadnought} deals 1 target 2 melee damage. You may discard a card. If you do, draw a card."
+            // "{Victory} deals 1 target 2 melee damage. You may discard a card. If you do, draw a card."
             int numTargets = GetPowerNumeral(0, 1);
             int meleeAmt = GetPowerNumeral(1, 2);
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), meleeAmt, DamageType.Melee, numTargets, false, numTargets, cardSource: GetCardSource());

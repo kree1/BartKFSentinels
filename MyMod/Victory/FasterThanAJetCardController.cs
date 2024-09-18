@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class FasterThanAJetCardController : StressCardController
     {
@@ -23,9 +23,9 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your turn, you may play a card or use a power. If you do, {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+            // "At the end of your turn, you may play a card or use a power. If you do, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, BonusActionResponse, new TriggerType[] { TriggerType.PlayCard, TriggerType.UsePower, TriggerType.DestroyCard });
-            // "Once per turn, when {Dreadnought} is dealt damage by a non-hero target, she may deal that target 1 melee damage."
+            // "Once per turn, when {Victory} is dealt damage by a non-hero target, she may deal that target 1 melee damage."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(RespondedThisTurn) && dda.Target == CharacterCard && dda.DidDealDamage && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.IsTarget && !IsHeroTarget(dda.DamageSource.Card), HitBackResponse, TriggerType.DealDamage, TriggerTiming.After);
             AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(RespondedThisTurn), TriggerType.Hidden);
         }
@@ -51,7 +51,7 @@ namespace BartKFSentinels.Dreadnought
             // "If you do, ..."
             if (DidPlayCards(playResults) || WasPowerUsed(powerResults))
             {
-                // "... {Dreadnought} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+                // "... {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
                 IEnumerator destroyCoroutine = PayStress(1);
                 if (UseUnityCoroutines)
                 {

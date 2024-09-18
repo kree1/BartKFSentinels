@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class AtomicPiledriverCardController : CardController
     {
@@ -29,7 +29,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(playCoroutine);
             }
-            // "{Dreadnought} deals 1 target 3 melee damage."
+            // "{Victory} deals 1 target 3 melee damage."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 3, DamageType.Melee, 1, false, 1, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {

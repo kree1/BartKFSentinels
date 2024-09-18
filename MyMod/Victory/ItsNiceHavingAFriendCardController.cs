@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class ItsNiceHavingAFriendCardController : CardController
     {
@@ -29,8 +29,8 @@ namespace BartKFSentinels.Dreadnought
             int numCards = GetPowerNumeral(0, 2);
             int numRequired = GetPowerNumeral(1, 2);
             int numHP = GetPowerNumeral(2, 2);
-            // "Discard 2 cards. If you discarded 2 cards this way, {Dreadnought} and another hero target each regain 2 HP."
-            // Dreadnought discards cards
+            // "Discard 2 cards. If you discarded 2 cards this way, {Victory} and another hero target each regain 2 HP."
+            // Victory discards cards
             List<DiscardCardAction> results = new List<DiscardCardAction>();
             IEnumerator discardCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, numCards, false, numCards, storedResults: results, responsibleTurnTaker: TurnTaker, cardSource: GetCardSource());
             if (UseUnityCoroutines)
@@ -43,7 +43,7 @@ namespace BartKFSentinels.Dreadnought
             }
             if (DidDiscardCards(results, numRequired))
             {
-                // Dreadnought regains HP
+                // Victory regains HP
                 IEnumerator healSelfCoroutine = GameController.GainHP(CharacterCard, numHP);
                 if (UseUnityCoroutines)
                 {

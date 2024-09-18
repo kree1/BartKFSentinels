@@ -7,23 +7,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class MightierThanABattleshipCardController : StressCardController
     {
         public MightierThanABattleshipCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // Show whether Dreadnought has dealt damage to another hero target this turn
+            // Show whether Victory has dealt damage to another hero target this turn
             SpecialStringMaker.ShowIfElseSpecialString(DealtDamageToOtherHeroTargetThisTurn, () => CharacterCard.Title + " has already dealt damage to another hero target this turn.", () => CharacterCard.Title + " has not dealt damage to any other hero targets this turn.");
         }
 
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "Increase damage dealt by {Dreadnought} to other targets by 1."
+            // "Increase damage dealt by {Victory} to other targets by 1."
             AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsSameCard(CharacterCard) && dda.Target != CharacterCard, 1);
-            // "At the end of your turn, {Dreadnought} deals 1 villain target 0 psychic damage. Then, if {Dreadnought} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+            // "At the end of your turn, {Victory} deals 1 villain target 0 psychic damage. Then, if {Victory} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, IntimidateResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.MoveCard });
         }
 
@@ -34,7 +34,7 @@ namespace BartKFSentinels.Dreadnought
 
         public IEnumerator IntimidateResponse(PhaseChangeAction pca)
         {
-            // "... {Dreadnought} deals 1 villain target 0 psychic damage."
+            // "... {Victory} deals 1 villain target 0 psychic damage."
             IEnumerator villainCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 0, DamageType.Psychic, 1, false, 1, additionalCriteria: (Card c) => IsVillainTarget(c), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
@@ -44,7 +44,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(villainCoroutine);
             }
-            // "Then, if {Dreadnought} has dealt no damage to other hero targets this turn, ..."
+            // "Then, if {Victory} has dealt no damage to other hero targets this turn, ..."
             if (!DealtDamageToOtherHeroTargetThisTurn())
             {
                 // "... she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
@@ -79,7 +79,7 @@ namespace BartKFSentinels.Dreadnought
                     }
                 }
                 }
-                // If not enough cards were moved, Dreadnought deals another hero character target 0 psychic damage
+                // If not enough cards were moved, Victory deals another hero character target 0 psychic damage
                 IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
                 if (wasMoved.Count() < 1)
                 {

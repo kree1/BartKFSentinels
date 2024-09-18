@@ -7,18 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
-    public class EmeraldCharacterCardController : HeroCharacterCardController
+    public class CeruleanCharacterCardController : HeroCharacterCardController
     {
-        public EmeraldCharacterCardController(Card card, TurnTakerController turnTakerController)
+        public CeruleanCharacterCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show number of Ongoing cards in deck
             SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Deck, new LinqCardCriteria((Card c) => IsOngoing(c), "Ongoing")).Condition = () => !Card.IsFlipped;
             // Show list of Ongoing cards in trash
             SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Trash, new LinqCardCriteria((Card c) => IsOngoing(c), "Ongoing")).Condition = () => !Card.IsFlipped;
-            // Show number of cards in Dreadnought's trash
+            // Show number of cards in Victory's trash
             SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Trash).Condition = () => !Card.IsFlipped;
             NoEffect = false;
             CardsToMove = 1;

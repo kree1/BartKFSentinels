@@ -7,18 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class RepairTheLatticeCardController : StressCardController
     {
         public RepairTheLatticeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // Show amount of psychic damage dealt to Dreadnought this turn
-            SpecialStringMaker.ShowIfElseSpecialString(() => PsychicDamageDealtToDreadnoughtThisTurn() > 0, () => CharacterCard.Title + " has been dealt " + PsychicDamageDealtToDreadnoughtThisTurn().ToString() + " psychic damage this turn.", () => CharacterCard.Title + " has not been dealt psychic damage this turn.");
+            // Show amount of psychic damage dealt to Victory this turn
+            SpecialStringMaker.ShowIfElseSpecialString(() => PsychicDamageDealtToVictoryThisTurn() > 0, () => CharacterCard.Title + " has been dealt " + PsychicDamageDealtToVictoryThisTurn().ToString() + " psychic damage this turn.", () => CharacterCard.Title + " has not been dealt psychic damage this turn.");
         }
 
-        public int PsychicDamageDealtToDreadnoughtThisTurn()
+        public int PsychicDamageDealtToVictoryThisTurn()
         {
             List<int> amounts = (from DealDamageJournalEntry ddje in Journal.DealDamageEntriesThisTurn() where ddje.TargetCard == CharacterCard && ddje.Amount > 0 && ddje.DamageType == DamageType.Psychic select ddje.Amount).ToList();
             int result = 0;
@@ -31,7 +31,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
-            // "{Dreadnought} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck."
+            // "{Victory} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck."
             IEnumerator stressCoroutine = PayStress(3);
             if (UseUnityCoroutines)
             {
@@ -51,9 +51,9 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(healCoroutine);
             }
-            // "If {Dreadnought} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
+            // "If {Victory} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
             IEnumerator bonusCoroutine = GameController.SendMessageAction(CharacterCard.Title + " has not been dealt 2 or more psychic damage this turn.", Priority.Medium, GetCardSource());
-            if (PsychicDamageDealtToDreadnoughtThisTurn() >= 2)
+            if (PsychicDamageDealtToVictoryThisTurn() >= 2)
             {
                 List<Function> options = new List<Function>();
                 options.Add(new Function(DecisionMaker, "Regain 2 HP", SelectionType.GainHP, () => GameController.GainHPEx(CharacterCard, 2, cardSource: GetCardSource()), repeatDecisionText: "regain 2 HP"));

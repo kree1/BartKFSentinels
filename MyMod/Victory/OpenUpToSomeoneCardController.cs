@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class OpenUpToSomeoneCardController : CardController
     {
@@ -20,7 +20,7 @@ namespace BartKFSentinels.Dreadnought
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your turn, discard up to 2 cards. If you discard 2 cards this way, {Dreadnought} regains 1 HP."
+            // "At the end of your turn, discard up to 2 cards. If you discard 2 cards this way, {Victory} regains 1 HP."
             AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DiscardHealResponse, new TriggerType[] { TriggerType.DiscardCard, TriggerType.GainHP });
         }
 
@@ -77,7 +77,7 @@ namespace BartKFSentinels.Dreadnought
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
             }
-            // "If you discard 2 cards this way, {Dreadnought} regains 1 HP."
+            // "If you discard 2 cards this way, {Victory} regains 1 HP."
             if (DidDiscardCards(discards, 2))
             {
                 IEnumerator healCoroutine = GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource());

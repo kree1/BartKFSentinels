@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
-    public class StressCardController : DreadnoughtUtilityCardController
+    public class StressCardController : VictoryUtilityCardController
     {
         public StressCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // Show number of cards in Dreadnought's trash
+            // Show number of cards in Victory's trash
             SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Trash);
             IsShuffle = false;
             NoEffect = false;
@@ -32,7 +32,7 @@ namespace BartKFSentinels.Dreadnought
 
         public IEnumerator PayStress(int cardsRequired, int damageAmt)
         {
-            // "{Dreadnought} deals herself [damageAmt] irreducible psychic damage unless you put the bottom [cardsRequired] cards on the bottom of your deck."
+            // "{Victory} deals herself [damageAmt] irreducible psychic damage unless you put the bottom [cardsRequired] cards on the bottom of your deck."
             List<MoveCardAction> moved = new List<MoveCardAction>();
             // If there are any cards to move:
             if (TurnTaker.Trash.Cards.Any())
@@ -67,7 +67,7 @@ namespace BartKFSentinels.Dreadnought
                     }
                 }
             }
-            // If not enough cards were moved, Dreadnought deals herself damage
+            // If not enough cards were moved, Victory deals herself damage
             IEnumerable<Card> wasMoved = (from MoveCardAction mca in moved where mca.WasCardMoved select mca.CardToMove).Distinct();
             if (wasMoved.Count() < cardsRequired)
             {

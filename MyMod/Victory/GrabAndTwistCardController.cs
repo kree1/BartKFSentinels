@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BartKFSentinels.Dreadnought
+namespace BartKFSentinels.Victory
 {
     public class GrabAndTwistCardController : CardController
     {
@@ -19,7 +19,7 @@ namespace BartKFSentinels.Dreadnought
 
         public override IEnumerator Play()
         {
-            // "{Dreadnought} deals 1 target 2 melee damage. Until the start of your turn, reduce damage dealt by that target by 1."
+            // "{Victory} deals 1 target 2 melee damage. Until the start of your turn, reduce damage dealt by that target by 1."
             IEnumerator meleeCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), 2, DamageType.Melee, 1, false, 1, addStatusEffect: (DealDamageAction dda) => ReduceDamageDealtByThatTargetUntilTheStartOfYourNextTurnResponse(dda, 1), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
