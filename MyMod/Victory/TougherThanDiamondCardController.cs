@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class HarderThanDiamondCardController : StressCardController
+    public class TougherThanDiamondCardController : StressCardController
     {
-        public HarderThanDiamondCardController(Card card, TurnTakerController turnTakerController)
+        public TougherThanDiamondCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 

@@ -69,9 +69,9 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "BattleJoy",
+			"identifier": "ClarityOfPurpose",
 			"count": 3,
-			"title": "Battle Joy",
+			"title": "Clarity of Purpose",
 			"keywords": [
 				"ongoing",
 				"limited"
@@ -94,9 +94,38 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "FasterThanAJet",
+			"identifier": "EyesLikeTelescopes",
 			"count": 2,
-			"title": "Faster than a Jet",
+			"title": "Eyes Like Telescopes",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your turn, you may draw a card."
+			],
+			"powers": [
+				"Destroy an Ongoing or non-target environment card. {Victory} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"DrawCardNow",
+				"HasPower",
+				"DestroyOngoing",
+				"BartKFSentinels.Stress"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "FasterThanLightning",
+			"count": 2,
+			"title": "Faster than Lightning",
 			"keywords": [
 				"ongoing",
 				"limited",
@@ -121,9 +150,9 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "FirstIntoTheFray",
+			"identifier": "FistsLikeCannonballs",
 			"count": 2,
-			"title": "First into the Fray",
+			"title": "Fists Like Cannonballs",
 			"keywords": [
 				"ongoing",
 				"limited",
@@ -140,6 +169,32 @@
 				"HasPower",
 				"DealDamageMelee",
 				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "FlightPlan",
+			"count": 4,
+			"title": "Flight Plan",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Search your deck and/or trash for up to 2 Mantle cards and put them into your hand. If you searched your deck, shuffle your deck.",
+				"You may play a Mantle card.",
+				"{Victory} may deal 1 target 2 irreducible melee damage. If she dealt no damage this way, return this card to your hand."
+			],
+			"icons": [
+				"Search",
+				"PlayCardNow",
+				"DealDamageMelee",
+				"Manipulate"
 			],
 			"flavorQuotes": [
 				{
@@ -199,19 +254,67 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "HarderThanDiamond",
+			"identifier": "ImpromptuSurgery",
 			"count": 2,
-			"title": "Harder than Diamond",
+			"title": "Impromptu Surgery",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Victory} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck.",
+				"One hero target regains 5 HP.",
+				"If {Victory} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
+			],
+			"icons": [
+				"BartKFSentinels.Stress",
+				"GainHP",
+				"UsePowerNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "MonologueBait",
+			"count": 2,
+			"title": "Monologue Bait",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck."
+			],
+			"icons": [
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "MusclesLikeIron",
+			"count": 3,
+			"title": "Muscles Like Iron",
 			"keywords": [
 				"ongoing",
 				"mantle"
 			],
 			"body": [
-				"Reduce non-lightning damage dealt to {Victory} by 1.",
-				"Whenever a target is reduced from 1 or more to 0 or fewer HP or a non-target environment card is destroyed, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+				"Increase damage dealt by {Victory} to other targets by 1.",
+				"At the end of your turn, {Victory} deals 1 villain target 0 psychic damage. Then, if {Victory} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
 			],
 			"icons": [
-				"ReduceDamageTaken",
+				"IncreaseDamageDealt",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
 				"BartKFSentinels.Stress"
 			],
 			"flavorQuotes": [
@@ -223,9 +326,9 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "ItsNiceHavingAFriend",
+			"identifier": "QuietMomentTogether",
 			"count": 2,
-			"title": "It's Nice Having a Friend",
+			"title": "Quiet Moment Together",
 			"keywords": [
 				"ongoing"
 			],
@@ -250,35 +353,9 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "MightierThanABattleship",
+			"identifier": "ShareTheBurden",
 			"count": 3,
-			"title": "Mightier than a Battleship",
-			"keywords": [
-				"ongoing",
-				"mantle"
-			],
-			"body": [
-				"Increase damage dealt by {Victory} to other targets by 1.",
-				"At the end of your turn, {Victory} deals 1 villain target 0 psychic damage. Then, if {Victory} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
-			],
-			"icons": [
-				"IncreaseDamageDealt",
-				"EndOfTurnAction",
-				"DealDamagePsychic",
-				"BartKFSentinels.Stress"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "OpenUpToSomeone",
-			"count": 3,
-			"title": "Open Up to Someone",
+			"title": "Share the Burden",
 			"keywords": [
 				"ongoing"
 			],
@@ -293,78 +370,6 @@
 				"Discard",
 				"HasPower",
 				"DrawCardNow"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "OrbitalGuidance",
-			"count": 4,
-			"title": "Orbital Guidance",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Search your deck and/or trash for up to 2 Mantle cards and put them into your hand. If you searched your deck, shuffle your deck.",
-				"You may play a Mantle card.",
-				"{Victory} may deal 1 target 2 irreducible melee damage. If she dealt no damage this way, return this card to your hand."
-			],
-			"icons": [
-				"Search",
-				"PlayCardNow",
-				"DealDamageMelee",
-				"Manipulate"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "RepairTheLattice",
-			"count": 2,
-			"title": "Repair the Lattice",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"{Victory} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck.",
-				"One hero target regains 5 HP.",
-				"If {Victory} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
-			],
-			"icons": [
-				"BartKFSentinels.Stress",
-				"GainHP",
-				"UsePowerNow"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "SeeTheUnderpinnings",
-			"count": 2,
-			"title": "See the Underpinnings",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck."
-			],
-			"icons": [
-				"Manipulate"
 			],
 			"flavorQuotes": [
 				{
@@ -399,38 +404,9 @@
 			"flavorReference": ""
 		},
 		{
-			"identifier": "WovenIntoReality",
+			"identifier": "TitanicImpact",
 			"count": 2,
-			"title": "Woven into Reality",
-			"keywords": [
-				"ongoing",
-				"limited",
-				"mantle"
-			],
-			"body": [
-				"At the end of your turn, you may draw a card."
-			],
-			"powers": [
-				"Destroy an Ongoing or non-target environment card. {Victory} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
-			],
-			"icons": [
-				"DrawCardNow",
-				"HasPower",
-				"DestroyOngoing",
-				"BartKFSentinels.Stress"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "",
-					"text": ""
-				}
-			],
-			"flavorReference": ""
-		},
-		{
-			"identifier": "YankTheThreads",
-			"count": 2,
-			"title": "Yank the Threads",
+			"title": "Titanic Impact",
 			"keywords": [
 				"one-shot"
 			],
@@ -444,6 +420,30 @@
 				"Manipulate",
 				"DealDamageToxic",
 				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "TougherThanDiamond",
+			"count": 2,
+			"title": "Tougher than Diamond",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Reduce non-lightning damage dealt to {Victory} by 1.",
+				"Whenever a target is reduced from 1 or more to 0 or fewer HP or a non-target environment card is destroyed, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"BartKFSentinels.Stress"
 			],
 			"flavorQuotes": [
 				{

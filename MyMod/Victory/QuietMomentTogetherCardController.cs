@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class ItsNiceHavingAFriendCardController : CardController
+    public class QuietMomentTogetherCardController : CardController
     {
-        public ItsNiceHavingAFriendCardController(Card card, TurnTakerController turnTakerController)
+        public QuietMomentTogetherCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 

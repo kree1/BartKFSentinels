@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class OrbitalGuidanceCardController : VictoryUtilityCardController
+    public class FlightPlanCardController : VictoryUtilityCardController
     {
-        public OrbitalGuidanceCardController(Card card, TurnTakerController turnTakerController)
+        public FlightPlanCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show list of Mantle cards in deck

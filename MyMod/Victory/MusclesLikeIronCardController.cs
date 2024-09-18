@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class MightierThanABattleshipCardController : StressCardController
+    public class MusclesLikeIronCardController : StressCardController
     {
-        public MightierThanABattleshipCardController(Card card, TurnTakerController turnTakerController)
+        public MusclesLikeIronCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show whether Victory has dealt damage to another hero target this turn

@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class RepairTheLatticeCardController : StressCardController
+    public class ImpromptuSurgeryCardController : StressCardController
     {
-        public RepairTheLatticeCardController(Card card, TurnTakerController turnTakerController)
+        public ImpromptuSurgeryCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show amount of psychic damage dealt to Victory this turn

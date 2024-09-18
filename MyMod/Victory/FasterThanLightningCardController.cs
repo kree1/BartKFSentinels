@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class FasterThanAJetCardController : StressCardController
+    public class FasterThanLightningCardController : StressCardController
     {
-        public FasterThanAJetCardController(Card card, TurnTakerController turnTakerController)
+        public FasterThanLightningCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // If in play: show whether this card has reacted this turn
