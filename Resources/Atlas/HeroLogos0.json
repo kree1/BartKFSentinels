@@ -1,6 +1,6 @@
 {"frames": {
 
-"DreadnoughtCharacter.png":
+"CeruleanCharacter.png":
 {
 	"frame": {"x":0,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"EmeraldCharacter.png":
+"FractureCharacter.png":
 {
 	"frame": {"x":333,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"FractureCharacter.png":
+"ImpulseAsKidFlashTwoCharacter.png":
 {
 	"frame": {"x":666,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"ImpulseAsKidFlashTwoCharacter.png":
+"ImpulseCharacter.png":
 {
 	"frame": {"x":999,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"ImpulseCharacter.png":
+"PalmreaderCharacter.png":
 {
 	"frame": {"x":1332,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"PalmreaderCharacter.png":
+"ProBonoFractureCharacter.png":
 {
 	"frame": {"x":1665,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -48,7 +48,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"ProBonoFractureCharacter.png":
+"TheGoalieCharacter.png":
 {
 	"frame": {"x":0,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -56,7 +56,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TheGoalieCharacter.png":
+"TheGoalieOnIceCharacter.png":
 {
 	"frame": {"x":333,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -64,7 +64,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TheGoalieOnIceCharacter.png":
+"TheHyperAcceleratedImpulseCharacter.png":
 {
 	"frame": {"x":666,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TheHyperAcceleratedImpulseCharacter.png":
+"TheWishGrantingImpulseCharacter.png":
 {
 	"frame": {"x":999,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -80,7 +80,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TheWishGrantingImpulseCharacter.png":
+"TorrentCharacter.png":
 {
 	"frame": {"x":1332,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -88,7 +88,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TorrentCharacter.png":
+"TorrentDenialOfServiceCharacter.png":
 {
 	"frame": {"x":1665,"y":263,"w":330,"h":260},
 	"rotated": false,
@@ -96,7 +96,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"TorrentDenialOfServiceCharacter.png":
+"VictoryCharacter.png":
 {
 	"frame": {"x":0,"y":526,"w":330,"h":260},
 	"rotated": false,
@@ -119,6 +119,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a3faebc61f6e7396a947759fdfce283c:c08a192c524dbbb1b056f152d249ea7d:abd76add2ce06cabb8b0a8e056eb9b47$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e000aca2457c5b3548e30133c6207d27:c5fe1bf51d37b1900bdf3bc79dda4389:abd76add2ce06cabb8b0a8e056eb9b47$"
 }
 }
