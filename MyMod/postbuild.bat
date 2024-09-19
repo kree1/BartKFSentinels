@@ -1,4 +1,5 @@
 copy /y "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\bin\Release\BartKFMod.dll" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod"
+copy /y "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\manifest.json" "C:\Users\Kendal\source\repos\BartKFSentinels\Resources\"
 copy /y "C:\Users\Kendal\source\repos\BartKFSentinels\Resources\manifest.json" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod"
 copy /y "C:\Users\Kendal\source\repos\BartKFSentinels\Resources\preview.png" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod"
 robocopy "C:\Users\Kendal\source\repos\BartKFSentinels\Resources\DeckBrowser" "C:\Program Files (x86)\Steam\steamapps\common\Sentinels of the Multiverse\mods\BartKFMod\DeckBrowser" /e
