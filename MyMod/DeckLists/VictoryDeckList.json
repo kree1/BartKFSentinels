@@ -139,7 +139,7 @@
 				"EndOfTurnAction",
 				"PlayCardNow",
 				"UsePowerNow",
-				"DealCounterDamage"
+				"CounterDamage"
 			],
 			"flavorQuotes": [
 				{
