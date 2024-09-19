@@ -8,22 +8,6 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":198},
 	"sourceSize": {"w":256,"h":198}
 },
-"CeruleanCharacter.png":
-{
-	"frame": {"x":518,"y":402,"w":178,"h":256},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
-	"sourceSize": {"w":178,"h":256}
-},
-"CeruleanCharacterBack.png":
-{
-	"frame": {"x":699,"y":402,"w":178,"h":256},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
-	"sourceSize": {"w":178,"h":256}
-},
 "ClarityOfPurpose.png":
 {
 	"frame": {"x":259,"y":0,"w":256,"h":198},
@@ -87,6 +71,22 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":198},
 	"sourceSize": {"w":256,"h":198}
+},
+"LavenderCharacter.png":
+{
+	"frame": {"x":518,"y":402,"w":178,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
+	"sourceSize": {"w":178,"h":256}
+},
+"LavenderCharacterBack.png":
+{
+	"frame": {"x":699,"y":402,"w":178,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
+	"sourceSize": {"w":178,"h":256}
 },
 "MonologueBait.png":
 {
@@ -175,6 +175,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:48533e1925307aa4acf507d24675fd74:0f941a74e8c1314acd7353af5a92c402:8ad916cc5fb9e35e3b6f5bd340b35f84$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d595169b0d1b4e37799fd758fd79f214:af733261c56a18cb2a4c4a0966ecee7a:8ad916cc5fb9e35e3b6f5bd340b35f84$"
 }
 }

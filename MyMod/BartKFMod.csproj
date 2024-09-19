@@ -75,7 +75,7 @@
     <Compile Include="Victory\ClarityOfPurposeCardController.cs" />
     <Compile Include="Victory\VictoryCharacterCardController.cs" />
     <Compile Include="Victory\VictoryUtilityCardController.cs" />
-    <Compile Include="Victory\CeruleanCharacterCardController.cs" />
+    <Compile Include="Victory\LavenderCharacterCardController.cs" />
     <Compile Include="Victory\FasterThanLightningCardController.cs" />
     <Compile Include="Victory\FistsLikeCannonballsCardController.cs" />
     <Compile Include="Victory\GoThroughCardController.cs" />

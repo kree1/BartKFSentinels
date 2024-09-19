@@ -1,6 +1,6 @@
 {"frames": {
 
-"CeruleanCharacter.png":
+"FractureCharacter.png":
 {
 	"frame": {"x":0,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"FractureCharacter.png":
+"ImpulseAsKidFlashTwoCharacter.png":
 {
 	"frame": {"x":333,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"ImpulseAsKidFlashTwoCharacter.png":
+"ImpulseCharacter.png":
 {
 	"frame": {"x":666,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":330,"h":260},
 	"sourceSize": {"w":330,"h":260}
 },
-"ImpulseCharacter.png":
+"LavenderCharacter.png":
 {
 	"frame": {"x":999,"y":0,"w":330,"h":260},
 	"rotated": false,
@@ -119,6 +119,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e000aca2457c5b3548e30133c6207d27:c5fe1bf51d37b1900bdf3bc79dda4389:abd76add2ce06cabb8b0a8e056eb9b47$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e48695ab01ab4f1472f957e2073fca85:5e3b7c7289120c69da1ce0cc9e89c6eb:abd76add2ce06cabb8b0a8e056eb9b47$"
 }
 }

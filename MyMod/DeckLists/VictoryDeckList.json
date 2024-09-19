@@ -473,17 +473,17 @@
 	"promoCards": [
 		{
 			"identifier": "VictoryCharacter",
-			"promoIdentifier": "CeruleanCharacter",
+			"promoIdentifier": "LavenderCharacter",
 			"count": 1,
-			"title": "Cerulean",
-			"promoTitle": "Cerulean",
-			"shortPromoTitle": "Cerulean",
-			"backgroundColor": "007B87",
+			"title": "Lavender",
+			"promoTitle": "Lavender",
+			"shortPromoTitle": "Lavender",
+			"backgroundColor": "B57EDC",
 			"body": "Throwaway Colors",
 			"character": true,
 			"powers": [
 				"Discard the top 3 cards of your deck.",
-				"Play an Ongoing card from your trash. [i]Cerulean[/i] deals herself 4 irreducible psychic damage unless you shuffle the bottom 3 cards of your trash into your deck."
+				"Play an Ongoing card from your trash. [i]Lavender[/i] deals herself 4 irreducible psychic damage unless you shuffle the bottom 3 cards of your trash into your deck."
 			],
 			"icons": [
 				"HasPower",

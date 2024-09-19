@@ -9,9 +9,9 @@ using System.Text;
 
 namespace BartKFSentinels.Victory
 {
-    public class CeruleanCharacterCardController : HeroCharacterCardController
+    public class LavenderCharacterCardController : HeroCharacterCardController
     {
-        public CeruleanCharacterCardController(Card card, TurnTakerController turnTakerController)
+        public LavenderCharacterCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
             // Show number of Ongoing cards in deck
