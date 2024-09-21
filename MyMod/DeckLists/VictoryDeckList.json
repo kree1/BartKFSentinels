@@ -1,0 +1,515 @@
+{
+	"name": "Victory",
+	"kind": "Hero",
+	"initialCardIdentifiers": [
+		"VictoryCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "VictoryCharacter",
+			"count": 1,
+			"title": "Victory",
+			"body": "In Your Face",
+			"backgroundColor": "002BFF",
+			"character": true,
+			"powers": [
+				"{Victory} deals 1 target 2 melee damage. You may discard a card. If you do, draw a card."
+			],
+			"icons": [
+				"HasPower",
+				"DealDamageMelee",
+				"Discard",
+				"DrawCardNow"
+			],
+			"hitpoints": 30,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Victory"
+			],
+			"incapacitatedAbilities": [
+				"One hero may use a power now.",
+				"One player may draw 2 cards. If they do, they discard a card.",
+				"Select a target. Reduce the next damage dealt to that target by 2."
+			],
+			"flippedIcons": [
+				"UsePowerNow",
+				"DrawCardNow",
+				"Discard",
+				"ReduceDamageTaken"
+			],
+			"complexity": 3,
+			"openingLines": {
+				"default": "Stand down before anyone gets hurt. This is your one warning.",
+				"TheDreamerCharacter": "We're gonna get you out of there, okay? Just hang on.",
+				"OblivAeonFrontPageCharacter": "Sorry, nobody wanted a hero named “Surrender.”"
+			}
+		},
+		{
+			"identifier": "AtomicPiledriver",
+			"count": 3,
+			"title": "Atomic Piledriver",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"You may play an Ongoing card.",
+				"{Victory} deals 1 target 3 melee damage.",
+				"Discard the top card of your deck."
+			],
+			"icons": [
+				"PlayCardNow",
+				"DealDamageMelee",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "FrightTrain",
+					"text": "You lost, little girl? I think this is{BR}the wrong side of the- [b]OOF![/b]"
+				}
+			],
+			"flavorReference": "Fright Train"
+		},
+		{
+			"identifier": "ClarityOfPurpose",
+			"count": 3,
+			"title": "Clarity of Purpose",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"Whenever {Victory} is dealt damage by a non-hero target, discard the top card of your deck.",
+				"At the start of your turn, if you have 3 or more cards in your trash, draw a card."
+			],
+			"icons": [
+				"Discard",
+				"StartOfTurnAction",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Victory",
+					"text": "Life is so, so, [b]so[/b] complicated.{BR}Sometimes I need a good fight, just to{BR}have one simple thing that day."
+				}
+			],
+			"flavorReference": "Victory"
+		},
+		{
+			"identifier": "EyesLikeTelescopes",
+			"count": 2,
+			"title": "Eyes Like Telescopes",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your turn, you may draw a card."
+			],
+			"powers": [
+				"Destroy an Ongoing or non-target environment card. {Victory} deals herself 3 irreducible psychic damage unless you put the bottom 2 cards of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"DrawCardNow",
+				"HasPower",
+				"DestroyOngoing",
+				"BartKFSentinels.Stress"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "MisterHideous",
+					"text": "You may pack a solid punch,{BR}do-gooder, but you'll never find the{BR}hostages in time!"
+				}
+			],
+			"flavorReference": "Mister Hideous"
+		},
+		{
+			"identifier": "FasterThanLightning",
+			"count": 2,
+			"title": "Faster than Lightning",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your turn, you may play a card or use a power. If you do, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck.",
+				"Once per turn, when {Victory} is dealt damage by a non-hero target, she may deal that target 1 melee damage."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"PlayCardNow",
+				"UsePowerNow",
+				"CounterDamage"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Victory",
+					"text": "[b]Excuse[/b] you. Wait your turn. There's{BR}plenty of beating to go around."
+				}
+			],
+			"flavorReference": "Victory"
+		},
+		{
+			"identifier": "FistsLikeCannonballs",
+			"count": 2,
+			"title": "Fists Like Cannonballs",
+			"keywords": [
+				"ongoing",
+				"limited",
+				"mantle"
+			],
+			"body": [
+				"At the end of your power phase, if {Victory} dealt no damage this turn, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"powers": [
+				"{Victory} deals up to 2 targets 2 melee damage each. Discard the top card of your deck."
+			],
+			"icons": [
+				"BartKFSentinels.Stress",
+				"HasPower",
+				"DealDamageMelee",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Victory",
+					"text": "Let go of me!{BR}I almost had him!"
+				},
+				{
+					"identifier": "The Goalie",
+					"text": "What do you mean, 'him'?"
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "FlightPlan",
+			"count": 4,
+			"title": "Flight Plan",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Search your deck and/or trash for up to 2 Mantle cards and put them into your hand. If you searched your deck, shuffle your deck.",
+				"You may play a Mantle card.",
+				"{Victory} may deal 1 target 2 irreducible melee damage. If she dealt no damage this way, return this card to your hand."
+			],
+			"icons": [
+				"Search",
+				"PlayCardNow",
+				"DealDamageMelee",
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "ProfessorKaiju",
+					"text": "Entering final approach now. Thirty{BR}seconds to target."
+				}
+			],
+			"flavorReference": "Professor Kaiju"
+		},
+		{
+			"identifier": "GoThrough",
+			"count": 3,
+			"title": "Go Through",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Victory} deals 1 target 4 melee damage.",
+				"{Victory} deals each non-hero target 1 projectile damage.",
+				"Discard the top 2 cards of your deck."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"DealDamageProjectile",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Victory",
+					"text": "How's Columbia Center?"
+				},
+				{
+					"identifier": "Professor Kaiju",
+					"text": "Completely evacuated."
+				},
+				{
+					"identifier": "Victory",
+					"text": "Perfect."
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "GrabAndTwist",
+			"count": 2,
+			"title": "Grab and Twist",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Victory} deals 1 target 2 melee damage. Until the start of your turn, reduce damage dealt by that target by 1.",
+				"Discard the top card of your deck."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"ReduceDamageDealt",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "And I'm like, that is a machine gun. If{BR}you wired it up so you feel pain when I{BR}break it? I think that's on you."
+				}
+			],
+			"flavorReference": "Stephanie"
+		},
+		{
+			"identifier": "ImpromptuSurgery",
+			"count": 2,
+			"title": "Impromptu Surgery",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Victory} deals herself 4 irreducible psychic damage unless you put the bottom 3 cards of your trash on the bottom of your deck.",
+				"One hero target regains 5 HP.",
+				"If {Victory} was dealt 2 or more psychic damage this turn, she may regain 2 HP or use a power."
+			],
+			"icons": [
+				"BartKFSentinels.Stress",
+				"GainHP",
+				"UsePowerNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "Stay with me, okay? I can see it. I'm{BR}gonna get it out. Just [b]hang on.[/b]"
+				}
+			],
+			"flavorReference": "Stephanie"
+		},
+		{
+			"identifier": "MonologueBait",
+			"count": 2,
+			"title": "Monologue Bait",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal the top 3 cards of a deck. Shuffle 2 of them back into that deck. Put the remaining card on the top or bottom of that deck."
+			],
+			"icons": [
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Victory",
+					"text": "Okay, where did you get the money{BR}for all this? It can't just be donations{BR}from Twitch chat, right?"
+				}
+			],
+			"flavorReference": "Victory"
+		},
+		{
+			"identifier": "MusclesLikeIron",
+			"count": 3,
+			"title": "Muscles Like Iron",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Increase damage dealt by {Victory} to other targets by 1.",
+				"At the end of your turn, {Victory} deals 1 villain target 0 psychic damage. Then, if {Victory} has dealt no damage to other hero targets this turn, she deals 1 other hero character target 0 psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"EndOfTurnAction",
+				"DealDamagePsychic",
+				"BartKFSentinels.Stress"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "No. Victory's a trans woman now, and{BR}the world can deal with it. I'm not gonna{BR}let anyone think I'm ashamed."
+				}
+			],
+			"flavorReference": "Stephanie"
+		},
+		{
+			"identifier": "QuietMomentTogether",
+			"count": 2,
+			"title": "Quiet Moment Together",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"At the start of your turn, you may destroy one of your Ongoing cards. If you do, draw 2 cards."
+			],
+			"powers": [
+				"Discard 2 cards. If you discarded 2 cards this way, {Victory} and another hero target each regain 2 HP."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DestroyOngoing",
+				"HasPower",
+				"GainHP"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "I can never seem to put{BR}this stuff on right..."
+				},
+				{
+					"identifier": "Megan",
+					"text": "No problem! I'm an expert."
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ShareTheBurden",
+			"count": 3,
+			"title": "Share the Burden",
+			"keywords": [
+				"ongoing"
+			],
+			"body": [
+				"At the end of your turn, discard up to 2 cards. If you discard 2 cards this way, {Victory} regains 1 HP."
+			],
+			"powers": [
+				"Draw a card. Discard up to 3 cards. X heroes each draw a card, where X = the number of cards discarded this way."
+			],
+			"icons": [
+				"EndOfTurnAction",
+				"Discard",
+				"HasPower",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "I was so excited for{BR}everyone to finally see the real me.{BR}But when I put on the cape... are they{BR}looking at me, or at Victory?"
+				}
+			],
+			"flavorReference": "Stephanie"
+		},
+		{
+			"identifier": "ShowVulnerability",
+			"count": 3,
+			"title": "Show Vulnerability",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"You may put any number of your Mantle cards from play into your hand.",
+				"Search your deck or trash for an Ongoing card and put it into play or into your hand.",
+				"Shuffle your trash into your deck."
+			],
+			"icons": [
+				"Manipulate",
+				"Search"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "ProfessorKaiju",
+					"text": "You say the world needs Victory{BR}again. But you're allowed to need{BR}things, too."
+				}
+			],
+			"flavorReference": "Professor Kaiju"
+		},
+		{
+			"identifier": "TitanicImpact",
+			"count": 2,
+			"title": "Titanic Impact",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Victory} deals 1 target 7 irreducible projectile damage.",
+				"You may shuffle your trash into your deck. If you moved 2 or fewer cards to your deck this way, {Victory} deals herself 3 irreducible toxic damage.",
+				"Discard the top card of your deck."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"Manipulate",
+				"DealDamageToxic",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "Tell them Victory's got it covered."
+				}
+			],
+			"flavorReference": "Stephanie"
+		},
+		{
+			"identifier": "TougherThanDiamond",
+			"count": 2,
+			"title": "Tougher than Diamond",
+			"keywords": [
+				"ongoing",
+				"mantle"
+			],
+			"body": [
+				"Reduce non-lightning damage dealt to {Victory} by 1.",
+				"Whenever a target is reduced from 1 or more to 0 or fewer HP or a non-target environment card is destroyed, {Victory} deals herself 2 irreducible psychic damage unless you put the bottom card of your trash on the bottom of your deck."
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"BartKFSentinels.Stress"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Stephanie",
+					"text": "I'm not scared to look in the{BR}mirror anymore. I don't have to be{BR}scared of anything."
+				}
+			],
+			"flavorReference": "Stephanie"
+		}
+	],
+	"promoCards": [
+		{
+			"identifier": "VictoryCharacter",
+			"promoIdentifier": "LavenderCharacter",
+			"count": 1,
+			"title": "Lavender",
+			"promoTitle": "Lavender",
+			"shortPromoTitle": "Lavender",
+			"backgroundColor": "B57EDC",
+			"body": "Throwaway Colors",
+			"character": true,
+			"powers": [
+				"Discard the top 3 cards of your deck.",
+				"Play an Ongoing card from your trash. [i]Lavender[/i] deals herself 4 irreducible psychic damage unless you shuffle the bottom 3 cards of your trash into your deck."
+			],
+			"icons": [
+				"HasPower",
+				"Discard",
+				"PlayCardNow",
+				"BartKFSentinels.Stress"
+			],
+			"hitpoints": 28,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Victory"
+			],
+			"incapacitatedAbilities": [
+				"One player may draw a card now.",
+				"Destroy an environment card.",
+				"One target regains 2 HP."
+			],
+			"flippedIcons": [
+				"DrawCardNow",
+				"DestroyEnvironment",
+				"GainHP"
+			],
+			"complexity": 3,
+			"openingLines": {
+				"default": "Hey, uh... You need to stop. Right? These guys think you need to stop.",
+				"OblivAeonFrontPageCharacter": "Help."
+			}
+		}
+	]
+}

@@ -6,13 +6,15 @@
 	"description": [
 		"A collection of my playtest-ready custom decks for Sentinels of the Multiverse."
 	],
-	"version": "v0.1.13",
+	"version": "v0.1.13.1",
 	"credits": [
 		"Card Design: Bart_KF",
 		"Software Development: Bart_KF",
 		"Playtesters: Bart_KF, HiddenLego, G97, n202015226ac (Nicolas), and the fun folks at the Sentinels Custom Playtesting Discord",
+		"Memorial Art: game-icons.net",
+		"Ownership Art: game-icons.net, The Game Band",
 		"Shelled One Mini-Blaseballer Art (Alejandro Leaf, Axel Trololol, Dan-Peanut Replacement, Francisca Sasquatch, Jessica Telephone, Pitching Machine, York Silk): @HetreaSky, used with permission",
-		"Memorial Art: game-icons.net"
+		"Victory Art: game-icons.net"
 	],
 	"namespace": "BartKFSentinels",
 	"dll": "BartKFMod.dll",
@@ -22,13 +24,13 @@
 			"Palmreader",
 			"Impulse",
 			"TheGoalie",
-			"Torrent"
+			"Torrent",
+			"Victory"
 		],
 		"villains": [
 			"Breakaway",
 			"Memorial",
 			"Ownership",
-			"Planetfall",
 			"TheShelledOne"
 		],
 		"environments": [

@@ -71,6 +71,26 @@
     <Compile Include="Breakaway\TheClientCardController.cs" />
     <Compile Include="Breakaway\TripwireCardController.cs" />
     <Compile Include="Breakaway\UphillBattleCardController.cs" />
+    <Compile Include="Victory\AtomicPiledriverCardController.cs" />
+    <Compile Include="Victory\ClarityOfPurposeCardController.cs" />
+    <Compile Include="Victory\VictoryCharacterCardController.cs" />
+    <Compile Include="Victory\VictoryUtilityCardController.cs" />
+    <Compile Include="Victory\LavenderCharacterCardController.cs" />
+    <Compile Include="Victory\FasterThanLightningCardController.cs" />
+    <Compile Include="Victory\FistsLikeCannonballsCardController.cs" />
+    <Compile Include="Victory\GoThroughCardController.cs" />
+    <Compile Include="Victory\GrabAndTwistCardController.cs" />
+    <Compile Include="Victory\QuietMomentTogetherCardController.cs" />
+    <Compile Include="Victory\ShareTheBurdenCardController.cs" />
+    <Compile Include="Victory\FlightPlanCardController.cs" />
+    <Compile Include="Victory\ImpromptuSurgeryCardController.cs" />
+    <Compile Include="Victory\MonologueBaitCardController.cs" />
+    <Compile Include="Victory\ShowVulnerabilityCardController.cs" />
+    <Compile Include="Victory\StressCardController.cs" />
+    <Compile Include="Victory\MusclesLikeIronCardController.cs" />
+    <Compile Include="Victory\TougherThanDiamondCardController.cs" />
+    <Compile Include="Victory\EyesLikeTelescopesCardController.cs" />
+    <Compile Include="Victory\TitanicImpactCardController.cs" />
     <Compile Include="EvidenceStorage\AlienEscapePodCardController.cs" />
     <Compile Include="EvidenceStorage\CryoRegulatorCardController.cs" />
     <Compile Include="EvidenceStorage\CustodyOfficerCardController.cs" />
@@ -338,6 +358,7 @@
     <EmbeddedResource Include="DeckLists\MemorialDeckList.json" />
     <EmbeddedResource Include="DeckLists\OwnershipDeckList.json" />
     <EmbeddedResource Include="DeckLists\PlanetfallDeckList.json" />
+    <EmbeddedResource Include="DeckLists\VictoryDeckList.json" />
     <None Include="manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

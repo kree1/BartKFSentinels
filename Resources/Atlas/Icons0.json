@@ -40,9 +40,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
+"Stress.png":
+{
+	"frame": {"x":262,"y":131,"w":59,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":55},
+	"sourceSize": {"w":59,"h":55}
+},
 "TheGoalieIcon.png":
 {
-	"frame": {"x":262,"y":131,"w":128,"h":128},
+	"frame": {"x":324,"y":131,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -56,9 +64,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
 },
-"WeightToken.png":
+"VictoryIcon.png":
 {
 	"frame": {"x":131,"y":262,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"WeightToken.png":
+{
+	"frame": {"x":262,"y":262,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -71,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2a1bead000fcc19957825dd4d487a537:364dc4700260c55cc33f208dc65416cc:c680398f21d101d0a1ae6d7fc2a23608$"
+	"smartupdate": "$TexturePacker:SmartUpdate:97e89701a412212295a7f86b171cc552:32c023d969d3bf26fd1ec78beb1cff11:c680398f21d101d0a1ae6d7fc2a23608$"
 }
 }

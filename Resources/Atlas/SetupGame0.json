@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"MemorialCharacter.png":
+"LavenderCharacter.png":
 {
 	"frame": {"x":724,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"OwnershipCharacter.png":
+"MemorialCharacter.png":
 {
 	"frame": {"x":905,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -48,7 +48,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"PalmreaderCharacter.png":
+"OwnershipCharacter.png":
 {
 	"frame": {"x":1086,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -56,7 +56,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"PlanetfallCharacter.png":
+"PalmreaderCharacter.png":
 {
 	"frame": {"x":1267,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -64,7 +64,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"ProBonoFractureCharacter.png":
+"PlanetfallCharacter.png":
 {
 	"frame": {"x":1448,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TheEmpireDeckBack.png":
+"ProBonoFractureCharacter.png":
 {
 	"frame": {"x":1629,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -80,7 +80,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TheGigamorphDeckBack.png":
+"TheEmpireDeckBack.png":
 {
 	"frame": {"x":1810,"y":0,"w":178,"h":256},
 	"rotated": false,
@@ -88,7 +88,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TheGoalieCharacter.jpg":
+"TheGigamorphDeckBack.png":
 {
 	"frame": {"x":0,"y":259,"w":178,"h":256},
 	"rotated": false,
@@ -96,7 +96,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TheGoalieOnIceCharacter.png":
+"TheGoalieCharacter.jpg":
 {
 	"frame": {"x":181,"y":259,"w":178,"h":256},
 	"rotated": false,
@@ -104,7 +104,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TheShelledOneCharacter.png":
+"TheGoalieOnIceCharacter.png":
 {
 	"frame": {"x":362,"y":259,"w":178,"h":256},
 	"rotated": false,
@@ -112,7 +112,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TorrentCharacter.png":
+"TheShelledOneCharacter.png":
 {
 	"frame": {"x":543,"y":259,"w":178,"h":256},
 	"rotated": false,
@@ -120,9 +120,25 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
 	"sourceSize": {"w":178,"h":256}
 },
-"TorrentDenialOfServiceCharacter.png":
+"TorrentCharacter.png":
 {
 	"frame": {"x":724,"y":259,"w":178,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
+	"sourceSize": {"w":178,"h":256}
+},
+"TorrentDenialOfServiceCharacter.png":
+{
+	"frame": {"x":905,"y":259,"w":178,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
+	"sourceSize": {"w":178,"h":256}
+},
+"VictoryCharacter.png":
+{
+	"frame": {"x":1086,"y":259,"w":178,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":256},
@@ -135,6 +151,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a3e210e53f4c9de2dd27bd7b9ea92524:8fcddc177a34166cbc2c3e7210d48584:4ee285c32a91b7652e02ac049f918b2a$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c7168faaf1ca8d099ee7cba23d7bd893:c66baa1996fdff6ae34ac72e00b3cde0:4ee285c32a91b7652e02ac049f918b2a$"
 }
 }
