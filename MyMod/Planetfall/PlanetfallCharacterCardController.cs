@@ -56,6 +56,16 @@ namespace BartKFSentinels.Planetfall
             return result;
         }
 
+        public override void AddTriggers()
+        {
+            if (IsGameChallenge)
+            {
+                // "Whenever an environment card is destroyed, {Planetfall} regains {H - 1} HP."
+                AddTrigger((DestroyCardAction dca) => dca.WasCardDestroyed && dca.CardToDestroy.Card.IsEnvironment, (DestroyCardAction dca) => GameController.GainHP(Card, H - 1, cardSource: GetCardSource()), TriggerType.GainHP, TriggerTiming.After);
+            }
+            base.AddTriggers();
+        }
+
         public override void AddSideTriggers()
         {
             base.AddSideTriggers();

@@ -60,14 +60,14 @@
 			"flippedAdvancedIcons": [
 				"DealDamageMelee"
 			],
-			"challengeTitle": "",
-			"challengeText": "",
+			"challengeTitle": "Rise from the Wreckage",
+			"challengeText": "Whenever an environment card is destroyed, {Planetfall} regains {H - 1} HP.",
 			"challengeIcons": [
-				""
+				"GainHP"
 			],
 			"difficulty": 2,
 			"openingLines": {
-				"default": ""
+				"default": "I claim this world in the name of the Thorathian Empire. Hail Imperator Voss! Hail Dok'Thorath!"
 			}
 		},
 		{
