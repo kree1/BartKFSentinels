@@ -14,7 +14,8 @@ namespace BartKFSentinels.Palmreader
         public SoPredictableCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            // Show whether this reaction is still available
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(FirstDamage), () => Card.Title + " can no longer respond to damage this turn.", () => " can still respond to damage this turn.");
         }
 
         protected const string FirstDamage = "DamageResponseOncePerTurn";
@@ -25,6 +26,7 @@ namespace BartKFSentinels.Palmreader
             base.AddTriggers();
             // "The first time {PalmreaderCharacter} is dealt damage by a target each turn, {PalmreaderCharacter} may deal that target 1 projectile damage."
             this.DamageResponseTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamage) && dda.Target == base.CharacterCard && dda.DamageSource != null && dda.DamageSource.IsTarget && dda.Amount > 0, CounterDamageResponse, TriggerType.DealDamage, TriggerTiming.After, requireActionSuccess: true, isActionOptional: true);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(FirstDamage), TriggerType.Hidden);
         }
 
         public override IEnumerator UsePower(int index = 0)

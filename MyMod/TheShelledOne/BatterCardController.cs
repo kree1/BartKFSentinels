@@ -17,6 +17,7 @@ namespace BartKFSentinels.TheShelledOne
             BasePoolIdentifier = base.Card.Identifier + "BasePool";
             SpecialStringMaker.ShowTokenPool(base.Card.Identifier, BasePoolIdentifier);
             SpecialStringMaker.ShowHeroTargetWithHighestHP();
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(OncePerTurn), () => Card.Title + " has already reacted to damage this turn.", () => Card.Title + " has not yet reacted to damage this turn.");
         }
 
         public string BasePoolIdentifier;
@@ -44,6 +45,7 @@ namespace BartKFSentinels.TheShelledOne
 
             // "The first time any villain target is dealt damage each turn, put a token on this card. Then, if X is 3 or less, this card deals the hero target with the highest HP X melee damage. Otherwise, this card deals each hero target X toxic damage and is put on the bottom of the villain deck."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && IsVillainTarget(dda.Target) && dda.DidDealDamage, EasyPitchResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage, TriggerType.MoveCard }, TriggerTiming.After);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
             // Cards out of play can't have tokens
             AddBeforeLeavesPlayAction(ResetPoolResponse, TriggerType.ModifyTokens);
         }

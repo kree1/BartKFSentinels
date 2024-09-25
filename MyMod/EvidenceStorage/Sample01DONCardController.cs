@@ -26,6 +26,7 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // "The first time another target in this play area deals damage each turn, this card deals 1 infernal damage to each non-environment target in the damaged target's play area."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsTarget && dda.DamageSource.Card != base.Card && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation, SplashDamageResponse, TriggerType.DealDamage, TriggerTiming.After);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
             base.AddTriggers();
         }
 

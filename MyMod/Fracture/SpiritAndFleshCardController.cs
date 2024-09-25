@@ -24,6 +24,7 @@ namespace BartKFSentinels.Fracture
             base.AddTriggers();
             // "Increase the first damage dealt by that target to another target each turn by 2."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo() && dda.Target != GetCardThisCardIsNextTo(), IncreaseResponse, TriggerType.IncreaseDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
         }
 
         public IEnumerator IncreaseResponse(DealDamageAction dda)

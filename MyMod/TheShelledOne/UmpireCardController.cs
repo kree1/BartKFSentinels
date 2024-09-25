@@ -34,9 +34,11 @@ namespace BartKFSentinels.TheShelledOne
             // "The first time {TheShelledOne} would be dealt damage each turn, reduce that damage by 1."
             //ReduceDamageToShelledOneTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ShelledOneOncePerTurn) && dda.Target == base.CharacterCard && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToShelledOneResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
             ReduceDamageToShelledOneTrigger = AddReduceDamageTrigger((DealDamageAction dda) => !IsPropertyTrue(ShelledOneOncePerTurn) && dda.Amount > 0, ReduceDamageToShelledOneResponse, (Card c) => c == base.CharacterCard, true);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(ShelledOneOncePerTurn), TriggerType.Hidden);
             // "The first time an environment target would be dealt damage each turn, if {TheShelledOne} is not a target, reduce that damage by 1."
             //ReduceDamageToEnvironmentTrigger = AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(EnvironmentOncePerTurn) && dda.Target.IsEnvironmentTarget && dda.Amount > 0 && !dda.IsPretend, ReduceDamageToEnvironmentResponse, new TriggerType[] { TriggerType.WouldBeDealtDamage, TriggerType.ReduceDamage }, TriggerTiming.Before);
             ReduceDamageToEnvironmentTrigger = AddReduceDamageTrigger((DealDamageAction dda) => !IsPropertyTrue(EnvironmentOncePerTurn) && dda.Amount > 0, ReduceDamageToEnvironmentResponse, (Card c) => c.IsEnvironmentTarget, true);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(EnvironmentOncePerTurn), TriggerType.Hidden);
         }
 
         public IEnumerator ReduceDamageToShelledOneResponse(DealDamageAction dda)

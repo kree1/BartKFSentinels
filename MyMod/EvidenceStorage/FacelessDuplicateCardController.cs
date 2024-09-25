@@ -28,6 +28,7 @@ namespace BartKFSentinels.EvidenceStorage
             base.AddTrigger<MoveCardAction>((MoveCardAction mca) => mca.CardToMove == base.Card && mca.Destination.IsInPlay, BuddyUpResponse, TriggerType.MoveCard, TriggerTiming.After, isActionOptional: false);
             // "The first time that character would be dealt damage each turn, redirect that damage to this card."
             this.RedirectDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == GetCardThisCardIsNextTo() && dda.Amount > 0, RedirectDamageResponse, TriggerType.RedirectDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
             // "When this card is dealt lightning damage, move it to the play area of the source of that damage."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageType == DamageType.Lightning && dda.Target == base.Card && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DidDealDamage, FollowLightningResponse, TriggerType.MoveCard, TriggerTiming.After, isActionOptional: false);
             // [If the card this is next to leaves play, this card falls off and stays in their play area]

@@ -23,6 +23,7 @@ namespace BartKFSentinels.TheGoalie
             base.AddTriggers();
             // "The first time any hero target is dealt damage each turn, {TheGoalieCharacter} may deal the source of that damage 1 projectile damage. Then, you may destroy a Goalposts card. If you do, redirect damage dealt by that source to {TheGoalieCharacter} until the start of your turn."
             AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && IsHeroTarget(dda.Target) && dda.DidDealDamage, RetaliateRedirectResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroyCard, TriggerType.CreateStatusEffect }, TriggerTiming.After);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
         }
 
         private const string OncePerTurn = "ReactOncePerTurn";

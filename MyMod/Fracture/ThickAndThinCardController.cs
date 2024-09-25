@@ -24,6 +24,7 @@ namespace BartKFSentinels.Fracture
             base.AddTriggers();
             // "Reduce the first damage dealt by that target to another target each turn by 2."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == GetCardThisCardIsNextTo() && dda.Target != GetCardThisCardIsNextTo(), ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
         }
 
         public IEnumerator ReduceResponse(DealDamageAction dda)
