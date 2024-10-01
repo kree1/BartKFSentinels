@@ -62,7 +62,9 @@
 			],
 			"difficulty": 3,
 			"openingLines": {
-				"default": "Well, ain't you a colorful bunch? Lemme see if I can fit you into my schedule..."
+				"default": "Well, ain't you a colorful bunch? Lemme see if I can fit you into my schedule...",
+				"ChronoRangerCharacter": "Huh. Suppose one of us must be in the wrong timeline... but I think this'll be a good test of the ol' reflexes.",
+				"ChronoRangerBestOfTimesCharacter": "I've gone toe-to-toe with Bruce Lee and matched wits with Patton, but it's a rare thing to go up against another Jim Brooks."
 			}
 		},
 		{
