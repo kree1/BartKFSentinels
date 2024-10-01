@@ -24,6 +24,7 @@ namespace BartKFSentinels.Torrent
         {
             // "The first time a Cluster enters play each turn, you may draw a card or play a card."
             AddTrigger<CardEntersPlayAction>((CardEntersPlayAction cepa) => !HasBeenSetToTrueThisTurn(OneClusterPerTurn) && cepa.CardEnteringPlay.DoKeywordsContain("cluster"), DrawOrPlayResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.PlayCard }, TriggerTiming.After);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OneClusterPerTurn), TriggerType.Hidden);
             base.AddTriggers();
         }
 

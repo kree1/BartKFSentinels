@@ -24,6 +24,7 @@ namespace BartKFSentinels.Alaalu
             base.AddTriggers();
             // "The first time a target would be put into a trash from play each turn, shuffle it into its deck instead."
             AddTrigger<MoveCardAction>((MoveCardAction mca) => !HasBeenSetToTrueThisTurn(OncePerTurn) && mca.CardToMove.IsTarget && mca.Origin.IsInPlay && mca.Destination.IsTrash, ShuffleInsteadResponse, TriggerType.ShuffleCardIntoDeck, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
             // "When a character card would be reduced to 0 or fewer HP, instead restore it to 5 HP and destroy this card."
             AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target.IsCharacter && dda.Target.HitPoints.HasValue && dda.Target.HitPoints.Value - dda.Amount <= 0 && dda.IsSuccessful, RestoreDestructResponse, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
             AddTrigger<DestroyCardAction>((DestroyCardAction dca) => dca.CardToDestroy.Card.IsCharacter && dca.CardToDestroy.Card.HitPoints.HasValue && dca.CardToDestroy.Card.HitPoints.Value <= 0, RestoreDestructResponse, TriggerType.CancelAction, TriggerTiming.Before);

@@ -28,8 +28,10 @@ namespace BartKFSentinels.Palmreader
             base.AddTriggers();
             // "Reduce the first damage dealt to {PalmreaderCharacter} each turn by 1."
             this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(ReduceOncePerTurn) && dda.Target == base.CharacterCard, ReduceResponse, TriggerType.ReduceDamage, TriggerTiming.Before, isActionOptional: false);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(ReduceOncePerTurn), TriggerType.Hidden);
             // "Increase the first damage dealt by {PalmreaderCharacter} each turn by 1."
             this.IncreaseDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(IncreaseOncePerTurn) && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card == base.CharacterCard, IncreaseResponse, TriggerType.IncreaseDamage, TriggerTiming.Before, isActionOptional: false);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(IncreaseOncePerTurn), TriggerType.Hidden);
         }
 
         public override IEnumerator Play()

@@ -27,6 +27,7 @@ namespace BartKFSentinels.Palmreader
             base.AddTriggers();
             // "Once per turn, when a hero target would be dealt exactly 1 damage, you may prevent that damage."
             base.AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(PreventDamageOncePerTurn) && IsHeroTarget(dda.Target) && dda.Amount == 1, OneDamageResponse, new TriggerType[] { TriggerType.CancelAction, TriggerType.GainHP, TriggerType.WouldBeDealtDamage }, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(PreventDamageOncePerTurn), TriggerType.Hidden);
         }
 
         public IEnumerator OneDamageResponse(DealDamageAction dda)

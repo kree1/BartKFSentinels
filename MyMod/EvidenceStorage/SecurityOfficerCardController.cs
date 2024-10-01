@@ -26,8 +26,10 @@ namespace BartKFSentinels.EvidenceStorage
         {
             // "The first time a Storage card would be dealt damage each turn, prevent that damage."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OneStoragePerTurn) && dda.Target.DoKeywordsContain("storage"), PreventStorageDamage, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OneStoragePerTurn), TriggerType.Hidden);
             // "The first time a Device card would be dealt damage each turn, prevent that damage."
             base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OneDevicePerTurn) && dda.Target.DoKeywordsContain("device"), PreventDeviceDamage, TriggerType.WouldBeDealtDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OneDevicePerTurn), TriggerType.Hidden);
             base.AddTriggers();
         }
 

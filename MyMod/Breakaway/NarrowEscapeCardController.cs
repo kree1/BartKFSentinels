@@ -91,6 +91,7 @@ namespace BartKFSentinels.Breakaway
             base.AddTriggers();
             // "Reduce the first damage dealt to this card each turn by 1."
             this.ReduceDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, ReduceDamage, TriggerType.ReduceDamage, TriggerTiming.Before);
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
             // "At the end of the villain turn, each hero except the 2 heroes with the lowest HP become [b]BLOCKED[/b] until the start of the villain turn."
             base.AddEndOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, AssignBlocked, TriggerType.Other);
         }

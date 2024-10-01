@@ -25,11 +25,7 @@ namespace BartKFSentinels.Breakaway
             AddStartOfTurnTrigger((TurnTaker tt) => tt == base.TurnTaker, HighHPCheck, TriggerType.GameOver);
             // "The first time this card would be dealt damage each turn, redirect that damage to {Momentum}."
             this.RedirectDamageTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(OncePerTurn) && dda.Target == this.Card && dda.Amount > 0, this.RedirectToMomentum, TriggerType.RedirectDamage, TriggerTiming.Before);
-        }
-
-        public override IEnumerator Play()
-        {
-            yield break;
+            AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(OncePerTurn), TriggerType.Hidden);
         }
 
         private string LootObtainedResultText

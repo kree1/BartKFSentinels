@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "When a hero character is dealt 4 or more fire damage, remove 6 tokens from their Stat card."
-            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.DidDealDamage && dda.Amount >= 4 && dda.DamageType == DamageType.Fire, InflateResponse, TriggerType.AddTokensToPool, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.DidDealDamage && StatCardOf(dda.Target.Owner) != null && !StatCardOf(dda.Target.Owner).IsFlipped && dda.Amount >= 4 && dda.DamageType == DamageType.Fire, InflateResponse, TriggerType.AddTokensToPool, TriggerTiming.After);
         }
 
         public IEnumerator InflateResponse(DealDamageAction dda)
