@@ -67,7 +67,9 @@
 			],
 			"difficulty": 2,
 			"openingLines": {
-				"default": "I claim this world in the name of the Thorathian Empire. Hail Imperator Voss! Hail Dok'Thorath!"
+				"default": "I claim this world in the name of the Thorathian Empire. Hail Imperator Voss! Hail Dok'Thorath!",
+				"SkyScraperNormalCharacter": "I fight for the honor of Dok'Thorath. Are you really going to stand in my way?",
+				"ExtremistSkyScraperNormalCharacter": "Look at that! A toy Thorathian, and it's got my face. What are you supposed to do?"
 			}
 		},
 		{
@@ -89,11 +91,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Fanatic",
+					"text": "Finally, you show your face{BR}long enough to-- what was that?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Fanatic"
 		},
 		{
 			"identifier": "AggressionBooster",
@@ -114,11 +116,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Ra",
+					"text": "Back, beast! Either stand with{BR}us in defense of your home, or begone!{BR}Do not test me this day."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Ra"
 		},
 		{
 			"identifier": "BioInfiltration",
@@ -137,11 +139,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "Look at this genetic potential.{BR}A few thousand years from now, you{BR}might have been worthy allies."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "CrackFoundations",
@@ -162,11 +164,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "Drag this out as long as you{BR}want. It's your world that will pay{BR}the price for your stubbornness."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "Disassembler",
@@ -188,11 +190,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "TheArgentAdept",
+					"text": "No! The knowledge contained in{BR}these instruments is priceless! Without{BR}them, even if we win today..."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Argent Adept"
 		},
 		{
 			"identifier": "HiggsFieldAmplifier",
@@ -212,11 +214,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "Reality's fundamental forces{BR}bow to Thorathian superiority. What is{BR}your petty resistance worth?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "KineticEnclosure",
@@ -238,11 +240,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Haka",
+					"text": "Rrrgh! What is this?! The more{BR}I strain, the tighter it pulls!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Haka"
 		},
 		{
 			"identifier": "NeuralDisruptor",
@@ -264,11 +266,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "I'm carrying enough to turn a{BR}Piunite's mind inside out. And their{BR}“Visionary” is no Piunite."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "RemoteActivation",
@@ -289,11 +291,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "Look how far I've pushed you,{BR}all on my own. The Empire's forces{BR}could blot out the stars in the sky."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "RemoteDetonation",
@@ -314,11 +316,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Ra",
+					"text": "[b]FANATIC![/b]"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Ra"
 		},
 		{
 			"identifier": "ShatterSanctuary",
@@ -338,11 +340,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "CaptainCosmic",
+					"text": "The Thorathian Empire has sent{BR}troops here? Good God. I hoped{BR}I'd never see the day."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Captain Cosmic"
 		},
 		{
 			"identifier": "TanglewebNetting",
@@ -363,11 +365,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Planetfall",
+					"text": "I'll tell the historians that{BR}you fought bravely, if you like."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Planetfall"
 		},
 		{
 			"identifier": "TechnoInfiltration",
@@ -387,11 +389,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "TheVisionary",
+					"text": "She's not here to conquer us.{BR}Her job is to find and weaken our{BR}defenses before the second wave."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Visionary"
 		}
 	]
 }
