@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "Whenever damage that would be dealt by a hero target in this play area is reduced to 0 or less, increase damage dealt by hero targets in this play area this turn by 1."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && !dda.IsPretend && dda.Amount <= 0 && (dda.OriginalAmount > 0 || dda.DamageModifiers.Any((ModifyDealDamageAction mdda) => mdda is IncreaseDamageAction)) && dda.DamageModifiers.Any((ModifyDealDamageAction mdda) => mdda is ReduceDamageAction), (DealDamageAction dda) => IncreaseDamageDealtByHeroTargetsInThisPlayAreaThisTurn(1), TriggerType.CreateStatusEffect, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && !dda.IsPretend && dda.FinalAmount <= 0 && (dda.OriginalAmount > 0 || dda.DamageModifiers.Any((ModifyDealDamageAction mdda) => mdda is IncreaseDamageAction)) && dda.DamageModifiers.Any((ModifyDealDamageAction mdda) => mdda is ReduceDamageAction), (DealDamageAction dda) => IncreaseDamageDealtByHeroTargetsInThisPlayAreaThisTurn(1), TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
     }
 }

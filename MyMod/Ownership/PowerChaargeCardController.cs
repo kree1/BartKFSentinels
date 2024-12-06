@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "Whenever a hero target in this play area deals a non-hero target exactly 2 damage, increase damage dealt by hero targets in this play area this turn by 1."
-            AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DidDealDamage && dda.Amount == 2, (DealDamageAction dda) => IncreaseDamageDealtByHeroTargetsInThisPlayAreaThisTurn(1), TriggerType.CreateStatusEffect, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DidDealDamage && dda.FinalAmount == 2, (DealDamageAction dda) => IncreaseDamageDealtByHeroTargetsInThisPlayAreaThisTurn(1), TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
     }
 }

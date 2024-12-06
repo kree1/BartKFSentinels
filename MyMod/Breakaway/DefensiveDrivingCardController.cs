@@ -52,9 +52,9 @@ namespace BartKFSentinels.Breakaway
                 DealDamageAction damageRecorded = storedResultsDamage.FirstOrDefault();
                 if (damageRecorded != null)
                 {
-                    if (damageRecorded.Target == rammedHero)
+                    if (damageRecorded.Target == rammedHero && damageRecorded.DidDealDamage && damageRecorded.FinalAmount.HasValue)
                     {
-                        damageDealt = damageRecorded.Amount;
+                        damageDealt = damageRecorded.FinalAmount.Value;
                     }
                 }
             }

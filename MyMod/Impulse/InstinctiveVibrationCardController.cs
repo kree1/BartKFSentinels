@@ -20,7 +20,7 @@ namespace BartKFSentinels.Impulse
         {
             base.AddTriggers();
             // "Whenever {ImpulseCharacter} is dealt damage, prevent all damage that would be dealt to {ImpulseCharacter} until the end of the current turn."
-            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.CharacterCard && dda.IsSuccessful && dda.Amount > 0, CreatePreventStatus, TriggerType.CreateStatusEffect, TriggerTiming.After, requireActionSuccess: true, isActionOptional: false);
+            base.AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.Target == base.CharacterCard && dda.IsSuccessful && dda.FinalAmount > 0, CreatePreventStatus, TriggerType.CreateStatusEffect, TriggerTiming.After, requireActionSuccess: true, isActionOptional: false);
         }
 
         public IEnumerator CreatePreventStatus(DealDamageAction dda)

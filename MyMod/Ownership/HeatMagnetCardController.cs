@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "When a hero character is dealt 4 or more fire damage, that hero character deals 1 target 3 lightning damage 3 times."
-            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.DidDealDamage && dda.DamageType == DamageType.Fire && dda.Amount >= 4 && dda.Target.IsTarget, ConverterResponse, TriggerType.DealDamage, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && dda.DidDealDamage && dda.DamageType == DamageType.Fire && dda.FinalAmount >= 4 && dda.Target.IsTarget, ConverterResponse, TriggerType.DealDamage, TriggerTiming.After);
         }
 
         public IEnumerator ConverterResponse(DealDamageAction dda)

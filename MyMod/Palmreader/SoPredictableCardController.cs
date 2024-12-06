@@ -25,7 +25,7 @@ namespace BartKFSentinels.Palmreader
         {
             base.AddTriggers();
             // "The first time {PalmreaderCharacter} is dealt damage by a target each turn, {PalmreaderCharacter} may deal that target 1 projectile damage."
-            this.DamageResponseTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamage) && dda.Target == base.CharacterCard && dda.DamageSource != null && dda.DamageSource.IsTarget && dda.Amount > 0, CounterDamageResponse, TriggerType.DealDamage, TriggerTiming.After, requireActionSuccess: true, isActionOptional: true);
+            this.DamageResponseTrigger = base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(FirstDamage) && dda.Target == base.CharacterCard && dda.DamageSource != null && dda.DamageSource.IsTarget && dda.FinalAmount > 0, CounterDamageResponse, TriggerType.DealDamage, TriggerTiming.After, requireActionSuccess: true, isActionOptional: true);
             AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(FirstDamage), TriggerType.Hidden);
         }
 

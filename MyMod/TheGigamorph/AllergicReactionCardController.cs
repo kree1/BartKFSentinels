@@ -112,11 +112,11 @@ namespace BartKFSentinels.TheGigamorph
                     }
                 }
             }
-            else if (dda.Amount >= 4)
+            else if (dda.FinalAmount >= 4)
             {
                 // 2: if the damage type wasn't already monitored and the damage amount was at least 4, switch the monitored type to the type dealt
                 base.SetCardProperty(MonitoredType, typeOptions.IndexOf(dda.DamageType).Value);
-                //Log.Debug("AllergicReaction.MoveMonitorResponse: damage amount is " + dda.Amount.ToString() + "(>=4)");
+                //Log.Debug("AllergicReaction.MoveMonitorResponse: damage amount is " + dda.FinalAmount.ToString() + "(>=4)");
                 //Log.Debug(GetMonitoredType().Value.ToString() + " damage is now [b]monitored.[/b]");
                 IEnumerator messageCoroutine = base.GameController.SendMessageAction(GetMonitoredType().Value.ToString() + " damage is now [b]monitored.[/b]", Priority.Medium, GetCardSource(), showCardSource: true);
                 if (base.UseUnityCoroutines)

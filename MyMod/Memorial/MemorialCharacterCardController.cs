@@ -89,7 +89,7 @@ namespace BartKFSentinels.Memorial
                 // Before damage is dealt, check whether the target is Renowned and save the InstanceIdentifier to _recentDamageIDs if so
                 SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && IsVillainTarget(dda.DamageSource.Card) && IsRenownedTarget(dda.Target) && !dda.IsPretend && dda.IsSuccessful && dda.Amount >= 2, SaveGUIDResponse, TriggerType.HiddenLast, TriggerTiming.Before));
                 // After damage is dealt, if the InstanceIdentifier was in _recentDamageIDs, do the next thing on the list
-                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.Amount >= 2 && RecentDamageIDs.Contains(dda.InstanceIdentifier), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
+                SideTriggers.Add(AddTrigger<DealDamageAction>((DealDamageAction dda) => dda.DidDealDamage && dda.FinalAmount >= 2 && RecentDamageIDs.Contains(dda.InstanceIdentifier), RenownedHitResponse, new TriggerType[] { TriggerType.GainHP, TriggerType.DiscardCard, TriggerType.CreateStatusEffect, TriggerType.DestroyCard }, TriggerTiming.After));
 
                 // "At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
                 SideTriggers.Add(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, PewPewPewResponse, TriggerType.DealDamage));

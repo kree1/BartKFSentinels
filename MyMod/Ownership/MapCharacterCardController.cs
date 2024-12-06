@@ -89,7 +89,7 @@ namespace BartKFSentinels.Ownership
             {
                 // Front side:
                 // "When a hero target deals a non-hero target 3 or more damage, add 2 tokens to that player's Stat card and {SunSun} deals itself 1 infernal damage."
-                AddSideTrigger(AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DidDealDamage && dda.Amount >= 3, RunScoredResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage }, TriggerTiming.After));
+                AddSideTrigger(AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DidDealDamage && dda.FinalAmount >= 3, RunScoredResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage }, TriggerTiming.After));
                 // "When 8 or more damage is dealt to non-hero targets by hero targets during a player's turn, add 5 tokens to their Stat card and {SunSun} deals itself 3 infernal damage."
                 AddSideTrigger(AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(GameWonThisTurn) && DamageDealtToNonHeroByHeroThisTurn() >= 8 && base.GameController.ActiveTurnTaker.IsPlayer && !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DidDealDamage, GameWonResponse, new TriggerType[] { TriggerType.AddTokensToPool, TriggerType.DealDamage }, TriggerTiming.After));
                 // "When a hero is dealt melee damage by a villain target, remove 3 tokens from their Stat card."

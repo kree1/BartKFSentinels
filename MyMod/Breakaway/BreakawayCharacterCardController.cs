@@ -87,7 +87,7 @@ namespace BartKFSentinels.Breakaway
                 base.AddSideTrigger(base.AddTrigger<GainHPAction>((GainHPAction gha) => gha.IsSuccessful && gha.HpGainer.Equals(this.Card), BreakawayHPCheckResponse, TriggerType.GameOver, TriggerTiming.After));
 
                 // "The first time {Momentum} is dealt damage each turn, if that damage reduces its HP to 0 or less, remove 2 HP from {Breakaway}."
-                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(momentumTakenDamage) && dda.Target == base.TurnTaker.FindCard("MomentumCharacter") && dda.Amount > 0, MomentumFirstDamageResponse, TriggerType.Other, TriggerTiming.After, isConditional: true));
+                base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => !HasBeenSetToTrueThisTurn(momentumTakenDamage) && dda.Target == base.TurnTaker.FindCard("MomentumCharacter") && dda.FinalAmount > 0, MomentumFirstDamageResponse, TriggerType.Other, TriggerTiming.After, isConditional: true));
 
                 // "At the start of each turn, {Momentum} becomes immune to damage dealt by each environment card that dealt damage to it during the previous turn."
                 base.AddSideTrigger(base.AddTrigger<DealDamageAction>((DealDamageAction dda) => (dda.DamageSource.IsEnvironmentCard || dda.DamageSource.IsEnvironmentSource) && dda.Target == base.TurnTaker.FindCard("MomentumCharacter"), MomentumHitByEnvironmentResponse, TriggerType.Hidden, TriggerTiming.After));

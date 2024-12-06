@@ -21,7 +21,7 @@ namespace BartKFSentinels.Memorial
         {
             base.AddTriggers();
             // "When {Memorial} deals 2 or more damage to a target, reduce the next damage dealt by that target by 2."
-            AddTrigger((DealDamageAction dda) => dda.DamageSource.IsSameCard(base.CharacterCard) && dda.DidDealDamage && dda.Amount >= 2, ReduceNextDamageResponse, TriggerType.AddStatusEffectToDamage, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => dda.DamageSource.IsSameCard(base.CharacterCard) && dda.DidDealDamage && dda.FinalAmount >= 2, ReduceNextDamageResponse, TriggerType.AddStatusEffectToDamage, TriggerTiming.After);
         }
 
         private IEnumerator ReduceNextDamageResponse(DealDamageAction dda)

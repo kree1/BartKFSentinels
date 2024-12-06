@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "When a hero target in this play area deals a non-hero target 5 or more damage, increase the next damage dealt by a hero target by 2."
-            AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DidDealDamage && dda.Amount >= 5, (DealDamageAction dda) => IncreaseNextDamageDealtByAHeroTarget(2), TriggerType.CreateStatusEffect, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => !IsHeroTarget(dda.Target) && dda.DamageSource != null && dda.DamageSource.IsCard && IsHeroTarget(dda.DamageSource.Card) && dda.DamageSource.Card.Location.HighestRecursiveLocation == base.Card.Location.HighestRecursiveLocation && dda.DidDealDamage && dda.FinalAmount >= 5, (DealDamageAction dda) => IncreaseNextDamageDealtByAHeroTarget(2), TriggerType.CreateStatusEffect, TriggerTiming.After);
         }
     }
 }

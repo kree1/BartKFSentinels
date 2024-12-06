@@ -21,7 +21,7 @@ namespace BartKFSentinels.Ownership
         {
             base.AddTriggers();
             // "When a hero character is dealt 2 or more cold damage, remove 4 tokens from their Stat card."
-            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && StatCardOf(dda.Target.Owner) != null && !StatCardOf(dda.Target.Owner).IsFlipped && dda.DamageType == DamageType.Cold && dda.DidDealDamage && dda.Amount >= 2, InflateResponse, TriggerType.AddTokensToPool, TriggerTiming.After);
+            AddTrigger((DealDamageAction dda) => IsHeroCharacterCard(dda.Target) && StatCardOf(dda.Target.Owner) != null && !StatCardOf(dda.Target.Owner).IsFlipped && dda.DamageType == DamageType.Cold && dda.DidDealDamage && dda.FinalAmount >= 2, InflateResponse, TriggerType.AddTokensToPool, TriggerTiming.After);
         }
 
         public IEnumerator InflateResponse(DealDamageAction dda)

@@ -61,7 +61,7 @@ namespace BartKFSentinels.Breakaway
             }
 
             // "If a hero target was dealt at least {H} damage this way, {Breakaway} regains 2 HP."
-            if (storedResultsDamage != null && storedResultsDamage.Count((dda)=> IsHero(dda.Target) && dda.Amount >= base.H) > 0)
+            if (storedResultsDamage != null && storedResultsDamage.Count((dda)=> IsHero(dda.Target) && dda.FinalAmount >= base.H) > 0)
             {
                 IEnumerator gainHPCoroutine = base.GameController.GainHP(base.TurnTaker.FindCard("BreakawayCharacter"), 2, cardSource: GetCardSource());
                 if (base.UseUnityCoroutines)

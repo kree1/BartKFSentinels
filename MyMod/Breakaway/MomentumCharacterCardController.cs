@@ -126,7 +126,7 @@ namespace BartKFSentinels.Breakaway
             List<DealDamageAction> selfDamage = storedResultsDamage.FindAll((DealDamageAction dda) => dda.Target == breakaway);
             foreach (DealDamageAction dda in selfDamage)
             {
-                if (dda != null && dda.Amount > 0)
+                if (dda != null && dda.FinalAmount > 0)
                 {
                     tookDamage = true;
                 }
