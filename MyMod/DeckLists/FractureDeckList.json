@@ -366,7 +366,7 @@
 				"At the end of your turn, you may discard a card. If you do, up to 3 players each draw a card."
 			],
 			"powers": [
-				"Another hero may use a power now."
+				"{Fracture} deals herself 1 psychic damage. If she was dealt damage this way, another hero may use a power now."
 			],
 			"icons": [
 				"EndOfTurnAction",

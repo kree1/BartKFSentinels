@@ -28,41 +28,56 @@ namespace BartKFSentinels.Fracture
         {
             // "... you may discard a card."
             List<DiscardCardAction> discards = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = base.GameController.SelectAndDiscardCard(base.HeroTurnTakerController, optional: true, storedResults: discards, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(base.HeroTurnTakerController, optional: true, storedResults: discards, responsibleTurnTaker: base.TurnTaker, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(discardCoroutine);
+                yield return GameController.StartCoroutine(discardCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(discardCoroutine);
+                GameController.ExhaustCoroutine(discardCoroutine);
             }
             if (DidDiscardCards(discards, 1))
             {
                 // "If you do, up to 3 players each draw a card."
-                IEnumerator drawCoroutine = base.GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsHero(tt)), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), 3, optional: false, 0, null, allowAutoDecide: false, null, null, null, ignoreBattleZone: false, null, GetCardSource());
-                if (base.UseUnityCoroutines)
+                IEnumerator drawCoroutine = GameController.SelectTurnTakersAndDoAction(DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => !tt.IsIncapacitatedOrOutOfGame && IsHero(tt)), SelectionType.DrawCard, (TurnTaker tt) => DrawCard(tt.ToHero(), optional: true), 3, optional: false, 0, null, allowAutoDecide: false, null, null, null, ignoreBattleZone: false, null, GetCardSource());
+                if (UseUnityCoroutines)
                 {
-                    yield return base.GameController.StartCoroutine(drawCoroutine);
+                    yield return GameController.StartCoroutine(drawCoroutine);
                 }
                 else
                 {
-                    base.GameController.ExhaustCoroutine(drawCoroutine);
+                    GameController.ExhaustCoroutine(drawCoroutine);
                 }
             }
         }
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Another hero may use a power now."
-            IEnumerator powerCoroutine = base.GameController.SelectHeroToUsePower(base.HeroTurnTakerController, additionalCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt != base.TurnTaker), cardSource: GetCardSource());
-            if (base.UseUnityCoroutines)
+            // "{Fracture} deals herself 1 psychic damage."
+            int psychicAmt = GetPowerNumeral(0, 1);
+            List<DealDamageAction> damageResults = new List<DealDamageAction>();
+            IEnumerator psychicCoroutine = DealDamage(CharacterCard, CharacterCard, psychicAmt, DamageType.Psychic, storedResults: damageResults, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
             {
-                yield return base.GameController.StartCoroutine(powerCoroutine);
+                yield return GameController.StartCoroutine(psychicCoroutine);
             }
             else
             {
-                base.GameController.ExhaustCoroutine(powerCoroutine);
+                GameController.ExhaustCoroutine(psychicCoroutine);
+            }
+            // "If she was dealt damage this way, another hero may use a power now."
+            if (DidDealDamage(damageResults, toSpecificTarget: CharacterCard))
+            {
+                IEnumerator powerCoroutine = GameController.SelectHeroToUsePower(base.HeroTurnTakerController, additionalCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt != base.TurnTaker), cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(powerCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(powerCoroutine);
+                }
             }
         }
     }
