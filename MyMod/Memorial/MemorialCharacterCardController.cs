@@ -29,6 +29,8 @@ namespace BartKFSentinels.Memorial
             SpecialStringMaker.ShowSpecialString(() => "Memorial has dealt 2 or more damage to a Renowned target 4 times this turn.", () => true).Condition = () => Card.IsFlipped && HasBeenSetToTrueThisTurn(RenownedHit4) && !HasBeenSetToTrueThisTurn(RenownedHit5);
             SpecialStringMaker.ShowSpecialString(() => "Memorial has dealt 2 or more damage to a Renowned target 5 times this turn.", () => true).Condition = () => Card.IsFlipped && HasBeenSetToTrueThisTurn(RenownedHit5) && !HasBeenSetToTrueThisTurn(RenownedHit6);
             SpecialStringMaker.ShowSpecialString(() => "Memorial has dealt 2 or more damage to a Renowned target 6 or more times this turn.", () => true).Condition = () => Card.IsFlipped && HasBeenSetToTrueThisTurn(RenownedHit6);
+            // Back side, Advanced: if it's the villain turn, has a player discarded a card this turn?
+            SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(DiscardedThisTurn), () => Card.Title + " has already responded to a player discarding a card this turn.", () => Card.Title + " has not yet responded to a player discarding a card this turn.").Condition = () => Card.IsFlipped && Game.IsAdvanced && IsVillain(Game.ActiveTurnTaker);
         }
 
         protected const string RenownedHit1 = "FirstRenownedHit";
@@ -37,6 +39,8 @@ namespace BartKFSentinels.Memorial
         protected const string RenownedHit4 = "FourthRenownedHit";
         protected const string RenownedHit5 = "FifthRenownedHit";
         protected const string RenownedHit6 = "SixthRenownedHit";
+        protected const string IncidentKeyword = "incident";
+        protected const string DiscardedThisTurn = "DiscardedThisTurn";
 
         private List<Guid> _recentDamageIDs;
         private List<Guid> RecentDamageIDs
@@ -67,7 +71,8 @@ namespace BartKFSentinels.Memorial
                 if (base.IsGameAdvanced)
                 {
                     // Front side, Advanced:
-                    // [none yet]
+                    // "Increase damage dealt by Incidents by 1."
+                    AddSideTrigger(AddIncreaseDamageTrigger((DealDamageAction dda) => dda.DamageSource != null && dda.DamageSource.IsCard && GameController.DoesCardContainKeyword(dda.DamageSource.Card, IncidentKeyword), (DealDamageAction dda) => 1));
                 }
             }
             else
@@ -97,7 +102,8 @@ namespace BartKFSentinels.Memorial
                 if (base.IsGameAdvanced)
                 {
                     // Back side, Advanced:
-                    // [none yet]
+                    // "The first time any player discards a card each villain turn, 1 player discards a card."
+                    SideTriggers.Add(AddTrigger((MoveCardAction mca) => IsVillain(Game.ActiveTurnTaker) && !HasBeenSetToTrueThisTurn(DiscardedThisTurn) && mca.IsDiscard && mca.ResponsibleTurnTaker.IsPlayer && mca.WasCardMoved, ExtraDiscardResponse, TriggerType.DiscardCard, TriggerTiming.After));
                 }
             }
             AddDefeatedIfDestroyedTriggers();
@@ -491,6 +497,21 @@ namespace BartKFSentinels.Memorial
             else
             {
                 base.GameController.ExhaustCoroutine(renownCoroutine);
+            }
+        }
+
+        public IEnumerator ExtraDiscardResponse(MoveCardAction mca)
+        {
+            // "... 1 player discards a card."
+            SetCardPropertyToTrueIfRealAction(DiscardedThisTurn);
+            IEnumerator discardCoroutine = GameController.SelectHeroToDiscardCard(DecisionMaker, optionalDiscardCard: false, cardSource: GetCardSource());
+            if (base.UseUnityCoroutines)
+            {
+                yield return base.GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                base.GameController.ExhaustCoroutine(discardCoroutine);
             }
         }
     }

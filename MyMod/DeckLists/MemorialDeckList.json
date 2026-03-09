@@ -26,15 +26,13 @@
 				"When a villain Incident leaves play, remove that Incident from the game.",
 				"At the start of the villain turn, if there are no villain Incidents in play, flip {Memorial}."
 			],
-			"advanced": [
-				""
-			],
+			"advanced": "Increase damage dealt by Incidents by 1.",
 			"icons": [
 				"DealDamageProjectile",
 				"StartOfTurnAction"
 			],
 			"advancedIcons": [
-				""
+				"IncreaseDamageDealt"
 			],
 			"flippedBody": "Lifetimes Spent in Violence",
 			"flippedHitpoints": 65,
@@ -44,9 +42,7 @@
 				"Whenever a villain target deals 2 or more damage to a [i][b]Renowned[/b][/i] target, activate the first effect in this list that hasn't been activated this turn:{BR}1) {Memorial} regains {H - 1} HP.{BR}2) One player discards a card.{BR}3) Reduce damage dealt to {Memorial} by 1 until the start of the villain turn.{BR}4) Destroy a non-character hero card.{BR}5) Destroy a hero Ongoing or Equipment card.{BR}6) Destroy the non-character non-villain target with the lowest HP.",
 				"At the end of the villain turn, {Memorial} deals the {H - 1} hero targets with the highest HP 3 projectile damage each."
 			],
-			"flippedAdvanced": [
-				""
-			],
+			"flippedAdvanced": "The first time any player discards a card each villain turn, 1 player discards a card.",
 			"flippedIcons": [
 				"Search",
 				"EndOfTurnAction",
@@ -109,7 +105,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Professor Hodson",
+                    "name": "Professor Hodson",
                     "text": "Century after century, the story{BR}repeats: a legendary figure dies, and the{BR}killer escapes without a scratch."
                 }
             ],
@@ -135,7 +131,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "... strategist, sorcerer and{BR}apprentice, martial arts legend, and{BR}whatever [b]that[/b] guy does..."
                 }
             ],
@@ -184,7 +180,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Professor Hodson",
+                    "name": "Professor Hodson",
                     "text": "He targets the extraordinary.{BR}War heroes, law enforcement, undefeated{BR}champions. People like all of you."
                 }
             ],
@@ -230,7 +226,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "Huh. Thought you'd be taller.{BR}Statues do that, I guess."
                 }
             ],
@@ -254,7 +250,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "So the thing with the hundreds{BR}of little knife critters was true, huh?"
                 }
             ],
@@ -278,7 +274,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "Always wondered if one day{BR}someone'd be expecting me.{BR}Figures it would be you."
                 }
             ],
@@ -304,7 +300,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "... immortal warrior, space{BR}traveler, alien ambassador, Virtuoso, and{BR}self-professed fist of God..."
                 }
             ],
@@ -328,7 +324,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "Folks say she could take the{BR}wings off a fly at a thousand yards."
                 }
             ],
@@ -353,7 +349,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "... armored juggernaut, urban{BR}ninja, speedster, elementalist, and the{BR}ninth of the Parsons line..."
                 }
             ],
@@ -495,7 +491,7 @@
 			],
             "flavorQuotes":[
                 {
-                    "identifier": "Jim Brooks",
+                    "name": "Jim Brooks",
                     "text": "Mostly I come alone for the{BR}challenge. This time, I doubt{BR}an army would help."
                 }
             ],
