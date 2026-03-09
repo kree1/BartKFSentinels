@@ -388,10 +388,12 @@
 				"breach"
 			],
 			"body": [
-				"Each player may name a keyword other than One-Shot. Each player who does reveals cards from the top of their deck until they reveal a card with the keyword they named, puts that card into play or into their hand, then shuffles the other revealed cards into their deck."
+				"Each player may name a keyword other than One-Shot. Each player who does reveals cards from the top of their deck until they reveal a card with the keyword they named, puts that card into their hand, then shuffles the other revealed cards into their deck.",
+				"One player may play a non-one-shot card."
 			],
 			"icons": [
-				"Search"
+				"Search",
+				"PlayCardNow"
 			],
 			"flavorQuotes": [
 				{
