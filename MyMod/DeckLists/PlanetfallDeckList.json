@@ -1,0 +1,399 @@
+{
+	"name": "Planetfall",
+	"kind": "Villain",
+	"initialCardIdentifiers": [
+		"PlanetfallCharacter"
+	],
+	"cards": [
+		{
+			"identifier": "PlanetfallCharacter",
+			"count": 1,
+			"title": "Planetfall",
+			"keywords": [
+				"villain",
+				"tiny"
+			],
+			"body": "Infiltration",
+			"backgroundColor": "CC006B",
+			"character": true,
+			"hitpoints": 90,
+			"nemesisIdentifiers": [
+				""
+			],
+			"setup": [
+				"Put {Planetfall} into play, “Infiltration” side up. Put [i]Higgs Field Amplifier[/i] into play. Shuffle the villain deck."
+			],
+			"gameplay": [
+				"Whenever {Planetfall} would be dealt 3 or more damage, reduce that damage by 2.",
+				"When a Chip enters play from the villain deck, {Planetfall} regains 2 HP, then play the top card of the villain deck.",
+				"When a villain Mega card enters play, flip {Planetfall}.",
+				"At the end of the villain turn, {Planetfall} deals the hero character with the lowest HP {H - 2} toxic damage."
+			],
+			"advanced": "When {Planetfall} flips to this side, {H - 2} players each discard 1 card.",
+			"icons": [
+				"ReduceDamageTaken",
+				"GainHP",
+				"EndOfTurnAction",
+				"DealDamageToxic"
+			],
+			"advancedIcons": [
+				"Discard"
+			],
+			"flippedBody": "Devastation",
+			"flippedKeywords": [
+				"villain",
+				"huge"
+			],
+			"flippedGameplay": [
+				"Whenever {Planetfall} would be dealt 2 or fewer damage, reduce that damage by 1.",
+				"When a Chip enters play from the villain deck, {Planetfall} deals the hero target with the highest HP 2 projectile damage, then play the top card of the villain deck.",
+				"When a villain Micro card enters play, flip {Planetfall}.",
+				"At the end of the villain turn, {Planetfall} deals the {H - 1} hero targets with the highest HP 2 sonic damage each."
+			],
+			"flippedAdvanced": "When {Planetfall} flips to this side, she deals each non-villain target 1 melee damage.",
+			"flippedIcons": [
+				"ReduceDamageTaken",
+				"DealDamageProjectile",
+				"EndOfTurnAction",
+				"DealDamageSonic"
+			],
+			"flippedAdvancedIcons": [
+				"DealDamageMelee"
+			],
+			"challengeTitle": "Rise from the Wreckage",
+			"challengeText": "Whenever an environment card is destroyed, {Planetfall} regains {H - 1} HP.",
+			"challengeIcons": [
+				"GainHP"
+			],
+			"difficulty": 2,
+			"openingLines": {
+				"default": "I claim this world in the name of the Thorathian Empire. Hail Imperator Voss! Hail Dok'Thorath!",
+				"SkyScraperNormalCharacter": "I fight for the honor of Dok'Thorath. Are you really going to stand in my way?",
+				"ExtremistSkyScraperNormalCharacter": "Look at that! A toy Thorathian, and it's got my face. What are you supposed to do?"
+			}
+		},
+		{
+			"identifier": "AdhesiveGrenade",
+			"count": 2,
+			"title": "Adhesive Grenade",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"When a hero target would deal damage to {Planetfall} or this card, first move this card next to that hero target.",
+				"When this card is destroyed, it deals the target next to it 3 fire damage."
+			],
+			"icons": [
+				"CounterDamage",
+				"DealDamageFire"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Fanatic",
+					"text": "Finally, you show your face{BR}long enough to-- what was that?"
+				}
+			],
+			"flavorReference": "Fanatic"
+		},
+		{
+			"identifier": "AggressionBooster",
+			"count": 1,
+			"title": "Aggression Booster",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"Play this next to the environment target with the highest HP. Redirect damage that would be dealt to this card to that target.",
+				"Increase damage dealt by environment targets to hero targets by 1."
+			],
+			"icons": [
+				"RedirectDamage",
+				"IncreaseDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Ra",
+					"text": "Back, beast! Either stand with{BR}us in defense of your home, or begone!{BR}Do not test me this day."
+				}
+			],
+			"flavorReference": "Ra"
+		},
+		{
+			"identifier": "BioInfiltration",
+			"count": 3,
+			"title": "Bio-Infiltration",
+			"keywords": [
+				"one-shot",
+				"micro"
+			],
+			"body": [
+				"{Planetfall} deals the hero with the highest HP {H - 1} irreducible melee damage. Reduce damage dealt by that target by 1 until the start of the villain turn."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"ReduceDamageDealt"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "Look at this genetic potential.{BR}A few thousand years from now, you{BR}might have been worthy allies."
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "CrackFoundations",
+			"count": 2,
+			"title": "Crack Foundations",
+			"keywords": [
+				"one-shot",
+				"mega"
+			],
+			"body": [
+				"{Planetfall} deals the hero target with the highest HP {H} melee damage, then deals each target 1 projectile damage.",
+				"Destroy {H - 1} hero Ongoing cards."
+			],
+			"icons": [
+				"DealDamageMelee",
+				"DealDamageProjectile",
+				"DestroyOngoing"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "Drag this out as long as you{BR}want. It's your world that will pay{BR}the price for your stubbornness."
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "Disassembler",
+			"count": 2,
+			"title": "Disassembler",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"Play this next to the hero with the most Equipment cards in play. At the start of that hero's turn, this card deals itself or that hero 2 melee damage.",
+				"When this card is destroyed, destroy 2 Equipment cards."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DealDamageMelee",
+				"DestroyEquipment"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "TheArgentAdept",
+					"text": "No! The knowledge contained in{BR}these instruments is priceless! Without{BR}them, even if we win today..."
+				}
+			],
+			"flavorReference": "The Argent Adept"
+		},
+		{
+			"identifier": "HiggsFieldAmplifier",
+			"count": 1,
+			"title": "Higgs Field Amplifier",
+			"keywords": [
+				"device"
+			],
+			"hitpoints": 10,
+			"body": [
+				"If {Planetfall} is Tiny, increase damage dealt by {Planetfall} by 1.",
+				"If {Planetfall} is Huge, reduce damage dealt to {Planetfall} by 1."
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"ReduceDamageTaken"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "Reality's fundamental forces{BR}bow to Thorathian superiority. What is{BR}your petty resistance worth?"
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "KineticEnclosure",
+			"count": 1,
+			"title": "Kinetic Enclosure",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"Play this next to the hero with the highest HP. Whenever that hero would deal 3 or more damage, prevent that damage and this card regains 1 HP.",
+				"When this card is destroyed, put it on top of the villain deck."
+			],
+			"icons": [
+				"CancelledDamageRed",
+				"GainHP",
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Haka",
+					"text": "Rrrgh! What is this?! The more{BR}I strain, the tighter it pulls!"
+				}
+			],
+			"flavorReference": "Haka"
+		},
+		{
+			"identifier": "NeuralDisruptor",
+			"count": 2,
+			"title": "Neural Disruptor",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"Play this next to the hero with the most Ongoing cards in play. At the start of that hero's turn, this card deals itself or that hero 2 psychic damage.",
+				"When this card is destroyed, destroy 2 hero Ongoing cards."
+			],
+			"icons": [
+				"StartOfTurnAction",
+				"DealDamagePsychic",
+				"DestroyOngoing"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "I'm carrying enough to turn a{BR}Piunite's mind inside out. And their{BR}“Visionary” is no Piunite."
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "RemoteActivation",
+			"count": 2,
+			"title": "Remote Activation",
+			"keywords": [
+				"one-shot",
+				"micro"
+			],
+			"body": [
+				"Reveal cards from the top of the villain deck until {H - 1} Chips are revealed. Discard the revealed cards.",
+				"Play the topmost {H - 1} Chips from the villain trash. If [i]Higgs Field Amplifier[/i] is in the villain trash, play it."
+			],
+			"icons": [
+				"Search",
+				"Discard",
+				"PlayCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "Look how far I've pushed you,{BR}all on my own. The Empire's forces{BR}could blot out the stars in the sky."
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "RemoteDetonation",
+			"count": 2,
+			"title": "Remote Detonation",
+			"keywords": [
+				"one-shot",
+				"mega"
+			],
+			"body": [
+				"{Planetfall} deals the X hero targets with the highest HP 2 projectile damage and 2 fire damage each, where X = the number of Chips in the villain trash.",
+				"If X was 1 or less, play the top card of the villain deck."
+			],
+			"icons": [
+				"DealDamageProjectile",
+				"DealDamageFire",
+				"PlayCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Ra",
+					"text": "[b]FANATIC![/b]"
+				}
+			],
+			"flavorReference": "Ra"
+		},
+		{
+			"identifier": "ShatterSanctuary",
+			"count": 3,
+			"title": "Shatter Sanctuary",
+			"keywords": [
+				"one-shot",
+				"mega"
+			],
+			"body": [
+				"Destroy 2 non-target environment cards.",
+				"{Planetfall} deals each Chip and each non-villain target X projectile damage, where X = 3 plus the number of non-target cards destroyed this turn."
+			],
+			"icons": [
+				"DestroyEnvironment",
+				"DealDamageProjectile"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "CaptainCosmic",
+					"text": "The Thorathian Empire has sent{BR}troops here? Good God. I hoped{BR}I'd never see the day."
+				}
+			],
+			"flavorReference": "Captain Cosmic"
+		},
+		{
+			"identifier": "TanglewebNetting",
+			"count": 2,
+			"title": "Tangleweb Netting",
+			"keywords": [
+				"device",
+				"chip"
+			],
+			"hitpoints": 2,
+			"body": [
+				"Play this next to the hero with the lowest HP. Redirect damage dealt by that hero to this card.",
+				"Reduce damage dealt to this card by 1."
+			],
+			"icons": [
+				"RedirectDamage",
+				"ReduceDamageTaken"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "Planetfall",
+					"text": "I'll tell the historians that{BR}you fought bravely, if you like."
+				}
+			],
+			"flavorReference": "Planetfall"
+		},
+		{
+			"identifier": "TechnoInfiltration",
+			"count": 2,
+			"title": "Techno-Infiltration",
+			"keywords": [
+				"one-shot",
+				"micro"
+			],
+			"body": [
+				"{Planetfall} deals each hero target X lightning damage, where X = the number of Equipment and/or Device cards from that target's deck in play plus 2.",
+				"Destroy {H - 1} Equipment cards."
+			],
+			"icons": [
+				"DealDamageLightning",
+				"DestroyEquipment"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "TheVisionary",
+					"text": "She's not here to conquer us.{BR}Her job is to find and weaken our{BR}defenses before the second wave."
+				}
+			],
+			"flavorReference": "The Visionary"
+		}
+	]
+}
