@@ -365,7 +365,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call "C:\Users\Kendal\source\repos\BartKFSentinels\MyMod\postbuild.bat"</PostBuildEvent>
+    <PostBuildEvent>call "C:\Users\Kendal\Documents\Github\BartKFSentinels\MyMod\postbuild.bat"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
