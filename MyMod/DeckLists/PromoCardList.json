@@ -1,2 +1,105 @@
 ﻿{
+  "AkashBhuta": [
+    {
+      "identifier": "AkashBhutaCharacter",
+      "promoIdentifier": "AkashBhutaUnsustainableCharacter",
+      "overrideTurnTakerController": "AkashBhutaUnsustainable",
+      "count": 1,
+      "title": "Akash'bhuta",
+      "promoTitle": "Unsustainable Akash'bhuta",
+      "keywords": [
+        "villain"
+      ],
+      "body": "Choking Overgrowth",
+      "hitpoints": 100,
+      "nemesisIdentifiers": [
+        "TheArgentAdept",
+        "CaptainCosmic",
+        "Fanatic",
+        "Haka",
+        "Tempest"
+      ],
+      "setup": [
+        "Put [i]Unsustainable Akash'bhuta[/i] into play, “Choking Overgrowth” side up, with 50 HP.{BR}Reveal cards from the villain deck until {H - 1} Primeval Limbs are revealed. Put them into play and shuffle the other revealed cards back into the villain deck."
+      ],
+      "gameplay": [
+        "When {AkashBhuta} would deal herself energy damage, she regains half that much HP instead, rounded up.",
+        "At the end of the villain turn, each villain target regains 1 HP.",
+        "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
+      ],
+      "icons": [
+        "CancelledDamageRed",
+        "GainHP",
+        "EndOfTurnAction"
+      ],
+      "advanced": "When {AkashBhuta} flips to this side, play the top card of the environment deck.",
+      "advancedIcons": [
+        "PlayCardNow"
+      ],
+      "flippedBody": "Devastating Wildfire",
+      "flippedGameplay": [
+        "When {AkashBhuta} would deal herself energy damage, destroy 1 hero ongoing or equipment card instead.",
+        "At the end of the villain turn, each villain target deals the hero target with the highest HP 1 fire damage.",
+        "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
+      ],
+      "flippedIcons": [
+        "CancelledDamageRed",
+        "DestroyHero",
+        "EndOfTurnAction",
+        "DealDamageFire"
+      ],
+      "flippedAdvanced": "When {Akashbhuta} flips to this side, destroy an environment card. If a card was destroyed this way, {H - 1} players discard a card.",
+      "flippedAdvancedIcons": [
+        "DestroyEnvironment",
+        "Discard"
+      ],
+      "challengeTitle": "",
+      "challengeText": "",
+      "challengeIcons": [],
+      "difficulty": 3,
+      "openingLines": {
+        "default": "I will tolerate no more attempts to bend nature to the will of man. If destroying them is what it takes for chaos to survive, I will not spend long in mourning.",
+        "TheArgentAdeptCharacter": "Humanity has always been at war with itself and everything around it. None of you will survive.",
+        // Base Argent Adept: "If we work in concert, we will generate the harmonies of victory!"
+        "PrimeWardensArgentAdeptCharacter": "Today, the heartbeat of the wild places will drown out your song for good.",
+        // PW Argent Adept: "Let us strike the chords of harmony! Stand fast against discordance!"
+        "XtremePrimeWardensArgentAdeptCharacter": "Listen- do you hear the stillness on the wind? That is the sound of the future- with none of you in it.",
+        // XPW Argent Adept: "It's time to let freedom rock! [b]yeaaaaaaaaaaaaaaaahhhhhhh![/b]"
+        "DarkConductorArgentAdeptCharacter": "Your song is so dull now. I will listen carefully, though, to make sure I notice when I crush you.",
+        // Dark Conductor Argent Adept: "Attend! I shall set the tempo for this conflict. Move to my beat, and there will be victory. Fail to do so, and you will Danse Macabre."
+        "CaptainCosmicCharacter": "Your little golden sparks will be as easy to extinguish as your lives.",
+        // Base Captain Cosmic: "Your evil-doing days are numbered, no matter how dangerous you are! Have at them, allies!"
+        "PrimeWardensCaptainCosmicCharacter": "This world is mine to shape, and my vision has no more room for man. If you wish to survive, then flee.",
+        // PW Captain Cosmic: "From the cosmos to realms beyond, your villainy shall go no further!"
+        "XtremePrimeWardensCaptainCosmicCharacter": "I am eternal and all-encompassing... and you bring guns to shoot at me. Are you lost, little hunter?",
+        // XPW Captain Cosmic: "I've got more golden guns than you've had hot dinners! Come and have a go if you think you're hard enough!"
+        "CaptainCosmicRequitalCharacter": "You could have survived this, if you had the sense to flee. This world is mine, but I would begrudge you no others.",
+        // Requital Captain Cosmic: "My brother gave me another chance to protect the cosmos from the likes of you. His sacrifice will not be in vain!"
+        "FanaticCharacter": "I am the only creator this world has ever known. I will be its destroyer, as well.",
+        // Base Fanatic: "Repent, evildoer! You cannot stand against divine might!"
+        "RedeemerFanaticCharacter": "When the earth swallows you whole and spits out the bones of those you protect, what will you believe?",
+        // Redeemer Fanatic: "My faith is unwavering. My strength comes from grace alone."
+        "PrimeWardensFanaticCharacter": "Yes- turn your sword on me, like you do with everything you don't understand. Spirit though you may be, humankind has taught you well.",
+        // PW Fanatic: "Repent! Turn back from thy evil ways, before it is too late!"
+        "XtremePrimeWardensFanaticCharacter": "This world is my body, and at long last I will cast you out.",
+        // XPW Fanatic: "All impurities burn away in the light! Your evil will be cleansed in holy fire!"
+        "HakaCharacter": "Your life force is extraordinary. You may yet survive what is coming... but you will not stop it.",
+        // Base Haka: "Ha[b]ha![/b] Battle! This will be fun!"
+        "TheEternalHakaCharacter": "Your day has finally come, old one. When I am through, you will be the last of humanity.",
+        // Eternal Haka: "Allied with heroes once again? It is a good day. I hope to protect you all."
+        "PrimeWardensHakaCharacter": "If you choose to stand with those who destroy and despoil, then you will fall with them as well.",
+        // PW Haka: "I have seen many foes. You will not be the one to lay the great Haka low."
+        "XtremePrimeWardensHakaCharacter": "Old as you are, you have never seen a civilization fall. That changes today.",
+        // XPW Haka: "Come at me with all your might! It's time for us to go toe-to-toe! Everyone together now. Ka Mate! Ka Mate!"
+        "TempestCharacter": "I am the land and the sea and all that grows upon them. What hope do you have to oppose me?",
+        // base Tempest: "You fight the strength of the storm. Face the maelstrom!"
+        "TempestFreedomSixCharacter": "No storm will quiet me this time. You face the world in uproar.",
+        // F6 Tempest: "I have faced far worse than you could possibly imagine. Stand down."
+        "PrimeWardensTempestCharacter": "I offer one chance for you and your people to join me. You know the monstrosity that lurks in the human heart. Why fight for them?",
+        // PW Tempest: "Monsters come in all manner of shape and size. Your plots shall fail."
+        "XtremePrimeWardensTempestCharacter": "Every stone, every branch, every leaf is mine to command. What power do you have here?"
+        // XPW Tempest: "Look to the skies. See what I am about to unleash upon you. You think you can hope to stand against the storm?"
+      }
+    }
+  ]
 }
