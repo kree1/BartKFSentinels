@@ -41,6 +41,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AkashBhuta\UnsustainableAkashBhutaCharacterCardController.cs" />
+    <Compile Include="AkashBhuta\UnsustainableAkashBhutaTurnTakerController.cs" />
     <Compile Include="Alaalu\AlaaluUtilityCardController.cs" />
     <Compile Include="Alaalu\CeiffCardController.cs" />
     <Compile Include="Alaalu\DemairPeliaenCardController.cs" />
