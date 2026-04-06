@@ -8,6 +8,7 @@
       "count": 1,
       "title": "Akash'bhuta",
       "promoTitle": "Unsustainable Akash'bhuta",
+      "backgroundColor": "E0C8A7",
       "keywords": [
         "villain"
       ],
@@ -24,14 +25,15 @@
         "Put [i]Unsustainable Akash'bhuta[/i] into play, “Choking Overgrowth” side up, with 70 HP.{BR}Reveal cards from the villain deck until {H - 1} Primeval Limbs are revealed. Put them into play and shuffle the other revealed cards back into the villain deck."
       ],
       "gameplay": [
-        "When {AkashBhuta} would deal herself energy damage, she regains half that much HP instead, rounded down.",
-        "At the end of the villain turn, each villain target regains 1 HP.",
+        "When {AkashBhuta} would deal herself energy damage, she deals the {H + 2} non-villain targets with the lowest HP 1 toxic damage instead.",
+        "At the end of the villain turn, {AkashBhuta} regains {H} HP.",
         "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
       ],
       "icons": [
         "CancelledDamageRed",
-        "GainHP",
-        "EndOfTurnAction"
+        "DealDamageToxic",
+        "EndOfTurnAction",
+        "GainHP"
       ],
       "advanced": "When {AkashBhuta} flips to this side, play the top card of the environment deck.",
       "advancedIcons": [
@@ -40,7 +42,7 @@
       "flippedBody": "Devastating Wildfire",
       "flippedGameplay": [
         "When {AkashBhuta} would deal herself energy damage, destroy 1 hero ongoing or equipment card instead.",
-        "At the end of the villain turn, each villain target deals the non-villain target with the highest HP 1 fire damage.",
+        "At the end of the villain turn, {AkashBhuta} deals the {H + 2} non-villain targets with the highest HP 2 fire damage each.",
         "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
       ],
       "flippedIcons": [
@@ -64,7 +66,7 @@
         "CaptainCosmicCharacter": "Your little golden sparks will be as easy to extinguish as your lives.",
         "PrimeWardensCaptainCosmicCharacter": "This world is mine to shape, and my vision has no more room for man. If you wish to survive, then flee.",
         "XtremePrimeWardensCaptainCosmicCharacter": "I am eternal and all-encompassing... and you bring guns to shoot at me. Are you lost, little hunter?",
-        "CaptainCosmicRequitalCharacter": "You could have survived this, if you had the sense to flee. This world is mine, but I would begrudge you no others.",
+        "CaptainCosmicRequitalCharacter": "You could have survived this, if you had the sense to flee. This world is mine.",
         "FanaticCharacter": "I am the only creator this world has ever known. I will be its destroyer, as well.",
         "RedeemerFanaticCharacter": "When the earth swallows you whole and spits out the bones of those you protect, what will you believe in?",
         "PrimeWardensFanaticCharacter": "Yes- turn your sword on me, like you do with everything you don't understand. Humankind has taught you well.",
@@ -76,7 +78,9 @@
         "TempestCharacter": "I am the land and the sea and all that grows upon them. What hope do you have to oppose me?",
         "TempestFreedomSixCharacter": "No storm will quiet me this time. You face the world in uproar.",
         "PrimeWardensTempestCharacter": "You know the monstrosity that lurks in the human heart. Why fight for them, when you could join me and take this world for your people?",
-        "XtremePrimeWardensTempestCharacter": "Every stone, every branch, every leaf is mine to command. What power do you have here?"
+        "XtremePrimeWardensTempestCharacter": "Every stone, every branch, every leaf is mine to command. What power do you have here?",
+        "AkashThriyaCharacter": "I have no compassion for traitors. If you stand with humanity, you will fall with them.",
+        "AkashThriyaSpiritOfTheVoidCharacter": "This is the bargain you made to survive? How pitiful."
       }
     }
   ]

@@ -12,8 +12,10 @@ namespace BartKFSentinels.AkashBhuta
     {
         public UnsustainableAkashBhutaCharacterCardController(Card card, TurnTakerController turnTakerController) : base(card, turnTakerController)
         {
-            // Back side: show non-villain target with highest HP
-            SpecialStringMaker.ShowNonVillainTargetWithHighestHP().Condition = () => Card.IsFlipped;
+            // Front side: show H+2 non-villain targets with lowest HP
+            SpecialStringMaker.ShowNonVillainTargetWithLowestHP(numberOfTargets: H + 2).Condition = () => !Card.IsFlipped;
+            // Back side: show H+2 non-villain targets with highest HP
+            SpecialStringMaker.ShowNonVillainTargetWithHighestHP(numberOfTargets: H + 2).Condition = () => Card.IsFlipped;
             // Both sides: show whether Akash'bhuta has flipped this turn
             SpecialStringMaker.ShowIfElseSpecialString(() => HasBeenSetToTrueThisTurn(HasFlipped), () => Card.Title + " has already flipped this turn.", () => Card.Title + " has not yet flipped this turn.");
             // Both sides: if she hasn't flipped this turn, show whether a non-hero card has entered the trash this turn
@@ -35,18 +37,22 @@ namespace BartKFSentinels.AkashBhuta
             if (!Card.IsFlipped)
             {
                 // Front side:
-                // "When {AkashBhuta} would deal herself energy damage, she regains half that much HP instead, rounded down."
-                AddSideTrigger(AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DamageSource != null && dda.DamageSource.Card == CharacterCard && dda.DamageType == DamageType.Energy, (DealDamageAction dda) => GameController.GainHP(CharacterCard, dda.Amount / 2, cardSource: GetCardSource()), new TriggerType[] { TriggerType.GainHP }));
-                // "At the end of the villain turn, each villain target regains 1 HP."
-                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.GainHP(DecisionMaker, (Card c) => IsVillainTarget(c), 1, cardSource: GetCardSource()), TriggerType.GainHP));
+                // "When {AkashBhuta} would deal herself energy damage, she deals the {H + 2} non-villain targets with the lowest HP 1 toxic damage instead."
+                AddSideTrigger(AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DamageSource != null && dda.DamageSource.Card == CharacterCard && dda.DamageType == DamageType.Energy, (DealDamageAction dda) => DealDamageToLowestHPEx(CharacterCard, 1, (Card c) => !IsVillainTarget(c), (Card c) => 1, DamageType.Toxic, numberOfTargets: () => H + 2), new TriggerType[] { TriggerType.GainHP }));
+                // "At the end of the villain turn, {AkashBhuta} regains {H} HP."
+                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.GainHP(CharacterCard, H, cardSource: GetCardSource()), TriggerType.GainHP));
+                /*// "At the end of the villain turn, each villain target regains 1 HP and deals the non-villain target with the highest HP 1 toxic damage."
+                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.SelectCardsAndDoAction(new SelectCardsDecision(GameController, DecisionMaker, (Card c) => IsVillainTarget(c) && c.IsInPlayAndHasGameText, SelectionType.GainHP, numberOfCards: null, eliminateOptions: true, allowAutoDecide: true, cardSource: GetCardSource()), (SelectCardDecision d) => HealToxicResponse(d.SelectedCard), cardSource: GetCardSource()), new TriggerType[] { TriggerType.GainHP, TriggerType.DealDamage }));*/
             }
             else
             {
                 // Back side:
                 // "When {AkashBhuta} would deal herself energy damage, destroy 1 hero ongoing or equipment card instead."
                 AddSideTrigger(AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DamageSource != null && dda.DamageSource.Card == CharacterCard && dda.DamageType == DamageType.Energy, (DealDamageAction dda) => GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsEquipment(c) || (IsHero(c) && IsOngoing(c)), "hero ongoing or equipment"), false, cardSource: GetCardSource()), new TriggerType[] { TriggerType.DestroyCard }));
-                // "At the end of the villain turn, each villain target deals the non-villain target with the highest HP 1 fire damage."
-                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => IsVillainTarget(c), "villain", singular: "target", plural: "targets"), TargetType.HighestHP, 1, new LinqCardCriteria((Card c) => !IsVillainTarget(c), "non-villain", singular: "target", plural: "targets"), 1, DamageType.Fire), TriggerType.DealDamage));
+                // "At the end of the villain turn, {AkashBhuta} deals the {H + 2} non-villain targets with the highest HP 2 fire damage each."
+                AddSideTrigger(AddDealDamageAtEndOfTurnTrigger(TurnTaker, CharacterCard, (Card c) => !IsVillainTarget(c), TargetType.HighestHP, 2, DamageType.Fire, numberOfTargets: H + 2));
+                /*// "At the end of the villain turn, each villain target deals the non-villain target with the highest HP 2 fire damage."
+                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => IsVillainTarget(c), "villain", singular: "target", plural: "targets"), TargetType.HighestHP, 1, new LinqCardCriteria((Card c) => !IsVillainTarget(c), "non-villain", singular: "target", plural: "targets"), 2, DamageType.Fire), TriggerType.DealDamage));*/
             }
             AddDefeatedIfDestroyedTriggers();
         }
