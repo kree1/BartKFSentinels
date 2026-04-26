@@ -41,5 +41,10 @@
 			"TheEmpire",
 			"TheGigamorph"
 		]
+	},
+	"variants": {
+		"AkashBhuta": [
+			"UnsustainableAkashBhutaCharacter"
+		]
 	}
 }
