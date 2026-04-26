@@ -1,0 +1,508 @@
+{
+	"name": "Symphony",
+	"kind": "Hero",
+	"initialCardIdentifiers": [
+		"SymphonyCharacter"
+	],
+	"promoCards": [
+		{
+			"identifier": "SymphonyCharacter",
+			"promoIdentifier": "SymphonyInConcertCharacter",
+			"count": 1,
+			"title": "Symphony",
+			"promoTitle": "Symphony In Concert",
+			"body": "Synchronize",
+			"backgroundColor": "3FFFED",
+			"character": true,
+			"powers": [
+				"Discard a card. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
+			],
+			"icons": [
+				"HasPower",
+				"Discard",
+				"DealDamageSonic"
+			],
+			"hitpoints": 27,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Symphony"
+			],
+			"incapacitatedAbilities": [
+				"One player may draw a card.",
+				"One player may play a card.",
+				"Select a target. Increase the next damage dealt by that target by 2."
+			],
+			"flippedIcons": [
+				"DrawCardNow",
+				"PlayCardNow",
+				"IncreaseDamageDealt"
+			],
+			"complexity": 2,
+			"openingLines": {
+				"default": "..."
+			}
+		}
+	],
+	"cards": [
+		{
+			"identifier": "SymphonyCharacter",
+			"count": 1,
+			"title": "Symphony",
+			"body": "Multitask",
+			"backgroundColor": "50BF00",
+			"character": true,
+			"powers": [
+				"You may play a one-shot card. You may draw a card."
+			],
+			"icons": [
+				"HasPower",
+				"PlayCardNow",
+				"DrawCardNow"
+			],
+			"hitpoints": 29,
+			"nemesisIdentifiers": [
+				"BartKFSentinels.Symphony"
+			],
+			"incapacitatedAbilities": [
+				"One player may draw 3 cards. If they do, they discard 2 cards.",
+				"One hero may use a power.",
+				"Select a target. Reduce the next damage dealt to that target by 2."
+			],
+			"flippedIcons": [
+				"DrawCardNow",
+				"Discard",
+				"UsePowerNow",
+				"ReduceDamageTaken"
+			],
+			"complexity": 2,
+			"openingLines": {
+				"default": "..."
+			}
+		},
+		{
+			"identifier": "Counterfrequency",
+			"count": 2,
+			"title": "Counterfrequency",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card."
+			],
+			"powers": [
+				"Select a target. Prevent the next damage dealt by that target. Draw 3 cards."
+			],
+			"icons": [
+				"DealDamagePsychic",
+				"HasPower",
+				"CancelledDamageGreen",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "DestructiveResonance",
+			"count": 2,
+			"title": "Destructive Resonance",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card."
+			],
+			"powers": [
+				"You may destroy 1 of your non-character cards and/or 1 ongoing or non-target environment card. Draw 3 cards."
+			],
+			"icons": [
+				"DealDamagePsychic",
+				"HasPower",
+				"Destroy",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "EncodedTransmission",
+			"count": 2,
+			"title": "Encoded Transmission",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Reveal the top card of a deck, then replace it.",
+				"Discard up to 2 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"Manipulate",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ExpandedEnsemble",
+			"count": 6,
+			"title": "Expanded Ensemble",
+			"keywords": [
+				"equipment"
+			],
+			"body": [
+				"You may play an additional card during your play phase.",
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card.",
+				"At the end of your turn, draw 2 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"PlayCardExtra",
+				"DealDamagePsychic",
+				"EndOfTurnAction",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Fortissimo",
+			"count": 2,
+			"title": "",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Select a target. Increase the next damage dealt by that target to another target by 2.",
+				"Discard up to 2 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"IncreaseDamageDealt",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "HalfRest",
+			"count": 2,
+			"title": "Half Rest",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Each other player may draw a card or have their hero regain 2 HP.",
+				"You may discard a card."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DrawCardNow",
+				"GainHP",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Harmonize",
+			"count": 3,
+			"title": "Harmonize",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Draw a card, discard a card, or play a card.",
+				"Draw a card, discard a card, or play a card."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DrawCardNow",
+				"Discard",
+				"PlayCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "InspiringRefrain",
+			"count": 2,
+			"title": "Inspiring Refrain",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card.",
+				"At the end of your turn, draw 3 cards and up to 3 targets regain 2 HP."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DealDamagePsychic",
+				"EndOfTurnAction",
+				"DrawCardNow",
+				"GainHP"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Interference",
+			"count": 2,
+			"title": "Interference",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"{Symphony} deals 1 target 1 sonic damage. Until the start of your turn, reduce damage dealt by that target by 1.",
+				"You may discard a card."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DealDamageSonic",
+				"ReduceDamageDealt",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "NanoFabrication",
+			"count": 4,
+			"title": "Nano-Fabrication",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Another player may discard a card.",
+				"If they do, they may play a non-one-shot card.",
+				"If not, search your deck and trash for a non-one-shot card and put it into your hand or into play. If you searched your deck, shuffle it."
+			],
+			"powers": [
+			],
+			"icons": [
+				"Discard",
+				"PlayCardNow",
+				"Search"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "ObstacleAvoidance",
+			"count": 2,
+			"title": "Obstacle Avoidance",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"Reduce damage dealt to {Symphony} by non-hero sources by 1.",
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card.",
+				"At the end of your turn, draw 3 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DealDamagePsychic",
+				"ReduceDamageTaken",
+				"EndOfTurnAction",
+				"DrawCardNow"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Pianissimo",
+			"count": 2,
+			"title": "Pianissimo",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Select a target. Reduce the next damage dealt to that target by another target by 2.",
+				"Discard up to 2 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"ReduceDamageTaken",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Solo",
+			"count": 2,
+			"title": "Solo",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"One hero may use a power.",
+				"You may return this card to your hand."
+			],
+			"powers": [
+			],
+			"icons": [
+				"UsePowerNow",
+				"Manipulate"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "SourNote",
+			"count": 2,
+			"title": "Sour Note",
+			"keywords": [
+				"ongoing",
+				"limited"
+			],
+			"body": [
+				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible psychic damage and you may destroy this card."
+			],
+			"powers": [
+				"{Symphony} deals 1 target 3 sonic damage. Draw 2 cards."
+			],
+			"icons": [
+				"DealDamagePsychic",
+				"HasPower",
+				"DealDamageSonic",
+				"DrawCard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "TuneUp",
+			"count": 3,
+			"title": "",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Draw up to 4 cards.",
+				"Discard up to 5 cards."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DrawCardNow",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
+			"identifier": "WholeRest",
+			"count": 2,
+			"title": "Whole Rest",
+			"keywords": [
+				"one-shot"
+			],
+			"body": [
+				"Destroy any number of your non-character cards. {Symphony} regains that much HP.",
+				"Discard any number of cards. X other targets regain 2 HP each, where X is the number of cards discarded this way.",
+				"Immediately end your turn."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DestroyHero",
+				"Discard",
+				"SkipTurn"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		}
+	]
+}
