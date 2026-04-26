@@ -25,15 +25,16 @@
         "Put [i]Unsustainable Akash'bhuta[/i] into play, “Choking Overgrowth” side up, with 70 HP.{BR}Reveal cards from the villain deck until {H - 1} Primeval Limbs are revealed. Put them into play and shuffle the other revealed cards back into the villain deck."
       ],
       "gameplay": [
+        "When a primeval limb card enters play, it deals itself 3 toxic damage and {AkashBhuta} regains 1 HP.",
         "When {AkashBhuta} would deal herself energy damage, she deals the {H + 2} non-villain targets with the lowest HP 1 toxic damage instead.",
         "At the end of the villain turn, {AkashBhuta} regains {H} HP.",
         "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
       ],
       "icons": [
-        "CancelledDamageRed",
         "DealDamageToxic",
-        "EndOfTurnAction",
-        "GainHP"
+        "GainHP",
+        "CancelledDamageRed",
+        "EndOfTurnAction"
       ],
       "advanced": "When {AkashBhuta} flips to this side, play the top card of the environment deck.",
       "advancedIcons": [
@@ -41,15 +42,16 @@
       ],
       "flippedBody": "Devastating Wildfire",
       "flippedGameplay": [
+        "When a primeval limb card enters play, it deals itself 4 fire damage and deals the non-villain target with the highest HP 1 fire damage.",
         "When {AkashBhuta} would deal herself energy damage, destroy 1 hero ongoing or equipment card instead.",
         "At the end of the villain turn, {AkashBhuta} deals the {H + 2} non-villain targets with the highest HP 2 fire damage each.",
         "The second time a non-hero card enters its trash each turn, flip {AkashBhuta}. {AkashBhuta} flips only once each turn."
       ],
       "flippedIcons": [
+        "DealDamageFire",
         "CancelledDamageRed",
         "DestroyHero",
-        "EndOfTurnAction",
-        "DealDamageFire"
+        "EndOfTurnAction"
       ],
       "flippedAdvanced": "When {AkashBhuta} flips to this side, destroy an environment card. If a card was destroyed this way, {H - 1} players discard a card.",
       "flippedAdvancedIcons": [

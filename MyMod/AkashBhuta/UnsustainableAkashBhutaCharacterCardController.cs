@@ -14,6 +14,8 @@ namespace BartKFSentinels.AkashBhuta
         {
             // Front side: show H+2 non-villain targets with lowest HP
             SpecialStringMaker.ShowNonVillainTargetWithLowestHP(numberOfTargets: H + 2).Condition = () => !Card.IsFlipped;
+            // Back side: show non-villain target with highest HP
+            SpecialStringMaker.ShowNonVillainTargetWithHighestHP(numberOfTargets: 1).Condition = () => Card.IsFlipped;
             // Back side: show H+2 non-villain targets with highest HP
             SpecialStringMaker.ShowNonVillainTargetWithHighestHP(numberOfTargets: H + 2).Condition = () => Card.IsFlipped;
             // Both sides: show whether Akash'bhuta has flipped this turn
@@ -37,22 +39,22 @@ namespace BartKFSentinels.AkashBhuta
             if (!Card.IsFlipped)
             {
                 // Front side:
+                // "When a primeval limb card enters play, it deals itself 3 toxic damage and {AkashBhuta} regains 1 HP."
+                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsPrimevalLimb, ChokeResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.GainHP }, TriggerTiming.After));
                 // "When {AkashBhuta} would deal herself energy damage, she deals the {H + 2} non-villain targets with the lowest HP 1 toxic damage instead."
                 AddSideTrigger(AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DamageSource != null && dda.DamageSource.Card == CharacterCard && dda.DamageType == DamageType.Energy, (DealDamageAction dda) => DealDamageToLowestHPEx(CharacterCard, 1, (Card c) => !IsVillainTarget(c), (Card c) => 1, DamageType.Toxic, numberOfTargets: () => H + 2), new TriggerType[] { TriggerType.GainHP }));
                 // "At the end of the villain turn, {AkashBhuta} regains {H} HP."
                 AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.GainHP(CharacterCard, H, cardSource: GetCardSource()), TriggerType.GainHP));
-                /*// "At the end of the villain turn, each villain target regains 1 HP and deals the non-villain target with the highest HP 1 toxic damage."
-                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => GameController.SelectCardsAndDoAction(new SelectCardsDecision(GameController, DecisionMaker, (Card c) => IsVillainTarget(c) && c.IsInPlayAndHasGameText, SelectionType.GainHP, numberOfCards: null, eliminateOptions: true, allowAutoDecide: true, cardSource: GetCardSource()), (SelectCardDecision d) => HealToxicResponse(d.SelectedCard), cardSource: GetCardSource()), new TriggerType[] { TriggerType.GainHP, TriggerType.DealDamage }));*/
             }
             else
             {
                 // Back side:
+                // "When a primeval limb card enters play, it deals itself 4 fire damage and deals the non-villain target with the highest HP 1 fire damage."
+                AddSideTrigger(AddTrigger((CardEntersPlayAction cepa) => cepa.CardEnteringPlay.IsPrimevalLimb, BurnResponse, TriggerType.DealDamage, TriggerTiming.After));
                 // "When {AkashBhuta} would deal herself energy damage, destroy 1 hero ongoing or equipment card instead."
                 AddSideTrigger(AddPreventDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && dda.DamageSource != null && dda.DamageSource.Card == CharacterCard && dda.DamageType == DamageType.Energy, (DealDamageAction dda) => GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsEquipment(c) || (IsHero(c) && IsOngoing(c)), "hero ongoing or equipment"), false, cardSource: GetCardSource()), new TriggerType[] { TriggerType.DestroyCard }));
                 // "At the end of the villain turn, {AkashBhuta} deals the {H + 2} non-villain targets with the highest HP 2 fire damage each."
                 AddSideTrigger(AddDealDamageAtEndOfTurnTrigger(TurnTaker, CharacterCard, (Card c) => !IsVillainTarget(c), TargetType.HighestHP, 2, DamageType.Fire, numberOfTargets: H + 2));
-                /*// "At the end of the villain turn, each villain target deals the non-villain target with the highest HP 2 fire damage."
-                AddSideTrigger(AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => MultipleDamageSourcesDealDamage(new LinqCardCriteria((Card c) => IsVillainTarget(c), "villain", singular: "target", plural: "targets"), TargetType.HighestHP, 1, new LinqCardCriteria((Card c) => !IsVillainTarget(c), "non-villain", singular: "target", plural: "targets"), 2, DamageType.Fire), TriggerType.DealDamage));*/
             }
             AddDefeatedIfDestroyedTriggers();
         }
@@ -154,6 +156,56 @@ namespace BartKFSentinels.AkashBhuta
             else
             {
                 GameController.ExhaustCoroutine(flipCoroutine);
+            }
+        }
+
+        public IEnumerator ChokeResponse(CardEntersPlayAction cepa)
+        {
+            Card limb = cepa.CardEnteringPlay;
+            // "... it deals itself 3 toxic damage..."
+            IEnumerator toxicCoroutine = DealDamage(limb, limb, 3, DamageType.Toxic, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(toxicCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(toxicCoroutine);
+            }
+            // "... and {AkashBhuta} regains 1 HP."
+            IEnumerator healCoroutine = GameController.GainHP(CharacterCard, 1, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(healCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(healCoroutine);
+            }
+        }
+
+        public IEnumerator BurnResponse(CardEntersPlayAction cepa)
+        {
+            Card limb = cepa.CardEnteringPlay;
+            // "... it deals itself 4 fire damage..."
+            IEnumerator selfCoroutine = DealDamage(limb, limb, 4, DamageType.Fire, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(selfCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(selfCoroutine);
+            }
+            // "... and deals the non-villain target with the highest HP 1 fire damage."
+            IEnumerator otherCoroutine = DealDamageToHighestHP(limb, 1, (Card c) => !IsVillainTarget(c), (Card c) => 1, DamageType.Fire);
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(otherCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(otherCoroutine);
             }
         }
     }
