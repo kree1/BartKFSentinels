@@ -14,14 +14,17 @@ namespace BartKFSentinels.Symphony
         public NanoFabricationCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            // Show list of non-one-shot cards in Symphony's deck
+            SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Deck, new LinqCardCriteria((Card c) => !c.IsOneShot, "non-one-shot"));
+            // Show list of non-one-shot cards in Symphony's trash
+            SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Trash, new LinqCardCriteria((Card c) => !c.IsOneShot, "non-one-shot"));
         }
 
         public override IEnumerator Play()
         {
             // "Another player may discard a card."
             List<DiscardCardAction> discardResults = new List<DiscardCardAction>();
-            IEnumerator discardCoroutine = GameController.SelectHeroToDiscardCard(DecisionMaker, storedResultsDiscard: discardResults, cardSource: GetCardSource());
+            IEnumerator discardCoroutine = GameController.SelectHeroToDiscardCard(DecisionMaker, additionalHeroCriteria: new LinqTurnTakerCriteria((TurnTaker tt) => tt != TurnTaker), storedResultsDiscard: discardResults, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(discardCoroutine);
