@@ -93,7 +93,7 @@ namespace BartKFSentinels.Symphony
             // "[tt] may draw 3 cards. If they do, they discard 2 cards."
             HeroTurnTakerController httc = FindTurnTakerController(tt).ToHero();
             List<DrawCardAction> drawResults = new List<DrawCardAction>();
-            IEnumerator drawCoroutine = DrawCards(httc, 3, optional: true);
+            IEnumerator drawCoroutine = DrawCards(httc, 3, storedResults: drawResults, optional: true);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(drawCoroutine);
