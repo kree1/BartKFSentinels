@@ -89,6 +89,7 @@
     <Compile Include="Symphony\SourNoteCardController.cs" />
     <Compile Include="Symphony\SymphonyCharacterCardController.cs" />
     <Compile Include="Symphony\SymphonyInConcertCharacterCardController.cs" />
+    <Compile Include="Symphony\SymphonyTurnTakerController.cs" />
     <Compile Include="Symphony\TuneUpCardController.cs" />
     <Compile Include="Symphony\WholeRestCardController.cs" />
     <Compile Include="Victory\AtomicPiledriverCardController.cs" />
