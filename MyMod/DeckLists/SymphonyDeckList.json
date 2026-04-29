@@ -442,7 +442,7 @@
 				"DealDamagePsychic",
 				"HasPower",
 				"DealDamageSonic",
-				"DrawCard"
+				"DrawCardNow"
 			],
 			"flavorQuotes": [
 				{

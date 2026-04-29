@@ -126,7 +126,7 @@ namespace BartKFSentinels.Symphony
         {
             // "Select a target. Reduce the next damage dealt to that target by 2."
             List<SelectCardDecision> targetChoices = new List<SelectCardDecision>();
-            IEnumerator chooseCoroutine = GameController.SelectCardAndStoreResults(DecisionMaker, SelectionType.ReduceDamageDealt, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.IsTarget), targetChoices, false, cardSource: GetCardSource());
+            IEnumerator chooseCoroutine = GameController.SelectCardAndStoreResults(DecisionMaker, SelectionType.ReduceNextDamageTaken, new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && c.IsTarget), targetChoices, false, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(chooseCoroutine);
