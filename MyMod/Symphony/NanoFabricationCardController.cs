@@ -106,7 +106,15 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(searchCoroutine);
             }
-            if (!moveResults.Any((MoveCardAction mca) => mca.WasCardMoved && mca.Destination.IsInPlay))
+            /*Log.Debug("NanoFabricationCardController.Play: moveResults.Any(): " + moveResults.Any().ToString());
+            foreach (MoveCardAction mca in moveResults)
+            {
+                Log.Debug(" mca: " + mca.ToString());
+                Log.Debug(" mca.WasCardMoved: " + mca.WasCardMoved.ToString());
+                Log.Debug(" mca.Destination.IsInPlay: " + mca.Destination.IsInPlay.ToString());
+                Log.Debug(" mca.IsSuccessful: " + mca.IsSuccessful.ToString());
+            }*/
+            if (!moveResults.Any((MoveCardAction mca) => mca.IsSuccessful && mca.Destination.IsInPlay))
             {
                 // "If no card entered play this way, another player may discard a card."
                 List<DiscardCardAction> discardResults = new List<DiscardCardAction>();
