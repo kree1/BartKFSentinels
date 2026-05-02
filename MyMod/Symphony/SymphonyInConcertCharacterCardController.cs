@@ -19,17 +19,17 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Discard a card. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
+            // "Draw a card. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
             int numTargets = GetPowerNumeral(0, 1);
             int baseX = GetPowerNumeral(1, 1);
-            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, cardSource: GetCardSource());
+            IEnumerator drawCoroutine = DrawCard();
             if (UseUnityCoroutines)
             {
-                yield return GameController.StartCoroutine(discardCoroutine);
+                yield return GameController.StartCoroutine(drawCoroutine);
             }
             else
             {
-                GameController.ExhaustCoroutine(discardCoroutine);
+                GameController.ExhaustCoroutine(drawCoroutine);
             }
             IEnumerator sonicCoroutine = GameController.SelectTargetsAndDealDamage(DecisionMaker, new DamageSource(GameController, CharacterCard), (Card t) => baseX + FindCardsWhere((Card c) => c.IsInPlay && IsEquipment(c) && c.Owner == TurnTaker).Count(), DamageType.Sonic, () => numTargets, false, null, cardSource: GetCardSource());
             if (UseUnityCoroutines)

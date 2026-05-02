@@ -26,8 +26,8 @@ namespace BartKFSentinels.Symphony
 
         public IEnumerator DrawCardsHealTargetsResponse(PhaseChangeAction pca)
         {
-            // "... draw 3 cards..."
-            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 3);
+            // "... draw 5 cards..."
+            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 5);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(drawCoroutine);
