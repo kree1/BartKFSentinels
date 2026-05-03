@@ -486,7 +486,7 @@
 			],
 			"body": [
 				"Destroy any number of your non-character cards. {Symphony} regains that much HP.",
-				"Discard any number of cards. X other targets regain 2 HP each, where X is the number of cards discarded this way.",
+				"Discard any number of cards. Up to X other targets regain 2 HP each, where X is the number of cards discarded this way.",
 				"Immediately end your turn."
 			],
 			"powers": [

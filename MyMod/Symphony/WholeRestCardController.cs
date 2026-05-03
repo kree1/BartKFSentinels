@@ -51,8 +51,8 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
             }
-            // "X other targets regain 2 HP each, where X is the number of cards discarded this way."
-            IEnumerator othersCoroutine = GameController.SelectAndGainHP(DecisionMaker, 2, additionalCriteria: (Card c) => c != CharacterCard, numberOfTargets: GetNumberOfCardsDiscarded(discardResults), allowAutoDecide: GetNumberOfCardsDiscarded(discardResults) >= FindCardsWhere((Card c) => c.IsTarget && c != CharacterCard && c.IsInPlayAndHasGameText).Count(), cardSource: GetCardSource());
+            // "Up to X other targets regain 2 HP each, where X is the number of cards discarded this way."
+            IEnumerator othersCoroutine = GameController.SelectAndGainHP(DecisionMaker, 2, additionalCriteria: (Card c) => c != CharacterCard, numberOfTargets: GetNumberOfCardsDiscarded(discardResults), requiredDecisions: 0, allowAutoDecide: GetNumberOfCardsDiscarded(discardResults) >= FindCardsWhere((Card c) => c.IsTarget && c != CharacterCard && c.IsInPlayAndHasGameText).Count(), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(othersCoroutine);
