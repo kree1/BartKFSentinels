@@ -17,10 +17,12 @@ namespace BartKFSentinels.Symphony
 
         }
 
+        public readonly string MeasureKeyword = "measure";
+
         public override IEnumerator UsePower(int index = 0)
         {
-            // "You may play a one-shot card. You may draw a card."
-            IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => c.IsOneShot, "one-shot"), cardSource: GetCardSource());
+            // "You may play a measure card. You may draw a card."
+            IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MeasureKeyword), MeasureKeyword), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(playCoroutine);

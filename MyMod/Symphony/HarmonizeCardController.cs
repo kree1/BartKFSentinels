@@ -17,17 +17,28 @@ namespace BartKFSentinels.Symphony
 
         }
 
+        public readonly string MeasureKeyword = "measure";
+
         public override IEnumerator Play()
         {
-            // "Draw a card, discard a card, or play a card."
-            // "Draw a card, discard a card, or play a card."
+            // "Draw 2 cards."
+            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(drawCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(drawCoroutine);
+            }
+            // "Discard a card or play a measure card."
+            // "Discard a card or play a measure card."
             for (int i = 0; i < 2; i++)
             {
                 List<Function> options = new List<Function>();
-                options.Add(new Function(DecisionMaker, "Draw a card", SelectionType.DrawCard, () => DrawCard(), onlyDisplayIfTrue: CanDrawCards(DecisionMaker), forcedActionMessage: TurnTaker.Name + " cannot discard or play any cards, so they'll have to draw one.", repeatDecisionText: "draw a card"));
-                options.Add(new Function(DecisionMaker, "Discard a card", SelectionType.DiscardCard, () => GameController.SelectAndDiscardCard(DecisionMaker, cardSource: GetCardSource()), onlyDisplayIfTrue: HeroTurnTaker.Hand.Cards.Any(), forcedActionMessage: TurnTaker.Name + " cannot draw or play any cards, so they'll have to discard one.", repeatDecisionText: "discard a card"));
-                options.Add(new Function(DecisionMaker, "Play a card", SelectionType.PlayCard, () => GameController.SelectAndPlayCardFromHand(DecisionMaker, false, cardSource: GetCardSource()), onlyDisplayIfTrue: CanPlayCards(DecisionMaker) && HeroTurnTaker.Hand.Cards.Any((Card c) => GameController.CanPlayCard(FindCardController(c)) == CanPlayCardResult.CanPlay), repeatDecisionText: "play a card"));
-                SelectFunctionDecision choice = new SelectFunctionDecision(GameController, DecisionMaker, options, false, noSelectableFunctionMessage: TurnTaker.Name + " cannot draw, discard, or play any cards.", cardSource: GetCardSource());
+                options.Add(new Function(DecisionMaker, "Discard a card", SelectionType.DiscardCard, () => GameController.SelectAndDiscardCard(DecisionMaker, cardSource: GetCardSource()), onlyDisplayIfTrue: HeroTurnTaker.Hand.Cards.Any(), forcedActionMessage: TurnTaker.Name + " cannot play any " + MeasureKeyword + " cards, so they'll have to discard one.", repeatDecisionText: "discard a card"));
+                options.Add(new Function(DecisionMaker, "Play a " + MeasureKeyword + " card", SelectionType.PlayCard, () => GameController.SelectAndPlayCardFromHand(DecisionMaker, false, cardCriteria: new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MeasureKeyword), MeasureKeyword), cardSource: GetCardSource()), onlyDisplayIfTrue: CanPlayCards(DecisionMaker) && HeroTurnTaker.Hand.Cards.Any((Card c) => GameController.DoesCardContainKeyword(c, MeasureKeyword) && GameController.CanPlayCard(FindCardController(c)) == CanPlayCardResult.CanPlay), repeatDecisionText: "play a " + MeasureKeyword + " card"));
+                SelectFunctionDecision choice = new SelectFunctionDecision(GameController, DecisionMaker, options, false, noSelectableFunctionMessage: TurnTaker.Name + " cannot discard any cards or play any " + MeasureKeyword + " cards.", cardSource: GetCardSource());
                 IEnumerator chooseCoroutine = GameController.SelectAndPerformFunction(choice);
                 if (UseUnityCoroutines)
                 {

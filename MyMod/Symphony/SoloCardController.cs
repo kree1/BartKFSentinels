@@ -19,25 +19,32 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator Play()
         {
-            // "One hero may use a power."
-            IEnumerator powerCoroutine = GameController.SelectHeroToUsePower(DecisionMaker, cardSource: GetCardSource());
-            if (UseUnityCoroutines)
+            // "One hero regains 2 HP and may use a power."
+            return GameController.SelectCardAndDoAction(new SelectCardDecision(GameController, DecisionMaker, SelectionType.GainHPAndUsePower, FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && !c.IsIncapacitated && IsHeroCharacterCard(c), "active hero character")), cardSource: GetCardSource()), (SelectCardDecision d) => GainHPAndUsePower(d.SelectedCard));
+        }
+
+        public IEnumerator GainHPAndUsePower(Card c)
+        {
+            if (c != null)
             {
-                yield return GameController.StartCoroutine(powerCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(powerCoroutine);
-            }
-            // "Draw a card."
-            IEnumerator drawCoroutine = DrawCard();
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(drawCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(drawCoroutine);
+                IEnumerator healCoroutine = GameController.GainHP(c, 2, cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(healCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(healCoroutine);
+                }
+                IEnumerator powerCoroutine = SelectAndUsePower(FindCardController(c));
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(powerCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(powerCoroutine);
+                }
             }
         }
     }

@@ -76,6 +76,7 @@
     <Compile Include="Symphony\CounterfrequencyCardController.cs" />
     <Compile Include="Symphony\DestructiveResonanceCardController.cs" />
     <Compile Include="Symphony\EncodedTransmissionCardController.cs" />
+    <Compile Include="Symphony\EscapeToneCardController.cs" />
     <Compile Include="Symphony\ExpandedEnsembleCardController.cs" />
     <Compile Include="Symphony\FortissimoCardController.cs" />
     <Compile Include="Symphony\HalfRestCardController.cs" />

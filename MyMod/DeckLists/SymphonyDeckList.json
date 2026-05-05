@@ -51,7 +51,7 @@
 			"backgroundColor": "50BF00",
 			"character": true,
 			"powers": [
-				"You may play a note card. You may draw a card."
+				"You may play a measure card. You may draw a card."
 			],
 			"icons": [
 				"HasPower",
@@ -88,10 +88,10 @@
 			],
 			"body": [
 				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards."
+				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards.",
+				"[b]Power:[/b] Move this card next to a target."
 			],
 			"powers": [
-				"Move this card next to a target."
 			],
 			"icons": [
 				"DealDamageLightning",
@@ -141,7 +141,7 @@
 			"title": "Encoded Transmission",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"Reveal the top card of a deck, then replace it.",
@@ -167,7 +167,7 @@
 			"title": "Escape Tone",
 			"keywords": [
 				"ongoing",
-				"note",
+				"measure",
 				"limited"
 			],
 			"body": [
@@ -223,7 +223,7 @@
 			"title": "Fortissimo",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"Select a target. Increase the next damage dealt by that target to another target by 2.",
@@ -249,7 +249,7 @@
 			"title": "Half Rest",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"Another player may discard a card. If they do, they draw 3 cards.",
@@ -280,8 +280,8 @@
 			],
 			"body": [
 				"Draw 2 cards.",
-				"Discard a card or play a note card.",
-				"Discard a card or play a note card."
+				"Discard a card or play a measure card.",
+				"Discard a card or play a measure card."
 			],
 			"powers": [
 			],
@@ -332,7 +332,7 @@
 			"title": "Interference",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"{Symphony} deals 1 target 1 sonic damage. Until the start of your turn, reduce damage dealt by that target by 1.",
@@ -415,7 +415,7 @@
 			"title": "Pianissimo",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"Select a target. Reduce the next damage dealt to that target by another target by 2.",
@@ -441,7 +441,7 @@
 			"title": "Solo",
 			"keywords": [
 				"one-shot",
-				"note"
+				"measure"
 			],
 			"body": [
 				"One hero regains 2 HP and may use a power."
@@ -518,7 +518,8 @@
 			"count": 2,
 			"title": "Whole Rest",
 			"keywords": [
-				"one-shot"
+				"one-shot",
+				"measure"
 			],
 			"body": [
 				"Destroy any number of your non-character cards. {Symphony} regains that much HP.",
@@ -528,7 +529,8 @@
 			],
 			"icons": [
 				"DestroyHero",
-				"Discard"
+				"Discard",
+				"GainHP"
 			],
 			"flavorQuotes": [
 				{

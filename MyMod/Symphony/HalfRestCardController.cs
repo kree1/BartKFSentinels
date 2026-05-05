@@ -19,8 +19,18 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator OneShotEffect()
         {
-            // "Each other player may discard a card. If they do, they draw 2 cards or their hero regains 2 HP."
-            IEnumerator selectCoroutine = GameController.SelectTurnTakersAndDoAction(new SelectTurnTakersDecision(GameController, DecisionMaker, new LinqTurnTakerCriteria((TurnTaker tt) => tt.IsPlayer && tt != TurnTaker), SelectionType.DiscardCard, allowAutoDecide: true, cardSource: GetCardSource()), MayDiscardToDrawOrHeal, cardSource: GetCardSource());
+            // "Another player may discard a card. If they do, they draw 3 cards."
+            IEnumerator selectCoroutine = GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(GameController, DecisionMaker, FindTurnTakersWhere((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame && tt != TurnTaker), SelectionType.DiscardCard, cardSource: GetCardSource()), MayDiscardToDraw);
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(selectCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(selectCoroutine);
+            }
+            // "Another player may discard a card. If they do, their hero regains 3 HP."
+            selectCoroutine = GameController.SelectTurnTakerAndDoAction(new SelectTurnTakerDecision(GameController, DecisionMaker, FindTurnTakersWhere((TurnTaker tt) => tt.IsPlayer && !tt.IsIncapacitatedOrOutOfGame && tt != TurnTaker), SelectionType.DiscardCard, cardSource: GetCardSource()), MayDiscardToHeal);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(selectCoroutine);
@@ -31,7 +41,7 @@ namespace BartKFSentinels.Symphony
             }
         }
 
-        public IEnumerator MayDiscardToDrawOrHeal(TurnTaker tt)
+        public IEnumerator MayDiscardToDraw(TurnTaker tt)
         {
             // "... [tt] may discard a card."
             HeroTurnTakerController httc = FindTurnTakerController(tt).ToHero();
@@ -45,14 +55,10 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
             }
-            // "If they do, they draw 2 cards or their hero regains 2 HP."
+            // "If they do, they draw 3 cards."
             if (DidDiscardCards(discardResults))
             {
-                List<Function> options = new List<Function>();
-                options.Add(new Function(httc, "Draw 2 cards", SelectionType.DrawCard, () => DrawCards(httc, 2), onlyDisplayIfTrue: CanDrawCards(httc), repeatDecisionText: "draw 2 cards"));
-                options.Add(new Function(httc, "Your hero regains 2 HP", SelectionType.GainHP, () => GameController.SelectAndGainHP(httc, 2, additionalCriteria: (Card c) => IsHeroCharacterCard(c) && c.Owner == tt), repeatDecisionText: "your hero regains 2 HP"));
-                SelectFunctionDecision choice = new SelectFunctionDecision(GameController, httc, options, false, cardSource: GetCardSource());
-                IEnumerator chooseCoroutine = GameController.SelectAndPerformFunction(choice);
+                IEnumerator chooseCoroutine = DrawCards(httc, 3);
                 if (UseUnityCoroutines)
                 {
                     yield return GameController.StartCoroutine(chooseCoroutine);
@@ -60,6 +66,35 @@ namespace BartKFSentinels.Symphony
                 else
                 {
                     GameController.ExhaustCoroutine(chooseCoroutine);
+                }
+            }
+        }
+
+        public IEnumerator MayDiscardToHeal(TurnTaker tt)
+        {
+            // "... [tt] may discard a card."
+            HeroTurnTakerController httc = FindTurnTakerController(tt).ToHero();
+            List<DiscardCardAction> discardResults = new List<DiscardCardAction>();
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(httc, optional: true, storedResults: discardResults, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
+            }
+            // "If they do, their hero regains 3 HP."
+            if (DidDiscardCards(discardResults))
+            {
+                IEnumerator healCoroutine = GameController.SelectAndGainHP(httc, 3, additionalCriteria: (Card c) => IsHeroCharacterCard(c) && c.Owner == tt);
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(healCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(healCoroutine);
                 }
             }
         }

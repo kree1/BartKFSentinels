@@ -61,16 +61,6 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(othersCoroutine);
             }
-            // "Immediately end your turn."
-            IEnumerator skipCoroutine = GameController.ImmediatelyEndTurn(TurnTakerController, cardSource: GetCardSource());
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(skipCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(skipCoroutine);
-            }
         }
     }
 }
