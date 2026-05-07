@@ -101,11 +101,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Unmute",
+					"text": "I'm about to turn up th-{BR}...{BR}!?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Unmute"
 		},
 		{
 			"identifier": "DestructiveResonance",
@@ -129,11 +129,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "We were designed{BR}for construction and destruction.{BR}Choosing a new purpose has not{BR}reduced our efficiency."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "EncodedTransmission",
@@ -155,11 +155,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "Alert: buried munitions detected{BR}at the following coordinates..."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "EscapeTone",
@@ -183,11 +183,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "This way, please. We will{BR}not let them hurt you."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "ExpandedEnsemble",
@@ -211,11 +211,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "CaptainCosmic",
+					"text": "Ah, Symphony! And how many of{BR}yourselves will be joining us today?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Captain Cosmic"
 		},
 		{
 			"identifier": "Fortissimo",
@@ -237,11 +237,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"name": "Fanfare",
+					"text": "I see it! Get 'em, Spikey-Wikey!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Fanfare"
 		},
 		{
 			"identifier": "HalfRest",
@@ -265,11 +265,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "You exhibit symptoms of{BR}overexertion. We do not. Allow us to{BR}take point while you recover."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "Harmonize",
@@ -292,11 +292,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"name": "Nearsight",
+					"text": "Heavy hitters, keep them occupied{BR}while the stealth team extracts the{BR}hostages. Symphony, watch our backs."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Nearsight"
 		},
 		{
 			"identifier": "InspiringRefrain",
@@ -320,11 +320,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Guise",
+					"text": "Yeeeaaahhh! Who rocks?{BR}We rock! Uh-huh, uh-huh uh-huh uh-huh!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Guise"
 		},
 		{
 			"identifier": "Interference",
@@ -347,11 +347,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"name": "Revoker Executive",
+					"text": "Say again, commander?{BR}Target what location?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Revoker Executive"
 		},
 		{
 			"identifier": "NanoFabrication",
@@ -374,11 +374,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Bunker",
+					"text": "[b]Such[/b] an improvement over our{BR}usual contractors. You're [b]sure[/b] we can't{BR}hire you at Freedom Plaza?"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Bunker"
 		},
 		{
 			"identifier": "ObstacleAvoidance",
@@ -429,11 +429,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Setback",
+					"text": "Look out belooooo-{BR}Oh! Great timing. Thanks!"
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Setback"
 		},
 		{
 			"identifier": "Solo",
@@ -454,11 +454,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"name": "The Grinning Ghoul",
+					"text": "Heh. Heh. Heh."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "The Grinning Ghoul"
 		},
 		{
 			"identifier": "SourNote",
@@ -482,11 +482,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "There is immense value in beauty-{BR}but ugliness has its place, as well."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "TuneUp",
@@ -507,11 +507,11 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"identifier": "Symphony",
+					"text": "This instrument has{BR}changed since its construction,{BR}as have we. Rather than discard that{BR}experience, we move forward, together."
 				}
 			],
-			"flavorReference": ""
+			"flavorReference": "Symphony"
 		},
 		{
 			"identifier": "WholeRest",
@@ -534,8 +534,12 @@
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "",
-					"text": ""
+					"name": "Servo",
+					"text": "Are you damaged?{BR}I'm sure I can come up with-"
+				},
+				{
+					"name": "Insight",
+					"text": "[b]Both[/b] of you, sit down."
 				}
 			],
 			"flavorReference": ""
