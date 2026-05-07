@@ -15,7 +15,7 @@
 			"backgroundColor": "3FFFED",
 			"character": true,
 			"powers": [
-				"Draw a card. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
+				"Draw 2 cards. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
 			],
 			"icons": [
 				"HasPower",
@@ -87,8 +87,8 @@
 				"limited"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards.",
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 2 cards.",
 				"[b]Power:[/b] Move this card next to a target."
 			],
 			"powers": [
@@ -116,10 +116,10 @@
 				"limited"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
 			],
 			"powers": [
-				"You may destroy 1 of your non-character cards or 1 ongoing or non-target environment card. Draw 3 cards."
+				"You may destroy 1 ongoing, equipment, or non-target environment card. Draw 2 cards."
 			],
 			"icons": [
 				"DealDamageLightning",
@@ -144,14 +144,12 @@
 				"measure"
 			],
 			"body": [
-				"Reveal the top card of a deck, then replace it.",
-				"Discard up to 2 cards."
+				"Reveal the top card of a deck, then replace it."
 			],
 			"powers": [
 			],
 			"icons": [
-				"Manipulate",
-				"Discard"
+				"Manipulate"
 			],
 			"flavorQuotes": [
 				{
@@ -191,15 +189,15 @@
 		},
 		{
 			"identifier": "ExpandedEnsemble",
-			"count": 6,
+			"count": 4,
 			"title": "Expanded Ensemble",
 			"keywords": [
 				"equipment"
 			],
 			"body": [
 				"You may play an additional card during your play phase.",
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"At the end of your turn, draw 3 cards."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your turn, draw 2 cards."
 			],
 			"powers": [
 			],
@@ -226,14 +224,12 @@
 				"measure"
 			],
 			"body": [
-				"Select a target. Increase the next damage dealt by that target to another target by 2.",
-				"Discard up to 2 cards."
+				"Select a target. Increase the next damage dealt by that target to another target by 2."
 			],
 			"powers": [
 			],
 			"icons": [
-				"IncreaseDamageDealt",
-				"Discard"
+				"IncreaseDamageDealt"
 			],
 			"flavorQuotes": [
 				{
@@ -253,8 +249,7 @@
 			],
 			"body": [
 				"Another player may discard a card. If they do, they draw 3 cards.",
-				"Another player may discard a card. If they do, their hero regains 3 HP.",
-				"You may discard a card."
+				"Another player may discard a card. If they do, their hero regains 3 HP."
 			],
 			"powers": [
 			],
@@ -300,15 +295,15 @@
 		},
 		{
 			"identifier": "InspiringRefrain",
-			"count": 2,
+			"count": 3,
 			"title": "Inspiring Refrain",
 			"keywords": [
 				"ongoing",
 				"limited"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"At the end of your turn, draw 2 cards and up to 3 targets regain 1 HP."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your turn, draw a card and up to 3 targets regain 1 HP."
 			],
 			"powers": [
 			],
@@ -335,15 +330,13 @@
 				"measure"
 			],
 			"body": [
-				"{Symphony} deals 1 target 1 sonic damage. Until the start of your turn, reduce damage dealt by that target by 1.",
-				"You may discard a card."
+				"{Symphony} deals 1 target 1 sonic damage. Until the start of your turn, reduce damage dealt by that target by 1."
 			],
 			"powers": [
 			],
 			"icons": [
 				"DealDamageSonic",
-				"ReduceDamageDealt",
-				"Discard"
+				"ReduceDamageDealt"
 			],
 			"flavorQuotes": [
 				{
@@ -382,7 +375,7 @@
 		},
 		{
 			"identifier": "ObstacleAvoidance",
-			"count": 2,
+			"count": 3,
 			"title": "Obstacle Avoidance",
 			"keywords": [
 				"ongoing",
@@ -390,8 +383,8 @@
 			],
 			"body": [
 				"Reduce damage dealt to {Symphony} by non-hero sources by 1.",
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"At the end of your turn, draw 3 cards."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your turn, draw a card."
 			],
 			"powers": [
 			],
@@ -418,14 +411,12 @@
 				"measure"
 			],
 			"body": [
-				"Select a target. Reduce the next damage dealt to that target by another target by 2.",
-				"Discard up to 2 cards."
+				"Select a target. Reduce the next damage dealt to that target by another target by 2."
 			],
 			"powers": [
 			],
 			"icons": [
-				"ReduceDamageTaken",
-				"Discard"
+				"ReduceDamageTaken"
 			],
 			"flavorQuotes": [
 				{
@@ -469,10 +460,10 @@
 				"limited"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
 			],
 			"powers": [
-				"{Symphony} deals 1 target 4 sonic damage. Draw 2 cards."
+				"{Symphony} deals 1 target 4 sonic damage. Draw a card."
 			],
 			"icons": [
 				"DealDamageLightning",
@@ -496,7 +487,7 @@
 				"one-shot"
 			],
 			"body": [
-				"Draw up to 4 cards.",
+				"Draw 2 cards.",
 				"Discard up to 5 cards."
 			],
 			"powers": [
@@ -518,8 +509,7 @@
 			"count": 2,
 			"title": "Whole Rest",
 			"keywords": [
-				"one-shot",
-				"measure"
+				"one-shot"
 			],
 			"body": [
 				"Destroy any number of your non-character cards. {Symphony} regains that much HP.",
