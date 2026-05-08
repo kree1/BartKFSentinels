@@ -33,14 +33,17 @@ namespace BartKFSentinels.Symphony
                 GameController.ExhaustCoroutine(effectCoroutine);
             }
             // "Discard up to [#] cards."
-            IEnumerator benefitCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, _toDiscard, false, 0, allowAutoDecide: _toDiscard >= DecisionMaker.HeroTurnTaker.Hand.Cards.Count(), cardSource: GetCardSource());
-            if (UseUnityCoroutines)
+            if (_toDiscard > 0)
             {
-                yield return GameController.StartCoroutine(benefitCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(benefitCoroutine);
+                IEnumerator benefitCoroutine = GameController.SelectAndDiscardCards(DecisionMaker, _toDiscard, false, 0, allowAutoDecide: _toDiscard >= DecisionMaker.HeroTurnTaker.Hand.Cards.Count(), cardSource: GetCardSource());
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(benefitCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(benefitCoroutine);
+                }
             }
         }
     }

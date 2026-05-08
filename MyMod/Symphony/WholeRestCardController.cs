@@ -30,8 +30,8 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "{Symphony} regains that much HP."
-            IEnumerator selfCoroutine = GameController.GainHP(CharacterCard, GetNumberOfCardsDestroyed(destroyResults), cardSource: GetCardSource());
+            // "{Symphony} regains HP equal to twice the number of cards destroyed this way."
+            IEnumerator selfCoroutine = GameController.GainHP(CharacterCard, 2 * GetNumberOfCardsDestroyed(destroyResults), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(selfCoroutine);
@@ -51,8 +51,18 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
             }
-            // "Up to X other targets regain 2 HP each, where X is the number of cards discarded this way."
-            IEnumerator othersCoroutine = GameController.SelectAndGainHP(DecisionMaker, 2, additionalCriteria: (Card c) => c != CharacterCard, numberOfTargets: GetNumberOfCardsDiscarded(discardResults), requiredDecisions: 0, allowAutoDecide: GetNumberOfCardsDiscarded(discardResults) >= FindCardsWhere((Card c) => c.IsTarget && c != CharacterCard && c.IsInPlayAndHasGameText).Count(), cardSource: GetCardSource());
+            // "{Symphony} deals itself X irreducible psychic damage..."
+            IEnumerator psychicCoroutine = DealDamage(CharacterCard, CharacterCard, GetNumberOfCardsDiscarded(discardResults), DamageType.Psychic, isIrreducible: true, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(psychicCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(psychicCoroutine);
+            }
+            //"... and up to X other targets regain 1 HP, where X is the number of cards discarded this way."
+            IEnumerator othersCoroutine = GameController.SelectAndGainHP(DecisionMaker, 1, additionalCriteria: (Card c) => c != CharacterCard, numberOfTargets: GetNumberOfCardsDiscarded(discardResults), requiredDecisions: 0, allowAutoDecide: GetNumberOfCardsDiscarded(discardResults) >= FindCardsWhere((Card c) => c.IsTarget && c != CharacterCard && c.IsInPlayAndHasGameText).Count(), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(othersCoroutine);

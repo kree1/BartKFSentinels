@@ -14,7 +14,7 @@ namespace BartKFSentinels.Symphony
         public InterferenceCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            _toDiscard = 1;
+            _toDiscard = 0;
         }
 
         public override IEnumerator OneShotEffect()
