@@ -19,8 +19,8 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator OneShotEffect()
         {
-            // "Draw up to 4 cards."
-            return GameController.DrawCards(DecisionMaker, 4, upTo: true, cardSource: GetCardSource());
+            // "Draw 2 cards."
+            return GameController.DrawCards(DecisionMaker, 2, cardSource: GetCardSource());
         }
     }
 }

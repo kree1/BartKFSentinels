@@ -26,7 +26,7 @@ namespace BartKFSentinels.Symphony
         {
             base.AddTriggers();
             AddAsPowerContributor();
-            // "Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards."
+            // "Once per round, when a target next to this card would deal damage, you may prevent it and draw 2 cards."
             AddTrigger((DealDamageAction dda) => !HasBeenSetToTrueThisRound(PreventedThisRound) && GetCardThisCardIsNextTo() != null && dda.DamageSource != null && dda.DamageSource.IsCard && dda.DamageSource.Card.IsTarget && dda.DamageSource.Card == GetCardThisCardIsNextTo() && IsRealAction(dda), MayPreventDraw3, new TriggerType[] { TriggerType.CancelAction, TriggerType.DrawCard }, TriggerTiming.Before);
             AddIfTheCardThatThisCardIsNextToLeavesPlayMoveItToTheirPlayAreaTrigger(false, false);
             AddAfterLeavesPlayAction((GameAction ga) => ResetFlagAfterLeavesPlay(PreventedThisRound), TriggerType.Hidden);
@@ -34,7 +34,7 @@ namespace BartKFSentinels.Symphony
 
         public IEnumerator MayPreventDraw3(DealDamageAction dda)
         {
-            // "... you may prevent it and draw 3 cards."
+            // "... you may prevent it and draw 2 cards."
             YesNoDecision yn = new YesNoDecision(GameController, DecisionMaker, SelectionType.PreventDamage, gameAction: dda, cardSource: GetCardSource());
             IEnumerator decideCoroutine = GameController.MakeDecisionAction(yn);
             if (UseUnityCoroutines)
@@ -59,7 +59,7 @@ namespace BartKFSentinels.Symphony
                 }
                 if (IsRealAction(dda))
                 {
-                    IEnumerator drawCoroutine = DrawCards(DecisionMaker, 3);
+                    IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
                     if (UseUnityCoroutines)
                     {
                         yield return GameController.StartCoroutine(drawCoroutine);

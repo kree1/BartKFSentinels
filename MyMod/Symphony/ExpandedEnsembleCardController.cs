@@ -24,8 +24,8 @@ namespace BartKFSentinels.Symphony
             base.AddTriggers();
             // "You may play an additional card during your play phase."
             AddAdditionalPhaseActionTrigger((TurnTaker tt) => tt == TurnTaker, Phase.PlayCard, 1);
-            // "At the end of your turn, draw 3 cards."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => DrawCards(DecisionMaker, 3), TriggerType.DrawCard);
+            // "At the end of your turn, draw 2 cards."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => DrawCards(DecisionMaker, 2), TriggerType.DrawCard);
         }
 
         public override IEnumerator Play()

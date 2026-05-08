@@ -20,8 +20,8 @@ namespace BartKFSentinels.Symphony
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
-            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && pca.FromPhase.Phase == Phase.PlayCard && HeroTurnTaker.Hand.Cards.Count() >= 8, DealDamageMaybeDestroyResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.Before);
+            // "At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
+            AddTrigger((PhaseChangeAction pca) => pca.FromPhase.TurnTaker == TurnTaker && pca.FromPhase.Phase == Phase.PlayCard && HeroTurnTaker.Hand.Cards.Count() >= 6, DealDamageMaybeDestroyResponse, new TriggerType[] { TriggerType.DealDamage, TriggerType.DestroySelf }, TriggerTiming.Before);
         }
 
         public IEnumerator DealDamageMaybeDestroyResponse(PhaseChangeAction pca)
