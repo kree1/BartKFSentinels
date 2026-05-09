@@ -83,11 +83,10 @@
 			"count": 2,
 			"title": "Counterfrequency",
 			"keywords": [
-				"ongoing",
-				"limited"
+				"ongoing"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
 				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards.",
 				"[b]Power:[/b] Move this card next to a target."
 			],
@@ -109,14 +108,13 @@
 		},
 		{
 			"identifier": "DestructiveResonance",
-			"count": 2,
+			"count": 3,
 			"title": "Destructive Resonance",
 			"keywords": [
-				"ongoing",
-				"limited"
+				"ongoing"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
 			],
 			"powers": [
 				"Destroy an ongoing, equipment, or non-target environment card. If a non-hero card was destroyed this way, draw 3 cards."
@@ -163,7 +161,7 @@
 		},
 		{
 			"identifier": "EscapeTone",
-			"count": 2,
+			"count": 3,
 			"title": "Escape Tone",
 			"keywords": [
 				"ongoing",
@@ -171,7 +169,7 @@
 				"limited"
 			],
 			"body": [
-				"Play this card next to a target. Redirect damage that would be dealt to that target to {Symphony}.",
+				"When a non-hero target would deal damage, you may redirect it to {Symphony}. Reduce damage redirected this way by 1.",
 				"At the start of your turn, destroy this card."
 			],
 			"powers": [
@@ -191,14 +189,14 @@
 		},
 		{
 			"identifier": "ExpandedEnsemble",
-			"count": 6,
+			"count": 4,
 			"title": "Expanded Ensemble",
 			"keywords": [
 				"equipment"
 			],
 			"body": [
 				"You may play an additional card during your play phase.",
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
 				"At the end of your turn, draw 3 cards."
 			],
 			"powers": [
@@ -227,7 +225,7 @@
 			],
 			"body": [
 				"Select a target. Increase the next damage dealt by that target to another target by 2.",
-				"Discard up to 2 cards."
+				"You may discard a card."
 			],
 			"powers": [
 			],
@@ -279,7 +277,7 @@
 				"one-shot"
 			],
 			"body": [
-				"Draw 2 cards.",
+				"Draw 4 cards.",
 				"Discard a card or play a measure card.",
 				"Discard a card or play a measure card."
 			],
@@ -307,7 +305,7 @@
 				"limited"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
 				"At the end of your turn, draw 2 cards and up to 3 targets regain 1 HP."
 			],
 			"powers": [
@@ -388,14 +386,14 @@
 			],
 			"body": [
 				"Reduce damage dealt to {Symphony} by non-hero sources by 1.",
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
 				"At the end of your turn, draw 3 cards."
 			],
 			"powers": [
 			],
 			"icons": [
-				"DealDamageLightning",
 				"ReduceDamageTaken",
+				"DealDamageLightning",
 				"EndOfTurnAction",
 				"DrawCardNow"
 			],
@@ -417,7 +415,7 @@
 			],
 			"body": [
 				"Select a target. Reduce the next damage dealt to that target by another target by 2.",
-				"Discard up to 2 cards."
+				"You may discard a card."
 			],
 			"powers": [
 			],
@@ -463,11 +461,10 @@
 			"count": 2,
 			"title": "Sour Note",
 			"keywords": [
-				"ongoing",
-				"limited"
+				"ongoing"
 			],
 			"body": [
-				"At the end of your play phase, if you have 8 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
+				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
 			],
 			"powers": [
 				"{Symphony} deals 1 target 4 sonic damage. Draw 2 cards."
@@ -520,7 +517,7 @@
 				"measure"
 			],
 			"body": [
-				"Destroy any number of your non-character cards. {Symphony} regains HP equal to twice the number of cards destroyed this way.",
+				"Destroy any number of your non-character cards. {Symphony} regains that much HP.",
 				"Discard any number of cards. {Symphony} deals itself X irreducible psychic damage and up to X other targets regain 1 HP, where X is the number of cards discarded this way."
 			],
 			"powers": [
