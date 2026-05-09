@@ -30,8 +30,8 @@ namespace BartKFSentinels.Symphony
             {
                 GameController.ExhaustCoroutine(destroyCoroutine);
             }
-            // "{Symphony} regains HP equal to twice the number of cards destroyed this way."
-            IEnumerator selfCoroutine = GameController.GainHP(CharacterCard, 2 * GetNumberOfCardsDestroyed(destroyResults), cardSource: GetCardSource());
+            // "{Symphony} regains that much HP."
+            IEnumerator selfCoroutine = GameController.GainHP(CharacterCard, GetNumberOfCardsDestroyed(destroyResults), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(selfCoroutine);

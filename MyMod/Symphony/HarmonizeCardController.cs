@@ -21,8 +21,8 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator Play()
         {
-            // "Draw 2 cards."
-            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
+            // "Draw 3 cards."
+            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 3);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(drawCoroutine);

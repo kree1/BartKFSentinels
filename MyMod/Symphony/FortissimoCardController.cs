@@ -14,7 +14,7 @@ namespace BartKFSentinels.Symphony
         public FortissimoCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            _toDiscard = 2;
+            _toDiscard = 1;
         }
 
         public override IEnumerator OneShotEffect()
