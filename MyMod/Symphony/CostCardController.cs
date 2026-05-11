@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class CostCardController : CardController
+    public class CostCardController : SymphonyUtilityCardController
     {
         public CostCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

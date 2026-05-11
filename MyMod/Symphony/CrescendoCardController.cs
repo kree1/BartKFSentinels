@@ -9,18 +9,18 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class TuneUpCardController : BenefitCardController
+    public class CrescendoCardController : DoubleEdgeCardController
     {
-        public TuneUpCardController(Card card, TurnTakerController turnTakerController)
+        public CrescendoCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            _toDiscard = 5;
+            _toDiscard = 1;
         }
 
         public override IEnumerator OneShotEffect()
         {
-            // "Draw 3 cards."
-            return GameController.DrawCards(DecisionMaker, 3, cardSource: GetCardSource());
+            // "One player may draw a card."
+            return GameController.SelectHeroToDrawCard(DecisionMaker, cardSource: GetCardSource());
         }
     }
 }

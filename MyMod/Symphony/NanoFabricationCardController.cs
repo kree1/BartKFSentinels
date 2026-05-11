@@ -14,10 +14,18 @@ namespace BartKFSentinels.Symphony
         public NanoFabricationCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            // Show list of non-one-shot cards in Symphony's deck
-            SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Deck, new LinqCardCriteria((Card c) => !c.IsOneShot, "non-one-shot"));
-            // Show list of non-one-shot cards in Symphony's trash
-            SpecialStringMaker.ShowListOfCardsAtLocation(TurnTaker.Trash, new LinqCardCriteria((Card c) => !c.IsOneShot, "non-one-shot"));
+            // Show number of copies of Expanded Ensemble in Symphony's deck
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Deck, EnsembleCriteria());
+            // Show number of copies of Expanded Ensemble in Symphony's trash
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(TurnTaker.Trash, EnsembleCriteria());
+        }
+
+        public readonly string EnsembleIdentifier = "ExpandedEnsemble";
+        public readonly string EnsembleTitle = "Expanded Ensemble";
+
+        public LinqCardCriteria EnsembleCriteria()
+        {
+            return new LinqCardCriteria((Card c) => c.Identifier == EnsembleIdentifier, "of " + EnsembleTitle, useCardsPrefix: true, useCardsSuffix: false, singular: "copy", plural: "copies");
         }
 
         public IEnumerator SearchForCardsDoubleEx(TurnTakerController turnTakerController, bool searchDeck, bool searchTrash, int? minNumberOfCards, int maxNumberOfCards, LinqCardCriteria cardCriteria, bool putIntoPlay, bool putInHand, bool putOnDeck, bool optional = false, List<SelectCardDecision> storedResults = null, List<MoveCardAction> storedResultsMove = null, bool autoDecideCard = false, bool? shuffleAfterwards = null, Location overrideDestination = null)
@@ -95,9 +103,9 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator Play()
         {
-            // "Search your deck and trash for a non-one-shot card and put it into your hand or into play. If you searched your deck, shuffle it."
+            // "Search your deck and trash for {ExpandedEnsemble} and put it into your hand or into play. If you searched your deck, shuffle it."
             List<MoveCardAction> moveResults = new List<MoveCardAction>();
-            IEnumerator searchCoroutine = SearchForCardsDoubleEx(TurnTakerController, true, true, 1, 1, new LinqCardCriteria((Card c) => !c.IsOneShot, "non-one-shot"), true, true, false, storedResultsMove: moveResults);
+            IEnumerator searchCoroutine = SearchForCardsDoubleEx(TurnTakerController, true, true, 1, 1, EnsembleCriteria(), true, true, false, storedResultsMove: moveResults, autoDecideCard: true);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(searchCoroutine);

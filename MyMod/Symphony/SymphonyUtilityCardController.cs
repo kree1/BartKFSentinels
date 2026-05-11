@@ -14,7 +14,8 @@ namespace BartKFSentinels.Symphony
         public SymphonyUtilityCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            // Show number of cards in Symphony's hand
+            SpecialStringMaker.ShowNumberOfCardsAtLocation(HeroTurnTaker.Hand, showInEffectsList: () => true);
         }
 
         public readonly string MeasureKeyword = "measure";

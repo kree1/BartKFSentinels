@@ -95,7 +95,8 @@
 			],
 			"icons": [
 				"PlayCardNow",
-				"Discard"
+				"Discard",
+				"DrawCardNow"
 			],
 			"flavorQuotes": [
 				{
