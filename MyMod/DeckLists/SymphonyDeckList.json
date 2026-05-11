@@ -51,13 +51,13 @@
 			"backgroundColor": "50BF00",
 			"character": true,
 			"powers": [
-				"You may play a measure card. You may draw a card. Discard a silence card."
+				"Discard a silence card. You may play a measure card. You may draw a card."
 			],
 			"icons": [
 				"HasPower",
+				"Discard",
 				"PlayCardNow",
-				"DrawCardNow",
-				"Discard"
+				"DrawCardNow"
 			],
 			"hitpoints": 29,
 			"nemesisIdentifiers": [
@@ -88,7 +88,7 @@
 			],
 			"body": [
 				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 3 cards.",
+				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 2 cards.",
 				"[b]Power:[/b] Move this card next to a target."
 			],
 			"powers": [
@@ -118,7 +118,7 @@
 				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card."
 			],
 			"powers": [
-				"Destroy an ongoing, equipment, or non-target environment card. If a non-hero card was destroyed this way, draw 3 cards."
+				"Destroy an ongoing, equipment, or non-target environment card. If a non-hero card was destroyed this way, draw 2 cards."
 			],
 			"icons": [
 				"DealDamageLightning",
@@ -226,7 +226,7 @@
 			],
 			"body": [
 				"Select a target. Increase the next damage dealt by that target to another target by 2.",
-				"Discard a silence card. If you didn't, you may discard a card."
+				"Discard a silence card. You may discard a card."
 			],
 			"powers": [
 			],

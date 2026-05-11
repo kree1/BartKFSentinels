@@ -19,7 +19,7 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Destroy an ongoing, equipment, or non-target environment card. If a non-hero card was destroyed this way, draw 3 cards."
+            // "Destroy an ongoing, equipment, or non-target environment card. If a non-hero card was destroyed this way, draw 2 cards."
             int numDraws = GetPowerNumeral(0, 3);
             List<DestroyCardAction> destroyResults = new List<DestroyCardAction>();
             IEnumerator destroyCoroutine = GameController.SelectAndDestroyCard(DecisionMaker, new LinqCardCriteria((Card c) => IsOngoing(c) || IsEquipment(c) || (c.IsEnvironment && !c.IsTarget), "ongoing, equipment, or non-target environment"), false, storedResultsAction: destroyResults, cardSource: GetCardSource());
@@ -33,7 +33,7 @@ namespace BartKFSentinels.Symphony
             }
             if (destroyResults.Any((DestroyCardAction dca) => dca.WasCardDestroyed && !IsHero(dca.CardToDestroy.Card)))
             {
-                IEnumerator drawCoroutine = DrawCards(DecisionMaker, 3);
+                IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
                 if (UseUnityCoroutines)
                 {
                     yield return GameController.StartCoroutine(drawCoroutine);

@@ -9,15 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class HarmonizeCardController : CardController
+    public class HarmonizeCardController : SymphonyUtilityCardController
     {
         public HarmonizeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
 
         }
-
-        public readonly string MeasureKeyword = "measure";
 
         public override IEnumerator Play()
         {
@@ -30,6 +28,16 @@ namespace BartKFSentinels.Symphony
             else
             {
                 GameController.ExhaustCoroutine(drawCoroutine);
+            }
+            // "Discard a silence card."
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: IsSilence, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
             }
             // "Discard a card or play a measure card."
             // "Discard a card or play a measure card."

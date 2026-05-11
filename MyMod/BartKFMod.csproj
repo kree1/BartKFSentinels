@@ -75,6 +75,7 @@
     <Compile Include="Symphony\CostCardController.cs" />
     <Compile Include="Symphony\CounterfrequencyCardController.cs" />
     <Compile Include="Symphony\DestructiveResonanceCardController.cs" />
+    <Compile Include="Symphony\DoubleEdgeCardController.cs" />
     <Compile Include="Symphony\EncodedTransmissionCardController.cs" />
     <Compile Include="Symphony\EscapeToneCardController.cs" />
     <Compile Include="Symphony\ExpandedEnsembleCardController.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Symphony\InspiringRefrainCardController.cs" />
     <Compile Include="Symphony\InterferenceCardController.cs" />
     <Compile Include="Symphony\NanoFabricationCardController.cs" />
+    <Compile Include="Symphony\NeutralCardController.cs" />
     <Compile Include="Symphony\ObstacleAvoidanceCardController.cs" />
     <Compile Include="Symphony\PianissimoCardController.cs" />
     <Compile Include="Symphony\SoloCardController.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Symphony\SymphonyCharacterCardController.cs" />
     <Compile Include="Symphony\SymphonyInConcertCharacterCardController.cs" />
     <Compile Include="Symphony\SymphonyTurnTakerController.cs" />
+    <Compile Include="Symphony\SymphonyUtilityCardController.cs" />
     <Compile Include="Symphony\TuneUpCardController.cs" />
     <Compile Include="Symphony\WholeRestCardController.cs" />
     <Compile Include="Victory\AtomicPiledriverCardController.cs" />

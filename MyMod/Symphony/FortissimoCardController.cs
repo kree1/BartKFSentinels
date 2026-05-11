@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class FortissimoCardController : BenefitCardController
+    public class FortissimoCardController : DoubleEdgeCardController
     {
         public FortissimoCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)

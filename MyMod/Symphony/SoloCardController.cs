@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class SoloCardController : CardController
+    public class SoloCardController : NeutralCardController
     {
         public SoloCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
@@ -17,7 +17,7 @@ namespace BartKFSentinels.Symphony
 
         }
 
-        public override IEnumerator Play()
+        public override IEnumerator OneShotEffect()
         {
             // "One hero regains 2 HP and may use a power."
             return GameController.SelectCardAndDoAction(new SelectCardDecision(GameController, DecisionMaker, SelectionType.GainHPAndUsePower, FindCardsWhere(new LinqCardCriteria((Card c) => c.IsInPlayAndHasGameText && !c.IsIncapacitated && IsHeroCharacterCard(c), "active hero character")), cardSource: GetCardSource()), (SelectCardDecision d) => GainHPAndUsePower(d.SelectedCard));

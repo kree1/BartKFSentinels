@@ -9,17 +9,13 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public abstract class BenefitCardController : SymphonyUtilityCardController
+    public abstract class DoubleEdgeCardController : BenefitCardController
     {
-        public BenefitCardController(Card card, TurnTakerController turnTakerController)
+        public DoubleEdgeCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            _toDiscard = 0;
+
         }
-
-        protected int _toDiscard { get; set; }
-
-        public abstract IEnumerator OneShotEffect();
 
         public override IEnumerator Play()
         {
@@ -31,6 +27,16 @@ namespace BartKFSentinels.Symphony
             else
             {
                 GameController.ExhaustCoroutine(effectCoroutine);
+            }
+            // "Discard a silence card."
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: IsSilence, cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
             }
             // "Discard up to [#] cards."
             if (_toDiscard > 0)

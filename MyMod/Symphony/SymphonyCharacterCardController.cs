@@ -18,10 +18,20 @@ namespace BartKFSentinels.Symphony
         }
 
         public readonly string MeasureKeyword = "measure";
+        public readonly string SilenceKeyword = "silence";
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "You may play a measure card. You may draw a card."
+            // "Discard a silence card. You may play a measure card. You may draw a card."
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: (Card c) => GameController.DoesCardContainKeyword(c, SilenceKeyword), cardSource: GetCardSource());
+            if (UseUnityCoroutines)
+            {
+                yield return GameController.StartCoroutine(discardCoroutine);
+            }
+            else
+            {
+                GameController.ExhaustCoroutine(discardCoroutine);
+            }
             IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MeasureKeyword), MeasureKeyword), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
