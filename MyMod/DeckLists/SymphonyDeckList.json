@@ -80,32 +80,56 @@
 			}
 		},
 		{
-			"identifier": "Counterfrequency",
+			"identifier": "Accelerando",
 			"count": 2,
-			"title": "Counterfrequency",
+			"title": "Accelerando",
 			"keywords": [
-				"ongoing"
+				"one-shot",
+				"measure"
 			],
 			"body": [
-				"At the end of your play phase, if you have 6 or more cards in hand, {Symphony} deals itself 3 irreducible lightning damage and you may destroy this card.",
-				"Once per round, when a target next to this card would deal damage, you may prevent it and draw 2 cards.",
-				"[b]Power:[/b] Move this card next to a target."
+				"Play the top card of a deck.",
+				"Discard a silence card. If you did, draw a card."
 			],
 			"powers": [
 			],
 			"icons": [
-				"DealDamageLightning",
-				"CancelledDamageGreen",
-				"DrawCardNow",
-				"HasPower"
+				"PlayCardNow",
+				"Discard"
 			],
 			"flavorQuotes": [
 				{
-					"identifier": "Unmute",
-					"text": "I'm about to turn up th-{BR}...{BR}!?"
+					"identifier": "",
+					"text": ""
 				}
 			],
-			"flavorReference": "Unmute"
+			"flavorReference": ""
+		},
+		{
+			"identifier": "Crescendo",
+			"count": 2,
+			"title": "Crescendo",
+			"keywords": [
+				"one-shot",
+				"measure"
+			],
+			"body": [
+				"One player may draw a card.",
+				"Discard a silence card. You may discard a card."
+			],
+			"powers": [
+			],
+			"icons": [
+				"DrawCardNow",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
 		},
 		{
 			"identifier": "DestructiveResonance",
@@ -253,7 +277,7 @@
 			"body": [
 				"Another player may discard a card. If they do, they draw 3 cards.",
 				"Another player may discard a card. If they do, their hero regains 3 HP.",
-				"Discard a silence card. You may discard a card."
+				"Discard a silence card. If you did, draw a card."
 			],
 			"powers": [
 			],
@@ -269,33 +293,6 @@
 				}
 			],
 			"flavorReference": "Symphony"
-		},
-		{
-			"identifier": "Harmonize",
-			"count": 2,
-			"title": "Harmonize",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Draw 3 cards. Discard a silence card.",
-				"Discard a card or play a measure card.",
-				"Discard a card or play a measure card."
-			],
-			"powers": [
-			],
-			"icons": [
-				"DrawCardNow",
-				"Discard",
-				"PlayCardNow"
-			],
-			"flavorQuotes": [
-				{
-					"name": "Nearsight",
-					"text": "Heavy hitters, keep them occupied{BR}while the stealth team extracts the{BR}hostages. Symphony, watch our backs."
-				}
-			],
-			"flavorReference": "Nearsight"
 		},
 		{
 			"identifier": "InspiringRefrain",
@@ -361,7 +358,7 @@
 				"one-shot"
 			],
 			"body": [
-				"Search your deck or trash for a non-one-shot card and put it into your hand or into play. If you searched your deck, shuffle it.",
+				"Search your deck or trash for {ExpandedEnsemble} and put it into your hand or into play. If you searched your deck, shuffle it.",
 				"If no card entered play this way, another player may discard a card.",
 				"If they do, they may play a non-one-shot card."
 			],
@@ -436,6 +433,32 @@
 			"flavorReference": "Setback"
 		},
 		{
+			"identifier": "Reminiscence",
+			"count": 2,
+			"title": "Reminiscence",
+			"keywords": [
+				"one-shot",
+				"measure"
+			],
+			"body": [
+				"Shuffle a card from a trash into its deck.",
+				"Discard a silence card. You may discard a card."
+			],
+			"powers": [
+			],
+			"icons": [
+				"Manipulate",
+				"Discard"
+			],
+			"flavorQuotes": [
+				{
+					"identifier": "",
+					"text": ""
+				}
+			],
+			"flavorReference": ""
+		},
+		{
 			"identifier": "Solo",
 			"count": 2,
 			"title": "Solo",
@@ -486,31 +509,6 @@
 				{
 					"identifier": "Symphony",
 					"text": "There is immense value in beauty-{BR}but ugliness has its place, as well."
-				}
-			],
-			"flavorReference": "Symphony"
-		},
-		{
-			"identifier": "TuneUp",
-			"count": 2,
-			"title": "Tune-Up",
-			"keywords": [
-				"one-shot"
-			],
-			"body": [
-				"Draw 3 cards.",
-				"Discard up to 5 cards."
-			],
-			"powers": [
-			],
-			"icons": [
-				"DrawCardNow",
-				"Discard"
-			],
-			"flavorQuotes": [
-				{
-					"identifier": "Symphony",
-					"text": "This instrument has{BR}changed since its construction,{BR}as have we. Rather than discard that{BR}experience, we move forward, together."
 				}
 			],
 			"flavorReference": "Symphony"
