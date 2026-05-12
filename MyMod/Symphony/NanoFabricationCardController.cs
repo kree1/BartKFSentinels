@@ -28,8 +28,31 @@ namespace BartKFSentinels.Symphony
             return new LinqCardCriteria((Card c) => c.Identifier == EnsembleIdentifier, "of " + EnsembleTitle, useCardsPrefix: true, useCardsSuffix: false, singular: "copy", plural: "copies");
         }
 
+        public override CustomDecisionText GetCustomDecisionText(IDecision decision)
+        {
+            string verb = "search for a copy of " + EnsembleTitle;
+            return new CustomDecisionText("Do you want to " + verb + "?", "deciding whether to " + verb, "Vote for whether to " + verb, verb);
+        }
+
         public IEnumerator SearchForCardsDoubleEx(TurnTakerController turnTakerController, bool searchDeck, bool searchTrash, int? minNumberOfCards, int maxNumberOfCards, LinqCardCriteria cardCriteria, bool putIntoPlay, bool putInHand, bool putOnDeck, bool optional = false, List<SelectCardDecision> storedResults = null, List<MoveCardAction> storedResultsMove = null, bool autoDecideCard = false, bool? shuffleAfterwards = null, Location overrideDestination = null)
         {
+            if (optional)
+            {
+                YesNoDecision yn = new YesNoDecision(GameController, TurnTakerController.ToHero(), SelectionType.Custom, cardSource: GetCardSource());
+                IEnumerator decideCoroutine = GameController.MakeDecisionAction(yn);
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(decideCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(decideCoroutine);
+                }
+                if (!DidPlayerAnswerYes(yn))
+                {
+                    yield break;
+                }
+            }
             List<MoveCardDestination> possibleDestinations = new List<MoveCardDestination>();
             if (overrideDestination == null)
             {
@@ -103,9 +126,9 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator Play()
         {
-            // "Search your deck and trash for {ExpandedEnsemble} and put it into your hand or into play. If you searched your deck, shuffle it."
+            // "You may search your deck and trash for {ExpandedEnsemble} and put it into your hand or into play. If you searched your deck, shuffle it."
             List<MoveCardAction> moveResults = new List<MoveCardAction>();
-            IEnumerator searchCoroutine = SearchForCardsDoubleEx(TurnTakerController, true, true, 1, 1, EnsembleCriteria(), true, true, false, storedResultsMove: moveResults, autoDecideCard: true);
+            IEnumerator searchCoroutine = SearchForCardsDoubleEx(TurnTakerController, true, true, 1, 1, EnsembleCriteria(), true, true, false, optional: true, storedResultsMove: moveResults, autoDecideCard: true);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(searchCoroutine);

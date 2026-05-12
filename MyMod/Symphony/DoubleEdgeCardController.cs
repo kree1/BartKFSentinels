@@ -29,7 +29,8 @@ namespace BartKFSentinels.Symphony
                 GameController.ExhaustCoroutine(effectCoroutine);
             }
             // "Discard a silence card."
-            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: IsSilence, cardSource: GetCardSource());
+            List<DiscardCardAction> discardResults = new List<DiscardCardAction>();
+            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: IsSilence, storedResults: discardResults, cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(discardCoroutine);
@@ -37,6 +38,19 @@ namespace BartKFSentinels.Symphony
             else
             {
                 GameController.ExhaustCoroutine(discardCoroutine);
+            }
+            // "If you did, draw a card."
+            if (DidDiscardCards(discardResults))
+            {
+                IEnumerator drawCoroutine = DrawCard();
+                if (UseUnityCoroutines)
+                {
+                    yield return GameController.StartCoroutine(drawCoroutine);
+                }
+                else
+                {
+                    GameController.ExhaustCoroutine(drawCoroutine);
+                }
             }
             // "Discard up to [#] cards."
             if (_toDiscard > 0)

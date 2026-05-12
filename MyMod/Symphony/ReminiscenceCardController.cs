@@ -14,7 +14,7 @@ namespace BartKFSentinels.Symphony
         public ReminiscenceCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-            _toDiscard = 1;
+            _toDiscard = 3;
         }
 
         public override IEnumerator OneShotEffect()

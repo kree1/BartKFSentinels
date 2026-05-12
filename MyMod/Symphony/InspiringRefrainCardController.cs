@@ -20,14 +20,14 @@ namespace BartKFSentinels.Symphony
         public override void AddTriggers()
         {
             base.AddTriggers();
-            // "At the end of your turn, draw 2 cards and up to 3 targets regain 1 HP."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DrawCardsHealTargetsResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.GainHP });
+            // "At the end of your turn, draw a card and up to 3 targets regain 1 HP."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, DrawHealTargetsResponse, new TriggerType[] { TriggerType.DrawCard, TriggerType.GainHP });
         }
 
-        public IEnumerator DrawCardsHealTargetsResponse(PhaseChangeAction pca)
+        public IEnumerator DrawHealTargetsResponse(PhaseChangeAction pca)
         {
-            // "... draw 2 cards..."
-            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 2);
+            // "... draw a card..."
+            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 1);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(drawCoroutine);

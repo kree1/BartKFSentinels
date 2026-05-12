@@ -22,8 +22,8 @@ namespace BartKFSentinels.Symphony
             base.AddTriggers();
             // "Reduce damage dealt to {Symphony} by non-hero sources by 1."
             AddReduceDamageTrigger((DealDamageAction dda) => dda.Target == CharacterCard && (dda.DamageSource == null || (dda.DamageSource.IsTurnTaker && !IsHero(dda.DamageSource.TurnTaker)) || (dda.DamageSource.IsCard && !IsHero(dda.DamageSource.Card))), (DealDamageAction dda) => 1);
-            // "At the end of your turn, draw 3 cards."
-            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => DrawCards(DecisionMaker, 3), TriggerType.DrawCard);
+            // "At the end of your turn, draw 2 cards."
+            AddEndOfTurnTrigger((TurnTaker tt) => tt == TurnTaker, (PhaseChangeAction pca) => DrawCards(DecisionMaker, 2), TriggerType.DrawCard);
         }
     }
 }

@@ -19,11 +19,10 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Draw 2 cards. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
-            int numDraws = GetPowerNumeral(0, 2);
-            int numTargets = GetPowerNumeral(1, 1);
-            int baseX = GetPowerNumeral(2, 1);
-            IEnumerator drawCoroutine = DrawCards(DecisionMaker, numDraws);
+            // "Draw a card. {Symphony} deals 1 target X sonic damage, where X = the number of your equipment cards in play plus 1."
+            int numTargets = GetPowerNumeral(0, 1);
+            int baseX = GetPowerNumeral(1, 1);
+            IEnumerator drawCoroutine = DrawCards(DecisionMaker, 1);
             if (UseUnityCoroutines)
             {
                 yield return GameController.StartCoroutine(drawCoroutine);

@@ -22,16 +22,7 @@ namespace BartKFSentinels.Symphony
 
         public override IEnumerator UsePower(int index = 0)
         {
-            // "Discard a silence card. You may play a measure card. You may draw a card."
-            IEnumerator discardCoroutine = GameController.SelectAndDiscardCard(DecisionMaker, additionalCriteria: (Card c) => GameController.DoesCardContainKeyword(c, SilenceKeyword), cardSource: GetCardSource());
-            if (UseUnityCoroutines)
-            {
-                yield return GameController.StartCoroutine(discardCoroutine);
-            }
-            else
-            {
-                GameController.ExhaustCoroutine(discardCoroutine);
-            }
+            // "You may play a measure card. You may draw a card."
             IEnumerator playCoroutine = GameController.SelectAndPlayCardFromHand(DecisionMaker, true, cardCriteria: new LinqCardCriteria((Card c) => GameController.DoesCardContainKeyword(c, MeasureKeyword), MeasureKeyword), cardSource: GetCardSource());
             if (UseUnityCoroutines)
             {

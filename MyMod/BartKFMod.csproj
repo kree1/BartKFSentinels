@@ -85,7 +85,6 @@
     <Compile Include="Symphony\InspiringRefrainCardController.cs" />
     <Compile Include="Symphony\InterferenceCardController.cs" />
     <Compile Include="Symphony\NanoFabricationCardController.cs" />
-    <Compile Include="Symphony\NeutralCardController.cs" />
     <Compile Include="Symphony\ObstacleAvoidanceCardController.cs" />
     <Compile Include="Symphony\PianissimoCardController.cs" />
     <Compile Include="Symphony\ReminiscenceCardController.cs" />

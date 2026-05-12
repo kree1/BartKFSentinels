@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BartKFSentinels.Symphony
 {
-    public class HalfRestCardController : NeutralCardController
+    public class HalfRestCardController : DoubleEdgeCardController
     {
         public HalfRestCardController(Card card, TurnTakerController turnTakerController)
             : base(card, turnTakerController)
         {
-
+            _toDiscard = 1;
         }
 
         public override IEnumerator OneShotEffect()
